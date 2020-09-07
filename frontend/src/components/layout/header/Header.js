@@ -40,7 +40,7 @@ export class Header extends Component {
         return (
             <nav className='my-navbar navbar navbar-expand-md navbar-dark'>
                 <div className='home-link nav-container ml-3 d-md-none'>
-                    <Link to='/'>J | W</Link>
+                    <Link to='/'>MacroBros</Link>
                 </div>
                 <button className='p-0 mr-3 my-auto navbar-toggler align-self-end' type='button' data-toggle='collapse'
                         data-target='#navbarNav'
@@ -51,18 +51,15 @@ export class Header extends Component {
                      id='navbarNav'>
                     <ul className='box center-navbar navbar-nav home-link mr-auto d-none d-md-block'>
                         <li className='nav-item active'>
-                            <Link to='/'>J | W</Link>
+                            <Link to='/'>MacroBros</Link>
                         </li>
                     </ul>
                     <ul className='box center-navbar navbar-nav'>
                         <li className='nav-item active'>
-                            <a className='nav-link' href='#'>About</a>
+                            <Link className='nav-link' to='/blog'>Blogs</Link>
                         </li>
                         <li className='nav-item'>
-                            <a className='nav-link' href='#'>Portfolio</a>
-                        </li>
-                        <li className='nav-item'>
-                            <a className='nav-link' href='#'>Contact</a>
+                            <a className='nav-link' href='#'>Videos</a>
                         </li>
                         <li className='nav-item dropdown'>
                             <a className='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button'
