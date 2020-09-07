@@ -27,6 +27,7 @@ def upload_to(instance, filename):
 
 class BlogPost(models.Model):
     title = models.CharField(verbose_name='Title', max_length=100)
+    project_name = models.CharField(verbose_name='Project Name', max_length=100)
     slug = models.SlugField(verbose_name='Url Slug')
     category = models.CharField(verbose_name='Category', max_length=50, choices=Categories.choices,
                                 default=Categories.CRYPTO)
@@ -41,7 +42,7 @@ class BlogPost(models.Model):
         queryset_count = BlogPost.objects.all().filter(slug__iexact=original_slug).count()
 
         # Ensure url slugs with the same title are unique
-        if queryset_count is 0:
+        if queryset_count == 0:
             self.slug = original_slug
         else:
             self.slug = original_slug + '-' + str(queryset_count - 1)

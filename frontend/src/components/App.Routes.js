@@ -23,8 +23,8 @@ class AppRouter extends Component {
                     <Switch>
                         <Route exact path='/' component={Home}/>
                         <Route exact path='/blog' component={Blog}/>
-                        <Route exact path='/blog/:id' component={BlogDetails}/>
-                        <Route exact path='/blog/category/:id' component={Category}/>
+                        <Route exact path='/blog/:slug' component={BlogDetails}/>
+                        <Route exact path='/blog/category/:category' component={Category}/>
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/register' component={Register}/>
                         <PrivateRoute exact path='/profile' component={Profile}/>

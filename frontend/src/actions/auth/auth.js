@@ -2,14 +2,14 @@ import axios from 'axios';
 import {createError} from '../alerts/errors/errors'
 
 import {
-    USER_LOADED,
-    USER_LOADING,
     AUTH_ERROR,
-    LOGIN_SUCCESS,
     LOGIN_FAIL,
+    LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
     REGISTER_FAIL,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS,
+    USER_LOADED,
+    USER_LOADING
 } from './types';
 
 
@@ -30,7 +30,6 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 export const login = (email, password) => dispatch => {
-
     // Set headers
     const config = {
         headers: {
@@ -62,7 +61,6 @@ export const logout = () => (dispatch, getState) => {
 };
 
 export const register = (registerObj) => dispatch => {
-
     // Set headers
     const config = {
         headers: {
