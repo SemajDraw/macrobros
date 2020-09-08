@@ -6,16 +6,16 @@ import {getCategoryBlogs} from "../../../actions/blogs/blogs";
 import capitalizeFirstLetter from "../../../services/capitalizeFirstLetter";
 import blogGridBuilder from "./blogGridBuilder";
 
-export class Category extends Component {
-
-    static propTypes = {
-        blogs: PropTypes.array.isRequired
-    };
+export class CategoryBlogs extends Component {
 
     constructor(props) {
         super(props);
         this.state = {category: this.props.match.params.category};
     }
+
+    static propTypes = {
+        blogs: PropTypes.array.isRequired
+    };
 
     componentDidMount() {
         this.props.getCategoryBlogs(this.state.category);
@@ -55,4 +55,4 @@ const mapStateToProps = (state) => ({
     blogs: state.blog.categoryBlogs
 });
 
-export default connect(mapStateToProps, {getCategoryBlogs})(Category);
+export default connect(mapStateToProps, {getCategoryBlogs})(CategoryBlogs);

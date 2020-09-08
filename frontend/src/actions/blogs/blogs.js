@@ -44,7 +44,7 @@ export const getCategoryBlogs = (category) => (dispatch) => {
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));
 };
 
-export const searchBlogs = (search) => (dispatch) => {
+export const getSearchBlogs = (search) => (dispatch) => {
     axios.post('/api/blog/search',
         {search: search},
         {headers: {'Content-Type': 'application/json'}})

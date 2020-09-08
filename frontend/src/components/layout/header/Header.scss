@@ -12,11 +12,12 @@
   color: white;
 }
 
-a {
+.navBarLink {
   color: white;
+  font-size: 16px;
 }
 
-a:hover {
+.navBarLink:hover {
   color: #ffae00 !important;
   text-decoration: none;
 }
@@ -29,7 +30,7 @@ a:hover {
 }
 
 .home-link {
-  font-size: 15px !important;
+  font-size: 16px !important;
 }
 
 @media screen and (max-width: 1000px) {

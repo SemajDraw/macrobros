@@ -1,11 +1,32 @@
 import React, {Component} from 'react';
+import InputGroup from 'react-bootstrap/InputGroup'
+import Form from 'react-bootstrap/Form'
+import Button from "react-bootstrap/Button";
+import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {getBlogs, getFeaturedBlog} from "../../../actions/blogs/blogs";
-import {Link} from "react-router-dom";
+import {getBlogs, getFeaturedBlog, getSearchBlogs} from "../../../actions/blogs/blogs";
 import blogGridBuilder from "./blogGridBuilder";
 
+
 export class Blog extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {searchValue: ''};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({searchValue: event.target.value});
+    }
+
+    handleSubmit(event) {
+        alert('A name was submitted: ' + this.state.searchValue);
+        event.preventDefault();
+    }
 
     static propTypes = {
         blogs: PropTypes.array.isRequired,
@@ -45,13 +66,24 @@ export class Blog extends Component {
                     </div>
                 </div>
 
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Search blogs"
-                           aria-label="Recipient's username" aria-describedby="basic-addon2"/>
-                        <div className="input-group-append">
-                            <span className="input-group-text" id="basic-addon2">Search</span>
-                        </div>
-                </div>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="searchGroup">
+                        <InputGroup className="mb-3">
+                            <Form.Control
+                                value={this.state.value}
+                                onChange={this.handleChange}
+                                placeholder="Search blogs"
+                                aria-label="Search blogs"
+                                aria-describedby="basic-addon2"
+                            />
+                            <InputGroup.Append>
+                                {/*<Link to=''></Link>*/}
+                                <Button variant="outline-secondary" id="basic-addon2" type="submit"
+                                        value="Submit">Search</Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </Form.Group>
+                </Form>
 
                 {blogGridBuilder(blogs)}
             </div>

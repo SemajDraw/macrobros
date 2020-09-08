@@ -10,8 +10,9 @@ import Header from './layout/header/Header';
 import Alerts from "./common/alerts/Alerts";
 import PageNotFound from "./content/page-not-found/PageNotFound";
 import Blog from "./content/blog/Blog";
-import Category from "./content/blog/Category";
+import Category from "./content/blog/CategoryBlogs";
 import BlogDetails from "./content/blog/BlogDetails";
+import SearchBlogs from "./content/blog/SearchBlogs";
 
 class AppRouter extends Component {
     render() {
@@ -25,6 +26,7 @@ class AppRouter extends Component {
                         <Route exact path='/blog' component={Blog}/>
                         <Route exact path='/blog/:slug' component={BlogDetails}/>
                         <Route exact path='/blog/category/:category' component={Category}/>
+                        <Route exact path='/blog/search/:search' component={SearchBlogs}/>
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/register' component={Register}/>
                         <PrivateRoute exact path='/profile' component={Profile}/>
