@@ -1,10 +1,11 @@
-import {GET_BLOG, GET_BLOGS, GET_CATEGORY_BLOGS, GET_FEATURED_BLOG} from "../actions/blogs/types";
+import {GET_BLOG, GET_BLOGS, GET_CATEGORY_BLOGS, GET_FEATURED_BLOG, SEARCH_BLOGS} from "../actions/blogs/types";
 
 const initialState = {
     blog: {},
     blogs: [],
     categoryBlogs: [],
-    featuredBlog: {}
+    featuredBlog: {},
+    searchBlogs: []
 };
 
 export default function (state = initialState, action) {
@@ -28,6 +29,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 featuredBlog: action.payload
+            };
+        case SEARCH_BLOGS:
+            return {
+                ...state,
+                searchBlogs: action.payload
             };
         default:
             return state

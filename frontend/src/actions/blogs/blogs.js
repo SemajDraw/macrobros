@@ -1,4 +1,4 @@
-import {GET_BLOG, GET_BLOGS, GET_CATEGORY_BLOGS, GET_FEATURED_BLOG} from "./types";
+import {GET_BLOG, GET_BLOGS, GET_CATEGORY_BLOGS, GET_FEATURED_BLOG, SEARCH_BLOGS} from "./types";
 import axios from "axios";
 import {createError} from "../alerts/errors/errors";
 
@@ -39,6 +39,18 @@ export const getCategoryBlogs = (category) => (dispatch) => {
         .then(res => {
             dispatch({
                 type: GET_CATEGORY_BLOGS,
+                payload: res.data
+            })
+        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+};
+
+export const searchBlogs = (search) => (dispatch) => {
+    axios.post('/api/blog/search',
+        {search: search},
+        {headers: {'Content-Type': 'application/json'}})
+        .then(res => {
+            dispatch({
+                type: SEARCH_BLOGS,
                 payload: res.data
             })
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));

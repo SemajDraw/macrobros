@@ -45,6 +45,14 @@ export class Blog extends Component {
                     </div>
                 </div>
 
+                <div className="input-group mb-3">
+                    <input type="text" className="form-control" placeholder="Search blogs"
+                           aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                        <div className="input-group-append">
+                            <span className="input-group-text" id="basic-addon2">Search</span>
+                        </div>
+                </div>
+
                 {blogGridBuilder(blogs)}
             </div>
         );

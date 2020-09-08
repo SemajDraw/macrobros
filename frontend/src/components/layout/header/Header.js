@@ -10,7 +10,7 @@ export class Header extends Component {
 
     static propTypes = {
         auth: PropTypes.object.isRequired,
-        logout: PropTypes.func.isRequired
+        logout: PropTypes.func.isRequired,
     };
 
     render() {
@@ -62,7 +62,7 @@ export class Header extends Component {
                             {isAuthenticated ? authenticatedSM : unauthenticated}
                         </li>
                     </ul>
-                    <ul className='box center-navbar navbar-nav d-none d-md-block'>
+                    <ul className='box center-navbar navbar-nav ml-auto d-none d-md-block'>
                         {isAuthenticated ? authenticated : unauthenticated}
                     </ul>
                 </div>
