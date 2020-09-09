@@ -20,7 +20,7 @@ export class SearchBlogs extends Component {
     }
 
     render() {
-         const {blogs} = this.props;
+        const {blogs} = this.props;
         return (
             <div className='container mt-3'>
                 <p>Here is the aearch</p>

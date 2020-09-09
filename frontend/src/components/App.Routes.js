@@ -13,6 +13,8 @@ import Blog from "./content/blog/Blog";
 import Category from "./content/blog/CategoryBlogs";
 import BlogDetails from "./content/blog/BlogDetails";
 import SearchBlogs from "./content/blog/SearchBlogs";
+import Footer from "./layout/footer/Footer";
+import Contact from "./content/contact/Contact";
 
 class AppRouter extends Component {
     render() {
@@ -23,15 +25,22 @@ class AppRouter extends Component {
                     <Alerts/>
                     <Switch>
                         <Route exact path='/' component={Home}/>
+                        {/*Blog Routes*/}
                         <Route exact path='/blog' component={Blog}/>
                         <Route exact path='/blog/:slug' component={BlogDetails}/>
                         <Route exact path='/blog/category/:category' component={Category}/>
                         <Route exact path='/blog/search/:search' component={SearchBlogs}/>
+
+                        {/*Account Routes*/}
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/register' component={Register}/>
                         <PrivateRoute exact path='/profile' component={Profile}/>
+
+                        {/*Footer Routes*/}
+                        <Route exact path='/contact' component={Contact}/>
                         <Route component={PageNotFound}/>
                     </Switch>
+                    <Footer/>
                 </Fragment>
             </Router>
         );

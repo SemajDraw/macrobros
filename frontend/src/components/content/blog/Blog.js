@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import InputGroup from 'react-bootstrap/InputGroup'
 import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getBlogs, getFeaturedBlog, getSearchBlogs} from "../../../actions/blogs/blogs";
@@ -24,8 +24,8 @@ export class Blog extends Component {
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.searchValue);
         event.preventDefault();
+        this.props.history.push(`/blog/search/${this.state.searchValue}`);
     }
 
     static propTypes = {
@@ -77,7 +77,6 @@ export class Blog extends Component {
                                 aria-describedby="basic-addon2"
                             />
                             <InputGroup.Append>
-                                {/*<Link to=''></Link>*/}
                                 <Button variant="outline-secondary" id="basic-addon2" type="submit"
                                         value="Submit">Search</Button>
                             </InputGroup.Append>
