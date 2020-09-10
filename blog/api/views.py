@@ -2,7 +2,7 @@ from django.db.models import Q
 from rest_framework import permissions
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.pagination import PageNumberPagination
 
 from blog.api.serializers import BlogPostSerializer
 from blog.models import BlogPost
@@ -27,24 +27,28 @@ class BlogPostListView(ListAPIView):
     serializer_class = BlogPostSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny,)
+    pagination_class = PageNumberPagination
 
 
-class BlogPostCategoryView(APIView):
+class BlogPostCategoryView(ListAPIView):
     serializer_class = BlogPostSerializer
     permission_classes = (permissions.AllowAny,)
+    pagination_class = PageNumberPagination
 
-    def post(self, request, format=None):
+    def post(self, request, format=None, *args, **kwargs):
         data = self.request.data
         category = data['category']
         queryset = BlogPost.objects.order_by('-date_created').filter(category__iexact=category)
+        page = self.paginate_queryset(queryset)
 
-        serializer = BlogPostSerializer(queryset, many=True)
-        return Response(serializer.data)
+        serializer = self.serializer_class(page, many=True)
+        return self.get_paginated_response(serializer.data)
 
 
-class SearchBlogPosts(APIView):
+class SearchBlogPosts(ListAPIView):
     serializer_class = BlogPostSerializer
     permission_classes = (permissions.AllowAny,)
+    pagination_class = PageNumberPagination
 
     def post(self, request, format=None):
         data = self.request.data
@@ -57,5 +61,8 @@ class SearchBlogPosts(APIView):
                 Q(project_name__icontains=field)
             )
             results.extend(blog_posts)
-        serializer = BlogPostSerializer(list(set(results)), many=True)
-        return Response(serializer.data)
+
+        page = self.paginate_queryset(list(set(results)))
+
+        serializer = self.serializer_class(page, many=True)
+        return self.get_paginated_response(serializer.data)
