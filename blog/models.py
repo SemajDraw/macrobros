@@ -6,10 +6,10 @@ from django.template.defaultfilters import slugify
 
 class Categories(models.TextChoices):
     CRYPTO = 'crypto'
-    FINANCE = 'finance'
+    PRECIOUS_METALS = 'precious-metals'
     ECONOMICS = 'economics'
     MACRO = 'macro'
-    MICRO = 'micro'
+    WEALTH_CYCLES = 'wealth-cycles'
     TECH = 'tech'
     TRADING = 'trading'
     INVESTMENT = 'investment'

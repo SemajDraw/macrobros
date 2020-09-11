@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {getSearchBlogs} from "../../../actions/blogs/blogs";
+import {getSearchBlogs} from "../../../actions/blog/blog";
 import blogGridBuilder from "./blogGridBuilder";
 
 export class SearchBlogs extends Component {
@@ -12,7 +12,7 @@ export class SearchBlogs extends Component {
     }
 
     static propTypes = {
-        blogs: PropTypes.array
+        blogs: PropTypes.object
     };
 
     componentDidMount() {
@@ -24,7 +24,7 @@ export class SearchBlogs extends Component {
         return (
             <div className='container mt-3'>
                 <p>Here is the aearch</p>
-                {blogs === undefined || blogs.length === 0 ? null : blogGridBuilder(blogs)}
+                {blogs === undefined || blogs.results.length === 0 ? null : blogGridBuilder(blogs.results)}
             </div>
         );
     }

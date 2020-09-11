@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import PropTypes from 'prop-types';
-import {getBlog} from "../../../actions/blogs/blogs";
+import {getBlog} from "../../../actions/blog/blog";
 import Moment from "react-moment";
 import {Link} from "react-router-dom";
 import capitalizeFirstLetter from "../../../services/capitalizeFirstLetter";

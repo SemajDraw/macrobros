@@ -1,8 +1,7 @@
 from django.db.models import Q
 from rest_framework import permissions
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from rest_framework.response import Response
-from rest_framework.pagination import PageNumberPagination
+from macrobros.pagination import CustomPagination
 
 from blog.api.serializers import BlogPostSerializer
 from blog.models import BlogPost
@@ -20,6 +19,7 @@ class BlogPostFeaturedView(ListAPIView):
     serializer_class = BlogPostSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny,)
+    pagination_class = None
 
 
 class BlogPostListView(ListAPIView):
@@ -27,13 +27,13 @@ class BlogPostListView(ListAPIView):
     serializer_class = BlogPostSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny,)
-    pagination_class = PageNumberPagination
+    pagination_class = CustomPagination
 
 
 class BlogPostCategoryView(ListAPIView):
     serializer_class = BlogPostSerializer
     permission_classes = (permissions.AllowAny,)
-    pagination_class = PageNumberPagination
+    pagination_class = CustomPagination
 
     def post(self, request, format=None, *args, **kwargs):
         data = self.request.data
@@ -48,7 +48,7 @@ class BlogPostCategoryView(ListAPIView):
 class SearchBlogPosts(ListAPIView):
     serializer_class = BlogPostSerializer
     permission_classes = (permissions.AllowAny,)
-    pagination_class = PageNumberPagination
+    pagination_class = CustomPagination
 
     def post(self, request, format=None):
         data = self.request.data

@@ -64,7 +64,7 @@ REST_FRAMEWORK = {
     },
 
     # Pagination settings
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'macrobros.pagination.CustomPagination',
     'PAGE_SIZE': 2
 }
 
