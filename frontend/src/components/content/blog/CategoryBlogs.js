@@ -5,13 +5,16 @@ import {Link} from "react-router-dom";
 import {getCategoryBlogs} from "../../../actions/blog/blog";
 import capitalizeFirstLetter from "../../../services/capitalizeFirstLetter";
 import blogGridBuilder from "./blogGridBuilder";
-import axios from 'axios';
+import Pagination from "react-bootstrap/Pagination";
+import PaginationBar from "../../common/Pagination";
 
 export class CategoryBlogs extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {category: this.props.match.params.category};
+        this.state = {category: capitalizeFirstLetter(this.props.match.params.category)};
+
+        this.loadPages = this.loadPages.bind(this);
     }
 
     static propTypes = {
@@ -25,12 +28,16 @@ export class CategoryBlogs extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.match.params.category !== this.props.match.params.category) {
             if (this.props.match.params.category.includes('-')) {
-                const category = this.props.match.params.split('-')
-                // category.map(segment => )
+                this.state.category = this.props.match.params.category.split('-').map((word) => capitalizeFirstLetter(word)).join(' ');
+            } else {
+                this.state.category = capitalizeFirstLetter(this.props.match.params.category);
             }
-            this.state.category = capitalizeFirstLetter(this.props.match.params.category);
             this.props.getCategoryBlogs(this.state.category);
         }
+    }
+
+    loadPages(pageNumber) {
+        this.props.getCategoryBlogs(this.state.category, pageNumber);
     }
 
     render() {
@@ -52,6 +59,13 @@ export class CategoryBlogs extends Component {
                 </div>
                 <h3 className='display-4'>{this.state.category}</h3>
                 {blogGridBuilder(blogs.results)}
+
+                <div className='row justify-content-center my-3'>
+                    {blogs.totalItems > 2 ?
+                        <Pagination><PaginationBar blogs={blogs} nextPage={this.loadPages}/></Pagination>
+                        : null
+                    }
+                </div>
             </div>
         );
     }

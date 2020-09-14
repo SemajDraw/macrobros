@@ -33,6 +33,7 @@ class BlogPost(models.Model):
     category = models.CharField(verbose_name='Category', max_length=50, choices=Categories.choices,
                                 default=Categories.CRYPTO)
     thumbnail = models.ImageField(verbose_name='Thumbnail', upload_to=upload_to)
+    thumbnail_alt = models.TextField(verbose_name='Tumbnail Alt')
     excerpt = models.TextField(verbose_name='Excerpt')
     content = models.TextField(verbose_name='Content')
     featured = models.BooleanField(verbose_name='Featured', default=False)

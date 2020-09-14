@@ -14,7 +14,7 @@ class PageNotFound extends Component {
 
     render() {
         return (
-            <div>
+            <div className='vh-100'>
                 <div className="text"><p>404</p></div>
                 <div className="container animContainer">
                     {/*--cavemanleft-- */}

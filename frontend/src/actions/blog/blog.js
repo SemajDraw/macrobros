@@ -22,8 +22,10 @@ export const getFeaturedBlog = () => (dispatch) => {
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));
 };
 
-export const getBlogs = () => (dispatch) => {
-    axios.get('/api/blog/')
+export const getBlogs = (pageNumber) => (dispatch) => {
+    let url;
+    pageNumber === undefined ? url = '/api/blog/' : url = '/api/blog/?page='.concat(pageNumber);
+    axios.get(url)
         .then(res => {
             dispatch({
                 type: GET_BLOGS,
@@ -32,8 +34,10 @@ export const getBlogs = () => (dispatch) => {
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));
 };
 
-export const getCategoryBlogs = (category) => (dispatch) => {
-    axios.post('/api/blog/category',
+export const getCategoryBlogs = (category, pageNumber) => (dispatch) => {
+    let url;
+    pageNumber === undefined ? url = '/api/blog/category' : url = '/api/blog/category?page='.concat(pageNumber);
+    axios.post(url,
         {category: category},
         {headers: {'Content-Type': 'application/json'}})
         .then(res => {
@@ -44,8 +48,10 @@ export const getCategoryBlogs = (category) => (dispatch) => {
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));
 };
 
-export const getSearchBlogs = (search) => (dispatch) => {
-    axios.post('/api/blog/search',
+export const getSearchBlogs = (search, pageNumber) => (dispatch) => {
+    let url;
+    pageNumber === undefined ? url = '/api/blog/search' : url = '/api/blog/search?page='.concat(pageNumber);
+    axios.post(url,
         {search: search},
         {headers: {'Content-Type': 'application/json'}})
         .then(res => {
@@ -55,5 +61,3 @@ export const getSearchBlogs = (search) => (dispatch) => {
             })
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));
 };
-
-export const getPage = (dispatchType, pageNumber)

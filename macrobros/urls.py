@@ -20,6 +20,7 @@ urlpatterns = [
       re_path('api/blog/', include('blog.api.urls'), name='blog_api'),
       re_path('summernote', include('django_summernote.urls')),
 
-      # React UI Entry
-      re_path('', include('frontend.urls'), name='frontend'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# React Frontend
+urlpatterns += [re_path(r'^,*', include('frontend.urls'), name='frontend'), ]

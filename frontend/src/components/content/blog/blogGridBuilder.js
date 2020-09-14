@@ -23,7 +23,7 @@ export default (blogs) => {
                 </div>
                 <div className='image-container'>
                     <img width='200px' height='250px' className="card-img-right flex-auto d-none d-md-block"
-                         src={blogPost.thumbnail} alt=":)"/>
+                         src={blogPost.thumbnail} alt={blogPost.thumbnailAlt}/>
                 </div>
             </div>
         );

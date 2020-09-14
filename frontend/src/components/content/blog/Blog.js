@@ -2,15 +2,13 @@ import React, {Component} from 'react';
 import InputGroup from 'react-bootstrap/InputGroup'
 import Form from 'react-bootstrap/Form'
 import Button from "react-bootstrap/Button";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {getBlogs, getFeaturedBlog, getSearchBlogs} from "../../../actions/blog/blog";
+import {getBlogs, getFeaturedBlog} from "../../../actions/blog/blog";
 import blogGridBuilder from "./blogGridBuilder";
 import Pagination from "react-bootstrap/Pagination";
-import axios from "axios";
-import {GET_BLOGS} from "../../../actions/blog/types";
-import {createError} from "../../../actions/alerts/errors/errors";
+import PaginationBar from "../../common/Pagination";
 
 
 export class Blog extends Component {
@@ -43,21 +41,12 @@ export class Blog extends Component {
         this.props.getFeaturedBlog();
     }
 
-    loadPages(event) {
-        console.log('blog: ', this.props.blogs)
-        console.log('loaded next page: ')
-        console.log('event: ', event)
-        axios.get(this.props.blogs.next)
-            .then(res => {
-                console.log('loaded next page: ', res.data);
-                this.props.blogs = res.data;
-                console.log('blog: ', this.props.blogs)
-            }).catch(err => console.log('the error: ', err))
+    loadPages(pageNumber) {
+        this.props.getBlogs(pageNumber);
     }
 
     render() {
         const {blogs, featuredBlog} = this.props;
-        console.log('blogs:', blogs)
         return (
             <div className='container mt-3'>
                 <div className='nav-scroller py-1 mb-2'>
@@ -104,10 +93,12 @@ export class Blog extends Component {
 
                 {blogGridBuilder(blogs.results)}
 
-                {blogs.count > 2 ? <Pagination pages={blogs.numberPages} nextPage={this.loadPages} currentPage={blogs}/> : null}
-                <button onClick={this.loadPages} >Search</button>
-
-
+                <div className='row justify-content-center my-3'>
+                    {blogs.totalItems > 2 ?
+                        <Pagination><PaginationBar blogs={blogs} nextPage={this.loadPages}/></Pagination>
+                        : null
+                    }
+                </div>
             </div>
         );
     }
