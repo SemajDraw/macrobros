@@ -17,7 +17,6 @@ export class Home extends Component {
 
     render() {
         const {featuredBlog} = this.props;
-        console.log('featured: ', featuredBlog);
         return (
             <div className="jumbotron featured-heading min-vh-100" style={{backgroundImage: "url(" + featuredBlog.thumbnail + ")"}}>
                     <h1 className="display-4">{featuredBlog.title}</h1>
@@ -25,9 +24,6 @@ export class Home extends Component {
                     <p>{featuredBlog.excerpt}</p>
                     <Link className='btn btn-primary btn-lg' to={`/blog/${featuredBlog.slug}`} role='button'>Continue reading...</Link>
                 </div>
-            // <div className='container mt-4'>
-            //
-            // </div>
         );
     }
 }
