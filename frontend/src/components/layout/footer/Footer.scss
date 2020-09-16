@@ -6,6 +6,16 @@
   width: 100%;
   border-bottom: 1px solid #CCCCCC;
   border-top: 1px solid #DDDDDD;
+  font-family: 'Lexend Zetta';
+  font-weight: 300;
+  color: white;
+}
+
+.footerLink:hover {
+  color: #ffae00 !important;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .footer p {
@@ -30,7 +40,6 @@
   font-size: 2em;
   font-weight: 600;
   line-height: 38px;
-  font-family: cursive;
   font-weight: lighter
 }
 
@@ -57,31 +66,19 @@
   font-weight: lighter;
 }
 
-.footer p {
-  color: white;
-  font-weight: lighter;
-  //font-size:
-}
 
-.footer a:hover {
-  text-decoration: none;
-  font-weight: bold;
-}
+//.footer a:hover {
+//  text-decoration: none;
+//  font-weight: bold;
+//}
 
-.supportLi h4 {
-  font-size: 20px;
-  font-weight: lighter;
-  line-height: normal;
-  margin-bottom: 0 !important;
-  padding-bottom: 0;
-}
 
 .bg-gray {
   box-shadow: 0 1px 0 #B4B3B3;
 }
 
-.footer a {
-  color: #78828D
+.inactiveLink {
+  color: #78828D !important;
 }
 
 .footer-bottom {

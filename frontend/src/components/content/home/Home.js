@@ -1,20 +1,39 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {getFeaturedBlog} from "../../../actions/blog/blog";
+import PropTypes from "prop-types";
+import './Home.scss';
 
 export class Home extends Component {
+
+    static propTypes = {
+        featuredBlog: PropTypes.object.isRequired
+    };
+
+    componentDidMount() {
+        this.props.getFeaturedBlog();
+    }
+
     render() {
+        const {featuredBlog} = this.props;
+        console.log('featured: ', featuredBlog);
         return (
-            <div className='container mt-4'>
-                <div className="jumbotron">
-                    <h1 className="display-4">Welcome to MacroBros</h1>
+            <div className="jumbotron featured-heading min-vh-100" style={{backgroundImage: "url(" + featuredBlog.thumbnail + ")"}}>
+                    <h1 className="display-4">{featuredBlog.title}</h1>
                     <p className="lead">We make all kinds of awesome blogs about making you dollahs</p>
-                    <hr className="my-4"/>
-                    <p>Click the button below to checkout out our awesome blogs</p>
-                    <Link className='btn btn-primary btn-lg' to='/blog' role='button'>Check out or Blog!</Link>
+                    <p>{featuredBlog.excerpt}</p>
+                    <Link className='btn btn-primary btn-lg' to={`/blog/${featuredBlog.slug}`} role='button'>Continue reading...</Link>
                 </div>
-            </div>
+            // <div className='container mt-4'>
+            //
+            // </div>
         );
     }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+    featuredBlog: state.blog.featuredBlog
+});
+
+export default connect(mapStateToProps, {getFeaturedBlog})(Home);

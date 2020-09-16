@@ -48,7 +48,7 @@ export class Blog extends Component {
     render() {
         const {blogs, featuredBlog} = this.props;
         return (
-            <div className='container mt-3'>
+            <div className='container mt-3 min-vh-100'>
                 <div className='nav-scroller py-1 mb-2'>
                     <nav className='nav d-flex justify-content-between'>
                         <Link className='p-s text-muted' to='/blog/category/crypto'>Crypto</Link>

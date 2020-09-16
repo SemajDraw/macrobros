@@ -23,7 +23,7 @@ export class BlogDetails extends Component {
     render() {
         const {blogPost} = this.props;
         return (
-            <div className='container mt-4'>
+            <div className='container mt-4 min-vh-100'>
                 <h1 className='display-2'>{blogPost.title}</h1>
                 <h2 className='text-muted mt-3'> Category: {capitalizeFirstLetter(blogPost.category)}</h2>
                 <Moment format="Do MMMM YYYY">{blogPost.dateCreated}</Moment>

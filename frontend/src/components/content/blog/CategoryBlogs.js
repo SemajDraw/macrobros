@@ -27,6 +27,7 @@ export class CategoryBlogs extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.match.params.category !== this.props.match.params.category) {
+            console.log('contains hypheyn?:', this.props.match.params.category.includes('-'))
             if (this.props.match.params.category.includes('-')) {
                 this.state.category = this.props.match.params.category.split('-').map((word) => capitalizeFirstLetter(word)).join(' ');
             } else {
@@ -44,7 +45,7 @@ export class CategoryBlogs extends Component {
         const {blogs} = this.props;
 
         return (
-            <div className='container mt-3'>
+            <div className='container mt-3 min-vh-100'>
                 <div className='nav-scroller py-1 mb-2'>
                     <nav className='nav d-flex justify-content-between'>
                         <Link className='p-s text-muted' to='/blog/category/crypto'>Crypto</Link>

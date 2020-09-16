@@ -30,7 +30,7 @@ export class SearchBlogs extends Component {
     render() {
         const {blogs} = this.props;
         return (
-            <div className='container mt-3'>
+            <div className='container mt-3 min-vh-100'>
                 <p>Here is the aearch</p>
                 {blogs === undefined || blogs.results.length === 0 ? null : blogGridBuilder(blogs.results)}
 

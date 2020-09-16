@@ -28,7 +28,7 @@ export class Contact extends Component {
     render() {
         console.log('state render', this.state);
         return (
-            <div className='container'>
+            <div className='container min-vh-100'>
                 <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridFirstName">
