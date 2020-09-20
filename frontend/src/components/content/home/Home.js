@@ -1,35 +1,82 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {getFeaturedBlog} from "../../../actions/blog/blog";
+import {getBlogs} from "../../../actions/blog/blog";
 import PropTypes from "prop-types";
 import './Home.scss';
+import blogGridBuilder from "../blog/blog-grid-builder/blogGridBuilder";
+import Pagination from "react-bootstrap/Pagination";
+import PaginationBar from "../../common/Pagination";
+import SideBar from "../blog/side-bar/SideBar";
+import Jumbotron from "react-bootstrap/Jumbotron";
 
 export class Home extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {searchValue: ''};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.loadPages = this.loadPages.bind(this);
+    }
+
     static propTypes = {
-        featuredBlog: PropTypes.object.isRequired
+        blogs: PropTypes.object.isRequired
     };
 
     componentDidMount() {
-        this.props.getFeaturedBlog();
+        this.props.getBlogs();
+    }
+
+    handleChange(event) {
+        this.setState({searchValue: event.target.value});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.history.push(`/blog/search/${this.state.searchValue}`);
+    }
+
+    loadPages(pageNumber) {
+        this.props.getBlogs(pageNumber);
     }
 
     render() {
-        const {featuredBlog} = this.props;
+        const {blogs} = this.props;
         return (
-            <div className="jumbotron featured-heading min-vh-100" style={{backgroundImage: "url(" + featuredBlog.thumbnail + ")"}}>
-                    <h1 className="display-4">{featuredBlog.title}</h1>
-                    <p className="lead">We make all kinds of awesome blogs about making you dollahs</p>
-                    <p>{featuredBlog.excerpt}</p>
-                    <Link className='btn btn-primary btn-lg' to={`/blog/${featuredBlog.slug}`} role='button'>Continue reading...</Link>
+            <div className='min-vh-100'>
+                <Jumbotron fluid>
+                    <h1>MacroBros</h1>
+                    <p>
+                        Some random shit about macbrobros and below links to some of our shit
+                    </p>
+                </Jumbotron>
+
+                <div className='container-fluid pt-5'>
+                    <div className='row'>
+                        <div className='col-md-9'>
+                            {blogGridBuilder(blogs.results)}
+                        </div>
+                        <div className='col-md-3'>
+                            <SideBar history={this.props.history}/>
+                        </div>
+                    </div>
                 </div>
+
+                <div className='row justify-content-center my-3'>
+                    {blogs.totalItems > 2 ?
+                        <Pagination><PaginationBar blogs={blogs} nextPage={this.loadPages}/></Pagination>
+                        : null
+                    }
+                </div>
+            </div>
+
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    featuredBlog: state.blog.featuredBlog
+    blogs: state.blog.blogs,
 });
 
-export default connect(mapStateToProps, {getFeaturedBlog})(Home);
+export default connect(mapStateToProps, {getBlogs})(Home);

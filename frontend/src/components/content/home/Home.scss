@@ -1,5 +1,56 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
 .featured-heading {
   border-radius: 0;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.jumbotron {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  border-radius: 0;
+  padding-top: 15em;
+  //box-shadow: 10px 10px 5px 0 rgba(0,0,0,.75);
+  color: #f5f5f5;
+}
+
+.jumbotron img {
+  width: auto;
+  height: auto;
+}
+
+.jumbotron-link {
+  color: #baffc9;
+  font-size: 16px;
+}
+
+.jumbotron-link:hover {
+  color: #ffae00 !important;
+  text-decoration: none;
+}
+
+
+@include media-breakpoint-up(lg) {
+  .container-fluid {
+    padding-left: 10em;
+    padding-right: 10em;
+  }
+}
+
+@include media-breakpoint-between(md, lg) {
+  .container-fluid {
+    padding-left: 5em;
+    padding-right: 5em;
+  }
+}
+
+@include media-breakpoint-between(sm, md) {
+  .container-fluid {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
 }

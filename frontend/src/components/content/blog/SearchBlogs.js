@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getSearchBlogs} from "../../../actions/blog/blog";
-import blogGridBuilder from "./blogGridBuilder";
+import blogGridBuilder from "./blog-grid-builder/blogGridBuilder";
 import Pagination from "react-bootstrap/Pagination";
 import PaginationBar from "../../common/Pagination";
+import SideBar from "./side-bar/SideBar";
 
 export class SearchBlogs extends Component {
 
@@ -30,9 +31,27 @@ export class SearchBlogs extends Component {
     render() {
         const {blogs} = this.props;
         return (
-            <div className='container mt-3 min-vh-100'>
-                <p>Here is the aearch</p>
-                {blogs === undefined || blogs.results.length === 0 ? null : blogGridBuilder(blogs.results)}
+            <div className='mt-3 min-vh-100'>
+
+                <div className='container-fluid'>
+                    <h3 className='display-4'>Results</h3>
+                </div>
+
+                <div className='container-fluid pt-3'>
+                    {blogs === undefined || blogs.results.length === 0 ?
+
+                        <p>Render a no results component in here</p> :
+
+                        <div className='row'>
+                            <div className='col-md-9'>
+                                {blogGridBuilder(blogs.results)}
+                            </div>
+                            <div className='col-md-3'>
+                                <SideBar history={this.props.history}/>
+                            </div>
+                        </div>
+                    }
+                </div>
 
                 <div className='row justify-content-center my-3'>
                     {blogs.totalItems > 2 ?

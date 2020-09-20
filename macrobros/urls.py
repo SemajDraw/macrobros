@@ -17,6 +17,7 @@ urlpatterns = [
 
       # Rest API Urls
       re_path('api/account/', include('account.api.urls'), name='account_api'),
+      re_path('api/binance/', include('binance.api.urls'), name='binance_api'),
       re_path('api/blog/', include('blog.api.urls'), name='blog_api'),
       re_path('api/terms-conditions/', include('terms_conditions.api.urls'), name='terms_conditions'),
       re_path('summernote', include('django_summernote.urls')),

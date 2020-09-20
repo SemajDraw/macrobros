@@ -1,0 +1,26 @@
+.excerpt {
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 4.5em;
+}
+
+.title {
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  max-width: 100%;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card img {
+  width: auto;
+  height: auto;
+}
+

@@ -89,7 +89,7 @@ export const tokenAuthConfig = (getState) => {
             'Content-Type': 'application/json'
         }
     };
-    // If token, add to Authorization header
+    // If token, add to Authorization navbar
     if (token) {
         config.headers['Authorization'] = `Token ${token}`;
     }

@@ -6,13 +6,13 @@ from django.template.defaultfilters import slugify
 
 class Categories(models.TextChoices):
     CRYPTO = 'crypto'
-    PRECIOUS_METALS = 'precious-metals'
-    ECONOMICS = 'economics'
     MACRO = 'macro'
+    PRECIOUS_METALS = 'precious-metals'
     WEALTH_CYCLES = 'wealth-cycles'
-    TECH = 'tech'
-    TRADING = 'trading'
-    INVESTMENT = 'investment'
+    # ECONOMICS = 'economics'
+    # INVESTMENT = 'investment'
+    # TECH = 'tech'
+    # TRADING = 'trading'
 
 
 def upload_to(instance, filename):
@@ -28,11 +28,14 @@ def upload_to(instance, filename):
 class BlogPost(models.Model):
     title = models.CharField(verbose_name='Title', max_length=100)
     project_name = models.CharField(verbose_name='Project Name', max_length=100)
-    ticker = models.CharField(verbose_name='Ticker', max_length=50)
+    ticker = models.CharField(verbose_name='Ticker', max_length=50, blank=True)
     slug = models.SlugField(verbose_name='Url Slug')
     category = models.CharField(verbose_name='Category', max_length=50, choices=Categories.choices,
                                 default=Categories.CRYPTO)
-    thumbnail = models.ImageField(verbose_name='Thumbnail', upload_to=upload_to)
+    header_img = models.ImageField(verbose_name='Header Img', upload_to=upload_to, blank=True)
+    thumbnail = models.ImageField(verbose_name='Thumbnail Img',
+                                  upload_to=upload_to,
+                                  default='/default/default-thumbnail.jpg')
     thumbnail_alt = models.TextField(verbose_name='Tumbnail Alt')
     excerpt = models.TextField(verbose_name='Excerpt')
     content = models.TextField(verbose_name='Content')
