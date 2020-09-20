@@ -5,6 +5,10 @@ import {getBlog} from "../../../actions/blog/blog";
 import Moment from "react-moment";
 import {Link} from "react-router-dom";
 import capitalizeFirstLetter from "../../../services/capitalizeFirstLetter";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import SideBar from "./side-bar/SideBar";
+import TradingViewWidget from "react-tradingview-widget";
+import './BlogDetails.scss';
 
 export class BlogDetails extends Component {
 
@@ -23,13 +27,41 @@ export class BlogDetails extends Component {
     render() {
         const {blogPost} = this.props;
         return (
-            <div className='container mt-4 min-vh-100'>
-                <h1 className='display-2'>{blogPost.title}</h1>
-                <h2 className='text-muted mt-3'> Category: {capitalizeFirstLetter(blogPost.category)}</h2>
-                <Moment format="Do MMMM YYYY">{blogPost.dateCreated}</Moment>
-                <div className='mt-5 mb-5' dangerouslySetInnerHTML={this.renderBlogContent(blogPost.content)}/>
-                <hr/>
-                <Link className='btn btn-primary btn-lg' to='/blog' role='button'>Back to Blogs!</Link>
+            <div className='mt-3 min-vh-100'>
+
+                <div className='container-fluid'>
+                    <Jumbotron>
+                        <h1 className="display-4 font-italic">{blogPost.title}</h1>
+                    </Jumbotron>
+                </div>
+
+                <div className='container-fluid pt-3 blog-details'>
+                    <div className='row'>
+                        <div className='col-md-9'>
+                            <h1 className='display-2'>{blogPost.title}</h1>
+                            <h2 className='text-muted mt-3'> Category: {capitalizeFirstLetter(blogPost.category)}</h2>
+                            <Moment format="Do MMMM YYYY">{blogPost.dateCreated}</Moment>
+                            <div className='mt-5 mb-5'
+                                 dangerouslySetInnerHTML={this.renderBlogContent(blogPost.content)}/>
+                            <div className='container-fluid px-0 px-md-4 ticker-chart'>
+                                <TradingViewWidget
+                                    symbol={blogPost.marketPair}
+                                    autosize
+                                />
+                            </div>
+                            <div className='mt-5 mb-5'
+                                 dangerouslySetInnerHTML={this.renderBlogContent(blogPost.content)}/>
+                        </div>
+                        <div className='col-md-3'>
+                            <SideBar history={this.props.history}/>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='container-fluid py-3'>
+                    <hr/>
+                    <Link className='btn btn-primary btn-lg' to='/blog' role='button'>Back to Blogs!</Link>
+                </div>
             </div>
         );
     }

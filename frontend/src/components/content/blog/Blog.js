@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import InputGroup from 'react-bootstrap/InputGroup'
-import Form from 'react-bootstrap/Form'
-import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
