@@ -22,6 +22,14 @@ class BlogPostFeaturedView(ListAPIView):
     pagination_class = None
 
 
+class BlogPostPopularView(ListAPIView):
+    queryset = BlogPost.objects.all().filter(popular=True)
+    serializer_class = BlogPostSerializer
+    lookup_field = 'slug'
+    permission_classes = (permissions.AllowAny,)
+    pagination_class = None
+
+
 class BlogPostListView(ListAPIView):
     queryset = BlogPost.objects.order_by('-date_created')
     serializer_class = BlogPostSerializer

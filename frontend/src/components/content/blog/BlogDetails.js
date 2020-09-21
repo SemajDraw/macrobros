@@ -20,6 +20,12 @@ export class BlogDetails extends Component {
         this.props.getBlog(this.props.match.params.slug);
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.match.params.slug !== this.props.match.params.slug) {
+            this.props.getBlog(this.props.match.params.slug);
+        }
+    }
+
     renderBlogContent(content) {
         return {__html: content};
     }
@@ -30,7 +36,7 @@ export class BlogDetails extends Component {
             <div className='mt-3 min-vh-100'>
 
                 <div className='container-fluid'>
-                    <Jumbotron>
+                    <Jumbotron className='d-flex flex-column justify-content-end align-items-start'>
                         <h1 className="display-4 font-italic">{blogPost.title}</h1>
                     </Jumbotron>
                 </div>
@@ -44,11 +50,12 @@ export class BlogDetails extends Component {
                             <div className='mt-5 mb-5'
                                  dangerouslySetInnerHTML={this.renderBlogContent(blogPost.content)}/>
                             <div className='container-fluid px-0 px-md-4 ticker-chart'>
+                                {blogPost.slug ?
                                 <TradingViewWidget
                                     symbol={blogPost.marketPair}
                                     defaultInterval='1d'
                                     autosize
-                                />
+                                /> : null }
                             </div>
                             <div className='mt-5 mb-5'
                                  dangerouslySetInnerHTML={this.renderBlogContent(blogPost.content)}/>

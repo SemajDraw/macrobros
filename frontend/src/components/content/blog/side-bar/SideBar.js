@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import PropTypes from 'prop-types';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons/faAngleDown";
 import './SideBar.scss';
 import SearchBar from "./SearchBar";
+import {getPopularBlogs} from "../../../../actions/blog/blog";
 
 export class SideBar extends Component {
 
@@ -15,6 +18,14 @@ export class SideBar extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    static propTypes = {
+        popularBlogs: PropTypes.array.isRequired
+    };
+
+    componentDidMount() {
+        this.props.getPopularBlogs();
+    }
+
     handleChange(event) {
         this.setState({searchValue: event.target.value});
     }
@@ -24,7 +35,18 @@ export class SideBar extends Component {
         this.props.history.push(`/blog/search/${this.state.searchValue}`);
     }
 
+    popularBlogsList(popularBlogs) {
+        return popularBlogs.map((blogPost, i) => {
+            return (
+                <li key={i} className="list-group-item text-truncate text-format">
+                    <Link to={`/blog/${blogPost.slug}`}>{blogPost.title}</Link>
+                </li>
+            );
+        });
+    }
+
     render() {
+        const {popularBlogs} = this.props;
         return (
             <>
                 <SearchBar history={this.props.history}/>
@@ -39,24 +61,27 @@ export class SideBar extends Component {
                             <FontAwesomeIcon icon={faAngleDown}/>
                         </a>
                         <div className="collapse" id="collapseCategories" aria-labelledby="collapseCategories">
-                            <Link className='list-group-item list-group-item-action p-s text-muted'
-                                  to='/blog/category/crypto'>Crypto</Link>
-                            <Link className='list-group-item list-group-item-action p-s text-muted'
-                                  to='/blog/category/macro'>Macro</Link>
-                            <Link className='list-group-item list-group-item-action p-s text-muted'
-                                  to='/blog/category/precious-metals'>Precious Metals</Link>
-                            <Link className='list-group-item list-group-item-action p-s text-muted'
-                                  to='/blog/category/wealth-cycles'>Wealth Cycles</Link>
+                            <Link
+                                className='list-group-item list-group-item-action p-s text-muted text-truncate text-format'
+                                to='/blog/category/crypto'>Crypto</Link>
+                            <Link
+                                className='list-group-item list-group-item-action p-s text-muted text-truncate text-format'
+                                to='/blog/category/macro'>Macro</Link>
+                            <Link
+                                className='list-group-item list-group-item-action p-s text-muted text-truncate text-format'
+                                to='/blog/category/precious-metals'>Precious Metals</Link>
+                            <Link
+                                className='list-group-item list-group-item-action p-s text-muted text-truncate text-format'
+                                to='/blog/category/wealth-cycles'>Wealth Cycles</Link>
                         </div>
                     </div>
                 </div>
+                <div className='col-12 pl-2 mt-3'>
+                    <h4 className='text-truncate'>Popular blogs</h4>
+                </div>
                 <div className='col-12 px-0 mt-1'>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">Cras justo odio</li>
-                        <li className="list-group-item">Dapibus ac facilisis in</li>
-                        <li className="list-group-item">Morbi leo risus</li>
-                        <li className="list-group-item">Porta ac consectetur ac</li>
-                        <li className="list-group-item">Vestibulum at eros</li>
+                        {this.popularBlogsList(popularBlogs)}
                     </ul>
                 </div>
             </>
@@ -64,4 +89,8 @@ export class SideBar extends Component {
     }
 }
 
-export default SideBar;
+const mapStateToProps = (state) => ({
+    popularBlogs: state.blog.popularBlogs
+});
+
+export default connect(mapStateToProps, {getPopularBlogs})(SideBar);

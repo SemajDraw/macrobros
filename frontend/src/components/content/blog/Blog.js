@@ -50,7 +50,7 @@ export class Blog extends Component {
             <div className='mt-3 min-vh-100'>
 
                 <div className='container-fluid'>
-                    <Jumbotron>
+                    <Jumbotron className='d-flex flex-column justify-content-end align-items-start'>
                          <h1 className="display-4 font-italic">{featuredBlog.title}</h1>
                             <p className="lead my-3">{featuredBlog.excerpt}</p>
                             <p className="lead mb-0">

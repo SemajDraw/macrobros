@@ -17,7 +17,7 @@ class Categories(models.TextChoices):
 
 def upload_to(instance, filename):
     _now = datetime.now()
-    return 'images//{year}/{month}/{day}/{title}/{filename}'.format(
+    return 'images/blog/{year}/{month}/{day}/{title}/{filename}'.format(
         year=_now.strftime('%Y'),
         month=_now.strftime('%m'),
         day=_now.strftime('%d'),
@@ -41,17 +41,22 @@ class BlogPost(models.Model):
     excerpt = models.TextField(verbose_name='Excerpt')
     content = models.TextField(verbose_name='Content')
     featured = models.BooleanField(verbose_name='Featured', default=False)
+    popular = models.BooleanField(verbose_name='Popular', default=False)
     date_created = models.DateTimeField(verbose_name='Date Created', default=datetime.now, blank=True)
 
     def save(self, *args, **kwargs):
         original_slug = slugify(self.title)
-        queryset_count = BlogPost.objects.all().filter(slug__iexact=original_slug).count()
+        queryset = BlogPost.objects.all().filter(slug__iexact=original_slug).count()
 
         # Ensure url slugs with the same title are unique
-        if queryset_count == 0:
-            self.slug = original_slug
-        else:
-            self.slug = original_slug + '-' + str(queryset_count - 1)
+        count = 1
+        slug = original_slug
+        while queryset:
+            slug = original_slug + '-' + str(count)
+            count +=1
+            queryset = BlogPost.objects.all.filter(slug__iexact=original_slug).count()
+
+        self.slug = slug
 
         # Set the featured blog post
         if self.featured:

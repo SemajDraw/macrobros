@@ -45,7 +45,7 @@ export class Home extends Component {
         const {blogs} = this.props;
         return (
             <div className='min-vh-100'>
-                <Jumbotron fluid>
+                <Jumbotron fluid className='d-flex flex-column justify-content-center align-items-center'>
                     <h1>MacroBros</h1>
                     <p>
                         Some random shit about macbrobros and below links to some of our shit

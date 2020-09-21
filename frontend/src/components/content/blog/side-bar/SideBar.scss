@@ -1,3 +1,9 @@
 .categories-dropdown {
   border: none;
 }
+
+.text-format {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

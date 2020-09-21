@@ -1,9 +1,17 @@
-import {GET_BLOG, GET_BLOGS, GET_CATEGORY_BLOGS, GET_FEATURED_BLOG, SEARCH_BLOGS} from "../actions/blog/types";
+import {
+    GET_BLOG,
+    GET_BLOGS,
+    GET_CATEGORY_BLOGS,
+    GET_FEATURED_BLOG,
+    GET_POPULAR_BLOGS,
+    SEARCH_BLOGS
+} from "../actions/blog/types";
 import PaginatedBlog from "../actions/blog/PaginatedBlog";
 
 const initialState = {
     blog: {},
     featuredBlog: {},
+    popularBlogs: [],
     blogs: new PaginatedBlog(),
     categoryBlogs: new PaginatedBlog(),
     searchBlogs: new PaginatedBlog()
@@ -30,6 +38,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 featuredBlog: action.payload
+            };
+        case GET_POPULAR_BLOGS:
+            return {
+                ...state,
+                popularBlogs: action.payload
             };
         case SEARCH_BLOGS:
             return {

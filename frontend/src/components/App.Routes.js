@@ -1,11 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-
-import PrivateRoute from './common/PrivateRoute';
 import Home from './content/home/Home';
 import Login from './account/login/Login';
 import Register from './account/register/Register';
-import Profile from './account/profile/Profile';
 import Header from './layout/navbar/NavBar';
 import Alerts from "./common/alerts/Alerts";
 import PageNotFound from "./content/page-not-found/PageNotFound";
@@ -36,7 +33,6 @@ class AppRouter extends Component {
                         {/*Account Routes*/}
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/register' component={Register}/>
-                        <PrivateRoute exact path='/profile' component={Profile}/>
 
                         {/*Footer Routes*/}
                         <Route exact path='/contact' component={Contact}/>
