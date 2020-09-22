@@ -6,9 +6,12 @@ import {Redirect} from 'react-router-dom';
 
 export class LoginForm extends Component {
 
-    state = {
-        email: '',
-        password: ''
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: ''
+        }
     };
 
     static propTypes = {

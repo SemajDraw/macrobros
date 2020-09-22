@@ -1,45 +1,49 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {useSpring, animated, useTransition} from 'react-spring';
 import {logout} from '../../../actions/auth/auth';
 
 import './NavBar.scss';
 
-export class NavBar extends Component {
+export const NavBar = () => {
 
-    static propTypes = {
-        auth: PropTypes.object.isRequired,
-        logout: PropTypes.func.isRequired,
-    };
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    const {isAuthenticated, user} = auth;
 
-    render() {
-        const {isAuthenticated, user} = this.props.auth;
-        const unauthenticated = (
-            <div className='d-inline-flex login-register'>
-                <Link className='navBarLink nav-link' to='/login'>Login</Link>
-                <p className='my-auto log-reg-sep'>|</p>
-                <Link className='navBarLink nav-link' to='/register'>Register</Link>
+    const transition = useSpring({
+        from: { transform: 'translate3d(0,-10px,0)' },
+        enter: { transform: 'translate3d(0,0px,0)' },
+        to: { transform: 'translate3d(0,0px,0)' }
+    });
+
+    const unauthenticated = (
+        <div className='d-inline-flex login-register'>
+            <Link className='navBarLink nav-link' to='/login'>Login</Link>
+            <p className='my-auto log-reg-sep'>|</p>
+            <Link className='navBarLink nav-link' to='/register'>Register</Link>
+        </div>
+    );
+    const authenticated = (
+        <>
+            <a className='navBarLink user-dropdown-link nav-link dropdown-toggle' href='#' id='navbarDropdown'
+               role='button'
+               data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                Hi {user ? user.firstName : ''}!
+            </a>
+            <div className='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown'>
+                <a onClick={() => dispatch(logout())} style={{cursor: 'pointer'}}
+                   className='navBarLink dropdown-item'>Logout</a>
             </div>
-        );
-        const authenticated = (
-            <>
-                <a className='navBarLink user-dropdown-link nav-link dropdown-toggle' href='#' id='navbarDropdown'
-                   role='button'
-                   data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                    Hi {user ? user.firstName : ''}!
-                </a>
-                <div className='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown'>
-                    <a onClick={this.props.logout} style={{cursor: 'pointer'}}
-                       className='navBarLink dropdown-item'>Logout</a>
-                </div>
-            </>
-        );
-        const authenticatedSM = (
-            <a onClick={this.props.logout} style={{cursor: 'pointer'}} className='navBarLink nav-link'>Logout</a>
-        );
+        </>
+    );
+    const authenticatedSM = (
+        <a onClick={() => dispatch(logout())} style={{cursor: 'pointer'}} className='navBarLink nav-link'>Logout</a>
+    );
 
-        return (
+    return (
+        <animated.div style={transition}>
             <nav className='my-navbar navbar navbar-expand-md navbar-dark py-3'>
                 <div className='home-link nav-container ml-3 d-md-none'>
                     <Link className='navBarLink nav-link' to='/'>MacroBros</Link>
@@ -74,12 +78,8 @@ export class NavBar extends Component {
                     </ul>
                 </div>
             </nav>
-        );
-    }
-}
+        </animated.div>
+    );
+};
 
-const mapStateToProps = (state) => ({
-    auth: state.auth
-});
-
-export default connect(mapStateToProps, {logout})(NavBar);
+export default NavBar;

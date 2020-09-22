@@ -7,18 +7,21 @@ import {Redirect} from "react-router-dom";
 
 export class RegisterForm extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            password2: ''
+        }
+    };
+
     static propTypes = {
         isAuthenticated: PropTypes.bool.isRequired,
         register: PropTypes.func.isRequired,
         createError: PropTypes.func
-    };
-
-    state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        password2: ''
     };
 
     onChange = e => this.setState({
