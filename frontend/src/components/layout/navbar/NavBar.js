@@ -13,7 +13,7 @@ export const NavBar = () => {
     const {isAuthenticated, user} = auth;
 
     const transition = useSpring({
-        from: { transform: 'translate3d(0,-10px,0)' },
+        from: { transform: 'translate3d(0,-20px,0)' },
         enter: { transform: 'translate3d(0,0px,0)' },
         to: { transform: 'translate3d(0,0px,0)' }
     });

@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFacebook} from "@fortawesome/free-brands-svg-icons/faFacebook";
 import {faInstagram} from "@fortawesome/free-brands-svg-icons/faInstagram";
 import {faTwitter} from "@fortawesome/free-brands-svg-icons/faTwitter";
+import Bounce from 'react-reveal/Bounce';
 
 export const Footer = () => {
 
@@ -57,16 +58,25 @@ export const Footer = () => {
                 </div>
 
                 <div className='container-fluid mb-4'>
-                    <div className='row d-flex align-items-center justify-content-around'>
-                        <div className='col-12 text-center'>
-                            <Link className='px-md-5 px-2 footerLink' to=''><FontAwesomeIcon size='2x'
-                                                                                             icon={faFacebook}/></Link>
-                            <Link className='px-md-5 px-2 footerLink' to=''><FontAwesomeIcon size='2x'
-                                                                                             icon={faInstagram}/></Link>
-                            <Link className='px-md-5 px-2 footerLink' to=''><FontAwesomeIcon size='2x'
-                                                                                             icon={faTwitter}/></Link>
+                    <Bounce left duration={2000} cascade>
+                        <div className='row d-flex align-items-center justify-content-around'>
+                            <div>
+                                <Link className='icon-left footerLink' to=''>
+                                    <FontAwesomeIcon size='2x' icon={faFacebook}/>
+                                </Link>
+                            </div>
+                            <div>
+                                <Link className='footerLink' to=''>
+                                    <FontAwesomeIcon size='2x' icon={faInstagram}/>
+                                </Link>
+                            </div>
+                            <div>
+                                <Link className='icon-right footerLink' to=''>
+                                    <FontAwesomeIcon size='2x' icon={faTwitter}/>
+                                </Link>
+                            </div>
                         </div>
-                    </div>
+                    </Bounce>
                 </div>
 
                 <div className="footer-bottom">

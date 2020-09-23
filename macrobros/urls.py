@@ -19,6 +19,7 @@ urlpatterns = [
       re_path('api/account/', include('account.api.urls'), name='account_api'),
       re_path('api/blog/', include('blog.api.urls'), name='blog_api'),
       re_path('api/terms-conditions/', include('terms_conditions.api.urls'), name='terms_conditions'),
+      re_path('api/contact/', include('contact.api.urls'), name='contact'),
       re_path('summernote', include('django_summernote.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

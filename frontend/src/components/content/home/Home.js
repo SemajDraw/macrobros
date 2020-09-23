@@ -5,8 +5,10 @@ import blogGridBuilder from "../blog/blog-grid-builder/blogGridBuilder";
 import Pagination from "react-bootstrap/Pagination";
 import PaginationBar from "../../common/Pagination";
 import SideBar from "../blog/side-bar/SideBar";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import {getBlogs} from "../../../actions/blog/blog";
+import {animated, useSpring} from "react-spring";
+import Bounce from 'react-reveal/Bounce';
+import Fade from "react-reveal/Fade";
 
 export const Home = (props) => {
 
@@ -21,15 +23,38 @@ export const Home = (props) => {
         dispatch(getBlogs(pageNumber))
     };
 
+    const transition = useSpring({
+        from: {transform: 'translate3d(0,-20px,0)'},
+        enter: {transform: 'translate3d(0,0px,0)'},
+        to: {transform: 'translate3d(0,0px,0)'}
+    });
+
     return (
         <div className='min-vh-100'>
-            <Jumbotron fluid className='d-flex flex-column justify-content-center align-items-center'>
-                <h1>MacroBros</h1>
-                <p>
-                    Some random shit about macbrobros and below links to some of our shit
-                </p>
-            </Jumbotron>
+            <animated.div style={transition}
+                          className='jumbotron d-flex flex-column justify-content-center align-items-center'>
+                <div className='d-flex flex-row'>
+                    <Bounce left>
+                        <div>
+                            <h1>Macro</h1>
+                        </div>
+                    </Bounce>
+                    <Bounce right>
+                        <div>
+                            <h1>Bros</h1>
+                        </div>
+                    </Bounce>
+                </div>
 
+                <div className='d-flex flex-row'>
+                    <Fade delay={1000}>
+                        <p>
+                            Some random shit about macbrobros and below links to some of our shit
+                        </p>
+                    </Fade>
+                </div>
+
+            </animated.div>
             <div className='container-fluid pt-5'>
                 <div className='row'>
                     <div className='col-md-9'>

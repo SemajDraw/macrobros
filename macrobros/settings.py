@@ -32,8 +32,10 @@ INSTALLED_APPS = [
     # My Apps
     'account',
     'blog',
+    'contact',
     'frontend',
-    'terms_conditions'
+    'terms_conditions',
+    'video'
 ]
 
 # Django Rest Framework
@@ -167,3 +169,11 @@ SUMMERNOTE_THEME = 'bs4'
 DATE_INPUT_FORMATS = '%d/%m/%Y'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# EMAIL CONFIG
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = 'macrobroscrypto@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = 'MultiMill1234567'

@@ -1,39 +1,46 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import {Form, Col, Button} from 'react-bootstrap';
+import './Contact.scss';
+import {useDispatch} from "react-redux";
+import {sendEmail} from "../../../actions/contact/contact";
 
+export const Contact = (props) => {
 
-export class Contact extends Component {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [body, setBody] = useState("");
 
-    constructor(props) {
-        super(props);
-        this.state = {validated: false};
+    const dispatch = useDispatch();
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    const [validated, setValidated] = useState(false);
 
-    handleSubmit(event) {
-        console.log('event', event);
+    const handleSubmit = (event) => {
         const form = event.currentTarget;
-        console.log('validity', form.checkValidity());
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
-        alert('form validated')
-        console.log('state val', this.state);
-        this.state.validated = true;
-        console.log('state val', this.state);
+        dispatch(sendEmail({
+            'firstName': firstName,
+            'lastName': lastName,
+            'email': email,
+            'body': body,
+        }));
+        setValidated(true);
     };
 
-    render() {
-        console.log('state render', this.state);
-        return (
-            <div className='container min-vh-100'>
-                <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
+    return (
+        <div className='container min-vh-100'>
+            <div className='row justify-content-center mt-3'>
+                <Form className='contact-form' noValidate validated={validated}
+                      onSubmit={handleSubmit}>
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridFirstName">
                             <Form.Label>First name</Form.Label>
-                            <Form.Control required type="text" placeholder="First name"/>
+                            <Form.Control onChange={(e) => setFirstName(e.target.value)}
+                                          required type="text"
+                                          placeholder="First name"/>
                             <Form.Control.Feedback type="invalid">
                                 Please provide a first name
                             </Form.Control.Feedback>
@@ -41,7 +48,9 @@ export class Contact extends Component {
 
                         <Form.Group as={Col} controlId="formGridLastName">
                             <Form.Label>Last name</Form.Label>
-                            <Form.Control required type="text" placeholder="Last name"/>
+                            <Form.Control onChange={(e) => setLastName(e.target.value)}
+                                          required type="text"
+                                          placeholder="Last name"/>
                             <Form.Control.Feedback type="invalid">
                                 Please provide a last name
                             </Form.Control.Feedback>
@@ -50,9 +59,20 @@ export class Contact extends Component {
 
                     <Form.Group controlId="formGridEmail">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control required type="email" placeholder="Enter email"/>
+                        <Form.Control onChange={(e) => setEmail(e.target.value)}
+                                      required type="email"
+                                      placeholder="Enter email"/>
                         <Form.Control.Feedback type="invalid">
                             Please provide an email
+                        </Form.Control.Feedback>
+                    </Form.Group>
+
+                    <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Tell us something...</Form.Label>
+                        <Form.Control onChange={(e) => setBody(e.target.value)}
+                                      required as="textarea" rows="3"/>
+                        <Form.Control.Feedback type="invalid">
+                            Please tell us something
                         </Form.Control.Feedback>
                     </Form.Group>
 
@@ -61,9 +81,8 @@ export class Contact extends Component {
                     </Button>
                 </Form>
             </div>
-        );
-    }
-
-}
+        </div>
+    );
+};
 
 export default Contact;

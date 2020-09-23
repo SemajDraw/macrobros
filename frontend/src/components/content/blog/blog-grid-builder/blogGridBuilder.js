@@ -3,6 +3,7 @@ import Moment from "react-moment";
 import {Link} from "react-router-dom";
 import React from "react";
 import './blogGridBuilder.scss';
+import Fade from 'react-reveal/Fade';
 
 export default (blogs) => {
     let blogPostMarkup = blogs.map((blogPost) => {
@@ -27,14 +28,18 @@ export default (blogs) => {
     let blogPostGrid = [];
     for (let i = 0; i < blogPostMarkup.length; i += 2) {
         blogPostGrid.push(
-            <div key={i} className='row mb-2'>
-                <div className='col-md-6'>
-                    {blogPostMarkup[i]}
+            <Fade bottom cascade>
+                <div key={i} className='row mb-2'>
+
+                    <div className='col-md-6'>
+                        {blogPostMarkup[i]}
+                    </div>
+                    <div className='col-md-6'>
+                        {blogPostMarkup[i + 1] ? blogPostMarkup[i + 1] : null}
+                    </div>
+
                 </div>
-                <div className='col-md-6'>
-                    {blogPostMarkup[i + 1] ? blogPostMarkup[i + 1] : null}
-                </div>
-            </div>
+            </Fade>
         )
     }
     return blogPostGrid;
