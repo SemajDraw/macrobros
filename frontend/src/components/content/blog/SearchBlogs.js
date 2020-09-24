@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getSearchBlogs} from "../../../actions/blog/blog";
-import blogGridBuilder from "./blog-grid-builder/blogGridBuilder";
 import Pagination from "react-bootstrap/Pagination";
 import PaginationBar from "../../common/Pagination";
 import SideBar from "./side-bar/SideBar";
+import BlogGridBuilder from "./blog-grid-builder/BlogGridBuilder";
 
 export class SearchBlogs extends Component {
 
@@ -32,19 +32,15 @@ export class SearchBlogs extends Component {
         const {blogs} = this.props;
         return (
             <div className='mt-3 min-vh-100'>
-
                 <div className='container-fluid'>
-                    <h3 className='display-4'>Results</h3>
+                    <h3 className='display-4'>Results: {this.state.search}</h3>
                 </div>
-
                 <div className='container-fluid pt-3'>
                     {blogs === undefined || blogs.results.length === 0 ?
-
                         <p>Render a no results component in here</p> :
-
                         <div className='row'>
                             <div className='col-md-9'>
-                                {blogGridBuilder(blogs.results)}
+                                <BlogGridBuilder blogs={blogs.results}/>
                             </div>
                             <div className='col-md-3'>
                                 <SideBar history={this.props.history}/>
@@ -52,7 +48,6 @@ export class SearchBlogs extends Component {
                         </div>
                     }
                 </div>
-
                 <div className='row justify-content-center my-3'>
                     {blogs.totalItems > 2 ?
                         <Pagination><PaginationBar blogs={blogs} nextPage={this.loadPages}/></Pagination>

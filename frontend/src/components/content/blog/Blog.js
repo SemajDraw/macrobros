@@ -3,11 +3,11 @@ import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getBlogs, getFeaturedBlog} from "../../../actions/blog/blog";
-import blogGridBuilder from "./blog-grid-builder/blogGridBuilder";
 import Pagination from "react-bootstrap/Pagination";
 import PaginationBar from "../../common/Pagination";
 import SideBar from "./side-bar/SideBar";
 import Jumbotron from "react-bootstrap/Jumbotron";
+import BlogGridBuilder from "./blog-grid-builder/BlogGridBuilder";
 
 
 export class Blog extends Component {
@@ -51,19 +51,19 @@ export class Blog extends Component {
 
                 <div className='container-fluid'>
                     <Jumbotron className='d-flex flex-column justify-content-end align-items-start'>
-                         <h1 className="display-4 font-italic">{featuredBlog.title}</h1>
-                            <p className="lead my-3">{featuredBlog.excerpt}</p>
-                            <p className="lead mb-0">
-                                <Link to={`/blog/${featuredBlog.slug}`} className="font-weight-bold">Continue
-                                    reading...</Link>
-                            </p>
+                        <h1 className="display-4 font-italic">{featuredBlog.title}</h1>
+                        <p className="lead my-3">{featuredBlog.excerpt}</p>
+                        <p className="lead mb-0">
+                            <Link to={`/blog/${featuredBlog.slug}`} className="font-weight-bold">Continue
+                                reading...</Link>
+                        </p>
                     </Jumbotron>
                 </div>
 
                 <div className='container-fluid pt-3'>
                     <div className='row'>
                         <div className='col-md-9'>
-                            {blogGridBuilder(blogs.results)}
+                            <BlogGridBuilder blogs={blogs.results}/>
                         </div>
                         <div className='col-md-3'>
                             <SideBar history={this.props.history}/>

@@ -58,7 +58,7 @@ export const Footer = () => {
                 </div>
 
                 <div className='container-fluid mb-4'>
-                    <Bounce left duration={2000} cascade>
+                    <Bounce left duration={1000} cascade>
                         <div className='row d-flex align-items-center justify-content-around'>
                             <div>
                                 <Link className='icon-left footerLink' to=''>

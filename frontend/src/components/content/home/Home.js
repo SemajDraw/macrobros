@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import './Home.scss';
-import blogGridBuilder from "../blog/blog-grid-builder/blogGridBuilder";
 import Pagination from "react-bootstrap/Pagination";
 import PaginationBar from "../../common/Pagination";
 import SideBar from "../blog/side-bar/SideBar";
@@ -9,6 +8,7 @@ import {getBlogs} from "../../../actions/blog/blog";
 import {animated, useSpring} from "react-spring";
 import Bounce from 'react-reveal/Bounce';
 import Fade from "react-reveal/Fade";
+import BlogGridBuilder from "../blog/blog-grid-builder/BlogGridBuilder";
 
 export const Home = (props) => {
 
@@ -58,7 +58,7 @@ export const Home = (props) => {
             <div className='container-fluid pt-5'>
                 <div className='row'>
                     <div className='col-md-9'>
-                        {blogGridBuilder(blogs.results)}
+                        <BlogGridBuilder blogs={blogs.results}/>
                     </div>
                     <div className='col-md-3'>
                         <SideBar history={props.history}/>

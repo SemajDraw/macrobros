@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {getBlog} from "../../../actions/blog/blog";
 import Moment from "react-moment";
 import {Link} from "react-router-dom";
-import capitalizeFirstLetter from "../../../services/capitalizeFirstLetter";
+import capitalizeFirstLetter from "../../../services/formatHeader";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import SideBar from "./side-bar/SideBar";
 import TradingViewWidget from "react-tradingview-widget";
@@ -32,6 +32,7 @@ export class BlogDetails extends Component {
 
     render() {
         const {blogPost} = this.props;
+        console.log(blogPost)
         return (
             <div className='mt-3 min-vh-100'>
 
