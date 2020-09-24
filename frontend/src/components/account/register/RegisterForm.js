@@ -51,7 +51,7 @@ export class RegisterForm extends Component {
         }
         const {firstName, lastName, email, password, password2} = this.state;
         return (
-            <div className='register-card card card-body my-1'>
+            <div className='register-form card card-body p-4'>
                 <form onSubmit={this.onSubmit}>
                     <div className='form-group'>
                         <label className='mb-0'>First name</label>

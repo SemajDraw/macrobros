@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {login} from '../../../actions/auth/auth';
 import {Redirect} from 'react-router-dom';
+import './Login.scss';
 
 export class LoginForm extends Component {
 
@@ -38,7 +39,7 @@ export class LoginForm extends Component {
         }
         const {email, password} = this.state;
         return (
-            <div className='register-card card card-body my-1'>
+            <div className='login-form card card-body p-4'>
                 <form onSubmit={this.onSubmit}>
                     <div className='form-group'>
                         <label className='mb-0'>Email address</label>
