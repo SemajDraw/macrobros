@@ -26,7 +26,7 @@ export const ContactForm = ({formSubmit}) => {
     };
 
     return (
-        <div className='contact-form card card-body'>
+        <div className='contact-form card card-body p-4'>
             <Form noValidate validated={validated}
                   onSubmit={handleSubmit}>
                 <Form.Row>

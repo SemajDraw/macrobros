@@ -1,51 +1,40 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import './SideBar.scss';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSearch} from "@fortawesome/free-solid-svg-icons/faSearch";
 
-export class SearchBar extends Component {
+export const SearchBar = ({searchSubmit}) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {searchValue: ''};
+    const [searchValue, setSearchValue] = useState( '')
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    const handleSubmit = () => {
+        searchSubmit(searchValue);
     }
 
-    handleChange(event) {
-        this.setState({searchValue: event.target.value});
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.props.history.push(`/blog/search/${this.state.searchValue}`);
-    }
-
-    render() {
-        return (
-            <div className='row'>
-                <Form className='col-12' onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="searchGroup">
-                        <InputGroup className="mb-3">
-                            <Form.Control
-                                value={this.state.value}
-                                onChange={this.handleChange}
-                                placeholder="Search blogs"
-                                aria-label="Search blogs"
-                                aria-describedby="basic-addon2"
-                            />
-                            <InputGroup.Append>
-                                <Button variant="outline-secondary" id="basic-addon2" type="submit"
-                                        value="Submit">Search</Button>
-                            </InputGroup.Append>
-                        </InputGroup>
-                    </Form.Group>
-                </Form>
-            </div>
-        );
-    }
+    return (
+        <div className='row'>
+            <Form className='col-12' onSubmit={handleSubmit}>
+                <Form.Group controlId="searchGroup">
+                    <InputGroup className="mb-3">
+                        <Form.Control
+                            className='search-control'
+                            onChange={e => setSearchValue(e.target.value)}
+                            placeholder="Search blogs"
+                            aria-label="Search blogs"
+                            aria-describedby="basic-addon2"
+                        />
+                        <InputGroup.Append>
+                            <Button className='search-button' id="basic-addon2" type="submit"
+                                    value="Submit"><FontAwesomeIcon icon={faSearch}/></Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </Form.Group>
+            </Form>
+        </div>
+    );
 }
 
 export default SearchBar;

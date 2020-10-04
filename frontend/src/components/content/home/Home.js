@@ -32,7 +32,7 @@ export const Home = (props) => {
     return (
         <div className='min-vh-100'>
             <animated.div style={transition}
-                          className='jumbotron d-flex flex-column justify-content-center align-items-center'>
+                          className='home-jumbotron jumbotron d-flex flex-column justify-content-center align-items-center'>
                 <div className='d-flex flex-row'>
                     <Bounce left>
                         <div>

@@ -1,96 +1,111 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
-import {connect} from "react-redux";
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons/faAngleDown";
 import './SideBar.scss';
 import SearchBar from "./SearchBar";
 import {getPopularBlogs} from "../../../../actions/blog/blog";
+import {useSprings, animated} from "react-spring";
+import formatHeader from "../../../../services/formatHeader";
 
-export class SideBar extends Component {
+export const SideBar = (props) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {searchValue: ''};
+    const popularBlogs = useSelector(state => state.blog.popularBlogs);
+    const dispatch = useDispatch();
+    const categories = ['crypto', 'macro', 'precious-metals', 'wealth-cycles'];
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    const calc = (x, y) => [(y - window.innerHeight / 2) / 20, -(x - window.innerWidth / 2) / 20, 1.02];
+    const trans = (x, y, s) => `perspective(100px) scale(${s})`;
+    const [popularSprings, setPopular] = useSprings(popularBlogs.length, () => ({
+
+        xys: [0, 0, 1],
+        config: {mass: 5, tension: 350, friction: 40}
+    }));
+    const [categoriesSprings, setCategories] = useSprings(categories.length, () => ({
+        xys: [0, 0, 1],
+        config: {mass: 5, tension: 350, friction: 40}
+    }));
+
+    useEffect(() => {
+        dispatch(getPopularBlogs());
+    }, []);
+
+    const searchSubmit = (searchValue) => {
+        props.history.push(`/blog/search/${searchValue}`);
     }
 
-    static propTypes = {
-        popularBlogs: PropTypes.array.isRequired
-    };
-
-    componentDidMount() {
-        this.props.getPopularBlogs();
-    }
-
-    handleChange(event) {
-        this.setState({searchValue: event.target.value});
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.props.history.push(`/blog/search/${this.state.searchValue}`);
-    }
-
-    popularBlogsList(popularBlogs) {
+    const popularBlogsList = (popularBlogs) => {
         return popularBlogs.map((blogPost, i) => {
             return (
-                <li key={i} className="list-group-item text-truncate text-format">
+                <animated.li key={i}
+                             className="list-group-item text-truncate text-format"
+                             onMouseMove={({clientX: x, clientY: y}) =>
+                                 setPopular(index => {
+                                     if (index !== i) return;
+                                     return {xys: calc(x, y)};
+                                 })
+                             }
+                             onMouseLeave={() => setPopular({xys: [0, 0, 1]})}
+                             style={{
+                                 transform: popularSprings[i].xys.interpolate(trans)
+                             }}>
                     <Link to={`/blog/${blogPost.slug}`}>{blogPost.title}</Link>
-                </li>
+                </animated.li>
             );
         });
     }
 
-    render() {
-        const {popularBlogs} = this.props;
-        return (
-            <>
-                <SearchBar history={this.props.history}/>
+    const categoriesList = () => {
+        return categories.map((category, i) => {
+            return (
+                <animated.a key={i}
+                            className='list-group-item p-s text-muted text-truncate text-format'
+                            href={`/blog/category/${category}`}
+                            onMouseMove={({clientX: x, clientY: y}) =>
+                                setCategories(index => {
+                                    if (index !== i) return;
+                                    return {xys: calc(x, y)};
+                                })
+                            }
+                            onMouseLeave={() => setCategories({xys: [0, 0, 1]})}
+                            style={{
+                                transform: categoriesSprings[i].xys.interpolate(trans)
+                            }}>
+                    {formatHeader(category)}
+                </animated.a>
+            );
+        })
+    }
 
-                <div className="col-12 px-0">
-                    <div className="list-group" id="list-tab" role="tablist">
-                        <a className="categories-dropdown list-group-item list-group-item-action drop d-flex justify-content-between  my-auto align-items-center"
-                           id="list-home-list"
-                           data-toggle="collapse" href="#collapseCategories"
-                           aria-expanded="false" aria-controls="collapseCategories">
-                            Categories
-                            <FontAwesomeIcon icon={faAngleDown}/>
-                        </a>
-                        <div className="collapse" id="collapseCategories" aria-labelledby="collapseCategories">
-                            <Link
-                                className='list-group-item list-group-item-action p-s text-muted text-truncate text-format'
-                                to='/blog/category/crypto'>Crypto</Link>
-                            <Link
-                                className='list-group-item list-group-item-action p-s text-muted text-truncate text-format'
-                                to='/blog/category/macro'>Macro</Link>
-                            <Link
-                                className='list-group-item list-group-item-action p-s text-muted text-truncate text-format'
-                                to='/blog/category/precious-metals'>Precious Metals</Link>
-                            <Link
-                                className='list-group-item list-group-item-action p-s text-muted text-truncate text-format'
-                                to='/blog/category/wealth-cycles'>Wealth Cycles</Link>
-                        </div>
+    return (
+        <>
+            <SearchBar searchSubmit={searchSubmit}/>
+
+            <div className="col-12 px-0">
+                <div className="list-group list-container" id="list-tab" role="tablist">
+                    <a className="categories-dropdown-btn list-group-item list-group-item-action drop d-flex justify-content-between my-auto align-items-center"
+                       id="list-home-list"
+                       data-toggle="collapse" href="#collapseCategories"
+                       aria-expanded="false" aria-controls="collapseCategories">
+                        Categories
+                        <FontAwesomeIcon icon={faAngleDown}/>
+                    </a>
+                    <div className='collapse' id="collapseCategories" aria-labelledby="collapseCategories">
+                        {categoriesList()}
                     </div>
                 </div>
-                <div className='col-12 pl-2 mt-3'>
-                    <h4 className='text-truncate'>Popular blogs</h4>
-                </div>
-                <div className='col-12 px-0 mt-1'>
-                    <ul className="list-group list-group-flush">
-                        {this.popularBlogsList(popularBlogs)}
-                    </ul>
-                </div>
-            </>
-        );
-    }
+            </div>
+            <div className='col-12 pl-2 mt-3'>
+                <h4 className='text-truncate'>Popular blogs</h4>
+            </div>
+            <div className='list-container col-12 px-0 mt-1'>
+                <ul className="list-group list-group-flush">
+                    {popularBlogsList(popularBlogs)}
+                </ul>
+            </div>
+        </>
+    );
 }
 
-const mapStateToProps = (state) => ({
-    popularBlogs: state.blog.popularBlogs
-});
-
-export default connect(mapStateToProps, {getPopularBlogs})(SideBar);
+export default SideBar;
