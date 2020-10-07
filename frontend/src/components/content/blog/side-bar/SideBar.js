@@ -50,6 +50,7 @@ export const SideBar = (props) => {
                              style={{
                                  transform: popularSprings[i].xys.interpolate(trans)
                              }}>
+                    <img className='categories-icon mr-2' src={blogPost.icon} alt={''}/>
                     <Link to={`/blog/${blogPost.slug}`}>{blogPost.title}</Link>
                 </animated.li>
             );
@@ -78,8 +79,6 @@ export const SideBar = (props) => {
         })
     }
 
-    console.log('categories', blogCategories)
-    console.log('popblog', popularBlogs)
     return (
         <>
             <SearchBar searchSubmit={searchSubmit}/>

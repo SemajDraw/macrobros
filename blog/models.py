@@ -1,5 +1,5 @@
 from datetime import datetime
-
+import readtime
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -21,7 +21,7 @@ def upload_to(instance, filename):
 
 
 class BlogPost(models.Model):
-    title = models.CharField(verbose_name='Title', max_length=100)
+    title = models.CharField(verbose_name='Title', max_length=100, unique=True)
     project_name = models.CharField(verbose_name='Project Name', max_length=100)
     ticker = models.CharField(verbose_name='Ticker', max_length=50, blank=True)
     market_pair = models.CharField(verbose_name='Market Pair', max_length=50, blank=True)
@@ -31,28 +31,29 @@ class BlogPost(models.Model):
     header_img = models.ImageField(verbose_name='Header Img', upload_to=upload_to, blank=True)
     thumbnail = models.ImageField(verbose_name='Thumbnail Img',
                                   upload_to=upload_to,
-                                  default='/default/default-thumbnail.jpg')
+                                  default='/default/blog/default-thumbnail.jpg')
     thumbnail_alt = models.TextField(verbose_name='Tumbnail Alt')
+    icon = models.FileField(verbose_name='Icon',
+                            upload_to=upload_to,
+                            blank=True)
     excerpt = models.TextField(verbose_name='Excerpt')
     summary = models.TextField(verbose_name='Summary')
     content = models.TextField(verbose_name='Content')
     featured = models.BooleanField(verbose_name='Featured', default=False)
     popular = models.BooleanField(verbose_name='Popular', default=False)
     date_created = models.DateTimeField(verbose_name='Date Created', default=datetime.now, blank=True)
+    read_time = models.CharField(verbose_name='Read Time', max_length=200, blank=True)
 
     def save(self, *args, **kwargs):
-        original_slug = slugify(self.title)
-        queryset = BlogPost.objects.all().filter(slug__iexact=original_slug).count()
+        # Set Default Icon Based on Category
+        if not self.icon:
+            self.icon = '/default/category_icons/{}.svg'.format(self.category)
 
-        # Ensure url slugs with the same title are unique
-        count = 1
-        slug = original_slug
-        while queryset:
-            slug = original_slug + '-' + str(count)
-            count +=1
-            queryset = BlogPost.objects.all().filter(slug__iexact=slug).count()
+        # Create Blog Url Slug
+        self.slug = slugify(self.title)
 
-        self.slug = slug
+        # Calculate Read Time of Blog Post
+        self.read_time = readtime.of_text(self.summary + self.content).text
 
         # Set the featured blog post
         if self.featured:

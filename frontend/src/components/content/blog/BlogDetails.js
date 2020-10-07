@@ -32,7 +32,6 @@ export class BlogDetails extends Component {
 
     render() {
         const {blogPost} = this.props;
-        console.log(blogPost)
         return (
             <div className='mt-3 min-vh-100'>
 
@@ -47,7 +46,11 @@ export class BlogDetails extends Component {
                         <div className='col-md-9'>
                             <h1 className='display-2'>{blogPost.title}</h1>
                             <h2 className='text-muted mt-3'> Category: {capitalizeFirstLetter(blogPost.category)}</h2>
-                            <Moment format="Do MMMM YYYY">{blogPost.dateCreated}</Moment>
+                            <span className='d-flex'>
+                                <Moment className='mr-2' format="MMM D, YYYY">{blogPost.dateCreated}</Moment>
+                                &middot;
+                                <p className='ml-2'>{blogPost.readTime} read</p>
+                            </span>
                             <div className='mt-5 mb-5'
                                  dangerouslySetInnerHTML={this.renderBlogContent(blogPost.summary)}/>
                             <div className='container-fluid px-0 px-md-4 ticker-chart'>

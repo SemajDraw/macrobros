@@ -15,6 +15,7 @@ django-cors-headers = "*"
 django-summernote = "*"
 pillow = "*"
 python-dotenv = "*"
+readtime = "*"
 
 [requires]
 python_version = "3.7"
