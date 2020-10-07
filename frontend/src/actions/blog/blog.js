@@ -1,4 +1,12 @@
-import {GET_BLOG, GET_BLOGS, GET_CATEGORY_BLOGS, GET_FEATURED_BLOG, GET_POPULAR_BLOGS, SEARCH_BLOGS} from "./types";
+import {
+    GET_BLOG,
+    GET_BLOG_CATEGORIES,
+    GET_BLOGS,
+    GET_CATEGORY_BLOGS,
+    GET_FEATURED_BLOG,
+    GET_POPULAR_BLOGS,
+    SEARCH_BLOGS
+} from "./types";
 import axios from "axios";
 import {createError} from "../alerts/errors/errors";
 
@@ -9,6 +17,16 @@ export const getBlog = (slug) => (dispatch) => {
                 type: GET_BLOG,
                 payload: res.data
             })
+        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+};
+
+export const getBlogCategories = () => (dispatch) => {
+    axios.get('/api/blog/categories')
+        .then(res => {
+            dispatch({
+                type: GET_BLOG_CATEGORIES,
+                payload: res.data
+            });
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));
 };
 

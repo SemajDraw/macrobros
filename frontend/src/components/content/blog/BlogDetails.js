@@ -49,12 +49,12 @@ export class BlogDetails extends Component {
                             <h2 className='text-muted mt-3'> Category: {capitalizeFirstLetter(blogPost.category)}</h2>
                             <Moment format="Do MMMM YYYY">{blogPost.dateCreated}</Moment>
                             <div className='mt-5 mb-5'
-                                 dangerouslySetInnerHTML={this.renderBlogContent(blogPost.content)}/>
+                                 dangerouslySetInnerHTML={this.renderBlogContent(blogPost.summary)}/>
                             <div className='container-fluid px-0 px-md-4 ticker-chart'>
                                 {blogPost.slug ?
                                 <TradingViewWidget
                                     symbol={blogPost.marketPair}
-                                    defaultInterval='1d'
+                                    interval={'60'}
                                     autosize
                                 /> : null }
                             </div>

@@ -1,10 +1,11 @@
 from django.db.models import Q
-from rest_framework import permissions
+from rest_framework import permissions, status
+from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from macrobros.pagination import CustomPagination
 
 from blog.api.serializers import BlogPostSerializer
-from blog.models import BlogPost
+from blog.models import BlogPost, Categories
 
 
 class BlogPostDetailView(RetrieveAPIView):
@@ -36,6 +37,13 @@ class BlogPostListView(ListAPIView):
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny,)
     pagination_class = CustomPagination
+
+
+class BlogPostCategories(ListAPIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, *args, **kwargs):
+        return Response(Categories, status=status.HTTP_200_OK)
 
 
 class BlogPostCategoryView(ListAPIView):

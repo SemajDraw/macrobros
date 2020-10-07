@@ -15,7 +15,7 @@ class BlogPostAdmin(SummernoteModelAdmin):
     ordering = ('date_created',)
     filter_horizontal = ()
 
-    summernote_fields = ('content',)
+    summernote_fields = ('summary', 'content',)
 
 
 admin.site.register(BlogPost, BlogPostAdmin)

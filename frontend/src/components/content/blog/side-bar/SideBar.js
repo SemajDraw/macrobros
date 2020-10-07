@@ -5,30 +5,30 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown} from "@fortawesome/free-solid-svg-icons/faAngleDown";
 import './SideBar.scss';
 import SearchBar from "./SearchBar";
-import {getPopularBlogs} from "../../../../actions/blog/blog";
+import {getBlogCategories, getPopularBlogs} from "../../../../actions/blog/blog";
 import {useSprings, animated} from "react-spring";
 import formatHeader from "../../../../services/formatHeader";
 
 export const SideBar = (props) => {
 
     const popularBlogs = useSelector(state => state.blog.popularBlogs);
+    const blogCategories = useSelector(state => state.blog.blogCategories);
     const dispatch = useDispatch();
-    const categories = ['crypto', 'macro', 'precious-metals', 'wealth-cycles'];
 
     const calc = (x, y) => [(y - window.innerHeight / 2) / 20, -(x - window.innerWidth / 2) / 20, 1.02];
     const trans = (x, y, s) => `perspective(100px) scale(${s})`;
     const [popularSprings, setPopular] = useSprings(popularBlogs.length, () => ({
-
         xys: [0, 0, 1],
         config: {mass: 5, tension: 350, friction: 40}
     }));
-    const [categoriesSprings, setCategories] = useSprings(categories.length, () => ({
+    const [categoriesSprings, setCategories] = useSprings(blogCategories.length, () => ({
         xys: [0, 0, 1],
         config: {mass: 5, tension: 350, friction: 40}
     }));
 
     useEffect(() => {
         dispatch(getPopularBlogs());
+        dispatch(getBlogCategories());
     }, []);
 
     const searchSubmit = (searchValue) => {
@@ -57,7 +57,7 @@ export const SideBar = (props) => {
     }
 
     const categoriesList = () => {
-        return categories.map((category, i) => {
+        return blogCategories.map((category, i) => {
             return (
                 <animated.a key={i}
                             className='list-group-item p-s text-muted text-truncate text-format'
@@ -78,6 +78,8 @@ export const SideBar = (props) => {
         })
     }
 
+    console.log('categories', blogCategories)
+    console.log('popblog', popularBlogs)
     return (
         <>
             <SearchBar searchSubmit={searchSubmit}/>
