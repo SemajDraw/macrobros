@@ -1,9 +1,7 @@
 import uuid
-from django.db import models
+
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.db import models
 from knox.models import AuthToken
 
 
@@ -29,6 +27,7 @@ class UserManager(BaseUserManager):
         )
         user.is_staff = True
         user.save(using=self._db)
+        AuthToken.objects.create(user=user)
         return user
 
     def create_superuser(self, first_name, last_name, email, password):
@@ -42,6 +41,7 @@ class UserManager(BaseUserManager):
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
+        AuthToken.objects.create(user=user)
         return user
 
     @staticmethod
@@ -58,6 +58,7 @@ class User(AbstractBaseUser):
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+    is_verified = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -79,8 +80,7 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
-
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        AuthToken.objects.create(user=instance)
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def create_auth_token(sender, instance=None, created=False, **kwargs):
+#     if created:
+#         AuthToken.objects.create(user=instance)

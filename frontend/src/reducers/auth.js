@@ -5,7 +5,8 @@ import {
     LOGIN_FAIL,
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
-    REGISTER_SUCCESS, REGISTER_FAIL
+    REGISTER_SUCCESS,
+    REGISTER_FAIL
 } from '../actions/auth/types';
 
 const initialState = {
@@ -30,12 +31,18 @@ export default function (state = initialState, action) {
                 isLoading: false,
             };
         case LOGIN_SUCCESS:
-        case REGISTER_SUCCESS:
             localStorage.setItem('token', action.payload.token);
             return {
                 ...state,
                 ...action.payload,
                 isAuthenticated: true,
+                isLoading: false
+            };
+        case REGISTER_SUCCESS:
+            return {
+                ...state,
+                ...action.payload,
+                isAuthenticated: false,
                 isLoading: false
             };
         case AUTH_ERROR:

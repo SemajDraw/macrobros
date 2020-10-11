@@ -3,8 +3,9 @@ import auth from './auth';
 import errors from './errors';
 import messages from './messages';
 import blog from './blog';
-import termsConditions from "./termsConditions";
-import contact from "./contact";
+import termsConditions from './termsConditions';
+import contact from './contact';
+import email from './email'
 
 export default combineReducers({
     auth,
@@ -12,5 +13,6 @@ export default combineReducers({
     contact,
     errors,
     messages,
+    email,
     termsConditions
 });

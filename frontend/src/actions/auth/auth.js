@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {createError} from '../alerts/errors/errors'
+import {createMessage} from "../alerts/messages/messages";
 
 import {
     AUTH_ERROR,
@@ -11,7 +12,6 @@ import {
     USER_LOADED,
     USER_LOADING
 } from './types';
-
 
 export const loadUser = () => (dispatch, getState) => {
     // Initialize User Load
@@ -29,7 +29,7 @@ export const loadUser = () => (dispatch, getState) => {
     });
 };
 
-export const login = (email, password) => dispatch => {
+export const login = (email, password) => (dispatch) => {
     // Set headers
     const config = {
         headers: {
