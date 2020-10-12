@@ -43,6 +43,7 @@ class BlogPost(models.Model):
     popular = models.BooleanField(verbose_name='Popular', default=False)
     date_created = models.DateTimeField(verbose_name='Date Created', default=datetime.now, blank=True)
     read_time = models.CharField(verbose_name='Read Time', max_length=200, blank=True)
+    claps = models.IntegerField(verbose_name='Claps', blank=True, default=0)
 
     def save(self, *args, **kwargs):
         # Set Default Icon Based on Category

@@ -1,7 +1,8 @@
 import {
+    CLAP_BLOG,
     GET_BLOG, GET_BLOG_CATEGORIES,
     GET_BLOGS,
-    GET_CATEGORY_BLOGS,
+    GET_CATEGORY_BLOGS, GET_CLAPPED_BLOGS,
     GET_FEATURED_BLOG,
     GET_POPULAR_BLOGS,
     SEARCH_BLOGS
@@ -15,7 +16,9 @@ const initialState = {
     popularBlogs: [],
     blogs: new PaginatedBlog(),
     categoryBlogs: new PaginatedBlog(),
-    searchBlogs: new PaginatedBlog()
+    searchBlogs: new PaginatedBlog(),
+    blogClapped: '',
+    clappedBlogs: new PaginatedBlog()
 };
 
 export default function (state = initialState, action) {
@@ -24,6 +27,16 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 blog: action.payload
+            };
+        case CLAP_BLOG:
+            return {
+                ...state,
+                blogClapped: action.payload
+            }
+        case GET_CLAPPED_BLOGS:
+            return {
+                ...state,
+                clappedBlogs: action.payload
             };
         case GET_BLOG_CATEGORIES:
             return {

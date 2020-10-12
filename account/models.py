@@ -1,6 +1,7 @@
 import uuid
 
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from knox.models import AuthToken
 
@@ -55,6 +56,8 @@ class User(AbstractBaseUser):
     first_name = models.CharField(verbose_name='First Name', max_length=100, blank=False, null=False)
     last_name = models.CharField(verbose_name='Last Name', max_length=100, blank=False, null=False)
     email = models.EmailField(verbose_name='Email Address', max_length=255, unique=True, blank=False, null=False)
+    clapped_blogs = ArrayField(models.IntegerField(verbose_name='Clapped Blogs', blank=True, null=True, unique=True),
+                               blank=True, default=list)
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

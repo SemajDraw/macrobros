@@ -40,6 +40,7 @@ export const NavBar = () => {
             </a>
             <div className='dropdown-menu py-0 navbar-dropdown dropdown-menu-right' aria-labelledby='navbarDropdown'>
                 <h6 className="dropdown-header pt-3">Hi {user ? user.firstName : ''}!</h6>
+                <Link className='navBarLink dropdown-link py-2 dropdown-item' to='/profile'>Profile</Link>
                 <a onClick={() => dispatch(logout())} style={{cursor: 'pointer'}}
                    className='navBarLink dropdown-link py-2 dropdown-item'>Logout</a>
             </div>

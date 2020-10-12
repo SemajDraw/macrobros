@@ -6,7 +6,7 @@ from blog.models import BlogPost
 
 class BlogPostAdmin(SummernoteModelAdmin):
     exclude = ('slug',)
-    list_display = ('id', 'title', 'category', 'date_created')
+    list_display = ('id', 'title', 'category', 'claps', 'date_created')
     list_display_links = ('id', 'title')
     list_filter = ('category', 'date_created')
 

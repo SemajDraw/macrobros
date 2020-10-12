@@ -15,6 +15,8 @@ import Footer from "./layout/footer/Footer";
 import Contact from "./content/contact/Contact";
 import TermsService from "./content/terms-service/TermsService";
 import PrivacyPolicy from "./content/privacy-policy/PrivacyPolicy";
+import {Profile} from "./account/profile/Profile";
+import PrivateRoute from "./common/PrivateRoute";
 
 class AppRouter extends Component {
     render() {
@@ -34,6 +36,7 @@ class AppRouter extends Component {
                         {/*Account Routes*/}
                         <Route exact path='/login' component={Login}/>
                         <Route exact path='/register' component={Register}/>
+                        <PrivateRoute exact path='/profile' component={Profile}/>
                         <Route exact path='/verify-email/:token' component={EmailVerification}/>
 
                         {/*Footer Routes*/}

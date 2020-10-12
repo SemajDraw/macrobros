@@ -36,7 +36,7 @@ export const BlogGridBuilder = ({blogs}) => {
                     </strong>
                     <h3 className="card-title title mb-0 text-dark">{blogPost.title}</h3>
                     <div className="mb-1 text-muted">
-                        <Moment format="Do MMMM YYYY">{blogPost.dateCreated}</Moment>
+                        <Moment format="MMM D, YYYY">{blogPost.dateCreated}</Moment>
                     </div>
                     <p className="excerpt card-text mb-3">{blogPost.excerpt}</p>
                     <Link className='text-truncate stretched-link' to={`/blog/${blogPost.slug}`}>Continue

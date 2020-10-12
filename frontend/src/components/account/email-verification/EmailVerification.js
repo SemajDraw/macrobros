@@ -2,14 +2,12 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {verifyEmail} from "../../../actions/email/email";
 import {Link} from "react-router-dom";
-import LoginForm from "../login/LoginForm";
 
 export const EmailVerification = (props) => {
 
     const dispatch = useDispatch();
     const emailVerification = useSelector(state => state.email.emailVerification);
 
-    console.log('url token', props.match.params.token);
     useEffect(() => {
         dispatch(verifyEmail(props.match.params.token));
     }, []);

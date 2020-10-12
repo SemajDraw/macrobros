@@ -1,10 +1,13 @@
 from knox.models import AuthToken
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView
 
+from macrobros.pagination import CustomPagination
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
-from ..models import User
 from ..account_email import ConfirmationEmail
+from blog.models import BlogPost
+from blog.api.serializers import BlogPostSerializer
 
 
 class Register(generics.GenericAPIView):
@@ -75,3 +78,15 @@ class GetUser(generics.GenericAPIView):
         return Response({
             'user': UserSerializer(self.request.user, context=self.get_serializer_context()).data
         }, status=status.HTTP_200_OK)
+
+
+class GetClappedBlogs(ListAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = BlogPostSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        user = self.request.user
+        clapped_blogs = user.clapped_blogs
+        blogs = BlogPost.objects.filter(id__in=clapped_blogs)
+        return blogs

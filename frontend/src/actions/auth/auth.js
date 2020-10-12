@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {createError} from '../alerts/errors/errors'
-import {createMessage} from "../alerts/messages/messages";
+import {tokenAuthHeaders} from "../authHeaders";
 
 import {
     AUTH_ERROR,
@@ -17,7 +17,7 @@ export const loadUser = () => (dispatch, getState) => {
     // Initialize User Load
     dispatch({type: USER_LOADING});
 
-    axios.get('/api/account/auth/user', tokenAuthConfig(getState))
+    axios.get('/api/account/auth/user', tokenAuthHeaders(getState().auth.token))
         .then(res => {
             dispatch({
                 type: USER_LOADED,
@@ -50,7 +50,7 @@ export const login = (email, password) => (dispatch) => {
 };
 
 export const logout = () => (dispatch, getState) => {
-    axios.post('/api/account/auth/logout', null, tokenAuthConfig(getState))
+    axios.post('/api/account/auth/logout', null, tokenAuthHeaders(getState().auth.token))
         .then(res => {
             dispatch({
                 type: LOGOUT_SUCCESS
@@ -78,20 +78,4 @@ export const register = (registerObj) => dispatch => {
         dispatch(createError(err.response.data, err.response.status));
         dispatch({type: REGISTER_FAIL});
     });
-};
-
-export const tokenAuthConfig = (getState) => {
-    // Get token from state
-    const token = getState().auth.token;
-    // Set headers
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-    // If token, add to Authorization navbar
-    if (token) {
-        config.headers['Authorization'] = `Token ${token}`;
-    }
-    return config;
 };
