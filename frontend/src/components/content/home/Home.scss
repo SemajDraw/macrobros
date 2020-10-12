@@ -1,0 +1,75 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+.featured-heading {
+  border-radius: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.home-jumbotron {
+  background-size: 100% 100%;
+  border-radius: 0;
+  min-height: 60vh;
+  position: relative;
+  background: radial-gradient(#2c5364 10%, #203a43 60%, #0f2027);
+  color: white;
+}
+
+.home-jumbotron img {
+  width: auto;
+  height: auto;
+}
+
+.home-jumbotron h1 {
+  font-weight: 800;
+  font-size: 3em;
+}
+
+.jumbotron-link {
+  color: #baffc9;
+  font-size: 16px;
+}
+
+.jumbotron-link:hover {
+  color: #ffae00 !important;
+  text-decoration: none;
+}
+
+
+@include media-breakpoint-up(lg) {
+  .container-fluid {
+    padding-left: 10em;
+    padding-right: 10em;
+  }
+
+  .home-jumbotron h1 {
+    font-weight: 800;
+    font-size: 5em;
+  }
+}
+
+@include media-breakpoint-between(md, lg) {
+  .container-fluid {
+    padding-left: 5em;
+    padding-right: 5em;
+  }
+
+  .home-jumbotron h1 {
+    font-weight: 800;
+    font-size: 5em;
+  }
+}
+
+@include media-breakpoint-between(sm, md) {
+  .container-fluid {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+
+  .home-jumbotron h1 {
+    font-weight: 800;
+    font-size: 5em;
+  }
+}

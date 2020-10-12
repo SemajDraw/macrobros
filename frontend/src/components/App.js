@@ -1,8 +1,8 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import AppRouter from "./App.Routes";
 
-import {Provider as AlertProvider, positions} from 'react-alert';
+import {positions, Provider as AlertProvider} from 'react-alert';
 import AlertMUITemplate from 'react-alert-template-mui';
 
 import {Provider} from 'react-redux';

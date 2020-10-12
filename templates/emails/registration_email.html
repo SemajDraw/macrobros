@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .button {
+            display: block;
+            width: 115px;
+            height: 25px;
+            background: #203a43;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            line-height: 25px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body style="height: 100%; width: 100%;">
+<div style="height: 100%; width: 100%; text-align: center">
+    <div>
+        <h1>Hi {{ name }}</h1>
+        <h1>Thank you for registering with MacrBros</h1>
+        <h4>Please click the button below to activate your account</h4>
+        <div class="content">
+            <a href="{{ verification_link }}" class="button" type="button">Verify Email</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

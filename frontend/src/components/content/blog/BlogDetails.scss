@@ -1,0 +1,23 @@
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/mixins/_breakpoints.scss";
+
+.ticker-chart {
+  height: calc(50vh);
+}
+
+.blog-details {
+  width: 100%;
+}
+
+@include media-breakpoint-up(md) {
+  .ticker-chart {
+    height: calc(50vh);
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .ticker-chart {
+    height: calc(70vh);
+  }
+}

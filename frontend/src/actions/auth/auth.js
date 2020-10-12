@@ -1,23 +1,23 @@
 import axios from 'axios';
 import {createError} from '../alerts/errors/errors'
+import {tokenAuthHeaders} from "../authHeaders";
 
 import {
-    USER_LOADED,
-    USER_LOADING,
     AUTH_ERROR,
-    LOGIN_SUCCESS,
     LOGIN_FAIL,
+    LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
     REGISTER_FAIL,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS,
+    USER_LOADED,
+    USER_LOADING
 } from './types';
-
 
 export const loadUser = () => (dispatch, getState) => {
     // Initialize User Load
     dispatch({type: USER_LOADING});
 
-    axios.get('/api/account/auth/user', tokenAuthConfig(getState))
+    axios.get('/api/account/auth/user', tokenAuthHeaders(getState().auth.token))
         .then(res => {
             dispatch({
                 type: USER_LOADED,
@@ -29,8 +29,7 @@ export const loadUser = () => (dispatch, getState) => {
     });
 };
 
-export const login = (email, password) => dispatch => {
-
+export const login = (email, password) => (dispatch) => {
     // Set headers
     const config = {
         headers: {
@@ -51,7 +50,7 @@ export const login = (email, password) => dispatch => {
 };
 
 export const logout = () => (dispatch, getState) => {
-    axios.post('/api/account/auth/logout', null, tokenAuthConfig(getState))
+    axios.post('/api/account/auth/logout', null, tokenAuthHeaders(getState().auth.token))
         .then(res => {
             dispatch({
                 type: LOGOUT_SUCCESS
@@ -62,7 +61,6 @@ export const logout = () => (dispatch, getState) => {
 };
 
 export const register = (registerObj) => dispatch => {
-
     // Set headers
     const config = {
         headers: {
@@ -80,20 +78,4 @@ export const register = (registerObj) => dispatch => {
         dispatch(createError(err.response.data, err.response.status));
         dispatch({type: REGISTER_FAIL});
     });
-};
-
-export const tokenAuthConfig = (getState) => {
-    // Get token from state
-    const token = getState().auth.token;
-    // Set headers
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-    // If token, add to Authorization header
-    if (token) {
-        config.headers['Authorization'] = `Token ${token}`;
-    }
-    return config;
 };
