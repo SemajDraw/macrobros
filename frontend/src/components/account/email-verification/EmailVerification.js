@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {verifyEmail} from "../../../actions/email/email";
 import {Link} from "react-router-dom";
+import {verifyEmail} from "../../../actions/account/account";
 
 export const EmailVerification = (props) => {
 

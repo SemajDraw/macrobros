@@ -5,14 +5,14 @@ import messages from './messages';
 import blog from './blog';
 import termsConditions from './termsConditions';
 import contact from './contact';
-import email from './email'
+import account from "./account";
 
 export default combineReducers({
+    account,
     auth,
     blog,
     contact,
     errors,
     messages,
-    email,
     termsConditions
 });
