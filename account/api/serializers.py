@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from account.models import User
 from django.contrib.auth import authenticate
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -50,3 +51,33 @@ class LoginSerializer(serializers.Serializer):
         if user and user.is_active:
             return user
         raise serializers.ValidationError('Incorrect credentials')
+
+
+class PasswordResetRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField(min_length=2)
+
+    class Meta:
+        fields = ['email']
+
+    def validate(self, attrs):
+        email = attrs.get('email', '')
+        return User.objects.get(email=email)
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    token = serializers.CharField(min_length=2)
+    password = serializers.CharField(min_length=2, write_only=True)
+    password1 = serializers.CharField(min_length=2, write_only=True)
+
+    class Meta:
+        fields = ['token', 'password', 'password1']
+
+    def validate(self, attrs):
+        try:
+            password = self.context['request'].data['password']
+            password1 = self.context['request'].data['password1']
+            token = self.context['request'].data['token']
+            if PasswordResetTokenGenerator().check_token(self.context['request'].user, token) and (password == password1):
+                return True
+        except Exception as e:
+            return e

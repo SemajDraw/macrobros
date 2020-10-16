@@ -43,6 +43,7 @@
     "node-sass": "^4.14.1",
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
+    "query-string": "^6.13.5",
     "react": "^16.13.1",
     "react-alert": "^7.0.1",
     "react-alert-template-mui": "^1.0.4",

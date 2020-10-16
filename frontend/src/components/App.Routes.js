@@ -17,6 +17,7 @@ import TermsService from "./content/terms-service/TermsService";
 import PrivacyPolicy from "./content/privacy-policy/PrivacyPolicy";
 import {Profile} from "./account/profile/Profile";
 import PrivateRoute from "./common/PrivateRoute";
+import PasswordReset from "./account/password-reset/PasswordReset";
 
 class AppRouter extends Component {
     render() {
@@ -38,6 +39,7 @@ class AppRouter extends Component {
                         <Route exact path='/register' component={Register}/>
                         <PrivateRoute exact path='/profile' component={Profile}/>
                         <Route exact path='/verify-email/:token' component={EmailVerification}/>
+                        <Route exact path='/password-reset' component={PasswordReset}/>
 
                         {/*Footer Routes*/}
                         <Route exact path='/contact' component={Contact}/>

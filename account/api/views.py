@@ -1,13 +1,19 @@
 from knox.models import AuthToken
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 
 from macrobros.pagination import CustomPagination
-from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
-from ..account_email import ConfirmationEmail
+from .serializers import (RegisterSerializer,
+                          LoginSerializer,
+                          UserSerializer,
+                          PasswordResetRequestSerializer,
+                          PasswordResetSerializer)
+from ..account_email import ConfirmationEmail, PasswordResetEmail
 from blog.models import BlogPost
 from blog.api.serializers import BlogPostSerializer
+from ..models import User
 
 
 class Register(generics.GenericAPIView):
@@ -69,6 +75,49 @@ class VerifyEmail(generics.GenericAPIView):
                 'emailVerified': False,
                 'message': ['Verification link has expired!', 'Please register again']
             }, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class PasswordResetRequest(generics.GenericAPIView):
+    serializer_class = PasswordResetRequestSerializer
+
+    def post(self, request, *args, **kwargs):
+        try:
+            serializer = self.serializer_class(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = User.objects.get(email=request.data['email'])
+            PasswordResetEmail.send_password_reset_email(request,
+                                                         user.first_name,
+                                                         AuthToken.objects.create(user)[1],
+                                                         PasswordResetTokenGenerator().make_token(user))
+            return Response(
+                {'passwordReset': 'Please check your email to reset your password'},
+                status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response(
+                {'passwordReset': 'Please check your email to reset your password'},
+                status=status.HTTP_200_OK
+            )
+
+
+class PasswordReset(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = PasswordResetSerializer
+
+    def post(self, request, *args, **kwargs):
+        try:
+            serializer = self.serializer_class(data=request.data, context={'request': self.request})
+            serializer.is_valid(raise_exception=True)
+            user = self.request.user
+            user.set_password(request.data['password'])
+            user.save()
+            return Response({
+                'passwordReset': ['Your password has already been reset', 'Please try and login']
+            }, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({
+                'passwordReset': ['Your password has already been reset', 'Please try and login']
+            }, status=status.HTTP_200_OK)
 
 
 class GetUser(generics.GenericAPIView):

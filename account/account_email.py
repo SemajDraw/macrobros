@@ -19,6 +19,24 @@ class ConfirmationEmail:
         )
 
 
+class PasswordResetEmail:
+
+    @staticmethod
+    def send_password_reset_email(request, first_name, auth_token, password_reset_token):
+        context = {
+            'name': first_name,
+            'password_reset_link': 'http://{}/{}?user={}&token={}'.format(get_current_site(request).domain,
+                                                                          'password-reset', auth_token,
+                                                                          password_reset_token)
+        }
+        send_html_email(
+            [request.data['email']],
+            'Password reset for MacroBros',
+            'emails/password_reset_email.html',
+            context
+        )
+
+
 def send_html_email(to_list, subject, template_name, context):
     email_html = render_to_string(template_name, context)
     email = EmailMessage(subject=subject, body=email_html, to=to_list)
