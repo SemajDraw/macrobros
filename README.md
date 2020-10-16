@@ -1,2 +1,2 @@
-# guitar-lessons
-React and Django web application for the www.guitarlessons.co website
+# MacroBros
+The website code repository for www.macrobros.com
