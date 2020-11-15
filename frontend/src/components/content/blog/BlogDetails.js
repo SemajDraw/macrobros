@@ -1,14 +1,13 @@
 import React, {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {clapBlog, getBlog} from "../../../actions/blog/blog";
+import {getBlog} from "../../../actions/blog/blog";
 import Moment from "react-moment";
 import {Link} from "react-router-dom";
 import capitalizeFirstLetter from "../../../services/formatHeader";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import TradingViewWidget from "react-tradingview-widget";
-import ClapButton from 'react-clap-button';
-import StickyBox from 'react-sticky-box';
 import './BlogDetails.scss';
+import ActivityBar from "./activity-bar/ActivityBar";
 
 export const BlogDetails = (props) => {
 
@@ -16,7 +15,6 @@ export const BlogDetails = (props) => {
     const dispatch = useDispatch();
     const sideBarRef = useRef(null);
     const sideBarHeight = sideBarRef.current !== null ? sideBarRef.current.nodeHeight : 0;
-    let clapCount = blogPost.claps;
 
     useEffect(() => {
         dispatch(getBlog(props.match.params.slug))
@@ -26,14 +24,8 @@ export const BlogDetails = (props) => {
         return {__html: content};
     }
 
-    const onCountChange = ({count, countTotal}) => {
-        clapCount += countTotal;
-        dispatch(clapBlog(blogPost.id))
-    };
-
     return (
         <div className='mt-3 min-vh-100'>
-
             <div className='container mt-5 mb-3'>
                 <div className='row justify-content-center'>
                     <div className='col-lg-8 col-10 col-sm-12'>
@@ -45,17 +37,7 @@ export const BlogDetails = (props) => {
             </div>
 
             <div className='container'>
-                <StickyBox style={{marginTop: '10px'}} ref={sideBarRef} id='side-bar' offsetTop={150} offsetBottom={100}>
-                    <div>
-                        <ClapButton
-                            count={0}
-                            countTotal={clapCount}
-                            maxCount={1}
-                            isClicked={false}
-                            onCountChange={onCountChange}
-                        />
-                    </div>
-                </StickyBox>
+                <ActivityBar ref={sideBarRef} offsetTop={150} blogPost={blogPost}/>
                 <div style={{marginTop: `-${sideBarHeight + 30}px`}}
                      className='row justify-content-center'>
                     <div className='col-lg-8 col-10 col-sm-12'>

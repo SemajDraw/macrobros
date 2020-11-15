@@ -3,16 +3,16 @@ import {useDispatch, useSelector} from "react-redux";
 import './Profile.scss';
 import {UserSvg} from "./UserSvg";
 import ClappedBlogs from "./clapped-blogs/ClappedBlogs";
-import {getClappedBlogs} from "../../../actions/blog/blog";
+import {getSavedBlogs} from "../../../actions/account/account";
 
 export const Profile = (props) => {
 
     const user = useSelector(state => state.auth.user);
-    const clappedBlogs = useSelector(state => state.blog.clappedBlogs)
+    const clappedBlogs = useSelector(state => state.account.savedBlogs)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getClappedBlogs());
+        dispatch(getSavedBlogs());
     }, []);
 
     const capitalizeInitials = (names) => {
@@ -33,7 +33,7 @@ export const Profile = (props) => {
                 <div className='col-10 col-lg-8 mt-2 user-claps'>
                     <div className='row my-3'>
                         <div>
-                            <h4>Claps from {capitalizeInitials([user.firstName, user.lastName])}</h4>
+                            <h4>Blogs saved by {capitalizeInitials([user.firstName, user.lastName])}</h4>
                         </div>
                     </div>
                     <div className='mb-5'>

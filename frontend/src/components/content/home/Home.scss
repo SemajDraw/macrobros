@@ -10,10 +10,10 @@
 
 .home-jumbotron {
   background-size: 100% 100%;
-  border-radius: 0;
+  border-radius: 0 0 30px 30px;
   min-height: 60vh;
   position: relative;
-  background: radial-gradient(#2c5364 10%, #203a43 60%, #0f2027);
+  background: linear-gradient(#471c71, #FFAF7B);
   color: white;
 }
 
@@ -71,5 +71,24 @@
   .home-jumbotron h1 {
     font-weight: 800;
     font-size: 5em;
+  }
+}
+
+.logo-container {
+  height: 30vh;
+  width: 30vh;
+}
+
+.logo-row {
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
   }
 }

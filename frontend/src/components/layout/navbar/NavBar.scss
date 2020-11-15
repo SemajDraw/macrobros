@@ -9,7 +9,7 @@
   background: #191919;
   border: 0;
   border-radius: 0;
-  box-shadow: 0 10px 10px -2px rgba(0,0,0,.2);
+  box-shadow: 0 10px 10px -2px rgba(0, 0, 0, .2);
 }
 
 .user-name {
@@ -17,7 +17,7 @@
   font-size: 16px;
 }
 
-.navBarLink {
+.nav-bar-link {
   color: white !important;
   font-size: 16px;
 }
@@ -34,7 +34,7 @@
   color: #9b9b9b;
 }
 
-.navBarLink:hover {
+.nav-bar-link:hover {
   color: #ffae00 !important;
   text-decoration: none;
 }
@@ -70,7 +70,6 @@
   text-align: center;
 }
 
-
 .nav-container {
   display: flex;
 }
@@ -105,5 +104,17 @@
 @include media-breakpoint-down(sm) {
   .user-dropdown {
     display: block;
+  }
+}
+
+.svg-container {
+  height: 35px;
+  width: 35px;
+}
+
+@include media-breakpoint-up(sm) {
+  .svg-container {
+    height: 45px;
+    width: 45px;
   }
 }

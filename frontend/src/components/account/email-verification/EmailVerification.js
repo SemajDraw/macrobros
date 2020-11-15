@@ -6,7 +6,7 @@ import {verifyEmail} from "../../../actions/account/account";
 export const EmailVerification = (props) => {
 
     const dispatch = useDispatch();
-    const emailVerification = useSelector(state => state.email.emailVerification);
+    const emailVerification = useSelector(state => state.account.emailVerification);
 
     useEffect(() => {
         dispatch(verifyEmail(props.match.params.token));

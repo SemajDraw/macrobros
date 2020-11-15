@@ -1,0 +1,42 @@
+$icon-height: 50px;
+$icon-width: 50px;
+$icon-half-width: 25px;
+$icon-color: #0fc4be;
+
+.btn-circle {
+  height: $icon-height;
+  width: $icon-width;
+  padding: 6px 0;
+  border-radius: 50%;
+  font-size: $icon-half-width;
+  text-align: center;
+  border: 1px solid $icon-color;
+}
+
+.btn-circle:hover {
+  cursor: pointer;
+  box-shadow: 0 0 15px -5px $icon-color;
+}
+
+.clap--icon {
+  width: $icon-half-width !important;
+}
+
+.clap {
+  height: $icon-height !important;
+  width: $icon-width !important;
+}
+
+.clap--count {
+  left: 10px !important;
+}
+
+.clap--count-total {
+  width: $icon-width !important;
+}
+
+.clap:after {
+  height: $icon-height !important;
+  width: $icon-width !important;
+}
+

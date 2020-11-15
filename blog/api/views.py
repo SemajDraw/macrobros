@@ -85,7 +85,6 @@ class SearchBlogPosts(ListAPIView):
 
 
 class AddClapView(generics.UpdateAPIView):
-    permission_classes = [permissions.IsAuthenticated, ]
 
     def put(self, request, *args, **kwargs):
         blog_id = self.request.data['blog_id']
@@ -93,12 +92,4 @@ class AddClapView(generics.UpdateAPIView):
         blog = BlogPost.objects.get(id=blog_id)
         blog.claps += 1
         blog.save()
-
-        # Update User
-        user = self.request.user
-        if blog_id not in user.clapped_blogs:
-            user.clapped_blogs.append(blog_id)
-        user.save()
         return Response({'blog_clapped': 'Blog clapped'}, status=status.HTTP_200_OK)
-
-

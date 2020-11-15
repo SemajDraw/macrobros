@@ -9,6 +9,7 @@ import {animated, useSpring} from "react-spring";
 import Bounce from 'react-reveal/Bounce';
 import Fade from "react-reveal/Fade";
 import BlogGridBuilder from "../blog/blog-grid-builder/BlogGridBuilder";
+import {MacroBrosIcon} from "../../common/MacroBrosIcon";
 
 export const Home = (props) => {
 
@@ -33,6 +34,14 @@ export const Home = (props) => {
         <div className='min-vh-100'>
             <animated.div style={transition}
                           className='home-jumbotron jumbotron d-flex flex-column justify-content-center align-items-center'>
+                <div style={{animation: `spin ${2000}ms linear`}}
+                     className='d-flex flex-row justify-content-center logo-row'>
+                    <Bounce delay={500} top>
+                        <div className='logo-container'>
+                            <MacroBrosIcon/>
+                        </div>
+                    </Bounce>
+                </div>
                 <div className='d-flex flex-row'>
                     <Bounce left>
                         <div>

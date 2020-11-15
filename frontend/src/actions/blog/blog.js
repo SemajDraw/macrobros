@@ -6,13 +6,10 @@ import {
     GET_CATEGORY_BLOGS,
     GET_FEATURED_BLOG,
     GET_POPULAR_BLOGS,
-    GET_CLAPPED_BLOGS,
     SEARCH_BLOGS
 } from "./types";
 import axios from "axios";
 import {createError} from "../alerts/errors/errors";
-import {tokenAuthHeaders} from "../authHeaders";
-import {AUTH_ERROR} from "../auth/types";
 
 export const getBlog = (slug) => (dispatch) => {
     axios.get(`/api/blog/${slug}`)
@@ -94,27 +91,12 @@ export const getSearchBlogs = (search, pageNumber) => (dispatch) => {
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));
 };
 
-export const clapBlog = (blogId) => (dispatch, getState) => {
-    axios.put('/api/blog/add-clap',
-        {blogId: blogId},
-        tokenAuthHeaders(getState().auth.token))
+export const clapBlog = (blogId) => (dispatch) => {
+    axios.put('/api/blog/add-clap', {blogId: blogId})
         .then(res => {
             dispatch({
                 type: CLAP_BLOG,
                 payload: res.data
             })
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));
-};
-
-export const getClappedBlogs = () => (dispatch, getState) => {
-    axios.get('/api/account/clapped-blogs', tokenAuthHeaders(getState().auth.token))
-        .then(res => {
-            dispatch({
-                type: GET_CLAPPED_BLOGS,
-                payload: res.data
-            });
-        }).catch(err => {
-        dispatch(createError(err.response.data, err.response.status));
-        dispatch({type: AUTH_ERROR});
-    });
 };

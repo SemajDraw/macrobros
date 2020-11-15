@@ -1,11 +1,14 @@
-import {EMAIL_VERIFICATION, PASSWORD_RESET} from "../actions/account/types";
+import {EMAIL_VERIFICATION, PASSWORD_RESET, GET_SAVED_BLOGS, SAVE_BLOG} from "../actions/account/types";
+import PaginatedBlog from "../actions/blog/PaginatedBlog";
 
 const initialState = {
     emailVerification: {
         emailVerified: false,
         message: []
     },
-    passwordReset: null
+    passwordReset: null,
+    savedBlogs: new PaginatedBlog(),
+    saveBlog: ''
 };
 
 export default function (state = initialState, action) {
@@ -19,6 +22,16 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 passwordReset: action.payload
+            }
+        case GET_SAVED_BLOGS:
+            return {
+                ...state,
+                savedBlogs: action.payload
+            };
+        case SAVE_BLOG:
+            return {
+                ...state,
+                saveBlog: action.payload
             }
         default:
             return state

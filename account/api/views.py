@@ -129,13 +129,26 @@ class GetUser(generics.GenericAPIView):
         }, status=status.HTTP_200_OK)
 
 
-class GetClappedBlogs(ListAPIView):
+class GetSavedBlogs(ListAPIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = BlogPostSerializer
     pagination_class = CustomPagination
 
     def get_queryset(self):
         user = self.request.user
-        clapped_blogs = user.clapped_blogs
-        blogs = BlogPost.objects.filter(id__in=clapped_blogs)
+        saved_blogs = user.saved_blogs
+        blogs = BlogPost.objects.filter(id__in=saved_blogs)
         return blogs
+
+
+class SaveBlogView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def put(self, request, *args, **kwargs):
+        blog_id = self.request.data['blog_id']
+        # Update User
+        user = self.request.user
+        if blog_id not in user.saved_blogs:
+            user.saved_blogs.append(blog_id)
+        user.save()
+        return Response({'blog_saved': 'Saved'}, status=status.HTTP_200_OK)
