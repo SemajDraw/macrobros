@@ -1,119 +1,151 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux'
-import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
 import {register} from '../../../actions/auth/auth';
-import {createError} from "../../../actions/alerts/errors/errors";
 import {Redirect} from "react-router-dom";
+import {Button, Col, Form} from 'react-bootstrap';
+import {useDispatch, useSelector} from "react-redux";
 
-export class RegisterForm extends Component {
+export const RegisterForm = () => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            password2: ''
-        }
-    };
-
-    static propTypes = {
-        isAuthenticated: PropTypes.bool.isRequired,
-        register: PropTypes.func.isRequired,
-        createError: PropTypes.func
-    };
-
-    onChange = e => this.setState({
-        [e.target.name]: e.target.value
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const [validated, setValidated] = useState(false);
+    const [form, setFormState] = useState({
+        firstName: {value: '', isInvalid: false},
+        lastName: {value: '', isInvalid: false},
+        email: {value: '', isInvalid: false},
+        password: {value: '', isInvalid: false},
+        password2: {value: '', isInvalid: false}
     });
 
-    onSubmit = e => {
-        e.preventDefault();
-        const {password, password2} = this.state;
-        if (password !== password2) {
-            this.props.createError({passwordsNotMatch: 'Password and Confirm password must match.'});
-        } else {
-            this.props.register(this.state);
-            this.setState({
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                password2: ''
-            });
-        }
-    };
-
-    render() {
-        if (this.props.isAuthenticated) {
+    useEffect(() => {
+        if (isAuthenticated) {
             return <Redirect to='/'/>;
         }
-        const {firstName, lastName, email, password, password2} = this.state;
-        return (
-            <div className='register-form card card-body p-4'>
-                <form onSubmit={this.onSubmit}>
-                    <div className='form-group'>
-                        <label className='mb-0'>First name</label>
-                        <input
-                            className='form-control'
-                            type='text'
-                            name='firstName'
-                            onChange={this.onChange}
-                            value={firstName}
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label className='mb-0'>Last name</label>
-                        <input
-                            className='form-control'
-                            type='text'
-                            name='lastName'
-                            onChange={this.onChange}
-                            value={lastName}
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label className='mb-0'>Email address</label>
-                        <input
-                            className='form-control'
-                            type='email'
-                            name='email'
-                            onChange={this.onChange}
-                            value={email}
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label className='mb-0'>Password</label>
-                        <input
-                            className='form-control'
-                            type='password'
-                            name='password'
-                            onChange={this.onChange}
-                            value={password}
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label className='mb-0'>Confirm password</label>
-                        <input
-                            className='form-control'
-                            type='password'
-                            name='password2'
-                            onChange={this.onChange}
-                            value={password2}
-                        />
-                    </div>
-                    <div className='form-group mb-0 mt-5'>
-                        <button type='submit' className='btn btn-primary btn-block'>Register</button>
-                    </div>
-                </form>
-            </div>
+    }, []);
+
+    const handleChange = (e) => {
+        setFormState({
+            ...form,
+            [e.target.name]: {
+                ...form[e.target.name],
+                value: e.target.value,
+                isInvalid: false
+            }
+        });
+    };
+
+    const handleSubmit = (e) => {
+        const target = e.currentTarget;
+        if (!form.password.value.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')) {
+            form.password.isInvalid = true;
+            preventSubmit(e);
+        }
+        if (form.password.value !== form.password2.value) {
+            form.password2.isInvalid = true;
+            preventSubmit(e);
+        }
+        if (target.checkValidity() === false) {
+            preventSubmit(e);
+        }
+
+        dispatch(
+            register(
+                Object.fromEntries(
+                    Object.entries(form).map(([k, v]) => [k, v.value])
+                )
+            )
         );
-    }
+        setValidated(true);
+    };
+
+    const preventSubmit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    return (
+        <div className='register-form card card-body p-4'>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form.Group controlId='firstName'>
+                    <Form.Label>First name</Form.Label>
+                    <Form.Control
+                        isInvalid={form.firstName.isInvalid}
+                        name='firstName'
+                        onChange={handleChange}
+                        required type='text'
+                        placeholder='First name'/>
+                    <Form.Control.Feedback type='invalid'>
+                        Please provide a first name
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId='lastName'>
+                    <Form.Label>Last name</Form.Label>
+                    <Form.Control
+                        isInvalid={form.lastName.isInvalid}
+                        name='lastName'
+                        onChange={handleChange}
+                        required type='text'
+                        placeholder='Last name'/>
+                    <Form.Control.Feedback type='invalid'>
+                        Please provide a last name
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId='email'>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                        isInvalid={form.email.isInvalid}
+                        name='email'
+                        onChange={handleChange}
+                        required
+                        type='email'
+                        placeholder='Email'/>
+                    <Form.Control.Feedback type='invalid'>
+                        Please provide a valid email
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId='password'>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        isInvalid={form.password.isInvalid}
+                        name='password'
+                        onChange={handleChange}
+                        required
+                        type='password'
+                        placeholder='Password'/>
+                    <Form.Control.Feedback type='invalid'>
+                        Please provide a valid password
+                    </Form.Control.Feedback>
+                    <Form.Text id="passwordHelpBlock" muted>
+                        • Lets be safe use 8-20 characters
+                    </Form.Text>
+                    <Form.Text id="passwordHelpBlock" muted>
+                        • At least 1 number, uppercase character and special character
+                    </Form.Text>
+                </Form.Group>
+
+                <Form.Group controlId='password2'>
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control
+                        isInvalid={form.password2.isInvalid}
+                        name='password2'
+                        onChange={handleChange}
+                        required
+                        type='password'
+                        placeholder='Confirm Password'/>
+                    <Form.Control.Feedback type='invalid'>
+                        Your passwords do not match
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Button className='btn-block mb-0 mt-4' variant='primary' type='submit'>
+                    Register
+                </Button>
+            </Form>
+        </div>
+    );
 }
 
-const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps, {register, createError})(RegisterForm);
+export default RegisterForm;

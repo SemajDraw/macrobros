@@ -3,13 +3,13 @@ import {Button, Col, Form} from 'react-bootstrap';
 
 export const ContactForm = ({formSubmit}) => {
 
+    const [validated, setValidated] = useState(false);
     const [form, setFormState] = useState({
         firstName: '',
         lastName: '',
         email: '',
         body: ''
     });
-    const [validated, setValidated] = useState(false);
 
     const handleChange = (e) => {
         setFormState({
@@ -18,11 +18,11 @@ export const ContactForm = ({formSubmit}) => {
         });
     };
 
-    const handleSubmit = (event) => {
-        const target = event.currentTarget;
+    const handleSubmit = (e) => {
+        const target = e.currentTarget;
         if (target.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
         }
         formSubmit(form);
         setValidated(true);
@@ -67,7 +67,7 @@ export const ContactForm = ({formSubmit}) => {
                         type='email'
                         placeholder='Enter email'/>
                     <Form.Control.Feedback type='invalid'>
-                        Please provide an email
+                        Please provide a valid email
                     </Form.Control.Feedback>
                 </Form.Group>
 
