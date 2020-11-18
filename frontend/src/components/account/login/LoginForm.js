@@ -1,77 +1,93 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Button, Form} from 'react-bootstrap';
 import {login} from '../../../actions/auth/auth';
-import {Redirect} from 'react-router-dom';
 import './Login.scss';
+import {reduceStateToObject} from "../../../utils/objectUtils";
+import {LOGIN_FAIL, LOGIN_SUCCESS} from "../../../actions/auth/types";
 
-export class LoginForm extends Component {
+export const LoginForm = (props) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: ''
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const [validated, setValidated] = useState(false);
+    const [form, setFormState] = useState({
+        email: {value: '', isInvalid: false},
+        password: {value: '', isInvalid: false}
+    })
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            props.props.history.push('/');
         }
-    };
+    }, [isAuthenticated]);
 
-    static propTypes = {
-        login: PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool
-    };
 
-    onChange = e => this.setState({
-        [e.target.name]: e.target.value
-    });
-
-    onSubmit = e => {
-        e.preventDefault();
-        this.props.login(this.state.email, this.state.password);
-        this.setState({
-            email: '',
-            password: ''
+    const handleChange = (e) => {
+        setFormState({
+            ...form,
+            [e.target.name]: {
+                ...form[e.target.name],
+                value: e.target.value,
+                isInvalid: false
+            }
         });
     };
 
-    render() {
-        if (this.props.isAuthenticated) {
-            return <Redirect to='/'/>;
-        }
-        const {email, password} = this.state;
-        return (
-            <div className='login-form card card-body p-4'>
-                <form onSubmit={this.onSubmit}>
-                    <div className='form-group'>
-                        <label className='mb-0'>Email address</label>
-                        <input
-                            className='form-control'
-                            type='email'
-                            name='email'
-                            onChange={this.onChange}
-                            value={email}
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <label className='mb-0'>Password</label>
-                        <input
-                            className='form-control'
-                            type='password'
-                            name='password'
-                            onChange={this.onChange}
-                            value={password}
-                        />
-                    </div>
-                    <div className='form-group mb-0 mt-5'>
-                        <button type='submit' className='btn btn-primary btn-block'>Login</button>
-                    </div>
-                </form>
-            </div>
-        );
-    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        login(reduceStateToObject(form, 'value'))
+            .then(
+                (res) => dispatch({ type: LOGIN_SUCCESS, payload: res.data }),
+                (err) => {
+                    dispatch({type: LOGIN_FAIL});
+                    setFormState({
+                        ...form,
+                        password: {value: '', isInvalid: true}
+                    });
+                }
+            );
+        setValidated(true);
+    };
+
+    return (
+        <div className='register-form card card-body p-4'>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form.Group controlId='email'>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                        isInvalid={form.email.isInvalid}
+                        name='email'
+                        onChange={handleChange}
+                        required
+                        type='email'
+                        placeholder='Email'/>
+                    <Form.Control.Feedback type='invalid'>
+                        Please provide an email
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId='password'>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        isInvalid={form.password.isInvalid}
+                        value={form.password.value}
+                        name='password'
+                        onChange={handleChange}
+                        required
+                        type='password'
+                        placeholder='Password'/>
+                    <Form.Control.Feedback type='invalid'>
+                        The password you have entered is incorrect!
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Button className='btn-block mb-0 mt-4' variant='primary' type='submit'>
+                    Register
+                </Button>
+            </Form>
+        </div>
+    );
 }
 
-const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps, {login})(LoginForm);
+export default LoginForm;

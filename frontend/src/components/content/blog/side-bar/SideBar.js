@@ -7,7 +7,7 @@ import './SideBar.scss';
 import SearchBar from "./SearchBar";
 import {getBlogCategories, getPopularBlogs} from "../../../../actions/blog/blog";
 import {useSprings, animated} from "react-spring";
-import formatHeader from "../../../../services/formatHeader";
+import formatHeader from "../../../../utils/formatHeader";
 
 export const SideBar = (props) => {
 

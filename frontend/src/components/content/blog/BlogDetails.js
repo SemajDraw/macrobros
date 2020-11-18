@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getBlog} from "../../../actions/blog/blog";
 import Moment from "react-moment";
 import {Link} from "react-router-dom";
-import capitalizeFirstLetter from "../../../services/formatHeader";
+import capitalizeFirstLetter from "../../../utils/formatHeader";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import TradingViewWidget from "react-tradingview-widget";
 import './BlogDetails.scss';

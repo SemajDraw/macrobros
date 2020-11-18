@@ -3,7 +3,7 @@ import LoginForm from "./LoginForm";
 import {Link} from "react-router-dom";
 import './Login.scss';
 
-export const Login = () => {
+export const Login = (props) => {
     return (
         <div className='container mt-3 min-vh-100'>
             <div className='row justify-content-center'>
@@ -34,7 +34,7 @@ export const Login = () => {
             <div className='row justify-content-center'>
                 <div className='col-md-5 col-10'>
                     <div className='row justify-content-center mt-md-3 mt-2 form-container'>
-                        <LoginForm/>
+                        <LoginForm props={props}/>
                     </div>
                 </div>
             </div>

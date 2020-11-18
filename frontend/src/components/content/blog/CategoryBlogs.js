@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getCategoryBlogs} from "../../../actions/blog/blog";
-import capitalizeFirstLetter from "../../../services/formatHeader";
+import capitalizeFirstLetter from "../../../utils/formatHeader";
 import Pagination from "react-bootstrap/Pagination";
 import PaginationBar from "../../common/Pagination";
 import SideBar from "./side-bar/SideBar";

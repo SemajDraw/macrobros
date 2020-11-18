@@ -23,13 +23,14 @@ export const loadUser = () => (dispatch, getState) => {
                 type: USER_LOADED,
                 payload: res.data
             });
-        }).catch(err => {
-        dispatch(createError(err.response.data, err.response.status));
-        dispatch({type: AUTH_ERROR});
-    });
+        })
+        .catch(err => {
+            dispatch(createError(err.response.data, err.response.status));
+            dispatch({type: AUTH_ERROR});
+        });
 };
 
-export const login = (email, password) => (dispatch) => {
+export const login = (loginReq) => {
     // Set headers
     const config = {
         headers: {
@@ -37,16 +38,7 @@ export const login = (email, password) => (dispatch) => {
         }
     };
 
-    axios.post('/api/account/auth/login', JSON.stringify({email, password}), config)
-        .then(res => {
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: res.data
-            });
-        }).catch(err => {
-        dispatch(createError(err.response.data, err.response.status));
-        dispatch({type: LOGIN_FAIL});
-    });
+    return axios.post('/api/account/auth/login', JSON.stringify(loginReq), config);
 };
 
 export const logout = () => (dispatch, getState) => {
@@ -55,9 +47,10 @@ export const logout = () => (dispatch, getState) => {
             dispatch({
                 type: LOGOUT_SUCCESS
             });
-        }).catch(err => {
-        dispatch(createError(err.response.data, err.response.status));
-    });
+        })
+        .catch(err => {
+            dispatch(createError(err.response.data, err.response.status));
+        });
 };
 
 export const register = (registerObj) => dispatch => {
@@ -74,8 +67,8 @@ export const register = (registerObj) => dispatch => {
                 type: REGISTER_SUCCESS,
                 payload: res.data
             });
-        }).catch(err => {
-        dispatch(createError(err.response.data, err.response.status));
-        dispatch({type: REGISTER_FAIL});
-    });
+        })
+        .catch(err => {
+            dispatch({type: REGISTER_FAIL});
+        });
 };

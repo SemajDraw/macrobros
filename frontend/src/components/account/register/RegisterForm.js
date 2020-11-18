@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {register} from '../../../actions/auth/auth';
 import {Redirect} from "react-router-dom";
-import {Button, Col, Form} from 'react-bootstrap';
+import {Button, Form} from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
+import {reduceStateToObject} from "../../../utils/objectUtils";
 
 export const RegisterForm = () => {
 
@@ -37,24 +38,18 @@ export const RegisterForm = () => {
     const handleSubmit = (e) => {
         const target = e.currentTarget;
         if (!form.password.value.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')) {
-            form.password.isInvalid = true;
             preventSubmit(e);
+            form.password.isInvalid = true;
         }
         if (form.password.value !== form.password2.value) {
-            form.password2.isInvalid = true;
             preventSubmit(e);
+            form.password2.isInvalid = true;
         }
         if (target.checkValidity() === false) {
             preventSubmit(e);
         }
 
-        dispatch(
-            register(
-                Object.fromEntries(
-                    Object.entries(form).map(([k, v]) => [k, v.value])
-                )
-            )
-        );
+        dispatch(register(reduceStateToObject(form, 'value')));
         setValidated(true);
     };
 
