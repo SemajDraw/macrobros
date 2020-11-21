@@ -11,7 +11,7 @@ class ConfirmationEmail:
             'name': user.first_name,
             'verification_link': 'http://{}/{}/{}'.format(get_current_site(request).domain, 'verify-email', token)
         }
-        send_html_email(
+        return send_html_email(
             [request.data['email']],
             'Please verify your email!',
             'emails/registration_email.html',
@@ -29,7 +29,7 @@ class PasswordResetEmail:
                                                                           'password-reset', auth_token,
                                                                           password_reset_token)
         }
-        send_html_email(
+        return send_html_email(
             [request.data['email']],
             'Password reset for MacroBros',
             'emails/password_reset_email.html',
@@ -41,4 +41,4 @@ def send_html_email(to_list, subject, template_name, context):
     email_html = render_to_string(template_name, context)
     email = EmailMessage(subject=subject, body=email_html, to=to_list)
     email.content_subtype = "html"
-    email.send()
+    return email.send()

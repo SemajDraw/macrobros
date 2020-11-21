@@ -1,20 +1,24 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import './Home.scss';
 import Pagination from "react-bootstrap/Pagination";
 import PaginationBar from "../../common/Pagination";
 import SideBar from "../blog/side-bar/SideBar";
-import {getBlogs} from "../../../actions/blog/blog";
-import {animated, useSpring} from "react-spring";
+import { getBlogs } from "../../../actions/blog/blog";
+import { animated, useSpring } from "react-spring";
 import Bounce from 'react-reveal/Bounce';
 import Fade from "react-reveal/Fade";
 import BlogGridBuilder from "../blog/blog-grid-builder/BlogGridBuilder";
-import {MacroBrosIcon} from "../../common/MacroBrosIcon";
+import { MacroBrosIcon } from "../../common/MacroBrosIcon";
 
 export const Home = (props) => {
 
     const blogs = useSelector(state => state.blog.blogs);
     const dispatch = useDispatch();
+
+    const iconProps = {
+        strokeColor: '#FFFFFF'
+    }
 
     useEffect(() => {
         dispatch(getBlogs());
@@ -25,20 +29,20 @@ export const Home = (props) => {
     };
 
     const transition = useSpring({
-        from: {transform: 'translate3d(0,-20px,0)'},
-        enter: {transform: 'translate3d(0,0px,0)'},
-        to: {transform: 'translate3d(0,0px,0)'}
+        from: { transform: 'translate3d(0,-20px,0)' },
+        enter: { transform: 'translate3d(0,0px,0)' },
+        to: { transform: 'translate3d(0,0px,0)' }
     });
 
     return (
         <div className='min-vh-100'>
-            <animated.div style={transition}
+            <animated.div style={ transition }
                           className='home-jumbotron jumbotron d-flex flex-column justify-content-center align-items-center'>
-                <div style={{animation: `spin ${2000}ms linear`}}
+                <div style={ { animation: `spin ${ 2000 }ms linear` } }
                      className='d-flex flex-row justify-content-center logo-row'>
-                    <Bounce delay={500} top>
+                    <Bounce delay={ 500 } top>
                         <div className='logo-container'>
-                            <MacroBrosIcon/>
+                            <MacroBrosIcon key={'home-icon'} props={ iconProps }/>
                         </div>
                     </Bounce>
                 </div>
@@ -56,9 +60,9 @@ export const Home = (props) => {
                 </div>
 
                 <div className='d-flex flex-row'>
-                    <Fade delay={1000}>
+                    <Fade delay={ 1000 }>
                         <p>
-                            Some random shit about macbrobros and below links to some of our shit
+                            Some random shit about macrobros and below links to some of our shit
                         </p>
                     </Fade>
                 </div>
@@ -67,17 +71,17 @@ export const Home = (props) => {
             <div className='container-fluid pt-5'>
                 <div className='row'>
                     <div className='col-md-9'>
-                        <BlogGridBuilder blogs={blogs.results}/>
+                        <BlogGridBuilder blogs={ blogs.results }/>
                     </div>
                     <div className='col-md-3'>
-                        <SideBar history={props.history}/>
+                        <SideBar history={ props.history }/>
                     </div>
                 </div>
             </div>
 
             <div className='row justify-content-center my-3'>
-                {blogs.totalItems > 2 ?
-                    <Pagination><PaginationBar blogs={blogs} nextPage={nextPage}/></Pagination>
+                { blogs.totalItems > 2 ?
+                    <Pagination><PaginationBar blogs={ blogs } nextPage={ nextPage }/></Pagination>
                     : null
                 }
             </div>

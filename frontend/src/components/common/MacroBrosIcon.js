@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export const MacroBrosIcon = (props) => {
+export const MacroBrosIcon = (parentProps) => {
+
+    const [props, setProps] = useState(parentProps.props);
 
     return (
         <svg
@@ -15,7 +17,7 @@ export const MacroBrosIcon = (props) => {
             <defs>
                 <style>
                     {
-                        ".prefix__str1{stroke:#fefefe;stroke-width:.378;stroke-miterlimit:22.9256}.prefix__fil0{fill:none}.prefix__fil1{fill:#fefefe}"
+                        `.prefix__str1{stroke:${props.strokeColor};stroke-width:.378;stroke-miterlimit:22.9256}.prefix__fil0{fill:none}.prefix__fil1{fill:${props.strokeColor}}`
                     }
                 </style>
             </defs>
@@ -25,7 +27,7 @@ export const MacroBrosIcon = (props) => {
                     cx={256.5}
                     cy={258.5}
                     r={242}
-                    stroke="#fefefe"
+                    stroke={props.strokeColor}
                     strokeWidth={25}
                     strokeMiterlimit={22.926}
                 />
@@ -76,7 +78,7 @@ export const MacroBrosIcon = (props) => {
                 <path
                     className="prefix__str1"
                     d="M59.838 117.444a241.8 241.8 0 00-22.385 38.049l220.401 261.838 27.753-35.681L59.838 117.444z"
-                    fill="#fff"
+                    fill={props.strokeColor}
                 />
             </g>
         </svg>

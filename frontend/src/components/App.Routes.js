@@ -18,6 +18,7 @@ import PrivacyPolicy from "./content/privacy-policy/PrivacyPolicy";
 import {Profile} from "./account/profile/Profile";
 import PrivateRoute from "./common/PrivateRoute";
 import PasswordReset from "./account/password-reset/PasswordReset";
+import RegisterSuccess from "./account/register/RegisterSuccess";
 
 class AppRouter extends Component {
     render() {
@@ -40,6 +41,7 @@ class AppRouter extends Component {
                         <PrivateRoute exact path='/profile' component={Profile}/>
                         <Route exact path='/verify-email/:token' component={EmailVerification}/>
                         <Route exact path='/password-reset' component={PasswordReset}/>
+                        <Route exact path='/register-success' component={RegisterSuccess}/>
 
                         {/*Footer Routes*/}
                         <Route exact path='/contact' component={Contact}/>

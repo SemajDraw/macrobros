@@ -1,15 +1,15 @@
-import React, {useState} from "react";
-import {clapBlog} from "../../../../actions/blog/blog";
+import React, { useState } from "react";
+import { clapBlog } from "../../../../actions/blog/blog";
 import ClapButton from 'react-clap-button';
 import StickyBox from 'react-sticky-box';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBookmark as farFaBookmark} from "@fortawesome/free-regular-svg-icons";
-import {faBookmark as fasFaBookmark} from "@fortawesome/free-solid-svg-icons";
-import {useDispatch} from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark as farFaBookmark } from "@fortawesome/free-regular-svg-icons";
+import { faBookmark as fasFaBookmark } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
 import './ActivityBar.scss';
-import {saveBlog} from "../../../../actions/account/account";
+import { saveBlog } from "../../../../actions/account/account";
 
-export const ActivityBar = React.forwardRef((props, ref) => {
+export const ActivityBar = (props) => {
 
     const dispatch = useDispatch();
     const [saveIcon, setSaveIcon] = useState(farFaBookmark);
@@ -29,7 +29,7 @@ export const ActivityBar = React.forwardRef((props, ref) => {
     };
 
     return (
-        <StickyBox ref={ref} style={{marginTop: '10px'}} id='side-bar' offsetTop={props.offsetTop}
+        <StickyBox style={{marginTop: '10px'}} id='side-bar' offsetTop={props.offsetTop}
                    offsetBottom={100}>
             <div className='d-flex flex-column'>
                 <div className='mb-2'>
@@ -56,6 +56,6 @@ export const ActivityBar = React.forwardRef((props, ref) => {
             </div>
         </StickyBox>
     );
-});
+};
 
 export default ActivityBar;

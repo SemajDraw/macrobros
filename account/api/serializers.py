@@ -1,3 +1,4 @@
+import re
 from rest_framework import serializers
 from account.models import User
 from django.contrib.auth import authenticate
@@ -32,12 +33,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         password1 = self.validated_data['password']
         password2 = self.validated_data['password2']
 
-        if password1 != password2:
+        if (password1 != password2) or not self.validatePassword(password1):
             raise serializers.ValidationError({'message': 'Passwords must match'})
 
         user.set_password(password1)
         user.save()
         return user
+
+    @staticmethod
+    def validatePassword(password):
+        pattern = re.compile('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')
+        return True if re.search(pattern, password) else False
 
 
 class LoginSerializer(serializers.Serializer):
