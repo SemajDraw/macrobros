@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
-import { login, register } from '../../../actions/auth/auth';
+import { login } from '../../../actions/auth/auth';
 import './Login.scss';
-import { reduceStateToObject } from "../../../utils/objectUtils";
-import { LOGIN_FAIL, LOGIN_SUCCESS, REGISTER_FAIL, REGISTER_SUCCESS } from "../../../actions/auth/types";
+import { LOGIN_FAIL, LOGIN_SUCCESS } from "../../../actions/auth/types";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,15 +26,6 @@ export const LoginForm = (props) => {
             props.props.history.push('/');
         }
     }, [isAuthenticated]);
-
-
-    const handleSubmit = () => {
-        login(reduceStateToObject(form, 'value'))
-            .then((res) => dispatch({ type: LOGIN_SUCCESS, payload: res.data }))
-            .catch((err) => {
-                dispatch({ type: LOGIN_FAIL });
-            });
-    };
 
     return (
         <div className='register-form card card-body p-4'>

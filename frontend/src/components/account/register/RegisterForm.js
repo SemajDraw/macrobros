@@ -56,7 +56,11 @@ export const RegisterForm = (props) => {
                                 resetForm();
                                 setSubmitting(false);
                                 dispatch({ type: REGISTER_SUCCESS, payload: res.data });
-                                props.props.history.push('/register-success');
+                                props.props.history.push('/success/register', {
+                                    header: 'Thank you for registering!',
+                                    body: `A verification email has been sent to your email account. 
+                                    Please check your inbox to verify.`
+                                });
                             }
                         })
                         .catch((err) => {
@@ -190,6 +194,6 @@ export const RegisterForm = (props) => {
             </Formik>
         </div>
     );
-}
+};
 
 export default RegisterForm;

@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './content/home/Home';
 import Login from './account/login/Login';
 import Register from './account/register/Register';
@@ -15,10 +15,10 @@ import Footer from "./layout/footer/Footer";
 import Contact from "./content/contact/Contact";
 import TermsService from "./content/terms-service/TermsService";
 import PrivacyPolicy from "./content/privacy-policy/PrivacyPolicy";
-import {Profile} from "./account/profile/Profile";
+import { Profile } from "./account/profile/Profile";
 import PrivateRoute from "./common/PrivateRoute";
 import PasswordReset from "./account/password-reset/PasswordReset";
-import RegisterSuccess from "./account/register/RegisterSuccess";
+import FormSuccess from "./common/FormSuccess";
 
 class AppRouter extends Component {
     render() {
@@ -28,30 +28,32 @@ class AppRouter extends Component {
                     <Header/>
                     <Alerts/>
                     <Switch>
-                        <Route exact path='/' component={Home}/>
-                        {/*Blog Routes*/}
-                        <Route exact path='/blog' component={Blog}/>
-                        <Route exact path='/blog/:slug' component={BlogDetails}/>
-                        <Route exact path='/blog/category/:category' component={Category}/>
-                        <Route exact path='/blog/search/:search' component={SearchBlogs}/>
+                        <Route exact path='/' component={ Home }/>
+                        {/*Blog Routes*/ }
+                        <Route exact path='/blog' component={ Blog }/>
+                        <Route exact path='/blog/:slug' component={ BlogDetails }/>
+                        <Route exact path='/blog/category/:category' component={ Category }/>
+                        <Route exact path='/blog/search/:search' component={ SearchBlogs }/>
 
-                        {/*Account Routes*/}
-                        <Route exact path='/login' component={Login}/>
-                        <Route exact path='/register' component={Register}/>
-                        <PrivateRoute exact path='/profile' component={Profile}/>
-                        <Route exact path='/verify-email/:token' component={EmailVerification}/>
-                        <Route exact path='/password-reset' component={PasswordReset}/>
-                        <Route exact path='/register-success' component={RegisterSuccess}/>
+                        {/*Account Routes*/ }
+                        <Route exact path='/login' component={ Login }/>
+                        <Route exact path='/register' component={ Register }/>
+                        <PrivateRoute exact path='/profile' component={ Profile }/>
+                        <Route exact path='/verify-email/:token' component={ EmailVerification }/>
+                        <Route exact path='/password-reset' component={ PasswordReset }/>
 
-                        {/*Footer Routes*/}
-                        <Route exact path='/contact' component={Contact}/>
+                        {/*Common Routes*/ }
+                        <Route exact path='/success/:form' component={ FormSuccess }/>
 
-                        {/*Terms and Conditions*/}
-                        <Route exact path='/terms-of-service' component={TermsService}/>
-                        <Route exact path='/privacy-policy' component={PrivacyPolicy}/>
+                        {/*Footer Routes*/ }
+                        <Route exact path='/contact' component={ Contact }/>
 
-                        {/*Page Not Found*/}
-                        <Route component={PageNotFound}/>
+                        {/*Terms and Conditions*/ }
+                        <Route exact path='/terms-of-service' component={ TermsService }/>
+                        <Route exact path='/privacy-policy' component={ PrivacyPolicy }/>
+
+                        {/*Page Not Found*/ }
+                        <Route component={ PageNotFound }/>
                     </Switch>
                     <Footer/>
                 </Fragment>

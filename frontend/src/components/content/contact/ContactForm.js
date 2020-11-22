@@ -1,97 +1,166 @@
-import React, {useState} from 'react';
-import {Button, Col, Form} from 'react-bootstrap';
+import React from 'react';
+import { Button, Col, Form } from 'react-bootstrap';
+import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { sendEmail } from "../../../actions/contact/contact";
+import { Formik } from "formik";
+import { EMAIL_SENT } from "../../../actions/contact/types";
+import { createError } from "../../../actions/alerts/errors/errors";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 
-export const ContactForm = ({formSubmit}) => {
+const validationSchema = Yup.object().shape({
+    firstName: Yup.string()
+        .min(2, 'First name must have at least 2 characters')
+        .max(100, `First name can't be longer than 100 characters`)
+        .required('Please provide a first name'),
+    lastName: Yup.string()
+        .min(2, 'Last name must have at least 2 characters')
+        .max(100, `Last name can't be longer than 100 characters`)
+        .required('Please provide a last name'),
+    email: Yup.string()
+        .email('Please enter a valid email')
+        .max(100, 'Email must not be longer than 100 characters')
+        .required('Please enter your email address'),
+    body: Yup.string()
+        .min(2, 'Your question must have at least 2 characters')
+        .max(5000, `Your question can't be longer than 5000 characters`)
+        .required('Please ask us something...'),
+});
 
-    const [validated, setValidated] = useState(false);
-    const [form, setFormState] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        body: ''
-    });
+export const ContactForm = (props) => {
 
-    const handleChange = (e) => {
-        setFormState({
-            ...form,
-            [e.target.name]: e.target.value
-        });
-    };
-
-    const handleSubmit = (e) => {
-        const target = e.currentTarget;
-        if (target.checkValidity() === false) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        formSubmit(form);
-        setValidated(true);
-    };
+    const dispatch = useDispatch();
 
     return (
         <div className='contact-form card card-body p-4'>
-            <Form noValidate validated={validated}
-                  onSubmit={handleSubmit}>
-                <Form.Row>
-                    <Form.Group as={Col} controlId='firstName'>
-                        <Form.Label>First name</Form.Label>
-                        <Form.Control
-                            name='firstName'
-                            onChange={handleChange}
-                            required type='text'
-                            placeholder='First name'/>
-                        <Form.Control.Feedback type='invalid'>
-                            Please provide a first name
-                        </Form.Control.Feedback>
-                    </Form.Group>
+            <Formik
+                initialValues={ { firstName: '', lastName: '', email: '', body: '' } }
+                validationSchema={ validationSchema }
+                onSubmit={ (values, { setSubmitting, resetForm }) => {
+                    setSubmitting(true);
+                    sendEmail(values)
+                        .then((res) => {
+                            dispatch({ type: EMAIL_SENT, payload: res.data });
+                            setSubmitting(false);
+                            resetForm();
+                            props.props.history.push('/success/contact', {
+                                    header: 'Thanks for getting in touch',
+                                    body: `We appreciate your interest to get in touch with us. 
+                                    We will be in contact with you as soon as we can!`
+                                });
+                        })
+                        .catch((err) => {
+                            setSubmitting(false);
+                            props.props.history.push('/success/contact', {
+                                    header: 'Oops something went wrong!',
+                                    body: `It looks like we're experiencing some technical issues. 
+                                    Please try again later!`
+                                });
+                        });
+                } }
+            >
+                { ({
+                       values,
+                       errors,
+                       touched,
+                       handleChange,
+                       handleBlur,
+                       handleSubmit,
+                       isSubmitting
+                   }) => (
+                    <Form noValidate onSubmit={ handleSubmit }>
+                        <Form.Row>
+                            <Form.Group as={ Col } controlId='firstName'>
+                                <Form.Label>First name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='firstName'
+                                    placeholder='First name'
+                                    onChange={ handleChange }
+                                    onBlur={ handleBlur }
+                                    value={ values.firstName }
+                                    isInvalid={ touched.firstName && errors.firstName }
+                                />
+                                { touched.firstName && errors.firstName ? (
+                                    <Form.Control.Feedback type='invalid'>
+                                        { <FontAwesomeIcon className='mx-1' icon={ faInfoCircle }/> }
+                                        { errors.firstName }
+                                    </Form.Control.Feedback>
+                                ) : null }
+                            </Form.Group>
 
-                    <Form.Group as={Col} controlId='lastName'>
-                        <Form.Label>Last name</Form.Label>
-                        <Form.Control
-                            name='lastName'
-                            onChange={handleChange}
-                            required type='text'
-                            placeholder='Last name'/>
-                        <Form.Control.Feedback type='invalid'>
-                            Please provide a last name
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                </Form.Row>
+                            <Form.Group as={ Col } controlId='lastName'>
+                                <Form.Label>Last name</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='lastName'
+                                    placeholder='Last name'
+                                    onChange={ handleChange }
+                                    onBlur={ handleBlur }
+                                    value={ values.lastName }
+                                    isInvalid={ touched.lastName && errors.lastName }
+                                />
+                                { touched.lastName && errors.lastName ? (
+                                    <Form.Control.Feedback type='invalid'>
+                                        { <FontAwesomeIcon className='mx-1' icon={ faInfoCircle }/> }
+                                        { errors.lastName }
+                                    </Form.Control.Feedback>
+                                ) : null }
+                            </Form.Group>
+                        </Form.Row>
 
-                <Form.Group controlId='email'>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        name='email'
-                        onChange={handleChange}
-                        required
-                        type='email'
-                        placeholder='Enter email'/>
-                    <Form.Control.Feedback type='invalid'>
-                        Please provide a valid email
-                    </Form.Control.Feedback>
-                </Form.Group>
+                        <Form.Group controlId='email'>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control
+                                type='email'
+                                name='email'
+                                placeholder='Email'
+                                onChange={ handleChange }
+                                onBlur={ handleBlur }
+                                value={ values.email }
+                                isInvalid={ touched.email && errors.email }
+                            />
+                            { touched.email && errors.email ? (
+                                <Form.Control.Feedback type='invalid'>
+                                    { <FontAwesomeIcon className='mx-1' icon={ faInfoCircle }/> }
+                                    { errors.email }
+                                </Form.Control.Feedback>
+                            ) : null }
+                        </Form.Group>
 
-                <Form.Group controlId='body'>
-                    <Form.Label>Ask us anything...</Form.Label>
+                        <Form.Group controlId='body'>
+                            <Form.Label>Ask us anything...</Form.Label>
+                            <Form.Control
+                                type='text'
+                                as='textarea'
+                                rows='3'
+                                name='body'
+                                placeholder='Your questions here...'
+                                onChange={ handleChange }
+                                onBlur={ handleBlur }
+                                value={ values.body }
+                                isInvalid={ touched.body && errors.body }
+                            />
+                            { touched.body && errors.body ? (
+                                <Form.Control.Feedback type='invalid'>
+                                    { <FontAwesomeIcon className='mx-1' icon={ faInfoCircle }/> }
+                                    { errors.body }
+                                </Form.Control.Feedback>
+                            ) : null }
+                        </Form.Group>
 
-                    <Form.Control
-                        name='body'
-                        onChange={handleChange}
-                        required
-                        as='textarea'
-                        rows='3'
-                        placeholder='If you have any questions here is the place...'/>
-                    <Form.Control.Feedback type='invalid'>
-                        Please tell us something
-                    </Form.Control.Feedback>
-                </Form.Group>
-
-                <Button className='btn-block mb-0 mt-4' variant='primary' type='submit'>
-                    Submit
-                </Button>
-            </Form>
+                        <Button className='btn-block mb-0 mt-4'
+                                disabled={ isSubmitting }
+                                variant='primary'
+                                type='submit'>
+                            Submit
+                        </Button>
+                    </Form>
+                ) }
+            </Formik>
         </div>
     );
-}
+};
 
 export default ContactForm;
