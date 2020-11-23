@@ -28,7 +28,7 @@ export const LoginForm = (props) => {
     }, [isAuthenticated]);
 
     return (
-        <div className='register-form card card-body p-4'>
+        <div className='login-form card card-body p-4'>
             <Formik
                 initialValues={ { email: '', password: '' } }
                 validationSchema={ validationSchema }

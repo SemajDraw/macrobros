@@ -52,8 +52,8 @@
 
 @include media-breakpoint-between(md, lg) {
   .container-fluid {
-    padding-left: 5em;
-    padding-right: 5em;
+    padding-left: 3em;
+    padding-right: 3em;
   }
 
   .home-jumbotron h1 {

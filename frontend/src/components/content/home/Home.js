@@ -68,12 +68,12 @@ export const Home = (props) => {
                 </div>
 
             </animated.div>
-            <div className='container-fluid pt-5'>
+            <div className='container-fluid mt-5'>
                 <div className='row'>
-                    <div className='col-md-9'>
+                    <div className='col-12 col-md-8 col-lg-9'>
                         <BlogGridBuilder blogs={ blogs.results }/>
                     </div>
-                    <div className='col-md-3'>
+                    <div className='col-12 col-md-4 col-lg-3'>
                         <SideBar history={ props.history }/>
                     </div>
                 </div>

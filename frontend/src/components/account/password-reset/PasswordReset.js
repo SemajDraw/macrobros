@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
-import {useDispatch} from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import queryString from 'query-string';
-import {passwordReset} from "../../../actions/account/account";
+import { passwordReset } from "../../../actions/account/account";
 
 export const PasswordReset = (props) => {
 
@@ -44,15 +44,15 @@ export const PasswordReset = (props) => {
                 <div className='col-md-5 col-10'>
                     <div className='row justify-content-center mt-md-3 mt-2 form-container'>
                         <div className='login-form card card-body p-4'>
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={ handleSubmit }>
                                 <div className='form-group'>
                                     <label className='mb-0'>Password</label>
                                     <input
                                         className='form-control'
                                         type='password'
                                         name='password'
-                                        onChange={e => setPassword(e.target.value)}
-                                        value={password}
+                                        onChange={ e => setPassword(e.target.value) }
+                                        value={ password }
                                     />
                                 </div>
                                 <div className='form-group'>
@@ -61,8 +61,8 @@ export const PasswordReset = (props) => {
                                         className='form-control'
                                         type='password'
                                         name='password1'
-                                        onChange={e => setPassword1(e.target.value)}
-                                        value={password1}
+                                        onChange={ e => setPassword1(e.target.value) }
+                                        value={ password1 }
                                     />
                                 </div>
                                 <div className='form-group mb-0 mt-5'>
