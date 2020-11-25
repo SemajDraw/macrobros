@@ -43,14 +43,3 @@ export const logout = () => (dispatch, getState) => {
             dispatch(createError(err.response.data, err.response.status));
         });
 };
-
-export const register = (registerObj) => {
-    // Set headers
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-
-    return axios.post('/api/account/auth/register', JSON.stringify(registerObj), config);
-};

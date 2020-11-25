@@ -14,21 +14,22 @@ class UserAdmin(BaseUserAdmin):
     add_form = AdminUserCreationForm
 
     # Setting the formatting for the user admin page
-    list_display = ('id', 'email', 'first_name', 'last_name', 'date_joined', 'is_admin', 'is_active')
-    list_filter = ('is_admin', 'is_staff', 'is_active')
+    list_display = ('id', 'email', 'first_name', 'last_name', 'date_joined', 'is_admin', 'is_subscribed', 'is_active')
+    list_filter = ('is_admin', 'is_staff', 'is_active', 'is_subscribed')
 
     # Display user fieldsets
     fieldsets = (
-        ('Primary', {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name')}),
-        ('Permissions', {'fields': ('is_active', 'is_verified', 'is_staff', 'is_admin', 'is_superuser')}),
+        ('Primary', { 'fields': ('email', 'password') }),
+        ('Personal info', { 'fields': ('first_name', 'last_name') }),
+        ('Permissions',
+         { 'fields': ('is_subscribed', 'is_active', 'is_verified', 'is_staff', 'is_admin', 'is_superuser') }),
     )
 
     # Add user fieldsets
     add_fieldsets = (
         ('Create new user', {
             'classes': ('wide',),
-            'fields': ('email', 'first_name', 'last_name', 'password1', 'password2')}
+            'fields': ('email', 'first_name', 'last_name', 'password1', 'password2', 'is_subscribed') }
          ),
     )
 

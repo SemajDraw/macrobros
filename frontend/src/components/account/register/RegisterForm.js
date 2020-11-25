@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { register } from '../../../actions/auth/auth';
-import { Button, Form } from 'react-bootstrap';
+import { register } from '../../../actions/account/account';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { REGISTER_FAIL, REGISTER_SUCCESS } from "../../../actions/auth/types";
 import './Register.scss';
@@ -9,6 +9,7 @@ import { Regex } from '../constants';
 import { Formik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
+import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -23,6 +24,8 @@ const validationSchema = Yup.object().shape({
         .email('Please enter a valid email')
         .max(100, 'Email must not be longer than 100 characters')
         .required('Please enter your email address'),
+    isSubscribed: Yup.bool()
+        .required(),
     password: Yup.string()
         .matches(Regex.PASSWORD, 'Password is not valid')
         .required('Please enter a password'),
@@ -45,7 +48,14 @@ export const RegisterForm = (props) => {
     return (
         <div className='register-form card card-body p-4'>
             <Formik
-                initialValues={ { firstName: '', lastName: '', email: '', password: '', password2: '' } }
+                initialValues={ {
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    isSubscribed: false,
+                    password: '',
+                    password2: ''
+                } }
                 validationSchema={ validationSchema }
                 onSubmit={ (values, { setSubmitting, resetForm, setFieldError }) => {
                     setSubmitting(true);
@@ -58,7 +68,7 @@ export const RegisterForm = (props) => {
                                 dispatch({ type: REGISTER_SUCCESS, payload: res.data });
                                 props.props.history.push('/success/register', {
                                     header: 'Thank you for registering!',
-                                    body: `A verification email has been sent to your email account. 
+                                    body: `A verification email has been sent to your email account.
                                     Please check your inbox to verify.`
                                 });
                             }
@@ -139,6 +149,20 @@ export const RegisterForm = (props) => {
                             ) : null }
                         </Form.Group>
 
+                        <Form.Group controlId='isSubscribed'>
+                            <Form.Label>Subscribe to our newsletter</Form.Label>
+                            <Form.Check
+                                className='text-muted'
+                                muted
+                                name='isSubscribed'
+                                label="Send me the latest news from MacroBros"
+                                onChange={ handleChange }
+                                onBlur={ handleBlur }
+                                value={ values.isSubscribed }
+                                isInvalid={ touched.isSubscribed && errors.isSubscribed }
+                            />
+                        </Form.Group>
+
                         <Form.Group controlId='password'>
                             <Form.Label>Password</Form.Label>
                             <Form.Control
@@ -183,12 +207,31 @@ export const RegisterForm = (props) => {
                             ) : null }
                         </Form.Group>
 
-                        <Button className='btn-block mb-0 mt-4'
+                        <Button className='btn-block mb-3 mt-4'
                                 variant='primary'
                                 disabled={ isSubmitting }
                                 type='submit'>
-                            Register
+                            { isSubmitting ?
+                                <Spinner
+                                    as="span"
+                                    animation="border"
+                                    role="status"
+                                    aria-hidden="true"
+                                /> :
+                                'REGISTER'
+                            }
                         </Button>
+                        <Form.Text id='conditions' muted>
+                            {
+                                <div>
+                                    By creating an account, you agree to the
+                                    <Link to='/terms-of-service'> Terms of Service. </Link>
+                                    For more information about MacroBros privacy practices, see the
+                                    <Link to='/privacy-policy'> MacroBros Privacy Statement. </Link>
+                                    We'll occasionally send you account-related emails.
+                                </div>
+                            }
+                        </Form.Text>
                     </Form>
                 ) }
             </Formik>

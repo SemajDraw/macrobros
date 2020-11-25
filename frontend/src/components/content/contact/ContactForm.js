@@ -1,11 +1,10 @@
 import React from 'react';
-import { Button, Col, Form } from 'react-bootstrap';
+import { Button, Col, Form, Spinner } from 'react-bootstrap';
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { sendEmail } from "../../../actions/contact/contact";
 import { Formik } from "formik";
 import { EMAIL_SENT } from "../../../actions/contact/types";
-import { createError } from "../../../actions/alerts/errors/errors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 
@@ -45,18 +44,18 @@ export const ContactForm = (props) => {
                             setSubmitting(false);
                             resetForm();
                             props.props.history.push('/success/contact', {
-                                    header: 'Thanks for getting in touch',
-                                    body: `We appreciate your interest to get in touch with us. 
+                                header: 'Thanks for getting in touch',
+                                body: `We appreciate your interest to get in touch with us. 
                                     We will be in contact with you as soon as we can!`
-                                });
+                            });
                         })
                         .catch((err) => {
                             setSubmitting(false);
-                            props.props.history.push('/success/contact', {
-                                    header: 'Oops something went wrong!',
-                                    body: `It looks like we're experiencing some technical issues. 
+                            props.props.history.push('/success/error', {
+                                header: 'Oops something went wrong!',
+                                body: `It looks like we're experiencing some technical issues. 
                                     Please try again later!`
-                                });
+                            });
                         });
                 } }
             >
@@ -154,7 +153,15 @@ export const ContactForm = (props) => {
                                 disabled={ isSubmitting }
                                 variant='primary'
                                 type='submit'>
-                            Submit
+                            { isSubmitting ?
+                                <Spinner
+                                    as="span"
+                                    animation="border"
+                                    role="status"
+                                    aria-hidden="true"
+                                /> :
+                                'CONTACT US'
+                            }
                         </Button>
                     </Form>
                 ) }

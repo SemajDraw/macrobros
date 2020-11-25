@@ -10,7 +10,7 @@ from .serializers import (RegisterSerializer,
                           UserSerializer,
                           PasswordResetRequestSerializer,
                           PasswordResetSerializer)
-from ..account_email import ConfirmationEmail, PasswordResetEmail
+from ..account_email import SendEmail
 from blog.models import BlogPost
 from blog.api.serializers import BlogPostSerializer
 from ..models import User
@@ -26,14 +26,11 @@ class Register(generics.GenericAPIView):
         if serializer.is_valid():
             user = serializer.save()
 
-            try:
-                ConfirmationEmail.send_confirmation_email(
-                    user,
-                    request,
-                    AuthToken.objects.create(user)[1]
-                )
-            except Exception as e:
-                pass
+            SendEmail().account_confirmation_email(
+                request,
+                user.first_name,
+                AuthToken.objects.create(user)[1]
+            )
 
             return Response({
                 'message': 'Success'
@@ -81,12 +78,14 @@ class VerifyEmail(generics.GenericAPIView):
             self.request.user.save()
             return Response({
                 'emailVerified': True,
-                'message': ['Account activated successfully!', 'Please login']
+                'message': ['Your account has been activated successfully!',
+                            'Click the button below to login or continue reading our awesome blogs.']
             }, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({
                 'emailVerified': False,
-                'message': ['Verification link has expired!', 'Please register again']
+                'message': ['The verification link you tried to use has expired!',
+                            'Please try registering with us again or contacting us if the issue persists.']
             }, status=status.HTTP_401_UNAUTHORIZED)
 
 
@@ -98,18 +97,18 @@ class PasswordResetRequest(generics.GenericAPIView):
             serializer = self.serializer_class(data=request.data)
             serializer.is_valid(raise_exception=True)
             user = User.objects.get(email=request.data['email'])
-            PasswordResetEmail.send_password_reset_email(request,
-                                                         user.first_name,
-                                                         AuthToken.objects.create(user)[1],
-                                                         PasswordResetTokenGenerator().make_token(user))
+            SendEmail().password_reset_email(request,
+                                             user.first_name,
+                                             AuthToken.objects.create(user)[1],
+                                             PasswordResetTokenGenerator().make_token(user))
             return Response(
-                { 'passwordReset': 'Please check your email to reset your password' },
+                { 'success': True },
                 status=status.HTTP_200_OK
             )
         except Exception as e:
             return Response(
-                { 'passwordReset': 'Please check your email to reset your password' },
-                status=status.HTTP_200_OK
+                { 'success': False },
+                status=status.HTTP_400_BAD_REQUEST
             )
 
 

@@ -1,37 +1,31 @@
-import React, {Component} from 'react';
-import PropType from 'prop-types';
-import {connect} from 'react-redux';
-import {getTermsService} from "../../../actions/terms-conditions/termsConditions";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTermsService } from "../../../actions/terms-conditions/termsConditions";
 import Moment from "react-moment";
 
-export class TermsService extends Component {
+export const TermsService = () => {
 
-    static propTypes = {
-      termsService: PropType.object.isRequired
-    };
+    const dispatch = useDispatch();
+    const termsService = useSelector(state => state.termsConditions.termsService);
 
-    componentDidMount() {
-        this.props.getTermsService();
+    useEffect(() => {
+        dispatch(getTermsService());
+    }, []);
+
+    const renderTermsService = (content) => {
+        return { __html: content };
     }
 
-    renderTermsServiceContent(content) {
-        return {__html: content};
-    }
+    return (
+        <div className='container mt-5 min-vh-100'>
+            <h1>{ termsService.title }</h1>
+            <div className='mt-5 mb-5' dangerouslySetInnerHTML={ renderTermsService(termsService.content) }/>
+            <p>These Terms of Service was last updated on
+                <Moment format="Do MMMM YYYY">{ termsService.dateCreated }</Moment>
+                .
+            </p>
+        </div>
+    );
+};
 
-    render() {
-        const {termsService} = this.props;
-        return (
-           <div className='container mt-5 min-vh-100'>
-                <h1>{termsService.title}</h1>
-                <div className='mt-5 mb-5' dangerouslySetInnerHTML={this.renderTermsServiceContent(termsService.content)}/>
-                <p>These Terms of Service was last updated on <Moment format="Do MMMM YYYY">{termsService.dateCreated}</Moment>.</p>
-            </div>
-        );
-    }
-}
-
-const mapStateToProps = (state) => ({
-    termsService: state.termsConditions.termsService
-});
-
-export default connect(mapStateToProps, {getTermsService})(TermsService);
+export default TermsService;

@@ -1,37 +1,31 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {getPrivacyPolicy} from "../../../actions/terms-conditions/termsConditions";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPrivacyPolicy } from "../../../actions/terms-conditions/termsConditions";
 import Moment from "react-moment";
 
-export class PrivacyPolicy extends Component {
+export const PrivacyPolicy = () => {
 
-    static propTypes = {
-      privacyPolicy: PropTypes.object.isRequired
-    };
+    const dispatch = useDispatch();
+    const privacyPolicy = useSelector(state => state.termsConditions.privacyPolicy);
 
-    componentDidMount() {
-        this.props.getPrivacyPolicy();
+    useEffect(() => {
+        dispatch(getPrivacyPolicy());
+    }, []);
+
+    const renderPrivacyPolicy = (content) => {
+        return { __html: content };
     }
 
-    renderPrivacyPolicyContent(content) {
-        return {__html: content};
-    }
+    return (
+        <div className='container mt-5 min-vh-100'>
+            <h1>{ privacyPolicy.title }</h1>
+            <div className='mt-5 mb-5' dangerouslySetInnerHTML={ renderPrivacyPolicy(privacyPolicy.content) }/>
+            <p>This Privacy Policy was last updated on
+                <Moment format="Do MMMM YYYY">{ privacyPolicy.dateCreated }</Moment>
+                .
+            </p>
+        </div>
+    );
+};
 
-    render() {
-        const {privacyPolicy} = this.props;
-        return (
-            <div className='container mt-5 min-vh-100'>
-                <h1>{privacyPolicy.title}</h1>
-                <div className='mt-5 mb-5' dangerouslySetInnerHTML={this.renderPrivacyPolicyContent(privacyPolicy.content)}/>
-                <p>This Privacy Policy was last updated on <Moment format="Do MMMM YYYY">{privacyPolicy.dateCreated}</Moment>.</p>
-            </div>
-        );
-    }
-}
-
-const mapStateToProps = (state) => ({
-    privacyPolicy: state.termsConditions.privacyPolicy
-});
-
-export default connect(mapStateToProps, {getPrivacyPolicy})(PrivacyPolicy);
+export default PrivacyPolicy;

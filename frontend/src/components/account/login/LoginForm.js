@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import { login } from '../../../actions/auth/auth';
 import './Login.scss';
 import { LOGIN_FAIL, LOGIN_SUCCESS } from "../../../actions/auth/types";
@@ -8,9 +8,11 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
+import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
+        .email('Please enter a valid email')
         .required('Please enter an email'),
     password: Yup.string()
         .required('Please enter a password')
@@ -32,7 +34,7 @@ export const LoginForm = (props) => {
             <Formik
                 initialValues={ { email: '', password: '' } }
                 validationSchema={ validationSchema }
-                onSubmit={ (values, { setSubmitting, resetForm, setFieldError, setFieldValue }) => {
+                onSubmit={ (values, { setSubmitting, resetForm, setFieldError }) => {
                     setSubmitting(true);
 
                     login(values)
@@ -79,7 +81,17 @@ export const LoginForm = (props) => {
                         </Form.Group>
 
                         <Form.Group controlId='password'>
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label style={{width: '100%'}}>
+                                {
+                                    <div className='d-flex justify-content-between'>
+                                        <span>Password</span>
+                                        <span className='ml-auto'>
+                                            <Link style={{fontSize: '0.8em'}} to='/forgot-password'>Forgot password?</Link>
+                                        </span>
+                                    </div>
+                                }
+                            </Form.Label>
+
                             <Form.Control
                                 type='password'
                                 name='password'
@@ -98,11 +110,19 @@ export const LoginForm = (props) => {
                         </Form.Group>
 
                         <Button
-                            className='btn-block mb-0 mt-4'
+                            className='btn-block form-btn mb-0 mt-4'
                             variant='primary'
                             disabled={ isSubmitting }
                             type='submit'>
-                            Login
+                            { isSubmitting ?
+                                <Spinner
+                                    as="span"
+                                    animation="border"
+                                    role="status"
+                                    aria-hidden="true"
+                                /> :
+                                'LOGIN'
+                            }
                         </Button>
                     </Form>
                 ) }

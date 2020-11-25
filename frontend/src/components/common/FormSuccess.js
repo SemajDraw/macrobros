@@ -2,10 +2,7 @@ import React from 'react';
 import { MacroBrosIcon } from "./MacroBrosIcon";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons/faFacebook";
-import { faInstagram } from "@fortawesome/free-brands-svg-icons/faInstagram";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons/faTwitter";
+import SocialIcons from "./social-icons/SocialIcons";
 
 export const FormSuccess = (props) => {
 
@@ -16,7 +13,7 @@ export const FormSuccess = (props) => {
     };
 
     return (
-        <div className='container d-flex align-items-center mt-3 min-vh-100'>
+        <div className='container d-flex align-items-center min-vh-100'>
             <div className='row justify-content-center' style={ { height: '100%', width: '100%' } }>
                 <div className='col-md-8 col-10'>
                     <div className='register-form card card-body p-4'>
@@ -29,25 +26,7 @@ export const FormSuccess = (props) => {
                             <Link to='/contact'>
                                 <Button className='my-3'>CONTACT US</Button>
                             </Link>
-                            <div className='mb-1 mt-5' style={ { width: '100%' } }>
-                                <div className='d-flex justify-content-around'>
-                                    <div>
-                                        <Link className='' to=''>
-                                            <FontAwesomeIcon size='2x' icon={ faFacebook }/>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link className='' to=''>
-                                            <FontAwesomeIcon size='2x' icon={ faInstagram }/>
-                                        </Link>
-                                    </div>
-                                    <div>
-                                        <Link className='' to=''>
-                                            <FontAwesomeIcon size='2x' icon={ faTwitter }/>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
+                            <SocialIcons/>
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,16 @@ import {EMAIL_VERIFICATION, GET_SAVED_BLOGS, PASSWORD_RESET, SAVE_BLOG} from "./
 import {tokenAuthHeaders} from "../authHeaders";
 import {AUTH_ERROR} from "../auth/types";
 
+export const register = (registerObj) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    return axios.post('/api/account/auth/register', JSON.stringify(registerObj), config);
+};
+
 export const verifyEmail = (token) => (dispatch) => {
     axios.post('/api/account/auth/verify-email', null, tokenAuthHeaders(token))
         .then(res => {
@@ -14,6 +24,10 @@ export const verifyEmail = (token) => (dispatch) => {
         }).catch(err => {
         dispatch(createError(err.response.data, err.response.status));
     });
+};
+
+export const passwordResetRequest = (resetReq) => {
+    return axios.post('/api/account/password-reset-request', resetReq);
 };
 
 export const passwordReset = (user, token, password, password1) => (dispatch) => {

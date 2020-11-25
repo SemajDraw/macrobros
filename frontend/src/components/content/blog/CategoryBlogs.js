@@ -6,16 +6,22 @@ import Pagination from "react-bootstrap/Pagination";
 import PaginationBar from "../../common/Pagination";
 import SideBar from "./side-bar/SideBar";
 import BlogGridBuilder from "./blog-grid-builder/BlogGridBuilder";
+import LoadingSpinner from "../../common/LoadingSpinner";
 
 export const CategoryBlogs = (props) => {
 
     const dispatch = useDispatch();
     const blogs = useSelector(state => state.blog.categoryBlogs)
     const [category, setCategory] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         setCategory(capitalizeFirstLetter(props.match.params.category));
         dispatch(getCategoryBlogs(props.match.params.category));
+    }, [category]);
+
+    useEffect(() => {
+        setIsLoading(false);
     }, [blogs]);
 
     const loadPages = (pageNumber) => {
@@ -30,10 +36,13 @@ export const CategoryBlogs = (props) => {
             <div className='container-fluid pt-3'>
                 <div className='row'>
                     <div className='col-md-9'>
-                        <BlogGridBuilder blogs={ blogs.results }/>
+                        { isLoading ?
+                            <LoadingSpinner isLoading={ isLoading }/> :
+                            <BlogGridBuilder blogs={ blogs.results }/>
+                        }
                     </div>
                     <div className='col-md-3'>
-                        <SideBar history={ props.history }/>
+                        <SideBar props={ props }/>
                     </div>
                 </div>
             </div>

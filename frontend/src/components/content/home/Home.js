@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import './Home.scss';
 import Pagination from "react-bootstrap/Pagination";
@@ -10,11 +10,13 @@ import Bounce from 'react-reveal/Bounce';
 import Fade from "react-reveal/Fade";
 import BlogGridBuilder from "../blog/blog-grid-builder/BlogGridBuilder";
 import { MacroBrosIcon } from "../../common/MacroBrosIcon";
+import LoadingSpinner from "../../common/LoadingSpinner";
 
 export const Home = (props) => {
 
     const blogs = useSelector(state => state.blog.blogs);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
 
     const iconProps = {
         strokeColor: '#FFFFFF'
@@ -23,6 +25,10 @@ export const Home = (props) => {
     useEffect(() => {
         dispatch(getBlogs());
     }, []);
+
+    useEffect(() => {
+        setIsLoading(false);
+    }, [blogs]);
 
     const nextPage = (pageNumber) => {
         dispatch(getBlogs(pageNumber))
@@ -42,7 +48,7 @@ export const Home = (props) => {
                      className='d-flex flex-row justify-content-center logo-row'>
                     <Bounce delay={ 500 } top>
                         <div className='logo-container'>
-                            <MacroBrosIcon key={'home-icon'} props={ iconProps }/>
+                            <MacroBrosIcon key={ 'home-icon' } props={ iconProps }/>
                         </div>
                     </Bounce>
                 </div>
@@ -62,7 +68,6 @@ export const Home = (props) => {
                 <div className='d-flex flex-row'>
                     <Fade delay={ 1000 }>
                         <p>
-                            Some random shit about macrobros and below links to some of our shit
                         </p>
                     </Fade>
                 </div>
@@ -71,10 +76,13 @@ export const Home = (props) => {
             <div className='container-fluid mt-5'>
                 <div className='row'>
                     <div className='col-12 col-md-8 col-lg-9'>
-                        <BlogGridBuilder blogs={ blogs.results }/>
+                        { isLoading ?
+                            <LoadingSpinner isLoading={ isLoading }/> :
+                            <BlogGridBuilder blogs={ blogs.results }/>
+                        }
                     </div>
                     <div className='col-12 col-md-4 col-lg-3'>
-                        <SideBar history={ props.history }/>
+                        <SideBar props={ props }/>
                     </div>
                 </div>
             </div>
