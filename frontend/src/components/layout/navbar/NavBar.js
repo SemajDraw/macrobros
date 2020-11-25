@@ -1,59 +1,70 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {animated, useSpring} from 'react-spring';
-import {logout} from '../../../actions/auth/auth';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { animated, useSpring } from 'react-spring';
+import { logout } from '../../../actions/auth/auth';
 
 import './NavBar.scss';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
-import {faSortDown} from "@fortawesome/free-solid-svg-icons/faSortDown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
+import { faSortDown } from "@fortawesome/free-solid-svg-icons/faSortDown";
+import { MacroBrosIcon } from "../../common/MacroBrosIcon";
 
 export const NavBar = () => {
 
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
-    const {isAuthenticated, user} = auth;
+    const { isAuthenticated, user } = auth;
+
+    const iconProps = {
+        strokeColor: '#FFFFFF'
+    };
 
     const transition = useSpring({
-        from: {transform: 'translate3d(0,-20px,0)'},
-        enter: {transform: 'translate3d(0,0px,0)'},
-        to: {transform: 'translate3d(0,0px,0)'}
+        from: { transform: 'translate3d(0,-20px,0)' },
+        enter: { transform: 'translate3d(0,0px,0)' },
+        to: { transform: 'translate3d(0,0px,0)' }
     });
 
     const unauthenticated = (
         <div className='d-inline-flex login-register'>
-            <Link className='navBarLink nav-link' to='/login'>Login</Link>
+            <Link className='nav-bar-link nav-link' to='/login'>Login</Link>
             <p className='my-auto log-reg-sep'>|</p>
-            <Link className='navBarLink nav-link' to='/register'>Register</Link>
+            <Link className='nav-bar-link nav-link' to='/register'>Register</Link>
         </div>
     );
     const authenticated = (
         <div className='d-flex flex-row'>
             <p className='user-name my-auto'>
-                {user ? user.firstName : ''}
+                { user ? user.firstName : '' }
             </p>
-            <a className='navBarLink user-dropdown-link nav-link dropdown-toggle' href='#' id='navbarDropdown'
+            <a className='nav-bar-link user-dropdown-link nav-link dropdown-toggle' href='#' id='navbarDropdown'
                role='button'
                data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                <FontAwesomeIcon className='ml-4' icon={faUser}/><FontAwesomeIcon className='ml-1 pt-auto' icon={faSortDown}/>
+                <FontAwesomeIcon className='ml-4' icon={ faUser }/><FontAwesomeIcon className='ml-1 pt-auto'
+                                                                                    icon={ faSortDown }/>
             </a>
             <div className='dropdown-menu py-0 navbar-dropdown dropdown-menu-right' aria-labelledby='navbarDropdown'>
-                <h6 className="dropdown-header pt-3">Hi {user ? user.firstName : ''}!</h6>
-                <Link className='navBarLink dropdown-link py-2 dropdown-item' to='/profile'>Profile</Link>
-                <a onClick={() => dispatch(logout())} style={{cursor: 'pointer'}}
-                   className='navBarLink dropdown-link py-2 dropdown-item'>Logout</a>
+                <h6 className="dropdown-header pt-3">Hi { user ? user.firstName : '' }!</h6>
+                <Link className='nav-bar-link dropdown-link py-2 dropdown-item' to='/profile'>Profile</Link>
+                <a onClick={ () => dispatch(logout()) } style={ { cursor: 'pointer' } }
+                   className='nav-bar-link dropdown-link py-2 dropdown-item'>Logout</a>
             </div>
         </div>
     );
     const authenticatedSM = (
-        <a onClick={() => dispatch(logout())} style={{cursor: 'pointer'}} className='navBarLink nav-link'>Logout</a>
+        <a onClick={ () => dispatch(logout()) } style={ { cursor: 'pointer' } }
+           className='nav-bar-link nav-link'>Logout</a>
     );
 
     return (
-        <animated.nav style={transition} className='my-navbar navbar navbar-expand-md navbar-dark py-3'>
+        <animated.nav style={ transition } className='my-navbar navbar navbar-expand-md navbar-dark py-3'>
             <div className='home-link nav-container ml-3 d-md-none'>
-                <Link className='navBarLink nav-link' to='/'>MacroBros</Link>
+                <Link className='nav-bar-link nav-link' to='/'>
+                    <div className='svg-container'>
+                        <MacroBrosIcon key={'navbar-sm-icon'} props={ iconProps }/>
+                    </div>
+                </Link>
             </div>
             <button className='p-0 mr-3 my-auto navbar-toggler align-self-end' type='button' data-toggle='collapse'
                     data-target='#navbarNav'
@@ -64,23 +75,24 @@ export const NavBar = () => {
                  id='navbarNav'>
                 <ul className='box center-navbar navbar-nav home-link mr-auto d-none d-md-block'>
                     <li className='nav-item active'>
-                        <Link className='navBarLink nav-link' to='/'>MacroBros</Link>
+                        <Link className='nav-bar-link nav-link' to='/'>
+                            <div className='svg-container nav-bar-link'>
+                                <MacroBrosIcon key={'navbar-md-icon'} props={ iconProps }/>
+                            </div>
+                        </Link>
                     </li>
                 </ul>
                 <ul className='box center-navbar navbar-nav'>
                     <li className='nav-item active'>
-                        <Link className='navBarLink nav-link' to='/blog'>Blogs</Link>
-                    </li>
-                    <li className='nav-item active'>
-                        <a className='navBarLink nav-link' href='#'>Videos</a>
+                        <Link className='nav-bar-link nav-link' to='/blog'>Blogs</Link>
                     </li>
                     <li className='nav-item active d-md-none'>
-                        {isAuthenticated ? authenticatedSM : unauthenticated}
+                        { isAuthenticated ? authenticatedSM : unauthenticated }
                     </li>
                 </ul>
                 <ul className='box center-navbar navbar-nav ml-auto d-none d-md-block'>
                     <li className='user-dropdown nav-item dropdown active'>
-                        {isAuthenticated ? authenticated : unauthenticated}
+                        { isAuthenticated ? authenticated : unauthenticated }
                     </li>
                 </ul>
             </div>

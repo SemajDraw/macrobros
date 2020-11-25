@@ -10,7 +10,7 @@ from .serializers import (RegisterSerializer,
                           UserSerializer,
                           PasswordResetRequestSerializer,
                           PasswordResetSerializer)
-from ..account_email import ConfirmationEmail, PasswordResetEmail
+from ..account_email import SendEmail
 from blog.models import BlogPost
 from blog.api.serializers import BlogPostSerializer
 from ..models import User
@@ -26,13 +26,14 @@ class Register(generics.GenericAPIView):
         if serializer.is_valid():
             user = serializer.save()
 
-            ConfirmationEmail.send_confirmation_email(
-                user,
+            SendEmail().account_confirmation_email(
                 request,
+                user.first_name,
                 AuthToken.objects.create(user)[1]
             )
+
             return Response({
-                'message': 'Thank you for registering! Please check your email to verify your email address'
+                'message': 'Success'
             }, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -56,7 +57,16 @@ class Login(generics.GenericAPIView):
                 return Response({
                     'non_field_errors': ['Please verify your email address']
                 }, status=status.HTTP_401_UNAUTHORIZED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            try:
+                User.objects.get(email=serializer.data['email'])
+                return Response({
+                    'password': 'Incorrect password!'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            except User.DoesNotExist:
+                return Response({
+                    'email': 'No account with this email!'
+                }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class VerifyEmail(generics.GenericAPIView):
@@ -68,12 +78,14 @@ class VerifyEmail(generics.GenericAPIView):
             self.request.user.save()
             return Response({
                 'emailVerified': True,
-                'message': ['Account activated successfully!', 'Please login']
+                'message': ['Your account has been activated successfully!',
+                            'Click the button below to login or continue reading our awesome blogs.']
             }, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({
                 'emailVerified': False,
-                'message': ['Verification link has expired!', 'Please register again']
+                'message': ['The verification link you tried to use has expired!',
+                            'Please try registering with us again or contacting us if the issue persists.']
             }, status=status.HTTP_401_UNAUTHORIZED)
 
 
@@ -85,18 +97,18 @@ class PasswordResetRequest(generics.GenericAPIView):
             serializer = self.serializer_class(data=request.data)
             serializer.is_valid(raise_exception=True)
             user = User.objects.get(email=request.data['email'])
-            PasswordResetEmail.send_password_reset_email(request,
-                                                         user.first_name,
-                                                         AuthToken.objects.create(user)[1],
-                                                         PasswordResetTokenGenerator().make_token(user))
+            SendEmail().password_reset_email(request,
+                                             user.first_name,
+                                             AuthToken.objects.create(user)[1],
+                                             PasswordResetTokenGenerator().make_token(user))
             return Response(
-                {'passwordReset': 'Please check your email to reset your password'},
+                { 'success': True },
                 status=status.HTTP_200_OK
             )
         except Exception as e:
             return Response(
-                {'passwordReset': 'Please check your email to reset your password'},
-                status=status.HTTP_200_OK
+                { 'success': False },
+                status=status.HTTP_400_BAD_REQUEST
             )
 
 
@@ -106,7 +118,7 @@ class PasswordReset(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         try:
-            serializer = self.serializer_class(data=request.data, context={'request': self.request})
+            serializer = self.serializer_class(data=request.data, context={ 'request': self.request })
             serializer.is_valid(raise_exception=True)
             user = self.request.user
             user.set_password(request.data['password'])
@@ -129,13 +141,26 @@ class GetUser(generics.GenericAPIView):
         }, status=status.HTTP_200_OK)
 
 
-class GetClappedBlogs(ListAPIView):
+class GetSavedBlogs(ListAPIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = BlogPostSerializer
     pagination_class = CustomPagination
 
     def get_queryset(self):
         user = self.request.user
-        clapped_blogs = user.clapped_blogs
-        blogs = BlogPost.objects.filter(id__in=clapped_blogs)
+        saved_blogs = user.saved_blogs
+        blogs = BlogPost.objects.filter(id__in=saved_blogs)
         return blogs
+
+
+class SaveBlogView(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def put(self, request, *args, **kwargs):
+        blog_id = self.request.data['blog_id']
+        # Update User
+        user = self.request.user
+        if blog_id not in user.saved_blogs:
+            user.saved_blogs.append(blog_id)
+        user.save()
+        return Response({ 'blog_saved': 'Saved' }, status=status.HTTP_200_OK)

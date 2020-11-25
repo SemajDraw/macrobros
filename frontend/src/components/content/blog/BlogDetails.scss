@@ -21,3 +21,9 @@
     height: calc(70vh);
   }
 }
+
+@include media-breakpoint-up(lg) {
+  .sidebar-offset {
+    margin-top: -138px;
+  }
+}

@@ -1,4 +1,4 @@
-import capitalizeFirstLetter from "../../../../services/formatHeader";
+import capitalizeFirstLetter from "../../../../utils/formatHeader";
 import Moment from "react-moment";
 import {Link} from "react-router-dom";
 import React from "react";
@@ -11,7 +11,7 @@ export const BlogGridBuilder = ({blogs}) => {
     const trans = (x, y, s) => `perspective(100px) scale(${s})`;
     const [springs, set] = useSprings(blogs.length, () => ({
         xys: [0, 0, 1],
-        config: {mass: 5, tension: 350, friction: 40}
+        config: {mass: 5, tension: 250, friction: 40}
     }));
 
 
@@ -50,10 +50,10 @@ export const BlogGridBuilder = ({blogs}) => {
         blogPostGrid.push(
             <Fade key={i} bottom cascade>
                 <div className='row mb-2'>
-                    <div className='col-md-6'>
+                    <div className='col-sm-6'>
                         {blogPostMarkup[i]}
                     </div>
-                    <div className='col-md-6'>
+                    <div className='col-sm-6'>
                         {blogPostMarkup[i + 1] ? blogPostMarkup[i + 1] : null}
                     </div>
                 </div>

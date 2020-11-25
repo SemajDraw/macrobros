@@ -2,7 +2,7 @@ import Moment from "react-moment";
 import {Link} from "react-router-dom";
 import React from "react";
 import {animated, useSprings} from 'react-spring';
-import capitalizeFirstLetter from '../../../../services/formatHeader';
+import capitalizeFirstLetter from '../../../../utils/formatHeader';
 import './ClappedBlogs.scss';
 import Fade from "react-reveal/Fade";
 

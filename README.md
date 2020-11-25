@@ -1,2 +1,2 @@
 # MacroBros
-The website code repository for www.macrobros.com
+The code repository for www.macrobros.com

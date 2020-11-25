@@ -1,44 +1,44 @@
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.conf import settings
 
 
-class ConfirmationEmail:
+class SendEmail:
 
-    @staticmethod
-    def send_confirmation_email(user, request, token):
+    def account_confirmation_email(self, request, first_name, token):
         context = {
-            'name': user.first_name,
-            'verification_link': 'http://{}/{}/{}'.format(get_current_site(request).domain, 'verify-email', token)
+            'name': first_name,
+            'verification_link': f'http://{get_current_site(request).domain}/verify-email/{token}'
         }
-        send_html_email(
-            [request.data['email']],
+
+        self.send_email(
             'Please verify your email!',
+            request.data['email'],
             'emails/registration_email.html',
             context
         )
 
-
-class PasswordResetEmail:
-
-    @staticmethod
-    def send_password_reset_email(request, first_name, auth_token, password_reset_token):
+    def password_reset_email(self, request, first_name, auth_token, password_reset_token):
         context = {
             'name': first_name,
-            'password_reset_link': 'http://{}/{}?user={}&token={}'.format(get_current_site(request).domain,
-                                                                          'password-reset', auth_token,
-                                                                          password_reset_token)
+            'password_reset_link':
+                f'http://{get_current_site(request)}/password-reset?user={auth_token}&token={password_reset_token}'
         }
-        send_html_email(
-            [request.data['email']],
+
+        self.send_email(
             'Password reset for MacroBros',
+            request.data['email'],
             'emails/password_reset_email.html',
             context
         )
 
+    @staticmethod
+    def send_email(subject, to, template_name, context):
+        html_content = render_to_string(template_name, context)
+        text_content = strip_tags(html_content)
+        msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [to])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send(fail_silently=False)
 
-def send_html_email(to_list, subject, template_name, context):
-    email_html = render_to_string(template_name, context)
-    email = EmailMessage(subject=subject, body=email_html, to=to_list)
-    email.content_subtype = "html"
-    email.send()

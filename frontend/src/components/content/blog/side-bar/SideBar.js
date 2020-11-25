@@ -7,7 +7,7 @@ import './SideBar.scss';
 import SearchBar from "./SearchBar";
 import {getBlogCategories, getPopularBlogs} from "../../../../actions/blog/blog";
 import {useSprings, animated} from "react-spring";
-import formatHeader from "../../../../services/formatHeader";
+import formatHeader from "../../../../utils/formatHeader";
 
 export const SideBar = (props) => {
 
@@ -31,10 +31,6 @@ export const SideBar = (props) => {
         dispatch(getBlogCategories());
     }, []);
 
-    const searchSubmit = (searchValue) => {
-        props.history.push(`/blog/search/${searchValue}`);
-    }
-
     const popularBlogsList = (popularBlogs) => {
         return popularBlogs.map((blogPost, i) => {
             return (
@@ -55,7 +51,7 @@ export const SideBar = (props) => {
                 </animated.li>
             );
         });
-    }
+    };
 
     const categoriesList = () => {
         return blogCategories.map((category, i) => {
@@ -77,11 +73,11 @@ export const SideBar = (props) => {
                 </animated.a>
             );
         })
-    }
+    };
 
     return (
         <>
-            <SearchBar searchSubmit={searchSubmit}/>
+            <SearchBar props={props.props}/>
 
             <div className="col-12 px-0">
                 <div className="list-group list-container" id="list-tab" role="tablist">

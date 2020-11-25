@@ -1,3 +1,4 @@
+import re
 from rest_framework import serializers
 from account.models import User
 from django.contrib.auth import authenticate
@@ -18,7 +19,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'password', 'password2']
+        fields = ['first_name', 'last_name', 'email', 'is_subscribed', 'password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -27,17 +28,23 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User(
             first_name=self.validated_data['first_name'],
             last_name=self.validated_data['last_name'],
-            email=self.validated_data['email']
+            email=self.validated_data['email'],
+            is_subscribed=self.validated_data['is_subscribed']
         )
         password1 = self.validated_data['password']
         password2 = self.validated_data['password2']
 
-        if password1 != password2:
+        if (password1 != password2) or not self.validatePassword(password1):
             raise serializers.ValidationError({'message': 'Passwords must match'})
 
         user.set_password(password1)
         user.save()
         return user
+
+    @staticmethod
+    def validatePassword(password):
+        pattern = re.compile('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')
+        return True if re.search(pattern, password) else False
 
 
 class LoginSerializer(serializers.Serializer):

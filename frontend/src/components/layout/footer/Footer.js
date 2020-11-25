@@ -40,17 +40,18 @@ export const Footer = () => {
                         </div>
                         <div className="col-lg-2 col-md-4  pt-5 pb-3 d-none d-lg-block">
                             <br/>
-                            <ul>
+                            <br/>
+                            <ul className='mt-3'>
                                 <li>
                                     <Link className='footerLink inactiveLink' to='/blog'>
                                         <p className='footerLink'>Blog</p>
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link className='footerLink inactiveLink' to='/video'>
-                                        <p className='footerLink'>Videos</p>
-                                    </Link>
-                                </li>
+                                {/*<li>*/}
+                                {/*    <Link className='footerLink inactiveLink' to='/video'>*/}
+                                {/*        <p className='footerLink'>Videos</p>*/}
+                                {/*    </Link>*/}
+                                {/*</li>*/}
                             </ul>
                         </div>
 

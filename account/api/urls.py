@@ -1,5 +1,6 @@
 from django.urls import path, include
-from .views import Register, Login, GetUser, VerifyEmail, GetClappedBlogs, PasswordResetRequest, PasswordReset
+from .views import (Register, Login, GetUser, VerifyEmail, GetSavedBlogs, PasswordResetRequest, PasswordReset,
+                    SaveBlogView)
 from knox import views as KnoxViews
 
 urlpatterns = [
@@ -11,5 +12,6 @@ urlpatterns = [
     path('auth/verify-email', VerifyEmail.as_view(), name='verify-email'),
     path('password-reset-request', PasswordResetRequest.as_view(), name='password-reset'),
     path('password-reset', PasswordReset.as_view(), name='password-reset'),
-    path('clapped-blogs', GetClappedBlogs.as_view(), name='user'),
+    path('saved-blogs', GetSavedBlogs.as_view(), name='saved-blogs'),
+    path('save-blog', SaveBlogView.as_view(), name='save-blog'),
 ]
