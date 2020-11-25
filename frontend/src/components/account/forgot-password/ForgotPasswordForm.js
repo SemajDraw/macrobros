@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 import './ForgotPassword.scss';
 import { passwordResetRequest } from "../../../actions/account/account";
+import { Common } from "../../common/Routes";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -28,7 +29,7 @@ export const ForgotPasswordForm = (props) => {
                             resetForm();
                             setSubmitting(false);
                             if (res.data.success) {
-                                props.props.history.push('/success/forgot-password', {
+                                props.props.history.push( Common.FORM_SUCCESS, {
                                     header: 'Password reset requested',
                                     body: `An email has been sent to your email account. 
                                     Please check your inbox to reset your password.`

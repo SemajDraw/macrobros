@@ -5,6 +5,7 @@ import { verifyEmail } from "../../../actions/account/account";
 import { MacroBrosIcon } from "../../common/MacroBrosIcon";
 import { Button } from "react-bootstrap";
 import SocialIcons from "../../common/social-icons/SocialIcons";
+import { Account } from "../../common/Routes";
 
 export const EmailVerification = (props) => {
 
@@ -31,10 +32,10 @@ export const EmailVerification = (props) => {
                             <h3 className='pt-5 pb-2'>{ emailVerification.message[0] }</h3>
                             <p>{ emailVerification.message[1] }</p>
                             { emailVerification.emailVerified === true ?
-                                <Link to='/login'>
+                                <Link to={ Account.LOGIN }>
                                     <Button className='my-3 px-5'>LOGIN</Button>
                                 </Link> :
-                                <Link to='/register'>
+                                <Link to={ Account.REGISTER }>
                                     <Button className='my-3 px-5'>REGISTER</Button>
                                 </Link>
                             }

@@ -6,6 +6,7 @@ import {faFacebook} from "@fortawesome/free-brands-svg-icons/faFacebook";
 import {faInstagram} from "@fortawesome/free-brands-svg-icons/faInstagram";
 import {faTwitter} from "@fortawesome/free-brands-svg-icons/faTwitter";
 import Bounce from 'react-reveal/Bounce';
+import { Blog, TermsConditions } from "../../common/Routes";
 
 export const Footer = () => {
 
@@ -26,12 +27,12 @@ export const Footer = () => {
                             <ul>
                                 <br/>
                                 <li>
-                                    <Link className='footerLink' to='/terms-of-service'>
+                                    <Link className='footerLink' to={ TermsConditions.TERMS_SERVICE }>
                                         <p className='footerLink'>Terms of Service</p>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className='footerLink' to='/privacy-policy'>
+                                    <Link className='footerLink' to={ TermsConditions.PRIVACY_POLICY }>
                                         <p className='footerLink'>Privacy Policy</p>
                                     </Link>
                                 </li>
@@ -43,7 +44,7 @@ export const Footer = () => {
                             <br/>
                             <ul className='mt-3'>
                                 <li>
-                                    <Link className='footerLink inactiveLink' to='/blog'>
+                                    <Link className='footerLink inactiveLink' to={ Blog.BLOGS }>
                                         <p className='footerLink'>Blog</p>
                                     </Link>
                                 </li>

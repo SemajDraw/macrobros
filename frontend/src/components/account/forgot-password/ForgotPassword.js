@@ -3,6 +3,7 @@ import { MacroBrosIcon } from "../../common/MacroBrosIcon";
 import { Link } from "react-router-dom";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import SocialIcons from "../../common/social-icons/SocialIcons";
+import { Account } from "../../common/Routes";
 
 export const ForgotPassword = (props) => {
 
@@ -45,7 +46,7 @@ export const ForgotPassword = (props) => {
                         <div className='row text-center my-md-3 my-2 form-container'>
                             <div className='login-form card card-body'>
                                 <p className='my-0'>New to MacroBros?
-                                    <Link className='register-link ml-1' to='/register'>Create an account.</Link>
+                                    <Link className='register-link ml-1' to={ Account.REGISTER }>Create an account.</Link>
                                 </p>
                             </div>
                         </div>

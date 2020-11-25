@@ -7,6 +7,7 @@ import { Formik } from "formik";
 import { EMAIL_SENT } from "../../../actions/contact/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
+import { Common } from "../../common/Routes";
 
 const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -43,7 +44,7 @@ export const ContactForm = (props) => {
                             dispatch({ type: EMAIL_SENT, payload: res.data });
                             setSubmitting(false);
                             resetForm();
-                            props.props.history.push('/success/contact', {
+                            props.props.history.push(Common.FORM_SUCCESS, {
                                 header: 'Thanks for getting in touch',
                                 body: `We appreciate your interest to get in touch with us. 
                                     We will be in contact with you as soon as we can!`
@@ -51,7 +52,7 @@ export const ContactForm = (props) => {
                         })
                         .catch((err) => {
                             setSubmitting(false);
-                            props.props.history.push('/success/error', {
+                            props.props.history.push(Common.FORM_SUCCESS, {
                                 header: 'Oops something went wrong!',
                                 body: `It looks like we're experiencing some technical issues. 
                                     Please try again later!`

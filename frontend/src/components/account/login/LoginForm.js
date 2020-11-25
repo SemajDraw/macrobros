@@ -9,6 +9,7 @@ import { Formik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 import { Link } from "react-router-dom";
+import { Account } from "../../common/Routes";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -81,12 +82,12 @@ export const LoginForm = (props) => {
                         </Form.Group>
 
                         <Form.Group controlId='password'>
-                            <Form.Label style={{width: '100%'}}>
+                            <Form.Label style={ { width: '100%' } }>
                                 {
                                     <div className='d-flex justify-content-between'>
                                         <span>Password</span>
                                         <span className='ml-auto'>
-                                            <Link style={{fontSize: '0.8em'}} to='/forgot-password'>Forgot password?</Link>
+                                            <Link style={ { fontSize: '0.8em' } } to={ Account.FORGOT_PASSWORD }>Forgot password?</Link>
                                         </span>
                                     </div>
                                 }

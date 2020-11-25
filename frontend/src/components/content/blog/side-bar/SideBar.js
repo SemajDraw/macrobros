@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
-import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown} from "@fortawesome/free-solid-svg-icons/faAngleDown";
+import React, { useEffect } from 'react';
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons/faAngleDown";
 import './SideBar.scss';
 import SearchBar from "./SearchBar";
-import {getBlogCategories, getPopularBlogs} from "../../../../actions/blog/blog";
-import {useSprings, animated} from "react-spring";
-import formatHeader from "../../../../utils/formatHeader";
+import { getBlogCategories, getPopularBlogs } from "../../../../actions/blog/blog";
+import { animated, useSprings } from "react-spring";
+import { formatPageHeading } from "../../../../utils/stringUtils";
 
 export const SideBar = (props) => {
 
@@ -16,14 +16,14 @@ export const SideBar = (props) => {
     const dispatch = useDispatch();
 
     const calc = (x, y) => [(y - window.innerHeight / 2) / 20, -(x - window.innerWidth / 2) / 20, 1.02];
-    const trans = (x, y, s) => `perspective(100px) scale(${s})`;
+    const trans = (x, y, s) => `perspective(100px) scale(${ s })`;
     const [popularSprings, setPopular] = useSprings(popularBlogs.length, () => ({
         xys: [0, 0, 1],
-        config: {mass: 5, tension: 350, friction: 40}
+        config: { mass: 5, tension: 350, friction: 40 }
     }));
     const [categoriesSprings, setCategories] = useSprings(blogCategories.length, () => ({
         xys: [0, 0, 1],
-        config: {mass: 5, tension: 350, friction: 40}
+        config: { mass: 5, tension: 350, friction: 40 }
     }));
 
     useEffect(() => {
@@ -34,20 +34,20 @@ export const SideBar = (props) => {
     const popularBlogsList = (popularBlogs) => {
         return popularBlogs.map((blogPost, i) => {
             return (
-                <animated.li key={i}
+                <animated.li key={ i }
                              className="list-group-item text-truncate text-format"
-                             onMouseMove={({clientX: x, clientY: y}) =>
+                             onMouseMove={ ({ clientX: x, clientY: y }) =>
                                  setPopular(index => {
                                      if (index !== i) return;
-                                     return {xys: calc(x, y)};
+                                     return { xys: calc(x, y) };
                                  })
                              }
-                             onMouseLeave={() => setPopular({xys: [0, 0, 1]})}
-                             style={{
+                             onMouseLeave={ () => setPopular({ xys: [0, 0, 1] }) }
+                             style={ {
                                  transform: popularSprings[i].xys.interpolate(trans)
-                             }}>
-                    <img className='categories-icon mr-2' src={blogPost.icon} alt={''}/>
-                    <Link to={`/blog/${blogPost.slug}`}>{blogPost.title}</Link>
+                             } }>
+                    <img className='categories-icon mr-2' src={ blogPost.icon } alt={ '' }/>
+                    <Link to={ `/blog/${ blogPost.slug }` }>{ blogPost.title }</Link>
                 </animated.li>
             );
         });
@@ -56,20 +56,20 @@ export const SideBar = (props) => {
     const categoriesList = () => {
         return blogCategories.map((category, i) => {
             return (
-                <animated.a key={i}
+                <animated.a key={ i }
                             className='list-group-item p-s text-muted text-truncate text-format'
-                            href={`/blog/category/${category}`}
-                            onMouseMove={({clientX: x, clientY: y}) =>
+                            href={ `/blog/category/${ category }` }
+                            onMouseMove={ ({ clientX: x, clientY: y }) =>
                                 setCategories(index => {
                                     if (index !== i) return;
-                                    return {xys: calc(x, y)};
+                                    return { xys: calc(x, y) };
                                 })
                             }
-                            onMouseLeave={() => setCategories({xys: [0, 0, 1]})}
-                            style={{
+                            onMouseLeave={ () => setCategories({ xys: [0, 0, 1] }) }
+                            style={ {
                                 transform: categoriesSprings[i].xys.interpolate(trans)
-                            }}>
-                    {formatHeader(category)}
+                            } }>
+                    { formatPageHeading(category) }
                 </animated.a>
             );
         })
@@ -77,7 +77,7 @@ export const SideBar = (props) => {
 
     return (
         <>
-            <SearchBar props={props.props}/>
+            <SearchBar props={ props.props }/>
 
             <div className="col-12 px-0">
                 <div className="list-group list-container" id="list-tab" role="tablist">
@@ -86,10 +86,10 @@ export const SideBar = (props) => {
                        data-toggle="collapse" href="#collapseCategories"
                        aria-expanded="false" aria-controls="collapseCategories">
                         Categories
-                        <FontAwesomeIcon icon={faAngleDown}/>
+                        <FontAwesomeIcon icon={ faAngleDown }/>
                     </a>
                     <div className='collapse' id="collapseCategories" aria-labelledby="collapseCategories">
-                        {categoriesList()}
+                        { categoriesList() }
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@ export const SideBar = (props) => {
             </div>
             <div className='list-container col-12 px-0 mt-1'>
                 <ul className="list-group list-group-flush">
-                    {popularBlogsList(popularBlogs)}
+                    { popularBlogsList(popularBlogs) }
                 </ul>
             </div>
         </>

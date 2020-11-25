@@ -3,6 +3,7 @@ import RegisterForm from "./RegisterForm";
 import { Link } from "react-router-dom";
 import './Register.scss';
 import { MacroBrosIcon } from "../../common/MacroBrosIcon";
+import { Account } from "../../common/Routes";
 
 export const Register = (props) => {
 
@@ -45,7 +46,7 @@ export const Register = (props) => {
                         <div className='row text-center my-md-3 my-2 form-container'>
                             <div className='login-form card card-body'>
                                 <p className='my-0'>Already have an account?
-                                    <Link className='register-link ml-1' to='/register'>Please login.</Link>
+                                    <Link className='register-link ml-1' to={ Account.REGISTER }>Please login.</Link>
                                 </p>
                             </div>
                         </div>

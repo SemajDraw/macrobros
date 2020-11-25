@@ -1,19 +1,20 @@
 import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Account } from "./Routes";
 
-const PrivateRoute = ({component: Component, auth, ...rest}) => (
+const PrivateRoute = ({ component: Component, auth, ...rest }) => (
     <Route
-        {...rest}
-        render={props => {
+        { ...rest }
+        render={ props => {
             if (auth.isLoading) {
                 return <h2>Loading... Replace with spinner</h2>;
             } else if (!auth.isAuthenticated) {
-                return <Redirect to='/login'/>
+                return <Redirect to={ Account.LOGIN }/>
             } else {
-                return <Component {...props}/>;
+                return <Component { ...props }/>;
             }
-        }}
+        } }
     />
 );
 

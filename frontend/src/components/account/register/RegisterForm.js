@@ -10,6 +10,7 @@ import { Formik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 import { Link } from "react-router-dom";
+import { Common } from "../../common/Routes";
 
 const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -66,7 +67,7 @@ export const RegisterForm = (props) => {
                                 resetForm();
                                 setSubmitting(false);
                                 dispatch({ type: REGISTER_SUCCESS, payload: res.data });
-                                props.props.history.push('/success/register', {
+                                props.props.history.push(Common.FORM_SUCCESS, {
                                     header: 'Thank you for registering!',
                                     body: `A verification email has been sent to your email account.
                                     Please check your inbox to verify.`

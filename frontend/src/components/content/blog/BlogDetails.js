@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBlog } from "../../../actions/blog/blog";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
-import capitalizeFirstLetter from "../../../utils/formatHeader";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import TradingViewWidget from "react-tradingview-widget";
 import './BlogDetails.scss';
 import ActivityBar from "./activity-bar/ActivityBar";
+import { formatPageHeading } from "../../../utils/stringUtils";
+import { Blog } from "../../common/Routes";
 
 export const BlogDetails = (props) => {
 
@@ -41,7 +42,7 @@ export const BlogDetails = (props) => {
                 <div className='row sidebar-offset justify-content-center'>
                     <div className='col-lg-8 col-10 col-sm-12'>
                         <h1 className='display-2'>{ blogPost.title }</h1>
-                        <h2 className='text-muted mt-3'> Category: { capitalizeFirstLetter(blogPost.category) }</h2>
+                        <h2 className='text-muted mt-3'> Category: { formatPageHeading(blogPost.category) }</h2>
                         <div className='d-flex justify-content-between'>
                             <span className='d-flex'>
                                 <Moment className='mr-2' format="MMM D, YYYY">{ blogPost.dateCreated }</Moment>
@@ -65,11 +66,15 @@ export const BlogDetails = (props) => {
                 </div>
             </div>
 
-            <div className='container py-3'>
+            <div className='container'>
                 <div className='row justify-content-center'>
                     <div className='col-lg-8 col-sm-12 col-10'>
                         <hr/>
-                        <Link className='btn btn-primary btn-lg' to='/blog' role='button'>Back to Blogs!</Link>
+                    </div>
+                    <div className='col-lg-8 col-sm-12 col-10 pt-2 pb-5'>
+                        <div className='d-flex justify-content-center' style={ { width: '100%' } }>
+                            <Link className='btn btn-primary btn-lg' to={ Blog.BLOGS } role='button'>Back</Link>
+                        </div>
                     </div>
                 </div>
             </div>

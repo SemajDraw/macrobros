@@ -20,6 +20,8 @@ import PasswordReset from "./account/password-reset/PasswordReset";
 import FormSuccess from "./common/FormSuccess";
 import ForgotPassword from "./account/forgot-password/ForgotPassword";
 import CategoryBlogs from "./content/blog/CategoryBlogs";
+import ProfileSettings from "./account/profile/settings/ProfileSettings";
+import { Account, Blog, Common, ContactR, TermsConditions } from './common/Routes';
 
 class AppRouter extends Component {
     render() {
@@ -31,28 +33,29 @@ class AppRouter extends Component {
                     <Switch>
                         <Route exact path='/' component={ Home }/>
                         {/*Blog Routes*/ }
-                        <Route exact path='/blog' component={ Blogs }/>
-                        <Route exact path='/blog/:slug' component={ BlogDetails }/>
-                        <Route exact path='/blog/category/:category' component={ CategoryBlogs }/>
-                        <Route exact path='/blog/search/:search' component={ SearchBlogs }/>
+                        <Route exact path={ Blog.BLOGS } component={ Blogs }/>
+                        <Route exact path={ Blog.BLOG_DETAILS } component={ BlogDetails }/>
+                        <Route exact path={ Blog.BLOG_CATEGORIES } component={ CategoryBlogs }/>
+                        <Route exact path={ Blog.BLOG_SEARCH } component={ SearchBlogs }/>
 
                         {/*Account Routes*/ }
-                        <Route exact path='/login' component={ Login }/>
-                        <Route exact path='/register' component={ Register }/>
-                        <PrivateRoute exact path='/profile' component={ Profile }/>
-                        <Route exact path='/verify-email/:token' component={ EmailVerification }/>
-                        <Route exact path='/password-reset' component={ PasswordReset }/>
-                        <Route exact path='/forgot-password' component={ ForgotPassword }/>
+                        <Route exact path={ Account.LOGIN } component={ Login }/>
+                        <Route exact path={ Account.REGISTER } component={ Register }/>
+                        <Route exact path={ Account.EMAIL_VERIFICATION } component={ EmailVerification }/>
+                        <Route exact path={ Account.PASSWORD_RESET } component={ PasswordReset }/>
+                        <Route exact path={ Account.FORGOT_PASSWORD } component={ ForgotPassword }/>
+                        <PrivateRoute exact path={ Account.PROFILE } component={ Profile }/>
+                        <PrivateRoute exact path={ Account.PROFILE_SETTINGS } component={ ProfileSettings }/>
 
                         {/*Common Routes*/ }
-                        <Route exact path='/success/:form' component={ FormSuccess }/>
+                        <Route exact path={ Common.FORM_SUCCESS } component={ FormSuccess }/>
 
-                        {/*Footer Routes*/ }
-                        <Route exact path='/contact' component={ Contact }/>
+                        {/*Contact Routes*/ }
+                        <Route exact path={ ContactR.CONTACT } component={ Contact }/>
 
                         {/*Terms and Conditions*/ }
-                        <Route exact path='/terms-of-service' component={ TermsService }/>
-                        <Route exact path='/privacy-policy' component={ PrivacyPolicy }/>
+                        <Route exact path={ TermsConditions.TERMS_SERVICE } component={ TermsService }/>
+                        <Route exact path={ TermsConditions.PRIVACY_POLICY } component={ PrivacyPolicy }/>
 
                         {/*Page Not Found*/ }
                         <Route component={ PageNotFound }/>

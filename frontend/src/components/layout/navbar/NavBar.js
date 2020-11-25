@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons/faSortDown";
 import { MacroBrosIcon } from "../../common/MacroBrosIcon";
+import { Account, Blog } from "../../common/Routes";
 
 export const NavBar = () => {
 
@@ -28,9 +29,9 @@ export const NavBar = () => {
 
     const unauthenticated = (
         <div className='d-inline-flex login-register'>
-            <Link className='nav-bar-link nav-link' to='/login'>Login</Link>
+            <Link className='nav-bar-link nav-link' to={ Account.LOGIN }>Login</Link>
             <p className='my-auto log-reg-sep'>|</p>
-            <Link className='nav-bar-link nav-link' to='/register'>Register</Link>
+            <Link className='nav-bar-link nav-link' to={ Account.REGISTER }>Register</Link>
         </div>
     );
     const authenticated = (
@@ -46,9 +47,11 @@ export const NavBar = () => {
             </a>
             <div className='dropdown-menu py-0 navbar-dropdown dropdown-menu-right' aria-labelledby='navbarDropdown'>
                 <h6 className="dropdown-header pt-3">Hi { user ? user.firstName : '' }!</h6>
-                <Link className='nav-bar-link dropdown-link py-2 dropdown-item' to='/profile'>Profile</Link>
+                <Link className='nav-bar-link dropdown-link py-2 dropdown-item' to={ Account.PROFILE }>Profile</Link>
                 <a onClick={ () => dispatch(logout()) } style={ { cursor: 'pointer' } }
                    className='nav-bar-link dropdown-link py-2 dropdown-item'>Logout</a>
+                <div className="dropdown-divider"/>
+                <Link className='nav-bar-link dropdown-link py-2 dropdown-item' to={ Account.PROFILE_SETTINGS }>Settings</Link>
             </div>
         </div>
     );
@@ -84,7 +87,7 @@ export const NavBar = () => {
                 </ul>
                 <ul className='box center-navbar navbar-nav'>
                     <li className='nav-item active'>
-                        <Link className='nav-bar-link nav-link' to='/blog'>Blogs</Link>
+                        <Link className='nav-bar-link nav-link' to={ Blog.BLOGS }>Blogs</Link>
                     </li>
                     <li className='nav-item active d-md-none'>
                         { isAuthenticated ? authenticatedSM : unauthenticated }

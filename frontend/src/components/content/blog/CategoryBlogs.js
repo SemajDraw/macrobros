@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryBlogs } from "../../../actions/blog/blog";
-import capitalizeFirstLetter from "../../../utils/formatHeader";
 import Pagination from "react-bootstrap/Pagination";
 import PaginationBar from "../../common/Pagination";
 import SideBar from "./side-bar/SideBar";
 import BlogGridBuilder from "./blog-grid-builder/BlogGridBuilder";
 import LoadingSpinner from "../../common/LoadingSpinner";
+import { formatPageHeading } from "../../../utils/stringUtils";
 
 export const CategoryBlogs = (props) => {
 
@@ -16,7 +16,7 @@ export const CategoryBlogs = (props) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        setCategory(capitalizeFirstLetter(props.match.params.category));
+        setCategory(formatPageHeading(props.match.params.category));
         dispatch(getCategoryBlogs(props.match.params.category));
     }, [category]);
 
