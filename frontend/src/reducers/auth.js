@@ -1,12 +1,13 @@
 import {
-    USER_LOADING,
-    USER_LOADED,
     AUTH_ERROR,
+    CLOSE_ACCOUNT,
     LOGIN_FAIL,
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
+    REGISTER_FAIL,
     REGISTER_SUCCESS,
-    REGISTER_FAIL
+    USER_LOADED,
+    USER_LOADING
 } from '../actions/auth/types';
 
 const initialState = {
@@ -49,6 +50,7 @@ export default function (state = initialState, action) {
         case LOGIN_FAIL:
         case LOGOUT_SUCCESS:
         case REGISTER_FAIL:
+        case CLOSE_ACCOUNT:
             localStorage.removeItem('token');
             return {
                 ...state,

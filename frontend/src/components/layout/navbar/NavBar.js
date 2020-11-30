@@ -40,18 +40,21 @@ export const NavBar = () => {
                 { user ? user.firstName : '' }
             </p>
             <a className='nav-bar-link user-dropdown-link nav-link dropdown-toggle' href='#' id='navbarDropdown'
-               role='button'
-               data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                <FontAwesomeIcon className='ml-4' icon={ faUser }/><FontAwesomeIcon className='ml-1 pt-auto'
-                                                                                    icon={ faSortDown }/>
+               role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                <FontAwesomeIcon className='ml-4' icon={ faUser }/>
+                <FontAwesomeIcon className='ml-1 pt-auto' icon={ faSortDown }/>
             </a>
             <div className='dropdown-menu py-0 navbar-dropdown dropdown-menu-right' aria-labelledby='navbarDropdown'>
                 <h6 className="dropdown-header pt-3">Hi { user ? user.firstName : '' }!</h6>
-                <Link className='nav-bar-link dropdown-link py-2 dropdown-item' to={ Account.PROFILE }>Profile</Link>
+                <Link className='nav-bar-link dropdown-link py-2 dropdown-item' to={ Account.PROFILE }>
+                    Profile
+                </Link>
                 <a onClick={ () => dispatch(logout()) } style={ { cursor: 'pointer' } }
                    className='nav-bar-link dropdown-link py-2 dropdown-item'>Logout</a>
                 <div className="dropdown-divider"/>
-                <Link className='nav-bar-link dropdown-link py-2 dropdown-item' to={ Account.PROFILE_SETTINGS }>Settings</Link>
+                <Link className='nav-bar-link dropdown-link py-2 dropdown-item' to={ Account.PROFILE_SETTINGS }>
+                    Settings
+                </Link>
             </div>
         </div>
     );
@@ -65,7 +68,7 @@ export const NavBar = () => {
             <div className='home-link nav-container ml-3 d-md-none'>
                 <Link className='nav-bar-link nav-link' to='/'>
                     <div className='svg-container'>
-                        <MacroBrosIcon key={'navbar-sm-icon'} props={ iconProps }/>
+                        <MacroBrosIcon key={ 'navbar-sm-icon' } props={ iconProps }/>
                     </div>
                 </Link>
             </div>
@@ -80,7 +83,7 @@ export const NavBar = () => {
                     <li className='nav-item active'>
                         <Link className='nav-bar-link nav-link' to='/'>
                             <div className='svg-container nav-bar-link'>
-                                <MacroBrosIcon key={'navbar-md-icon'} props={ iconProps }/>
+                                <MacroBrosIcon key={ 'navbar-md-icon' } props={ iconProps }/>
                             </div>
                         </Link>
                     </li>

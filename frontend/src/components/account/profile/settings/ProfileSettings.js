@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { UserSvg } from "../UserSvg";
 import { useDispatch, useSelector } from "react-redux";
 import { formatUserInitials } from "../../../../utils/stringUtils";
@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import { Button, Form } from "react-bootstrap";
 import * as Yup from 'yup';
 import ConfirmationModal from "../../../common/ConfirmationModal";
+import { updateAccount } from "../../../../actions/account/account";
 
 const validationSchema = Yup.object().shape({
     isSubscribed: Yup.bool()
@@ -16,11 +17,16 @@ export const ProfileSettings = () => {
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.auth.user);
-    const [modalShow, setModalShow] = React.useState(false);
+    const [modalShow, setModalShow] = useState(false);
+    const [field, setField] = useState(null);
 
-    const renderModal = (req) => {
-        console.log('imer here')
+    const showModal = (name, value) => {
+        setField({ [name]: value });
         setModalShow(true);
+    };
+
+    const handleAccountChange = (field) => {
+        dispatch(updateAccount(field))
     };
 
     return (
@@ -37,12 +43,9 @@ export const ProfileSettings = () => {
                 <div className='col-10 col-lg-8 mt-4'>
                     <div className='mt-3 mb-5'>
                         <Formik
-                            initialValues={ { isSubscribed: false } }
+                            initialValues={ { isSubscribed: user.isSubscribed } }
                             validationSchema={ validationSchema }
-                            onSubmit={ (values, { setSubmitting, }) => {
-                                setSubmitting(true);
-
-
+                            onSubmit={ () => {
                             } }
                         >
                             { ({
@@ -51,10 +54,9 @@ export const ProfileSettings = () => {
                                    touched,
                                    handleChange,
                                    handleBlur,
-                                   handleSubmit,
+                                   handleSubmit
                                }) => (
                                 <Form noValidate onSubmit={ handleSubmit }>
-
                                     {/*Emails from MacroBros*/ }
                                     {
                                         <div>
@@ -72,7 +74,11 @@ export const ProfileSettings = () => {
                                             name='isSubscribed'
                                             label="Receive the latest news from MacroBros"
                                             onChange={ handleChange }
-                                            onBlur={ handleBlur }
+                                            onBlur={ e => {
+                                                handleBlur(e)
+                                                handleAccountChange({ [e.target.name]: e.target.value })
+                                            } }
+                                            checked={ values.isSubscribed }
                                             value={ values.isSubscribed }
                                             isInvalid={ touched.isSubscribed && errors.isSubscribed }
                                         />
@@ -84,11 +90,16 @@ export const ProfileSettings = () => {
                         <div className='mt-5'>
                             <h4>MacroBros account</h4>
                             <hr/>
-                            <Button style={ { padding: 0 } } variant="link" onClick={ renderModal }>
-                                Delete your MacroBros account?
+                            <Button style={ { padding: 0 } } variant="link" name='isClosed'
+                                    onClick={ e => showModal(e.target.name, true) }>
+                                Close your MacroBros account?
                             </Button>
-                            <ConfirmationModal show={ modalShow } onHide={ () => setModalShow(false) }/>
                         </div>
+                        <ConfirmationModal
+                            field={ field }
+                            show={ modalShow }
+                            callback={ handleAccountChange }
+                            onHide={ () => setModalShow(false) }/>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 import axios from "axios";
-import {createError} from "../alerts/errors/errors";
-import {EMAIL_VERIFICATION, GET_SAVED_BLOGS, PASSWORD_RESET, SAVE_BLOG} from "./types";
-import {tokenAuthHeaders} from "../authHeaders";
-import {AUTH_ERROR} from "../auth/types";
+import { createError } from "../alerts/errors/errors";
+import { EMAIL_VERIFICATION, GET_SAVED_BLOGS, PASSWORD_RESET, SAVE_BLOG, UPDATE_ACCOUNT } from "./types";
+import { tokenAuthHeaders } from "../authHeaders";
+import { AUTH_ERROR, CLOSE_ACCOUNT } from "../auth/types";
 
 export const register = (registerObj) => {
     const config = {
@@ -57,16 +57,23 @@ export const getSavedBlogs = () => (dispatch, getState) => {
             });
         }).catch(err => {
         dispatch(createError(err.response.data, err.response.status));
-        dispatch({type: AUTH_ERROR});
+        dispatch({ type: AUTH_ERROR });
     });
 };
 
 export const saveBlog = (blogId) => (dispatch, getState) => {
-    axios.put('/api/account/save-blog', {blogId: blogId}, tokenAuthHeaders(getState().auth.token))
+    axios.put('/api/account/save-blog', { blogId: blogId }, tokenAuthHeaders(getState().auth.token))
         .then(res => {
             dispatch({
                 type: SAVE_BLOG,
                 payload: res.data
             })
+        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+};
+
+export const updateAccount = (updateField) => (dispatch, getState) => {
+    axios.put('/api/account/auth/update-user', updateField, tokenAuthHeaders(getState().auth.token))
+        .then(res => {
+            'closed' in res.data ? dispatch({ type: CLOSE_ACCOUNT }) : dispatch({ type: UPDATE_ACCOUNT });
         }).catch(err => dispatch(createError(err.response.data, err.response.status)));
 };

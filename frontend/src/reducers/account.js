@@ -1,4 +1,10 @@
-import {EMAIL_VERIFICATION, PASSWORD_RESET, GET_SAVED_BLOGS, SAVE_BLOG} from "../actions/account/types";
+import {
+    EMAIL_VERIFICATION,
+    GET_SAVED_BLOGS,
+    PASSWORD_RESET,
+    SAVE_BLOG,
+    UPDATE_ACCOUNT
+} from "../actions/account/types";
 import PaginatedBlog from "../actions/blog/PaginatedBlog";
 
 const initialState = {
@@ -32,6 +38,10 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 saveBlog: action.payload
+            }
+        case UPDATE_ACCOUNT:
+            return {
+                ...state
             }
         default:
             return state

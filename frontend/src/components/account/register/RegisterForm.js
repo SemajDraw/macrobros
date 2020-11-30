@@ -53,7 +53,7 @@ export const RegisterForm = (props) => {
                     firstName: '',
                     lastName: '',
                     email: '',
-                    isSubscribed: false,
+                    isSubscribed: true,
                     password: '',
                     password2: ''
                 } }
@@ -157,6 +157,7 @@ export const RegisterForm = (props) => {
                                 muted
                                 name='isSubscribed'
                                 label="Send me the latest news from MacroBros"
+                                checked={ values.isSubscribed }
                                 onChange={ handleChange }
                                 onBlur={ handleBlur }
                                 value={ values.isSubscribed }

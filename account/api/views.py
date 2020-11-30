@@ -1,9 +1,11 @@
-from knox.models import AuthToken
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from knox.models import AuthToken
 from rest_framework import generics, status, permissions
-from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
 
+from blog.api.serializers import BlogPostSerializer
+from blog.models import BlogPost
 from macrobros.pagination import CustomPagination
 from .serializers import (RegisterSerializer,
                           LoginSerializer,
@@ -11,8 +13,6 @@ from .serializers import (RegisterSerializer,
                           PasswordResetRequestSerializer,
                           PasswordResetSerializer)
 from ..account_email import SendEmail
-from blog.models import BlogPost
-from blog.api.serializers import BlogPostSerializer
 from ..models import User
 
 
@@ -48,6 +48,11 @@ class Login(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data
+            if user.is_closed:
+                return Response({
+                    'email': 'This account has been closed. Please reset your password to reactivate your account.'
+                }, status=status.HTTP_400_BAD_REQUEST)
+
             if user.is_verified:
                 return Response({
                     'user': UserSerializer(user, context=self.get_serializer_context()).data,
@@ -97,6 +102,7 @@ class PasswordResetRequest(generics.GenericAPIView):
             serializer = self.serializer_class(data=request.data)
             serializer.is_valid(raise_exception=True)
             user = User.objects.get(email=request.data['email'])
+            user.is_closed = False
             SendEmail().password_reset_email(request,
                                              user.first_name,
                                              AuthToken.objects.create(user)[1],
@@ -139,6 +145,20 @@ class GetUser(generics.GenericAPIView):
         return Response({
             'user': UserSerializer(self.request.user, context=self.get_serializer_context()).data
         }, status=status.HTTP_200_OK)
+
+
+class UpdateUser(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = UserSerializer
+
+    def put(self, request, *args, **kwargs):
+        serializer = UserSerializer(self.request.user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            if 'is_closed' in request.data:
+                return Response({ 'closed': True }, status=status.HTTP_200_OK)
+            return Response({ 'update': True }, status=status.HTTP_200_OK)
+        return Response({ 'update': False }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GetSavedBlogs(ListAPIView):
