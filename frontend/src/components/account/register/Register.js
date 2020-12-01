@@ -8,6 +8,7 @@ import { Account } from "../../common/Routes";
 export const Register = (props) => {
 
     const iconProps = {
+        id: 'register-icon',
         strokeColor: '#000000'
     };
 

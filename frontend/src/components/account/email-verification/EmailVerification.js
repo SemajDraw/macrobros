@@ -13,6 +13,7 @@ export const EmailVerification = (props) => {
     const emailVerification = useSelector(state => state.account.emailVerification);
 
     const iconProps = {
+        id: 'email-verification-icon',
         strokeColor: '#000000'
     };
 

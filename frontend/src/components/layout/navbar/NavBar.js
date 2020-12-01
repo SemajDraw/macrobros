@@ -18,6 +18,7 @@ export const NavBar = () => {
     const { isAuthenticated, user } = auth;
 
     const iconProps = {
+        id: 'navbar-icon',
         strokeColor: '#FFFFFF'
     };
 
@@ -68,7 +69,7 @@ export const NavBar = () => {
             <div className='home-link nav-container ml-3 d-md-none'>
                 <Link className='nav-bar-link nav-link' to='/'>
                     <div className='svg-container'>
-                        <MacroBrosIcon key={ 'navbar-sm-icon' } props={ iconProps }/>
+                        <MacroBrosIcon key={'navbar-sm-icon'} props={ iconProps }/>
                     </div>
                 </Link>
             </div>
@@ -83,7 +84,7 @@ export const NavBar = () => {
                     <li className='nav-item active'>
                         <Link className='nav-bar-link nav-link' to='/'>
                             <div className='svg-container nav-bar-link'>
-                                <MacroBrosIcon key={ 'navbar-md-icon' } props={ iconProps }/>
+                                <MacroBrosIcon key={'navbar-md-icon'} props={ iconProps }/>
                             </div>
                         </Link>
                     </li>

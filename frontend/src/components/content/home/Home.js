@@ -19,6 +19,7 @@ export const Home = (props) => {
     const [isLoading, setIsLoading] = useState(true);
 
     const iconProps = {
+        id: 'home-icon',
         strokeColor: '#FFFFFF'
     }
 

@@ -8,6 +8,7 @@ import { Account } from "../../common/Routes";
 export const ForgotPassword = (props) => {
 
     const iconProps = {
+        id: 'forgot-password-icon',
         strokeColor: '#000000'
     };
 

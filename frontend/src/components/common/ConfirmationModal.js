@@ -8,6 +8,7 @@ export const ConfirmationModal = (props) => {
 
     const { callback, field, onHide, show } = props;
     const iconProps = {
+        id: 'confirmation-icon',
         strokeColor: '#000000'
     };
 

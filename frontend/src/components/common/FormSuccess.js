@@ -9,6 +9,7 @@ export const FormSuccess = (props) => {
     const { header, body } = props.location.state;
 
     const iconProps = {
+        id: 'form-success-icon',
         strokeColor: '#000000'
     };
 

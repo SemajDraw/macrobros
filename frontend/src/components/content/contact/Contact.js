@@ -12,6 +12,7 @@ import SocialIcons from "../../common/social-icons/SocialIcons";
 export const Contact = (props) => {
 
     const iconProps = {
+        id: 'contact-icon',
         strokeColor: '#000000'
     };
 

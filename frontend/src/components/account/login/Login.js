@@ -9,6 +9,7 @@ import { Account } from "../../common/Routes";
 export const Login = (props) => {
 
     const iconProps = {
+        id: 'login-icon',
         strokeColor: '#000000'
     };
 
