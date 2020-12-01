@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Footer.scss';
-import {Link} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFacebook} from "@fortawesome/free-brands-svg-icons/faFacebook";
-import {faInstagram} from "@fortawesome/free-brands-svg-icons/faInstagram";
-import {faTwitter} from "@fortawesome/free-brands-svg-icons/faTwitter";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons/faFacebook";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons/faInstagram";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons/faTwitter";
 import Bounce from 'react-reveal/Bounce';
 import { Blog, TermsConditions } from "../../common/Routes";
+import DonateModal from "./DonateModal";
 
 export const Footer = () => {
+
+    const [modalShow, setModalShow] = useState(false);
 
     return (
         <footer>
@@ -36,8 +39,12 @@ export const Footer = () => {
                                         <p className='footerLink'>Privacy Policy</p>
                                     </Link>
                                 </li>
+                                <li>
+                                    <a className='footerLink' onClick={ () => setModalShow(true) }>
+                                        <p className='footerLink'>Donate</p>
+                                    </a>
+                                </li>
                             </ul>
-
                         </div>
                         <div className="col-lg-2 col-md-4  pt-5 pb-3 d-none d-lg-block">
                             <br/>
@@ -48,11 +55,11 @@ export const Footer = () => {
                                         <p className='footerLink'>Blog</p>
                                     </Link>
                                 </li>
-                                {/*<li>*/}
-                                {/*    <Link className='footerLink inactiveLink' to='/video'>*/}
-                                {/*        <p className='footerLink'>Videos</p>*/}
-                                {/*    </Link>*/}
-                                {/*</li>*/}
+                                {/*<li>*/ }
+                                {/*    <Link className='footerLink inactiveLink' to='/video'>*/ }
+                                {/*        <p className='footerLink'>Videos</p>*/ }
+                                {/*    </Link>*/ }
+                                {/*</li>*/ }
                             </ul>
                         </div>
 
@@ -60,21 +67,21 @@ export const Footer = () => {
                 </div>
 
                 <div className='container-fluid mb-4'>
-                    <Bounce left duration={1000} cascade>
+                    <Bounce left duration={ 1000 } cascade>
                         <div className='row d-flex align-items-center justify-content-around'>
                             <div>
                                 <Link className='icon-left footerLink' to=''>
-                                    <FontAwesomeIcon size='2x' icon={faFacebook}/>
+                                    <FontAwesomeIcon size='2x' icon={ faFacebook }/>
                                 </Link>
                             </div>
                             <div>
                                 <Link className='footerLink' to=''>
-                                    <FontAwesomeIcon size='2x' icon={faInstagram}/>
+                                    <FontAwesomeIcon size='2x' icon={ faInstagram }/>
                                 </Link>
                             </div>
                             <div>
                                 <Link className='icon-right footerLink' to=''>
-                                    <FontAwesomeIcon size='2x' icon={faTwitter}/>
+                                    <FontAwesomeIcon size='2x' icon={ faTwitter }/>
                                 </Link>
                             </div>
                         </div>
@@ -87,6 +94,7 @@ export const Footer = () => {
                     </div>
                 </div>
             </div>
+            <DonateModal show={ modalShow } onHide={ () => setModalShow(false) }/>
         </footer>
     );
 }
