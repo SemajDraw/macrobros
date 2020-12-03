@@ -9,7 +9,6 @@ import {
     SEARCH_BLOGS
 } from "./types";
 import axios from "axios";
-import {createError} from "../alerts/errors/errors";
 
 export const getBlog = (slug) => (dispatch) => {
     axios.get(`/api/blog/${slug}`)
@@ -18,7 +17,7 @@ export const getBlog = (slug) => (dispatch) => {
                 type: GET_BLOG,
                 payload: res.data
             })
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };
 
 export const getBlogCategories = () => (dispatch) => {
@@ -28,7 +27,7 @@ export const getBlogCategories = () => (dispatch) => {
                 type: GET_BLOG_CATEGORIES,
                 payload: res.data
             });
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };
 
 export const getFeaturedBlog = () => (dispatch) => {
@@ -38,7 +37,7 @@ export const getFeaturedBlog = () => (dispatch) => {
                 type: GET_FEATURED_BLOG,
                 payload: res.data[0]
             });
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };
 
 export const getPopularBlogs = () => (dispatch) => {
@@ -48,7 +47,7 @@ export const getPopularBlogs = () => (dispatch) => {
                 type: GET_POPULAR_BLOGS,
                 payload: res.data
             });
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };
 
 export const getBlogs = (pageNumber) => (dispatch) => {
@@ -60,7 +59,7 @@ export const getBlogs = (pageNumber) => (dispatch) => {
                 type: GET_BLOGS,
                 payload: res.data
             });
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };
 
 export const getCategoryBlogs = (category, pageNumber) => (dispatch) => {
@@ -74,7 +73,7 @@ export const getCategoryBlogs = (category, pageNumber) => (dispatch) => {
                 type: GET_CATEGORY_BLOGS,
                 payload: res.data
             })
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };
 
 export const getSearchBlogs = (search, pageNumber) => (dispatch) => {
@@ -88,7 +87,7 @@ export const getSearchBlogs = (search, pageNumber) => (dispatch) => {
                 type: SEARCH_BLOGS,
                 payload: res.data
             })
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };
 
 export const clapBlog = (blogId) => (dispatch) => {
@@ -98,5 +97,5 @@ export const clapBlog = (blogId) => (dispatch) => {
                 type: CLAP_BLOG,
                 payload: res.data
             })
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };

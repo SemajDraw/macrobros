@@ -1,17 +1,11 @@
 import axios from "axios";
-import { createError } from "../alerts/errors/errors";
 import { EMAIL_VERIFICATION, GET_SAVED_BLOGS, PASSWORD_RESET, SAVE_BLOG, UPDATE_ACCOUNT } from "./types";
 import { tokenAuthHeaders } from "../authHeaders";
 import { AUTH_ERROR, CLOSE_ACCOUNT } from "../auth/types";
 
 export const register = (registerObj) => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
 
-    return axios.post('/api/account/auth/register', JSON.stringify(registerObj), config);
+    return axios.post('/api/account/auth/register', JSON.stringify(registerObj));
 };
 
 export const verifyEmail = (token) => (dispatch) => {
@@ -21,9 +15,7 @@ export const verifyEmail = (token) => (dispatch) => {
                 type: EMAIL_VERIFICATION,
                 payload: res.data
             });
-        }).catch(err => {
-        dispatch(createError(err.response.data, err.response.status));
-    });
+        }).catch();
 };
 
 export const passwordResetRequest = (resetReq) => {
@@ -43,9 +35,7 @@ export const passwordReset = (user, token, password, password1) => (dispatch) =>
             type: PASSWORD_RESET,
             payload: res.data
         });
-    }).catch(err => {
-        dispatch(createError(err.response.data, err.response.status));
-    });
+    }).catch();
 };
 
 export const getSavedBlogs = () => (dispatch, getState) => {
@@ -56,7 +46,6 @@ export const getSavedBlogs = () => (dispatch, getState) => {
                 payload: res.data
             });
         }).catch(err => {
-        dispatch(createError(err.response.data, err.response.status));
         dispatch({ type: AUTH_ERROR });
     });
 };
@@ -68,12 +57,12 @@ export const saveBlog = (blogId) => (dispatch, getState) => {
                 type: SAVE_BLOG,
                 payload: res.data
             })
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };
 
 export const updateAccount = (updateField) => (dispatch, getState) => {
     axios.put('/api/account/auth/update-user', updateField, tokenAuthHeaders(getState().auth.token))
         .then(res => {
             'closed' in res.data ? dispatch({ type: CLOSE_ACCOUNT }) : dispatch({ type: UPDATE_ACCOUNT });
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };

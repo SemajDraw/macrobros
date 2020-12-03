@@ -1,5 +1,4 @@
 import axios from "axios";
-import {createError} from "../alerts/errors/errors";
 import {GET_PRIVACY_POLICY, GET_TERMS_OF_SERVICE} from "./types";
 
 export const getPrivacyPolicy = () => (dispatch) => {
@@ -9,7 +8,7 @@ export const getPrivacyPolicy = () => (dispatch) => {
                 type: GET_PRIVACY_POLICY,
                 payload: res.data
             })
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };
 
 export const getTermsService = () => (dispatch) => {
@@ -19,5 +18,5 @@ export const getTermsService = () => (dispatch) => {
                 type: GET_TERMS_OF_SERVICE,
                 payload: res.data
             })
-        }).catch(err => dispatch(createError(err.response.data, err.response.status)));
+        }).catch();
 };

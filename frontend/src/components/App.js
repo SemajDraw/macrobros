@@ -1,35 +1,21 @@
-import React, {Component} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import AppRouter from "./App.Routes";
 
-import {positions, Provider as AlertProvider} from 'react-alert';
-import AlertMUITemplate from 'react-alert-template-mui';
-
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import store from '../store';
-import {loadUser} from "../actions/auth/auth";
+import { loadUser } from "../actions/auth/auth";
 import './App.scss';
 
-// Alert options
-const alertOptions = {
-    position: positions.MIDDLE
-};
+export const App = () => {
 
-class App extends Component {
+    store.dispatch(loadUser());
 
-    componentDidMount() {
-        store.dispatch(loadUser());
-    }
-
-    render() {
-        return (
-            <Provider store={store}>
-                <AlertProvider template={AlertMUITemplate} {...alertOptions}>
-                    <AppRouter/>
-                </AlertProvider>
-            </Provider>
-        );
-    }
+    return (
+        <Provider store={ store }>
+            <AppRouter/>
+        </Provider>
+    );
 }
 
 ReactDOM.render(<App/>, document.getElementById('app'));
