@@ -1,13 +1,17 @@
 export const tokenAuthHeaders = (token) => {
     // Set headers
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
+    const config = baseHeaders();
     // If token, add to Authorization navbar
     if (token) {
         config.headers['Authorization'] = `Token ${token}`;
     }
     return config;
+};
+
+export const baseHeaders = () => {
+    return {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
 };

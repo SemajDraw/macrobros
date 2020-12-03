@@ -36,13 +36,11 @@ export const BlogDetails = (props) => {
             </div>
 
             <div className='container'>
-                <div id='activity-bar' className='d-none d-lg-block'>
-                    <ActivityBar offsetTop={ 150 } blogPost={ blogPost }/>
-                </div>
+                <ActivityBar offsetTop={ 150 } blogPost={ blogPost }/>
                 <div className='row sidebar-offset justify-content-center'>
                     <div className='col-lg-8 col-10 col-sm-12'>
                         <h1 className='display-2'>{ blogPost.title }</h1>
-                        <h2 className='text-muted mt-3'> Category: { formatPageHeading(blogPost.category) }</h2>
+                        <h2 className='text-muted mt-3'>{ formatPageHeading(blogPost.category) }</h2>
                         <div className='d-flex justify-content-between'>
                             <span className='d-flex'>
                                 <Moment className='mr-2' format="MMM D, YYYY">{ blogPost.dateCreated }</Moment>

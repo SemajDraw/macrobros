@@ -29,7 +29,7 @@ export const ActivityBar = (props) => {
     };
 
     return (
-        <StickyBox style={ { marginTop: '10px' } } id='side-bar' offsetTop={ props.offsetTop }
+        <StickyBox className='d-none d-lg-block' style={ { marginTop: '10px' } } id='side-bar' offsetTop={ props.offsetTop }
                    offsetBottom={ 100 }>
             <div className='d-flex flex-column'>
                 <div className='mb-2'>

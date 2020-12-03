@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { tokenAuthHeaders } from "../authHeaders";
 
 import { AUTH_ERROR, LOGOUT_SUCCESS, USER_LOADED, USER_LOADING } from './types';
+import { baseHeaders, tokenAuthHeaders } from "../headers";
 
 export const loadUser = () => (dispatch, getState) => {
     // Initialize User Load
@@ -21,7 +21,7 @@ export const loadUser = () => (dispatch, getState) => {
 
 export const login = (loginReq) => {
 
-    return axios.post('/api/account/auth/login', JSON.stringify(loginReq));
+    return axios.post('/api/account/auth/login', JSON.stringify(loginReq), baseHeaders());
 };
 
 export const logout = () => (dispatch, getState) => {

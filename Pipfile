@@ -17,6 +17,8 @@ pillow = "*"
 python-dotenv = "*"
 readtime = "*"
 update = "*"
+django-otp = "*"
+qrcode = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { EMAIL_VERIFICATION, GET_SAVED_BLOGS, PASSWORD_RESET, SAVE_BLOG, UPDATE_ACCOUNT } from "./types";
-import { tokenAuthHeaders } from "../authHeaders";
 import { AUTH_ERROR, CLOSE_ACCOUNT } from "../auth/types";
+import { baseHeaders, tokenAuthHeaders } from "../headers";
 
 export const register = (registerObj) => {
 
-    return axios.post('/api/account/auth/register', JSON.stringify(registerObj));
+    return axios.post('/api/account/auth/register', JSON.stringify(registerObj), baseHeaders());
 };
 
 export const verifyEmail = (token) => (dispatch) => {
@@ -19,7 +19,7 @@ export const verifyEmail = (token) => (dispatch) => {
 };
 
 export const passwordResetRequest = (resetReq) => {
-    return axios.post('/api/account/password-reset-request', resetReq);
+    return axios.post('/api/account/password-reset-request', resetReq, baseHeaders());
 };
 
 export const passwordReset = (user, token, password, password1) => (dispatch) => {

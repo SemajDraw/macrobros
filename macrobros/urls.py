@@ -4,6 +4,10 @@ from django.contrib import admin
 from django.urls import re_path, include
 from rest_framework.routers import DefaultRouter
 
+# admin.site.__class__ = OTPAdminSite
+admin.site_header = 'MacroBros Co. Administration'
+admin.site_title = 'MacroBros Co. Administration'
+
 
 class OptionalSlashRouter(DefaultRouter):
     def __init__(self, *args, **kwargs):
@@ -13,7 +17,7 @@ class OptionalSlashRouter(DefaultRouter):
 
 urlpatterns = [
       # Admin portal
-      re_path('admin/', admin.site.urls),
+      re_path('452372e9ef92b6f42804c73de478a9cf/portal/admin', admin.site.urls, name='admin'),
 
       # Rest API Urls
       re_path('api/account/', include('account.api.urls'), name='account_api'),
