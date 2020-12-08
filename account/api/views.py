@@ -7,13 +7,13 @@ from rest_framework.response import Response
 from blog.api.serializers import BlogPostSerializer
 from blog.models import BlogPost
 from macrobros.pagination import CustomPagination
-from .serializers import (RegisterSerializer,
+from account.api.serializers import (RegisterSerializer,
                           LoginSerializer,
                           UserSerializer,
                           PasswordResetRequestSerializer,
                           PasswordResetSerializer)
-from ..account_email import SendEmail
-from ..models import User
+from account.account_email import SendEmail
+from account.models import User
 
 
 class Register(generics.GenericAPIView):
@@ -57,7 +57,7 @@ class Login(generics.GenericAPIView):
                 return Response({
                     'user': UserSerializer(user, context=self.get_serializer_context()).data,
                     'token': AuthToken.objects.create(user)[1]
-                }, status=status.HTTP_201_CREATED)
+                }, status=status.HTTP_200_OK)
             else:
                 return Response({
                     'non_field_errors': ['Please verify your email address']

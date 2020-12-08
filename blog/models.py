@@ -12,12 +12,10 @@ class Categories(models.TextChoices):
 
 def upload_to(instance, filename):
     _now = datetime.now()
-    return 'images/blog/{year}/{month}/{day}/{title}/{filename}'.format(
-        year=_now.strftime('%Y'),
-        month=_now.strftime('%m'),
-        day=_now.strftime('%d'),
-        title=instance.slug,
-        filename=filename)
+    year = _now.strftime('%Y')
+    month = _now.strftime('%m')
+    day = _now.strftime('%d')
+    return f'images/blog/{year}/{month}/{day}/{instance.slug}/{filename}'
 
 
 class BlogPost(models.Model):
@@ -32,7 +30,7 @@ class BlogPost(models.Model):
     thumbnail = models.ImageField(verbose_name='Thumbnail Img',
                                   upload_to=upload_to,
                                   default='/default/blog/default-thumbnail.jpg')
-    thumbnail_alt = models.TextField(verbose_name='Tumbnail Alt')
+    thumbnail_alt = models.TextField(verbose_name='Thumbnail Alt')
     icon = models.FileField(verbose_name='Icon',
                             upload_to=upload_to,
                             blank=True)
@@ -48,7 +46,7 @@ class BlogPost(models.Model):
     def save(self, *args, **kwargs):
         # Set Default Icon Based on Category
         if not self.icon:
-            self.icon = '/default/category_icons/{}.svg'.format(self.category)
+            self.icon = f'/default/category_icons/{self.category}.svg'
 
         # Create Blog Url Slug
         self.slug = slugify(self.title)

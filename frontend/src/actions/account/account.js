@@ -39,7 +39,7 @@ export const passwordReset = (user, token, password, password1) => (dispatch) =>
 };
 
 export const getSavedBlogs = () => (dispatch, getState) => {
-    axios.get('/api/account/saved-blogs', tokenAuthHeaders(getState().auth.token))
+    axios.get('/api/account/auth/saved-blogs', tokenAuthHeaders(getState().auth.token))
         .then(res => {
             dispatch({
                 type: GET_SAVED_BLOGS,
@@ -51,7 +51,7 @@ export const getSavedBlogs = () => (dispatch, getState) => {
 };
 
 export const saveBlog = (blogId) => (dispatch, getState) => {
-    axios.put('/api/account/save-blog', { blogId: blogId }, tokenAuthHeaders(getState().auth.token))
+    axios.put('/api/account/auth/save-blog', { blogId: blogId }, tokenAuthHeaders(getState().auth.token))
         .then(res => {
             dispatch({
                 type: SAVE_BLOG,
