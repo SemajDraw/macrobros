@@ -10,9 +10,9 @@ gsap.registerPlugin(MotionPathPlugin);
 export const PageNotFound = () => {
 
     return (
-        <div className='d-flex min-vh-100'>
+        <div className='d-flex' style={{height: '90%'}}>
             <div className="text"><p>404</p></div>
-            <div className="container animContainer">
+            <div className="container animContainer d-none d-md-block">
                 {/*--cavemanleft-- */ }
                 <div className="caveman">
                     <div className="leg">
@@ -70,7 +70,7 @@ export const PageNotFound = () => {
 
             <Link className='homeLink mb-5' to='/'>
                 <button className='homeBtn btn-lg px-5'>
-                    Back to Home
+                    HOME
                 </button>
             </Link>
         </div>
