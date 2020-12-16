@@ -1,13 +1,31 @@
 @import "~bootstrap/scss/_functions.scss";
 @import "~bootstrap/scss/_variables.scss";
-@import "~bootstrap/scss/mixins/_breakpoints.scss";
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~bootstrap/scss/utilities/spacing";
 
 .ticker-chart {
   height: calc(50vh);
 }
 
-.blog-details {
-  width: 100%;
+.blog-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2em;
+  line-height: 1.5em;
+  font-weight: 100;
+  opacity: 0.9;
+}
+
+.blog-text img {
+  max-width: 90% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  @extend .my-4;
+}
+
+.blog-text * {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
 }
 
 @include media-breakpoint-up(md) {

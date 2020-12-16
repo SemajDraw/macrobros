@@ -19,7 +19,9 @@ export const SearchBlogs = (props) => {
     }, [search]);
 
     useEffect(() => {
-        setIsLoading(false);
+        if (blogs.results !== undefined && blogs.results.length !== 0) {
+            setIsLoading(false);
+        }
     }, [blogs]);
 
     const loadPages = (pageNumber) => {

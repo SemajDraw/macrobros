@@ -23,7 +23,9 @@ export const Blogs = (props) => {
     }, []);
 
     useEffect(() => {
-        setIsLoading(false);
+        if (blogs.results !== undefined && blogs.results.length !== 0) {
+            setIsLoading(false);
+        }
     }, [blogs]);
 
     const loadPages = (pageNumber) => {
@@ -33,17 +35,23 @@ export const Blogs = (props) => {
     return (
         <div className='mt-3 min-vh-100'>
 
-            <div className='container-fluid'>
-                <Jumbotron className='d-flex flex-column justify-content-end align-items-start'>
-                    <h1 className="display-4 font-italic">{ featuredBlog.title }</h1>
-                    <p className="lead my-3">{ featuredBlog.excerpt }</p>
-                    <p className="lead mb-0">
-                        <Link to={ `/blog/${ featuredBlog.slug }` } className="font-weight-bold">Continue
-                            reading...</Link>
-                    </p>
-                </Jumbotron>
-            </div>
-
+            { isLoading ?
+                null :
+                <div className='container-fluid'>
+                    <Link to={ `/blog/${ featuredBlog.slug }` } style={ { textDecoration: 'none', color: 'white' } }>
+                        <Jumbotron className='d-flex flex-column justify-content-end align-items-start pb-2'
+                                   style={ {
+                                       backgroundImage: `url( ${ featuredBlog.headerImg } )`,
+                                       backgroundSize: '100% 100%',
+                                       height: '100%',
+                                       minHeight: '350px'
+                                   } }>
+                            <h1>{ featuredBlog.title }</h1>
+                            <p>{ featuredBlog.excerpt }</p>
+                        </Jumbotron>
+                    </Link>
+                </div>
+            }
             <div className='container-fluid pt-3'>
                 <div className='row'>
                     <div className='col-md-9'>
@@ -60,7 +68,9 @@ export const Blogs = (props) => {
 
             <div className='row justify-content-center my-3'>
                 { blogs.totalItems > 2 ?
-                    <Pagination><PaginationBar blogs={ blogs } nextPage={ loadPages }/></Pagination>
+                    <Pagination>
+                        <PaginationBar blogs={ blogs } nextPage={ loadPages }/>
+                    </Pagination>
                     : null
                 }
             </div>

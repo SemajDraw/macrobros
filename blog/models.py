@@ -22,6 +22,7 @@ class BlogPost(models.Model):
     title = models.CharField(verbose_name='Title', max_length=100, unique=True)
     project_name = models.CharField(verbose_name='Project Name', max_length=100)
     ticker = models.CharField(verbose_name='Ticker', max_length=50, blank=True)
+    display_chart = models.BooleanField(verbose_name='Display Chart', default=False)
     market_pair = models.CharField(verbose_name='Market Pair', max_length=50, blank=True)
     slug = models.SlugField(verbose_name='Url Slug')
     category = models.CharField(verbose_name='Category', max_length=50, choices=Categories.choices,
@@ -52,7 +53,7 @@ class BlogPost(models.Model):
         self.slug = slugify(self.title)
 
         # Calculate Read Time of Blog Post
-        self.read_time = readtime.of_text(self.summary + self.content).text
+        self.read_time = readtime.of_html(self.summary + self.content).text
 
         # Set the featured blog post
         if self.featured:

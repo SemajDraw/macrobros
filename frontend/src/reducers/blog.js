@@ -8,16 +8,17 @@ import {
     GET_POPULAR_BLOGS,
     SEARCH_BLOGS
 } from "../actions/blog/types";
-import PaginatedBlog from "../actions/blog/PaginatedBlog";
+import PaginatedBlogModel from "../actions/blog/PaginatedBlogModel";
+import BlogPostModel from "../actions/blog/BlogPostModel";
 
 const initialState = {
-    blog: {},
+    blog: new BlogPostModel(),
     blogCategories: [],
-    featuredBlog: {},
+    featuredBlog: new BlogPostModel(),
     popularBlogs: [],
-    blogs: new PaginatedBlog(),
-    categoryBlogs: new PaginatedBlog(),
-    searchBlogs: new PaginatedBlog(),
+    blogs: new PaginatedBlogModel(),
+    categoryBlogs: new PaginatedBlogModel(),
+    searchBlogs: new PaginatedBlogModel(),
     blogClapped: ''
 };
 

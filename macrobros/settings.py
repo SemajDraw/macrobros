@@ -1,23 +1,20 @@
 import os
 from datetime import timedelta
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from decouple import AutoConfig
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
+# ENVIRONMENT CONFIG
+config = AutoConfig(search_path=os.path.join(BASE_DIR, 'environment/'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u^!*p4f@*7pe8s5jwhxics=k39(d6%@aq9tg#a)j@eyw%)_0=w'
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=list)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*', ]
-
-# Application definition
-
+# APPLICATION DEFINITION
 INSTALLED_APPS = [
+    # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,21 +24,23 @@ INSTALLED_APPS = [
     'django_otp',
     'django_otp.plugins.otp_totp',
 
+    # External Apps
     'rest_framework',
     'corsheaders',
     'django_summernote',
     'knox',
+    'storages',
 
-    # My Apps
+    # Internal Apps
     'account',
     'blog',
     'contact',
     'frontend',
     'terms_conditions',
-    'video'
+    'video',
 ]
 
-# Django Rest Framework
+# DJANGO REST FRAMEWORK CONFIG
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'knox.auth.TokenAuthentication',
@@ -114,11 +113,11 @@ WSGI_APPLICATION = 'macrobros.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'macrobros_db',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': ''
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT')
     }
 }
 
@@ -165,14 +164,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'media')
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = 'static/static/'
+MEDIA_URL = 'static/media/'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Local
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+# Prod
+# STATIC_ROOT = '/vol/web/static'
+# MEDIA_ROOT = '/vol/web/media'
 
 # Summernote
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -185,8 +186,18 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # EMAIL CONFIG
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = 'macrobroscrypto@gmail.com'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = 'MultiMill1234567'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+# S3 BUCKET CONFIG
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+
+# STORAGES CONFIG
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

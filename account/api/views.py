@@ -4,16 +4,16 @@ from rest_framework import generics, status, permissions
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
+from account.account_email import SendEmail
+from account.api.serializers import (RegisterSerializer,
+                                     LoginSerializer,
+                                     UserSerializer,
+                                     PasswordResetRequestSerializer,
+                                     PasswordResetSerializer)
+from account.models import User
 from blog.api.serializers import BlogPostSerializer
 from blog.models import BlogPost
 from macrobros.pagination import CustomPagination
-from account.api.serializers import (RegisterSerializer,
-                          LoginSerializer,
-                          UserSerializer,
-                          PasswordResetRequestSerializer,
-                          PasswordResetSerializer)
-from account.account_email import SendEmail
-from account.models import User
 
 
 class Register(generics.GenericAPIView):
@@ -60,7 +60,7 @@ class Login(generics.GenericAPIView):
                 }, status=status.HTTP_200_OK)
             else:
                 return Response({
-                    'non_field_errors': ['Please verify your email address']
+                    'email': 'Please verify your email address!'
                 }, status=status.HTTP_401_UNAUTHORIZED)
         else:
             try:

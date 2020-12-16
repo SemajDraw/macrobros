@@ -5,7 +5,7 @@ import {
     SAVE_BLOG,
     UPDATE_ACCOUNT
 } from "../actions/account/types";
-import PaginatedBlog from "../actions/blog/PaginatedBlog";
+import PaginatedBlogModel from "../actions/blog/PaginatedBlogModel";
 
 const initialState = {
     emailVerification: {
@@ -13,7 +13,7 @@ const initialState = {
         message: []
     },
     passwordReset: null,
-    savedBlogs: new PaginatedBlog(),
+    savedBlogs: new PaginatedBlogModel(),
     saveBlog: ''
 };
 

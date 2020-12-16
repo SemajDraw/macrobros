@@ -29,7 +29,8 @@ export const BlogGridBuilder = ({ blogs }) => {
                           style={ {
                               transform: springs[i].xys.interpolate(trans)
                           } }>
-                <img className="card-img-top" src={ blogPost.thumbnail } alt={ blogPost.thumbnailAlt }/>
+                <img className="card-img-top" style={ { maxHeight: '300px' } } src={ blogPost.thumbnail }
+                     alt={ blogPost.thumbnailAlt }/>
                 <div className="card-body">
                     <strong className="d-inline-block mb-2 text-primary title">
                         { formatPageHeading(blogPost.category) }

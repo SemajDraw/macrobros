@@ -19,7 +19,7 @@ export const Profile = () => {
     return (
         <div className='container mt-3 min-vh-100'>
             <div className='row justify-content-center'>
-                <div className='col-10 col-lg-8 mt-5 user-details'>
+                <div className='col-10 col-lg-8 mt-5 user-details border-divider'>
                     <div className='d-flex justify-content-between my-3'>
                         <div>
                             <h1>{ formatUserInitials([user.firstName, user.lastName]) }</h1>

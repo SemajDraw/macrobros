@@ -28,7 +28,9 @@ export const Home = (props) => {
     }, []);
 
     useEffect(() => {
-        setIsLoading(false);
+        if (blogs.results !== undefined && blogs.results.length !== 0) {
+            setIsLoading(false);
+        }
     }, [blogs]);
 
     const nextPage = (pageNumber) => {
