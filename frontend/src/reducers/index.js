@@ -3,12 +3,12 @@ import auth from './auth';
 import blog from './blog';
 import termsConditions from './termsConditions';
 import contact from './contact';
-import account from "./account";
+import account from './account';
 
 export default combineReducers({
-    account,
-    auth,
-    blog,
-    contact,
-    termsConditions
+	account,
+	auth,
+	blog,
+	contact,
+	termsConditions
 });

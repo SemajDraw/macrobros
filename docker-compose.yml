@@ -1,23 +1,24 @@
 version: '3.7'
 
 services:
+  proxy:
+    build:
+      context: ./nginx
+    volumes:
+      - static_data:/vol/static
+    ports:
+      - "80:80"
+
   app:
     build:
       context: .
+    container_name: macrobros_app
     volumes:
       - static_data:/vol/web
     env_file:
       - environment/.env
-
-  proxy:
-    build:
-      context: ./proxy
-    volumes:
-      - static_data:/vol/static
-    ports:
-      - "8080:8080"
     depends_on:
-      - app
+      - proxy
 
 volumes:
   static_data:

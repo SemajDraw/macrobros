@@ -5,7 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "webpack --mode development --env=development --watch ./frontend/src/index.js --output ./frontend/static/frontend/main.js",
-    "start:prod": "webpack --mode production --env=production ./frontend/src/index.js --output ./frontend/static/frontend/main.js"
+    "start:prod": "webpack --mode production --env=production ./frontend/src/index.js --output ./frontend/static/frontend/main.js",
+    "lint:check": "npx eslint-config-prettier ./frontend/src/index.js",
+    "lint:fix": "prettier-eslint --write $PWD/'{,!(node_modules)**/}*.{js,jsx}'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:fix"
+    }
   },
   "repository": {
     "type": "git",
@@ -22,9 +29,22 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "css-loader": "^3.5.3",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.3.6",
+    "prettier": "^2.2.1",
+    "prettier-eslint-cli": "^5.0.0",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
