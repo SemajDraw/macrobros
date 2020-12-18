@@ -168,12 +168,12 @@ STATIC_URL = 'static/static/'
 MEDIA_URL = 'static/media/'
 
 # Local
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/static')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/static')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 # Prod
-# STATIC_ROOT = '/vol/web/static'
-# MEDIA_ROOT = '/vol/web/media'
+STATIC_ROOT = '/vol/web/static'
+MEDIA_ROOT = '/vol/web/media'
 
 # Summernote
 X_FRAME_OPTIONS = 'SAMEORIGIN'

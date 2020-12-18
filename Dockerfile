@@ -11,7 +11,7 @@ WORKDIR /app
 COPY . .
 RUN pip install pipenv
 RUN pipenv install --system --deploy --ignore-pipfile
-RUN npm install
+RUN npm install --production
 
 RUN useradd -ms /bin/bash user
 RUN chmod +x environment/scripts/*

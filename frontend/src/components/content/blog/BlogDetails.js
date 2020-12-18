@@ -78,7 +78,7 @@ export const BlogDetails = (props) => {
 									className='blog-text mt-5 mb-5'
 									dangerouslySetInnerHTML={renderBlogContent(blogPost.summary)}
 								/>
-								{blogPost.displayChart ? (
+								{blogPost.displayChart && blogPost.marketPair ? (
 									<div className='container-fluid px-0 px-md-4 ticker-chart'>
 										<TradingViewWidget
 											symbol={blogPost.marketPair}
