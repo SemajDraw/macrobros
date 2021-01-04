@@ -6,6 +6,9 @@ __pycache__/
 # ENV File
 environment/.env
 
+# .ebextensions
+.ebextensions/securelistener-alb.config
+
 # C extensions
 *.so
 
@@ -192,3 +195,8 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

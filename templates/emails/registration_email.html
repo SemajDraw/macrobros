@@ -5,11 +5,11 @@
     <title>Title</title>
 
     <style>
-        .button {
+        .register-button {
             display: block;
             width: 115px;
             height: 25px;
-            background: #203a43;
+            background: #244353;
             padding: 10px;
             text-align: center;
             border-radius: 5px;
@@ -17,17 +17,45 @@
             font-weight: bold;
             line-height: 25px;
             text-decoration: none;
+            margin: 2em auto 1.5em;
+        }
+
+        .register-button:hover {
+            background: #376c85;
+        }
+
+        .register-div {
+            border: 1px solid #dbdada;
+            border-radius: 2px;
+            display: table;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-container {
+            margin: 2em
+        }
+
+        .body {
+            height: 100%;
+            width: 100%;
+            min-height: 100vh;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
         }
     </style>
 </head>
-<body style="height: 100%; width: 100%;">
-<div style="height: 100%; width: 100%; text-align: center">
-    <div>
+<body class="body">
+<div class="register-div">
+    <div class="register-container">
         <h1>Hi {{ name }}</h1>
-        <h1>Thank you for registering with MacrBros</h1>
+        <h1>Thank you for registering with MacroBros</h1>
         <h4>Please click the button below to activate your account</h4>
-        <div class="content">
-            <a href="{{ verification_link }}" class="button" type="button">Verify Email</a>
+        <div>
+            <a href="{{ verification_link }}" class="register-button" type="button">Verify Email</a>
         </div>
     </div>
 </div>

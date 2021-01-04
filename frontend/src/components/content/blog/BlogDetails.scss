@@ -8,11 +8,12 @@
 }
 
 .blog-text {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.2em;
-  line-height: 1.5em;
+  font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 1.3em;
+  line-height: 1.6em;
+  letter-spacing: 0.03em;
   font-weight: 100;
-  opacity: 0.9;
+  color: rgba(0, 0, 0, 0.75);
 }
 
 .blog-text img {
@@ -26,6 +27,8 @@
   font-family: inherit !important;
   font-size: inherit !important;
   line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
 }
 
 @include media-breakpoint-up(md) {

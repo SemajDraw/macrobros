@@ -8,17 +8,16 @@ services:
       - static_data:/vol/static
     ports:
       - "8080:8080"
+    depends_on:
+      - macrobros_app
 
-  app:
-    build:
-      context: .
+  macrobros_app:
+    image: macrobros/macrobros-app
     container_name: macrobros_app
     volumes:
       - static_data:/vol/web
     env_file:
       - environment/.env
-    depends_on:
-      - proxy
 
 volumes:
   static_data:
