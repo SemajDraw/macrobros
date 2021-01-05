@@ -61,7 +61,7 @@ export const BlogDetails = (props) => {
 						<ActivityBar offsetTop={150} blogPost={blogPost} />
 						<div className='row sidebar-offset justify-content-center'>
 							<div className='col-lg-8 col-10 col-sm-12'>
-								<h1 className='display-2'>{blogPost.title}</h1>
+								<h1>{blogPost.title}</h1>
 								<h2 className='text-muted mt-3'>
 									{formatPageHeading(blogPost.category)}
 								</h2>
