@@ -107,8 +107,8 @@ export const NavBar = () => {
 				className='p-0 mr-3 my-auto navbar-toggler align-self-end'
 				type='button'
 				data-toggle='collapse'
-				data-target='#navbarNav'
-				aria-controls='navbarNav'
+				data-target='#navbarNavDropdown'
+				aria-controls='navbarNavDropdown'
 				aria-expanded='false'
 				aria-label='Toggle navigation'
 			>
@@ -116,7 +116,7 @@ export const NavBar = () => {
 			</button>
 			<div
 				className='nav-container mx-5 align-content-center collapse navbar-collapse'
-				id='navbarNav'
+				id='navbarNavDropdown'
 			>
 				<ul className='box center-navbar navbar-nav home-link mr-auto d-none d-md-block'>
 					<li className='nav-item active'>
