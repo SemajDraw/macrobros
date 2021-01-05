@@ -1,13 +1,35 @@
 @import "~bootstrap/scss/_functions.scss";
 @import "~bootstrap/scss/_variables.scss";
-@import "~bootstrap/scss/mixins/_breakpoints.scss";
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~bootstrap/scss/utilities/spacing";
 
 .ticker-chart {
   height: calc(50vh);
 }
 
-.blog-details {
-  width: 100%;
+.blog-text {
+  font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 1.3em;
+  line-height: 1.6em;
+  letter-spacing: 0.03em;
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+
+.blog-text img {
+  max-width: 90% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  @extend .my-4;
+}
+
+.blog-text * {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  color: inherit !important;
 }
 
 @include media-breakpoint-up(md) {

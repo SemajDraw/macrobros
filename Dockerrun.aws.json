@@ -1,0 +1,50 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "authentication": {
+    "bucket": "macrobros-docker-auth",
+    "key": "dockercfg"
+  },
+  "volumes": [
+    {
+      "name": "Static_Data",
+      "host": {
+        "sourcePath": "static_data"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "nginx_proxy",
+      "essential": true,
+      "image": "macrobros/macrobros-proxy",
+      "memory": 100,
+      "mountPoints": [
+        {
+          "containerPath": "/vol/static",
+          "sourceVolume": "Static_Data"
+        }
+      ],
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8080
+        }
+      ],
+      "links": [
+        "macrobros_app"
+      ]
+    },
+    {
+      "name": "macrobros_app",
+      "essential": true,
+      "image": "macrobros/macrobros-app",
+      "memory": 256,
+      "mountPoints": [
+        {
+          "containerPath": "/vol/web",
+          "sourceVolume": "Static_Data"
+        }
+      ]
+    }
+  ]
+}

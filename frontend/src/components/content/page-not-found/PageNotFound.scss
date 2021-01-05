@@ -1,3 +1,7 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
 /*/////////////////// rules */
 $color-black: #13242C;
 $color-white: #fff;
@@ -37,9 +41,19 @@ $color-wood-2: #410A09;
 .text {
   @include centered;
   color: rgba($color-black, 0.1);
-  font-size: 30em;
+  font-size: 12em;
   text-align: center;
-  top: 40%;
+  top: 50%;
+}
+
+@include media-breakpoint-up(md) {
+  .text {
+    @include centered;
+    color: rgba($color-black, 0.1);
+    font-size: 30em;
+    text-align: center;
+    top: 40%;
+  }
 }
 
 .animContainer {
@@ -471,16 +485,19 @@ $color-wood-2: #410A09;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  text-decoration: none;
 }
 
 .homeLink:hover {
   opacity: 1;
+  text-decoration: none;
 }
 
 .homeBtn {
   background: transparent;
   color: $color-skin-3;
   border-color: $color-skin-3;
+  text-decoration: none;
 }
 
 .homeBtn:hover {

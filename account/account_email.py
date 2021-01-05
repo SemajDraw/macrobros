@@ -10,7 +10,7 @@ class SendEmail:
     def account_confirmation_email(self, request, first_name, token):
         context = {
             'name': first_name,
-            'verification_link': f'http://{get_current_site(request).domain}/verify-email/{token}'
+            'verification_link': f'http://{get_current_site(request).domain}/account/verify-email/{token}'
         }
 
         self.send_email(
@@ -24,7 +24,7 @@ class SendEmail:
         context = {
             'name': first_name,
             'password_reset_link':
-                f'http://{get_current_site(request)}/password-reset?user={auth_token}&token={password_reset_token}'
+                f'http://{get_current_site(request)}/account/password-reset?user={auth_token}&token={password_reset_token}'
         }
 
         self.send_email(
@@ -38,7 +38,7 @@ class SendEmail:
     def send_email(subject, to, template_name, context):
         html_content = render_to_string(template_name, context)
         text_content = strip_tags(html_content)
-        msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, [to])
+        msg = EmailMultiAlternatives(subject=subject, body=text_content, from_email=settings.EMAIL_HOST_USER, to=[to])
         msg.attach_alternative(html_content, "text/html")
         msg.send(fail_silently=False)
 

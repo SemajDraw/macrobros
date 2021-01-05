@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# ENV File
+environment/.env
+
 # C extensions
 *.so
 
@@ -189,3 +192,8 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

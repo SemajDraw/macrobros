@@ -83,6 +83,11 @@
   font-size: 0.75em
 }
 
+.copy-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 @include media-breakpoint-up(sm) {
   .icon-left {
     padding-left: 10vw;

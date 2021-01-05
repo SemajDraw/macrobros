@@ -12,18 +12,17 @@ class Categories(models.TextChoices):
 
 def upload_to(instance, filename):
     _now = datetime.now()
-    return 'images/blog/{year}/{month}/{day}/{title}/{filename}'.format(
-        year=_now.strftime('%Y'),
-        month=_now.strftime('%m'),
-        day=_now.strftime('%d'),
-        title=instance.slug,
-        filename=filename)
+    year = _now.strftime('%Y')
+    month = _now.strftime('%m')
+    day = _now.strftime('%d')
+    return f'images/blog/{year}/{month}/{day}/{instance.slug}/{filename}'
 
 
 class BlogPost(models.Model):
     title = models.CharField(verbose_name='Title', max_length=100, unique=True)
     project_name = models.CharField(verbose_name='Project Name', max_length=100)
     ticker = models.CharField(verbose_name='Ticker', max_length=50, blank=True)
+    display_chart = models.BooleanField(verbose_name='Display Chart', default=False)
     market_pair = models.CharField(verbose_name='Market Pair', max_length=50, blank=True)
     slug = models.SlugField(verbose_name='Url Slug')
     category = models.CharField(verbose_name='Category', max_length=50, choices=Categories.choices,
@@ -32,7 +31,7 @@ class BlogPost(models.Model):
     thumbnail = models.ImageField(verbose_name='Thumbnail Img',
                                   upload_to=upload_to,
                                   default='/default/blog/default-thumbnail.jpg')
-    thumbnail_alt = models.TextField(verbose_name='Tumbnail Alt')
+    thumbnail_alt = models.TextField(verbose_name='Thumbnail Alt')
     icon = models.FileField(verbose_name='Icon',
                             upload_to=upload_to,
                             blank=True)
@@ -48,13 +47,13 @@ class BlogPost(models.Model):
     def save(self, *args, **kwargs):
         # Set Default Icon Based on Category
         if not self.icon:
-            self.icon = '/default/category_icons/{}.svg'.format(self.category)
+            self.icon = f'/default/category_icons/{self.category}.svg'
 
         # Create Blog Url Slug
         self.slug = slugify(self.title)
 
         # Calculate Read Time of Blog Post
-        self.read_time = readtime.of_text(self.summary + self.content).text
+        self.read_time = readtime.of_html(self.summary + self.content).text
 
         # Set the featured blog post
         if self.featured:
