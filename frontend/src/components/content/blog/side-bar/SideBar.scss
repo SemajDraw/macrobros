@@ -38,8 +38,8 @@
 }
 
 .search-control:focus {
-  box-shadow: 0 0 5px rgba(181, 234, 215, 1);
-  border: 1px solid rgba(181, 234, 215, 1);
+  box-shadow: 0 0 5px rgba(0, 123, 255, 1);
+  border: 1px solid rgba(0, 123, 255, 1);
 
 }
 
@@ -50,7 +50,7 @@
 }
 
 .search-button:hover {
-  background: #b5ead7;
+  background: #007bff;
   border-left: none;
-  border-color: #b5ead7;
+  border-color: #007bff;
 }

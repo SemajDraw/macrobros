@@ -2,7 +2,7 @@ export const Blog = {
 	BLOGS: '/blog',
 	BLOG_DETAILS: '/blog/:slug',
 	BLOG_CATEGORIES: '/blog/category/:category',
-	BLOG_SEARCH: '/blog/search/:search'
+	BLOG_SEARCH: '/blog/search/results'
 };
 
 export const Account = {
@@ -16,7 +16,7 @@ export const Account = {
 };
 
 export const Common = {
-	FORM_SUCCESS: '/success/:form'
+	FORM_SUBMIT: '/submit/:form'
 };
 
 export const ContactR = {

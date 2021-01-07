@@ -1,0 +1,13 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+.search-body {
+  margin-top: 1em;
+}
+
+@include media-breakpoint-up(sm) {
+  .search-body {
+    margin-top: 3em;
+  }
+}

@@ -7,7 +7,6 @@ from django.template.defaultfilters import slugify
 class Categories(models.TextChoices):
     CRYPTO_PROJECTS = 'crypto-projects'
     MACROECONOMICS = 'macroeconomics'
-    COMPANY_ANALYSIS = 'company-analysis'
 
 
 def upload_to(instance, filename):

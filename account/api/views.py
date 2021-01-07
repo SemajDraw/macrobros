@@ -3,7 +3,7 @@ from knox.models import AuthToken
 from rest_framework import generics, status, permissions
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
-
+from smtplib import SMTPAuthenticationError
 from account.account_email import SendEmail
 from account.api.serializers import (RegisterSerializer,
                                      LoginSerializer,
@@ -26,15 +26,23 @@ class Register(generics.GenericAPIView):
         if serializer.is_valid():
             user = serializer.save()
 
-            SendEmail().account_confirmation_email(
-                request,
-                user.first_name,
-                AuthToken.objects.create(user)[1]
-            )
+            try:
+                SendEmail().account_confirmation_email(
+                    request,
+                    user.first_name,
+                    AuthToken.objects.create(user)[1]
+                )
+            except SMTPAuthenticationError:
+                return Response({ 'internal': ['Oops something went wrong!',
+                                               'We are experiencing some technical difficulties '
+                                               'Please try and register again at a later time. '
+                                               'Thank you for your patience.'] },
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-            return Response({
-                'message': 'Success'
-            }, status=status.HTTP_201_CREATED)
+            return Response({ 'internal': ['Thank you for registering!',
+                                           'A verification email has been sent to your email account. '
+                                           'Please check your inbox to verify your email and activate your account.'] },
+                            status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -87,7 +87,7 @@ export const Home = (props) => {
 						)}
 					</div>
 					<div className='col-12 col-md-4 col-lg-3'>
-						<SideBar props={props} />
+						<SideBar props={props} showSearch={true} />
 					</div>
 				</div>
 			</div>

@@ -2,11 +2,6 @@ import React from 'react';
 import './Contact.scss';
 import ContactForm from './ContactForm';
 import { MacroBrosIcon } from '../../common/MacroBrosIcon';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 import SocialIcons from '../../common/social-icons/SocialIcons';
 
 export const Contact = (props) => {

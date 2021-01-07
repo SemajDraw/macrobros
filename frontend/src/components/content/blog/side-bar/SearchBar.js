@@ -5,13 +5,14 @@ import Button from 'react-bootstrap/Button';
 import './SideBar.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
+import { Blog } from '../../../common/Routes';
 
 export const SearchBar = (props) => {
-	const [searchValue, setSearchValue] = useState();
+	const [searchValue, setSearchValue] = useState('');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		props.props.history.push(`/blog/search/${searchValue}`);
+		props.props.history.push(`${Blog.BLOG_SEARCH}?search_value=${searchValue}`);
 	};
 
 	return (

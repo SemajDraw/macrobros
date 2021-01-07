@@ -18,7 +18,7 @@ const initialState = {
 	popularBlogs: [],
 	blogs: new PaginatedBlogModel(),
 	categoryBlogs: new PaginatedBlogModel(),
-	searchBlogs: new PaginatedBlogModel(),
+	searchBlogs: {},
 	blogClapped: ''
 };
 

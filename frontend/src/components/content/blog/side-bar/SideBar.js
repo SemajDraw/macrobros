@@ -90,7 +90,11 @@ export const SideBar = (props) => {
 
 	return (
 		<>
-			<SearchBar props={props.props} />
+			{props.showSearch ? (
+				<SearchBar props={props.props} />
+			) : (
+				<div className='mt-5 pt-2' />
+			)}
 
 			<div className='col-12 px-0'>
 				<div className='list-group list-container' id='list-tab' role='tablist'>

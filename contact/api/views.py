@@ -17,5 +17,11 @@ def send_email(request):
     subject = ' '.join(['Email from', email['first_name'], email['last_name'], email['email']])
     res = send_mail(subject, email['body'], email['email'], [settings.EMAIL_HOST_USER], fail_silently=True)
     if res == 1:
-        return Response({'success': True}, status=status.HTTP_200_OK)
-    return Response({'success': False}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({ 'internal': ['Thanks for getting in touch',
+                                       'We appreciate your interest to get in touch with us.'
+                                       'We will be in contact with you as soon as we can. '
+                                       'Thank you for your patience'] }, status=status.HTTP_200_OK)
+    return Response({ 'internal': ['Oops something went wrong!',
+                                   'We are experiencing some technical difficulties. '
+                                   'Please try and contact us again at a later time. '
+                                   'Thank you for your patience.'] }, status=status.HTTP_400_BAD_REQUEST)

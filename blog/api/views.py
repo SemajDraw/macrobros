@@ -69,16 +69,16 @@ class SearchBlogPosts(ListAPIView):
     def post(self, request, format=None):
         data = self.request.data
         search_fields = data['search'].split()
-        results = []
+        queryset = []
         for field in search_fields:
             blog_posts = BlogPost.objects.filter(
                 Q(title__icontains=field) |
                 Q(content__icontains=field) |
                 Q(project_name__icontains=field)
             )
-            results.extend(blog_posts)
+            queryset.extend(blog_posts)
 
-        page = self.paginate_queryset(list(set(results)))
+        page = self.paginate_queryset(list(set(queryset)))
 
         serializer = self.serializer_class(page, many=True)
         return self.get_paginated_response(serializer.data)

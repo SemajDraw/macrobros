@@ -6,7 +6,7 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 import Bounce from 'react-reveal/Bounce';
-import { Blog, TermsConditions } from '../../common/Routes';
+import { Blog, ContactR, TermsConditions } from '../../common/Routes';
 import DonateModal from './DonateModal';
 
 export const Footer = () => {
@@ -18,13 +18,13 @@ export const Footer = () => {
 				<div className='container text-center text-md-left'>
 					<div className='row'>
 						<div className='col-lg-7 col-md-8 col-sm-12 pt-5'>
-							<Link className='footerLink' to=''>
-								<h4 className='footerLink'> MacroBros </h4>
+							<Link className='footerLink' to='/'>
+								<h4 className='footerLink'>MacroBros</h4>
 							</Link>
 						</div>
 						<div className='col-lg-3 col-md-4 col-sm-12 pt-5 pb-3'>
-							<Link className='footerLink' to='/contact'>
-								<h3 className='footerLink'> Contact </h3>
+							<Link className='footerLink' to={ContactR.CONTACT}>
+								<h3 className='footerLink'>Contact</h3>
 							</Link>
 							<ul>
 								<br />
@@ -54,11 +54,6 @@ export const Footer = () => {
 										<p className='footerLink'>Blog</p>
 									</Link>
 								</li>
-								{/*<li>*/}
-								{/*    <Link className='footerLink inactiveLink' to='/video'>*/}
-								{/*        <p className='footerLink'>Videos</p>*/}
-								{/*    </Link>*/}
-								{/*</li>*/}
 							</ul>
 						</div>
 					</div>
@@ -68,19 +63,28 @@ export const Footer = () => {
 					<Bounce left duration={1000} cascade>
 						<div className='row d-flex align-items-center justify-content-around'>
 							<div>
-								<Link className='icon-left footerLink' to=''>
+								<a
+									className='icon-left footerLink'
+									href='https://www.facebook.com/macro.bros.716'
+								>
 									<FontAwesomeIcon size='2x' icon={faFacebook} />
-								</Link>
+								</a>
 							</div>
 							<div>
-								<Link className='footerLink' to=''>
+								<a
+									className='footerLink'
+									href='https://www.instagram.com/macro_bros.com_/'
+								>
 									<FontAwesomeIcon size='2x' icon={faInstagram} />
-								</Link>
+								</a>
 							</div>
 							<div>
-								<Link className='icon-right footerLink' to=''>
+								<a
+									className='icon-right footerLink'
+									href='https://twitter.com/BrosMacro'
+								>
 									<FontAwesomeIcon size='2x' icon={faTwitter} />
-								</Link>
+								</a>
 							</div>
 						</div>
 					</Bounce>
