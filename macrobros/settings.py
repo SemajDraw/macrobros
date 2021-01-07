@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'blog',
     'contact',
     'frontend',
-    'terms_conditions',
+    'terms_and_conditions',
     'video',
 ]
 

@@ -10,11 +10,11 @@ import ReactTooltip from 'react-tooltip';
 export const DonateModal = (props) => {
 	const [state, setState] = useState({
 		bitcoin: {
-			address: 'bitcoinaddress',
+			address: 'coming soon...',
 			copied: false
 		},
 		ethereum: {
-			address: 'ethereumaddress',
+			address: '0xf5BE6Df48EBc9c10666e482Ac3cA20Dae7C8Af3C',
 			copied: false
 		}
 	});
@@ -56,17 +56,20 @@ export const DonateModal = (props) => {
 								setState({ bitcoin: { ...state, copied: true }, ...state })
 							}
 						>
-							<span>
-								<h5 style={{ display: 'inline' }}>Bitcoin:</h5> {state.bitcoin.address}
+							<div className='d-flex justify-content-center mb-2'>
+								<h5 className='my-0' style={{ display: 'inline' }}>
+									Bitcoin:
+								</h5>
+								<p className='address-hash my-0 ml-1'>{state.bitcoin.address}</p>
 								<Button
-									className='copy-btn'
+									className='copy-btn py-0 my-0'
 									variant='link'
 									data-event='click'
 									data-tip='copied'
 								>
 									<FontAwesomeIcon size='xs' icon={faCopy} />
 								</Button>
-							</span>
+							</div>
 						</CopyToClipboard>
 						<CopyToClipboard
 							text={state.ethereum.address}
@@ -74,18 +77,20 @@ export const DonateModal = (props) => {
 								setState({ ethereum: { ...state, copied: true }, ...state })
 							}
 						>
-							<span>
-								<h5 style={{ display: 'inline' }}>Ethereum:</h5>{' '}
-								{state.ethereum.address}
+							<div className='d-flex justify-content-center'>
+								<h5 className='my-0' style={{ display: 'inline' }}>
+									Ethereum:
+								</h5>
+								<p className='address-hash my-0 ml-1'>{state.ethereum.address}</p>
 								<Button
-									className='copy-btn'
+									className='copy-btn py-0 my-0'
 									variant='link'
 									data-event='click'
 									data-tip='copied'
 								>
 									<FontAwesomeIcon size='xs' icon={faCopy} />
 								</Button>
-							</span>
+							</div>
 						</CopyToClipboard>
 					</div>
 					<ReactTooltip type='dark' effect='solid' globalEventOff='click' />

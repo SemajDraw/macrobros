@@ -27,6 +27,7 @@ import {
 	ContactR,
 	TermsConditions
 } from './common/Routes';
+import useWithTracker from '../hooks/useWithTracker';
 
 export const AppRouter = () => {
 	return (
@@ -34,50 +35,82 @@ export const AppRouter = () => {
 			<Fragment>
 				<Header />
 				<Switch>
-					<Route exact path='/' component={Home} />
+					<Route exact path='/' component={useWithTracker(Home)} />
 					{/*Blog Routes*/}
-					<Route exact path={Blog.BLOGS} component={Blogs} />
-					<Route exact path={Blog.BLOG_DETAILS} component={BlogDetails} />
-					<Route exact path={Blog.BLOG_CATEGORIES} component={CategoryBlogs} />
-					<Route exact path={Blog.BLOG_SEARCH} component={SearchBlogs} />
+					<Route exact path={Blog.BLOGS} component={useWithTracker(Blogs)} />
+					<Route
+						exact
+						path={Blog.BLOG_DETAILS}
+						component={useWithTracker(BlogDetails)}
+					/>
+					<Route
+						exact
+						path={Blog.BLOG_CATEGORIES}
+						component={useWithTracker(CategoryBlogs)}
+					/>
+					<Route
+						exact
+						path={Blog.BLOG_SEARCH}
+						component={useWithTracker(SearchBlogs)}
+					/>
 
 					{/*Account Routes*/}
-					<Route exact path={Account.LOGIN} component={Login} />
-					<Route exact path={Account.REGISTER} component={Register} />
+					<Route exact path={Account.LOGIN} component={useWithTracker(Login)} />
+					<Route
+						exact
+						path={Account.REGISTER}
+						component={useWithTracker(Register)}
+					/>
 					<Route
 						exact
 						path={Account.EMAIL_VERIFICATION}
-						component={EmailVerification}
+						component={useWithTracker(EmailVerification)}
 					/>
-					<Route exact path={Account.PASSWORD_RESET} component={PasswordReset} />
-					<Route exact path={Account.FORGOT_PASSWORD} component={ForgotPassword} />
-					<PrivateRoute exact path={Account.PROFILE} component={Profile} />
+					<Route
+						exact
+						path={Account.PASSWORD_RESET}
+						component={useWithTracker(PasswordReset)}
+					/>
+					<Route
+						exact
+						path={Account.FORGOT_PASSWORD}
+						component={useWithTracker(ForgotPassword)}
+					/>
+					<PrivateRoute
+						exact
+						path={Account.PROFILE}
+						component={useWithTracker(Profile)}
+					/>
 					<PrivateRoute
 						exact
 						path={Account.PROFILE_SETTINGS}
-						component={ProfileSettings}
+						component={useWithTracker(ProfileSettings)}
 					/>
 
 					{/*Common Routes*/}
-					<Route exact path={Common.FORM_SUBMIT} component={FormSubmit} />
+					<Route
+						exact
+						path={Common.FORM_SUBMIT}
+						component={useWithTracker(FormSubmit)}
+					/>
 
 					{/*Contact Routes*/}
-					<Route exact path={ContactR.CONTACT} component={Contact} />
+					<Route exact path={ContactR.CONTACT} component={useWithTracker(Contact)} />
 
 					{/*Terms and Conditions*/}
 					<Route
 						exact
 						path={TermsConditions.TERMS_SERVICE}
-						component={TermsService}
+						component={useWithTracker(TermsService)}
 					/>
 					<Route
 						exact
 						path={TermsConditions.PRIVACY_POLICY}
-						component={PrivacyPolicy}
+						component={useWithTracker(PrivacyPolicy)}
 					/>
 
 					{/*Page Not Found*/}
-					<Route component={PageNotFound} />
+					<Route component={useWithTracker(PageNotFound)} />
 				</Switch>
 				<Footer />
 			</Fragment>

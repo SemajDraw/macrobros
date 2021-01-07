@@ -45,7 +45,7 @@ export const BlogDetails = (props) => {
 				<div className='mt-3 min-vh-100'>
 					<div className='container mt-5 mb-5' style={{ height: '300px' }}>
 						<div className='row justify-content-center' style={{ height: '100%' }}>
-							<div className='col-lg-8 col-10 col-sm-12'>
+							<div className='col-12 col-lg-8 col-10 col-sm-12 px-4 px-sm-0'>
 								<Jumbotron
 									style={{
 										backgroundImage: `url( ${blogPost.headerImg} )`,
@@ -60,7 +60,7 @@ export const BlogDetails = (props) => {
 					<div className='container'>
 						<ActivityBar offsetTop={150} blogPost={blogPost} />
 						<div className='row sidebar-offset justify-content-center'>
-							<div className='col-lg-8 col-10 col-sm-12'>
+							<div className='col-12 col-lg-8 col-10 col-sm-12 px-4 px-sm-0'>
 								<h1>{blogPost.title}</h1>
 								<h2 className='text-muted mt-3'>
 									{formatPageHeading(blogPost.category)}

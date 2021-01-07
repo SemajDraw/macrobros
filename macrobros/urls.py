@@ -6,8 +6,8 @@ from django_otp.admin import OTPAdminSite
 from rest_framework.routers import DefaultRouter
 
 admin.site.__class__ = OTPAdminSite
-admin.site_header = 'MacroBros Co. Administration'
-admin.site_title = 'MacroBros Co. Administration'
+admin.site.site_header = 'MacroBros Ltd.'
+admin.site.site_title = 'MacroBros Ltd.'
 
 
 class OptionalSlashRouter(DefaultRouter):
@@ -23,7 +23,7 @@ urlpatterns = [
       # Rest API Urls
       re_path('api/account/', include('account.api.urls'), name='account_api'),
       re_path('api/blog/', include('blog.api.urls'), name='blog_api'),
-      re_path('api/terms-conditions/', include('terms_conditions.api.urls'), name='terms_conditions'),
+      re_path('api/terms-conditions/', include('terms_and_conditions.api.urls'), name='terms_conditions'),
       re_path('api/contact/', include('contact.api.urls'), name='contact'),
       re_path('summernote', include('django_summernote.urls')),
 

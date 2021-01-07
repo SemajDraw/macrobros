@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPrivacyPolicy } from '../../../actions/terms-conditions/termsConditions';
 import Moment from 'react-moment';
+import LoadingSpinner from '../../common/LoadingSpinner';
 
 export const PrivacyPolicy = () => {
 	const dispatch = useDispatch();
+	const [isLoading, setIsLoading] = useState(true);
 	const privacyPolicy = useSelector(
 		(state) => state.termsConditions.privacyPolicy
 	);
@@ -13,22 +15,48 @@ export const PrivacyPolicy = () => {
 		dispatch(getPrivacyPolicy());
 	}, []);
 
+	useEffect(() => {
+		if (privacyPolicy.id) {
+			setIsLoading(false);
+		}
+	}, [privacyPolicy]);
+
 	const renderPrivacyPolicy = (content) => {
 		return { __html: content };
 	};
 
 	return (
-		<div className='container mt-5 min-vh-100'>
-			<h1>{privacyPolicy.title}</h1>
-			<div
-				className='mt-5 mb-5'
-				dangerouslySetInnerHTML={renderPrivacyPolicy(privacyPolicy.content)}
-			/>
-			<p>
-				This Privacy Policy was last updated on
-				<Moment format='Do MMMM YYYY'>{privacyPolicy.dateCreated}</Moment>.
-			</p>
-		</div>
+		<>
+			{isLoading ? (
+				<div
+					className='d-flex align-items-center justify-content-center'
+					style={{ height: '80%' }}
+				>
+					<div>
+						<LoadingSpinner isLoading={isLoading} />
+					</div>
+				</div>
+			) : (
+				<div className='container mt-5 min-vh-100'>
+					<h1>{privacyPolicy.title}</h1>
+					<div
+						className='mt-5 mb-5'
+						dangerouslySetInnerHTML={renderPrivacyPolicy(privacyPolicy.content)}
+					/>
+					<p>
+						Last updated on{' '}
+						<Moment format='Do MMMM YYYY'>{privacyPolicy.dateCreated}</Moment>.
+					</p>
+					<div className='container'>
+						<div className='row justify-content-center'>
+							<div className='col-lg-8 col-sm-12 col-10 mb-4'>
+								<hr />
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
+		</>
 	);
 };
 
