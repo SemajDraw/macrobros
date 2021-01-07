@@ -7,8 +7,8 @@ import EmailVerification from './account/email-verification/EmailVerification';
 import Header from './layout/navbar/NavBar';
 import PageNotFound from './content/page-not-found/PageNotFound';
 import Blogs from './content/blog/Blogs';
-import BlogDetails from './content/blog/BlogDetails';
-import SearchBlogs from './content/blog/SearchBlogs';
+import BlogDetails from './content/blog/details/BlogDetails';
+import SearchBlogs from './content/blog/search/SearchBlogs';
 import Footer from './layout/footer/Footer';
 import Contact from './content/contact/Contact';
 import TermsService from './content/terms-service/TermsService';
@@ -16,9 +16,9 @@ import PrivacyPolicy from './content/privacy-policy/PrivacyPolicy';
 import { Profile } from './account/profile/Profile';
 import PrivateRoute from './common/PrivateRoute';
 import PasswordReset from './account/password-reset/PasswordReset';
-import FormSuccess from './common/FormSuccess';
+import FormSubmit from './common/FormSubmit';
 import ForgotPassword from './account/forgot-password/ForgotPassword';
-import CategoryBlogs from './content/blog/CategoryBlogs';
+import CategoryBlogs from './content/blog/category/CategoryBlogs';
 import ProfileSettings from './account/profile/settings/ProfileSettings';
 import {
 	Account,
@@ -59,7 +59,7 @@ export const AppRouter = () => {
 					/>
 
 					{/*Common Routes*/}
-					<Route exact path={Common.FORM_SUCCESS} component={FormSuccess} />
+					<Route exact path={Common.FORM_SUBMIT} component={FormSubmit} />
 
 					{/*Contact Routes*/}
 					<Route exact path={ContactR.CONTACT} component={Contact} />

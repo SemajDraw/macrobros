@@ -12,7 +12,7 @@ export const LoadingSpinner = (props) => {
 	const [isLoading, setIsLoading] = useState(props.isLoading);
 
 	return (
-		<div className='mt-5' style={{ height: '100%', width: '100%' }}>
+		<div className='mt-5' style={{ height: '100%' }}>
 			<GridLoader css={override} size={20} color={'#4d2475'} loading={isLoading} />
 		</div>
 	);

@@ -28,7 +28,7 @@ export const ForgotPasswordForm = (props) => {
 							resetForm();
 							setSubmitting(false);
 							if (res.data.success) {
-								props.props.history.push(Common.FORM_SUCCESS, {
+								props.props.history.push(Common.FORM_SUBMIT, {
 									header: 'Password reset requested',
 									body: `An email has been sent to your email account. 
                                     Please check your inbox to reset your password.`

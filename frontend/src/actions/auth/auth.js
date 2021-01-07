@@ -7,17 +7,19 @@ export const loadUser = () => (dispatch, getState) => {
 	// Initialize User Load
 	dispatch({ type: USER_LOADING });
 
-	axios
-		.get('/api/account/auth/user', tokenAuthHeaders(getState().auth.token))
-		.then((res) => {
-			dispatch({
-				type: USER_LOADED,
-				payload: res.data
+	if (getState().auth.token) {
+		axios
+			.get('/api/account/auth/user', tokenAuthHeaders(getState().auth.token))
+			.then((res) => {
+				dispatch({
+					type: USER_LOADED,
+					payload: res.data
+				});
+			})
+			.catch((err) => {
+				dispatch({ type: AUTH_ERROR });
 			});
-		})
-		.catch((err) => {
-			dispatch({ type: AUTH_ERROR });
-		});
+	}
 };
 
 export const login = (loginReq) => {

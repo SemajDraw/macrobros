@@ -10,7 +10,7 @@ import { Formik } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 import { Link } from 'react-router-dom';
-import { Common } from '../../common/Routes';
+import { Common, TermsConditions } from '../../common/Routes';
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string()
@@ -61,20 +61,23 @@ export const RegisterForm = (props) => {
 
 					register(values)
 						.then((res) => {
-							if (res.data.message === 'Success') {
-								resetForm();
-								setSubmitting(false);
-								dispatch({ type: REGISTER_SUCCESS, payload: res.data });
-								props.props.history.push(Common.FORM_SUCCESS, {
-									header: 'Thank you for registering!',
-									body: `A verification email has been sent to your email account.
-                                    Please check your inbox to verify.`
-								});
-							}
+							resetForm();
+							setSubmitting(false);
+							dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+							props.props.history.push(Common.FORM_SUBMIT, {
+								header: res.data.internal[0],
+								body: res.data.internal[1]
+							});
 						})
 						.catch((err) => {
 							dispatch({ type: REGISTER_FAIL });
 							setSubmitting(false);
+							if (err.response.data.hasOwnProperty('internal')) {
+								props.props.history.push(Common.FORM_SUBMIT, {
+									header: err.response.data.internal[0],
+									body: err.response.data.internal[1]
+								});
+							}
 							if (err.response.data.hasOwnProperty('email')) {
 								setFieldError('email', 'An account with this email already exists!');
 							}
@@ -228,10 +231,13 @@ export const RegisterForm = (props) => {
 							{
 								<div>
 									By creating an account, you agree to the
-									<Link to='/terms-of-service'> Terms of Service. </Link>
+									<Link to={TermsConditions.TERMS_SERVICE}> Terms of Service. </Link>
 									For more information about MacroBros privacy practices, see the
-									<Link to='/privacy-policy'> MacroBros Privacy Statement. </Link>
-									We'll occasionally send you account-related emails.
+									<Link to={TermsConditions.PRIVACY_POLICY}>
+										{' '}
+										MacroBros Privacy Statement.{' '}
+									</Link>
+									{"We'll"} occasionally send you account-related emails.
 								</div>
 							}
 						</Form.Text>

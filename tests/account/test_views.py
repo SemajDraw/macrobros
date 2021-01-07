@@ -67,7 +67,10 @@ class TestAccountViews(APITestCase):
         }
         response = self.client.post(self.register_user_url, register_req)
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
-        self.assertEquals(response.data['message'], 'Success')
+        self.assertEquals(response.data['internal'],
+                          ['Thank you for registering!',
+                           'A verification email has been sent to your email account. '
+                           'Please check your inbox to verify your email and activate your account.'])
 
     def test_verify_email_POST(self):
         response = self.client.post(self.verify_user_email_url)

@@ -43,18 +43,16 @@ export const ContactForm = (props) => {
 							dispatch({ type: EMAIL_SENT, payload: res.data });
 							setSubmitting(false);
 							resetForm();
-							props.props.history.push(Common.FORM_SUCCESS, {
-								header: 'Thanks for getting in touch',
-								body: `We appreciate your interest to get in touch with us. 
-                                    We will be in contact with you as soon as we can!`
+							props.props.history.push(Common.FORM_SUBMIT, {
+								header: res.data.internal[0],
+								body: res.data.internal[1]
 							});
 						})
 						.catch((err) => {
 							setSubmitting(false);
-							props.props.history.push(Common.FORM_SUCCESS, {
-								header: 'Oops something went wrong!',
-								body: `It looks like we're experiencing some technical issues. 
-                                    Please try again later!`
+							props.props.history.push(Common.FORM_SUBMIT, {
+								header: err.response.data.internal[0],
+								body: err.response.data.internal[1]
 							});
 						});
 				}}

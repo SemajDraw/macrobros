@@ -11,19 +11,22 @@ export const SocialIcons = () => {
 		<div className='mb-1 mt-5' style={{ width: '100%' }}>
 			<div className='d-flex justify-content-around'>
 				<div>
-					<Link className='social-link' to=''>
+					<a className='social-link' href='https://www.facebook.com/macro.bros.716'>
 						<FontAwesomeIcon size='2x' icon={faFacebook} />
-					</Link>
+					</a>
 				</div>
 				<div>
-					<Link className='social-link' to=''>
+					<a
+						className='social-link'
+						href='https://www.instagram.com/macro_bros.com_/'
+					>
 						<FontAwesomeIcon size='2x' icon={faInstagram} />
-					</Link>
+					</a>
 				</div>
 				<div>
-					<Link className='social-link' to=''>
+					<a className='social-link' href='https://twitter.com/BrosMacro'>
 						<FontAwesomeIcon size='2x' icon={faTwitter} />
-					</Link>
+					</a>
 				</div>
 			</div>
 		</div>

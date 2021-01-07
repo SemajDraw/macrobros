@@ -31,7 +31,7 @@ export const Blogs = (props) => {
 	};
 
 	return (
-		<div className='mt-3 min-vh-100'>
+		<div className='mt-4 min-vh-100'>
 			{isLoading ? null : (
 				<div className='container-fluid'>
 					<Link
@@ -44,7 +44,7 @@ export const Blogs = (props) => {
 								backgroundImage: `url( ${featuredBlog.headerImg} )`,
 								backgroundSize: '100% 100%',
 								height: '100%',
-								minHeight: '350px'
+								minHeight: '400px'
 							}}
 						>
 							<h1>{featuredBlog.title}</h1>
@@ -63,7 +63,7 @@ export const Blogs = (props) => {
 						)}
 					</div>
 					<div className='col-md-3'>
-						<SideBar props={props} />
+						<SideBar props={props} showSearch={true} />
 					</div>
 				</div>
 			</div>

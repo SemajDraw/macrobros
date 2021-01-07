@@ -24,10 +24,7 @@ export const EmailVerification = (props) => {
 
 	return (
 		<div className='container d-flex align-items-center min-vh-100'>
-			<div
-				className='row justify-content-center'
-				style={{ height: '100%', width: '100%' }}
-			>
+			<div className='row justify-content-center' style={{ height: '100%' }}>
 				<div className='col-md-8 col-10'>
 					<div className='register-form card card-body p-4'>
 						<div className='d-flex flex-column align-items-center text-center mx-5 my-md-3 my-2'>
