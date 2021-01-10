@@ -11,7 +11,7 @@ export const Contact = (props) => {
 	};
 
 	return (
-		<div className='container min-vh-100 d-flex align-items-center'>
+		<div className='container min-vh-100 d-flex align-items-center my-5'>
 			<div style={{ width: '100%' }}>
 				<div className='row justify-content-center'>
 					<div className='col-md-8 col-10'>

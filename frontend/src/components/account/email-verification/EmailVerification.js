@@ -23,7 +23,7 @@ export const EmailVerification = (props) => {
 	}, [emailVerification]);
 
 	return (
-		<div className='container d-flex align-items-center min-vh-100'>
+		<div className='d-flex align-items-center justify-content-center min-vh-100'>
 			<div className='row justify-content-center' style={{ height: '100%' }}>
 				<div className='col-md-8 col-10'>
 					<div className='register-form card card-body p-4'>
