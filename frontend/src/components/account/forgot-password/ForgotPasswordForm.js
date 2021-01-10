@@ -84,7 +84,7 @@ export const ForgotPasswordForm = (props) => {
 									aria-hidden='true'
 								/>
 							) : (
-								'RESET PASSWORD'
+								'RESET'
 							)}
 						</Button>
 					</Form>

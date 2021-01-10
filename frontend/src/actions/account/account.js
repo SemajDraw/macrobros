@@ -37,26 +37,16 @@ export const passwordResetRequest = (resetReq) => {
 	);
 };
 
-export const passwordReset = (user, token, password, password1) => (
-	dispatch
-) => {
-	axios
-		.post(
-			'/api/account/password-reset',
-			{
-				'token': token,
-				'password': password,
-				'password1': password1
-			},
-			tokenAuthHeaders(user)
-		)
-		.then((res) => {
-			dispatch({
-				type: PASSWORD_RESET,
-				payload: res.data
-			});
-		})
-		.catch();
+export const passwordReset = (user, token, password, password1) => {
+	return axios.post(
+		'/api/account/password-reset',
+		{
+			'token': token,
+			'password': password,
+			'password1': password1
+		},
+		tokenAuthHeaders(user)
+	);
 };
 
 export const getSavedBlogs = () => (dispatch, getState) => {

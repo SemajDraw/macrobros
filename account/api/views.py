@@ -138,12 +138,14 @@ class PasswordReset(generics.GenericAPIView):
             user.set_password(request.data['password'])
             user.save()
             return Response({
-                'passwordReset': ['Your password has already been reset', 'Please try and login']
+                'internal': ['Password reset', 'Your password has successfully been reset. Please attempt to login.']
             }, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({
-                'passwordReset': ['Your password has already been reset', 'Please try and login']
-            }, status=status.HTTP_200_OK)
+                'internal': ['Oops something went wrong',
+                             'It looks like this link has expired. '
+                             'Please attempt to login or reset your password again.']
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GetUser(generics.GenericAPIView):
