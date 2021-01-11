@@ -1,9 +1,10 @@
 import React from 'react';
-import { MacroBrosIcon } from '../../common/MacroBrosIcon';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
 import { Link } from 'react-router-dom';
 import ForgotPasswordForm from './ForgotPasswordForm';
-import SocialIcons from '../../common/social-icons/SocialIcons';
-import { Account } from '../../common/Routes';
+import SocialIcons from '../../shared/social-icons/SocialIcons';
+import { Account } from '../../shared/Routes';
+import MetaTags from '../../shared/MetaTags';
 
 export const ForgotPassword = (props) => {
 	const iconProps = {
@@ -13,6 +14,13 @@ export const ForgotPassword = (props) => {
 
 	return (
 		<div className='container min-vh-100 d-flex align-items-center'>
+			<MetaTags
+				description={
+					'If you have forgotten your password you can reset it by entering the email ' +
+					'address you used to set up your MacroBros account.'
+				}
+				title={'Forgot Password'}
+			/>
 			<div style={{ width: '100%' }}>
 				<div className='row justify-content-center'>
 					<div className='col-md-8 col-10'>

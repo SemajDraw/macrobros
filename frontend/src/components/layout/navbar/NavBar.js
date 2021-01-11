@@ -8,8 +8,8 @@ import './NavBar.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons/faSortDown';
-import { MacroBrosIcon } from '../../common/MacroBrosIcon';
-import { Account, Blog } from '../../common/Routes';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
+import { Account, Blog } from '../../shared/Routes';
 
 export const NavBar = () => {
 	const auth = useSelector((state) => state.auth);

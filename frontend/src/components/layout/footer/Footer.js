@@ -6,7 +6,7 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 import Bounce from 'react-reveal/Bounce';
-import { Blog, ContactR, TermsConditions } from '../../common/Routes';
+import { Blog, ContactR, TermsConditions } from '../../shared/Routes';
 import DonateModal from './DonateModal';
 
 export const Footer = () => {

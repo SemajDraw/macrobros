@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import './SideBar.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
-import { Blog } from '../../../common/Routes';
+import { Blog } from '../../../shared/Routes';
 
 export const SearchBar = (props) => {
 	const [searchValue, setSearchValue] = useState('');

@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { verifyEmail } from '../../../actions/account/account';
-import { MacroBrosIcon } from '../../common/MacroBrosIcon';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
 import { Button } from 'react-bootstrap';
-import SocialIcons from '../../common/social-icons/SocialIcons';
-import { Account } from '../../common/Routes';
+import SocialIcons from '../../shared/social-icons/SocialIcons';
+import { Account } from '../../shared/Routes';
+import MetaTags from '../../shared/MetaTags';
 
 export const EmailVerification = (props) => {
 	const dispatch = useDispatch();
@@ -24,6 +25,12 @@ export const EmailVerification = (props) => {
 
 	return (
 		<div className='d-flex align-items-center justify-content-center min-vh-100'>
+			<MetaTags
+				description={
+					'Please verify the email address that you signed up for MacroBros with.'
+				}
+				title={'Verify Email'}
+			/>
 			<div className='row justify-content-center' style={{ height: '100%' }}>
 				<div className='col-md-8 col-10'>
 					<div className='register-form card card-body p-4'>

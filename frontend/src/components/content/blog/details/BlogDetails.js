@@ -8,8 +8,10 @@ import TradingViewWidget from 'react-tradingview-widget';
 import './BlogDetails.scss';
 import ActivityBar from '../activity-bar/ActivityBar';
 import { formatPageHeading } from '../../../../utils/stringUtils';
-import { Blog } from '../../../common/Routes';
-import LoadingSpinner from '../../../common/LoadingSpinner';
+import { Blog } from '../../../shared/Routes';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
+import MetaTags from '../../../shared/MetaTags';
+import * as $ from 'jquery';
 
 export const BlogDetails = (props) => {
 	const blogPost = useSelector((state) => state.blog.blog);
@@ -32,6 +34,10 @@ export const BlogDetails = (props) => {
 
 	return (
 		<>
+			<MetaTags
+				description={$(blogPost.summary).text()}
+				title={blogPost.excerpt}
+			/>
 			{isLoading ? (
 				<div
 					className='d-flex align-items-center justify-content-center'

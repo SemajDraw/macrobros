@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { MacroBrosIcon } from '../../common/MacroBrosIcon';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

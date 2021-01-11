@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryBlogs } from '../../../../actions/blog/blog';
 import Pagination from 'react-bootstrap/Pagination';
-import PaginationBar from '../../../common/Pagination';
+import PaginationBar from '../../../shared/Pagination';
 import SideBar from '../side-bar/SideBar';
 import BlogGridBuilder from '../blog-grid-builder/BlogGridBuilder';
-import LoadingSpinner from '../../../common/LoadingSpinner';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
 import { formatPageHeading } from '../../../../utils/stringUtils';
 import './CategoryBlogs.scss';
+import MetaTags from '../../../shared/MetaTags';
 
 export const CategoryBlogs = (props) => {
 	const dispatch = useDispatch();
@@ -32,6 +33,10 @@ export const CategoryBlogs = (props) => {
 
 	return (
 		<div className='category-body min-vh-100'>
+			<MetaTags
+				description={`These are all of the MacroBros blogs currently under the ${category} category`}
+				title={category}
+			/>
 			<div className='container-fluid pt-3'>
 				<div className='row'>
 					<div className='col-12 col-md-8 col-lg-9'>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPrivacyPolicy } from '../../../actions/terms-conditions/termsConditions';
 import Moment from 'react-moment';
-import LoadingSpinner from '../../common/LoadingSpinner';
+import LoadingSpinner from '../../shared/LoadingSpinner';
+import MetaTags from '../../shared/MetaTags';
 
 export const PrivacyPolicy = () => {
 	const dispatch = useDispatch();
@@ -27,6 +28,13 @@ export const PrivacyPolicy = () => {
 
 	return (
 		<>
+			<MetaTags
+				description={
+					'This is the Privacy Policy for the MacroBros website. By using this service you agree ' +
+					'to the terms outlined on this page'
+				}
+				title={'Privacy Policy'}
+			/>
 			{isLoading ? (
 				<div
 					className='d-flex align-items-center justify-content-center'

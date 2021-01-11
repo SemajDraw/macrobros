@@ -9,7 +9,7 @@ import { Formik } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 import { Link } from 'react-router-dom';
-import { Account } from '../../common/Routes';
+import { Account } from '../../shared/Routes';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()

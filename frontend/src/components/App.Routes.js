@@ -14,9 +14,9 @@ import Contact from './content/contact/Contact';
 import TermsService from './content/terms-service/TermsService';
 import PrivacyPolicy from './content/privacy-policy/PrivacyPolicy';
 import { Profile } from './account/profile/Profile';
-import PrivateRoute from './common/PrivateRoute';
+import PrivateRoute from './shared/PrivateRoute';
 import PasswordReset from './account/password-reset/PasswordReset';
-import FormSubmit from './common/FormSubmit';
+import FormSubmit from './shared/FormSubmit';
 import ForgotPassword from './account/forgot-password/ForgotPassword';
 import CategoryBlogs from './content/blog/category/CategoryBlogs';
 import ProfileSettings from './account/profile/settings/ProfileSettings';
@@ -26,7 +26,7 @@ import {
 	Common,
 	ContactR,
 	TermsConditions
-} from './common/Routes';
+} from './shared/Routes';
 import useWithTracker from '../hooks/useWithTracker';
 
 export const AppRouter = () => {

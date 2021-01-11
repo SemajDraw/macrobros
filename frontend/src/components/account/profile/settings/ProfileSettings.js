@@ -5,8 +5,9 @@ import { formatUserInitials } from '../../../../utils/stringUtils';
 import { Formik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import * as Yup from 'yup';
-import ConfirmationModal from '../../../common/ConfirmationModal';
+import ConfirmationModal from '../../../shared/ConfirmationModal';
 import { updateAccount } from '../../../../actions/account/account';
+import MetaTags from '../../../shared/MetaTags';
 
 const validationSchema = Yup.object().shape({
 	isSubscribed: Yup.bool().required()
@@ -29,6 +30,13 @@ export const ProfileSettings = () => {
 
 	return (
 		<div className='container mt-3 min-vh-100'>
+			<MetaTags
+				description={
+					'These are the settings for your MacroBros account. Here you can manage your ' +
+					'subscriptions and account settings.'
+				}
+				title={`${formatUserInitials([user.firstName, user.lastName])} Settings`}
+			/>
 			<div className='row justify-content-center'>
 				<div className='col-10 col-lg-8 mt-5 user-details border-divider'>
 					<div className='d-flex justify-content-between my-3'>

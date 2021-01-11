@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Home.scss';
 import Pagination from 'react-bootstrap/Pagination';
-import PaginationBar from '../../common/Pagination';
+import PaginationBar from '../../shared/Pagination';
 import SideBar from '../blog/side-bar/SideBar';
 import { getBlogs } from '../../../actions/blog/blog';
 import { animated, useSpring } from 'react-spring';
 import Bounce from 'react-reveal/Bounce';
 import Fade from 'react-reveal/Fade';
 import BlogGridBuilder from '../blog/blog-grid-builder/BlogGridBuilder';
-import { MacroBrosIcon } from '../../common/MacroBrosIcon';
-import LoadingSpinner from '../../common/LoadingSpinner';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
+import LoadingSpinner from '../../shared/LoadingSpinner';
+import MetaTags from '../../shared/MetaTags';
 
 export const Home = (props) => {
 	const blogs = useSelector((state) => state.blog.blogs);
@@ -44,6 +45,13 @@ export const Home = (props) => {
 
 	return (
 		<div className='min-vh-100'>
+			<MetaTags
+				description={
+					'This is the MacroBros blog website, where 2 brothers discuss macroeconomic topics with a ' +
+					'focus on wealth preservation, cryptocurrencies, stocks and much more.'
+				}
+				title={null}
+			/>
 			<animated.div
 				style={transition}
 				className='home-jumbotron jumbotron d-flex flex-column justify-content-center align-items-center'

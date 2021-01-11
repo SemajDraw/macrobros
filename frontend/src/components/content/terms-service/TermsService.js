@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTermsService } from '../../../actions/terms-conditions/termsConditions';
 import Moment from 'react-moment';
-import LoadingSpinner from '../../common/LoadingSpinner';
+import LoadingSpinner from '../../shared/LoadingSpinner';
+import MetaTags from '../../shared/MetaTags';
 
 export const TermsService = () => {
 	const dispatch = useDispatch();
@@ -27,6 +28,13 @@ export const TermsService = () => {
 
 	return (
 		<>
+			<MetaTags
+				description={
+					'These are the terms of service for the MacroBros website. By using this service you agree ' +
+					'to the terms outlined on this page'
+				}
+				title={'Terms of Service'}
+			/>
 			{isLoading ? (
 				<div
 					className='d-flex align-items-center justify-content-center'

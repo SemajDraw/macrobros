@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 import { EMAIL_SENT } from '../../../actions/contact/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
-import { Common } from '../../common/Routes';
+import { Common } from '../../shared/Routes';
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string()

@@ -1,8 +1,9 @@
 import React from 'react';
 import './Contact.scss';
 import ContactForm from './ContactForm';
-import { MacroBrosIcon } from '../../common/MacroBrosIcon';
-import SocialIcons from '../../common/social-icons/SocialIcons';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
+import SocialIcons from '../../shared/social-icons/SocialIcons';
+import MetaTags from '../../shared/MetaTags';
 
 export const Contact = (props) => {
 	const iconProps = {
@@ -12,6 +13,12 @@ export const Contact = (props) => {
 
 	return (
 		<div className='container min-vh-100 d-flex align-items-center my-5'>
+			<MetaTags
+				description={
+					'If you have any questions or queries for us please get in contact.'
+				}
+				title={'Contact'}
+			/>
 			<div style={{ width: '100%' }}>
 				<div className='row justify-content-center'>
 					<div className='col-md-8 col-10'>

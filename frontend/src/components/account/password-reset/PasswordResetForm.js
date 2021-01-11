@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Regex } from '../constants';
 import { passwordReset } from '../../../actions/account/account';
-import { Common } from '../../common/Routes';
+import { Common } from '../../shared/Routes';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';

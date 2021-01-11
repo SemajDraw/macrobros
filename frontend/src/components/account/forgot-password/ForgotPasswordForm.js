@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 import './ForgotPassword.scss';
 import { passwordResetRequest } from '../../../actions/account/account';
-import { Common } from '../../common/Routes';
+import { Common } from '../../shared/Routes';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()

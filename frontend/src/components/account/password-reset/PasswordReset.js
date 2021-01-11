@@ -1,8 +1,9 @@
 import React from 'react';
 import queryString from 'query-string';
-import { MacroBrosIcon } from '../../common/MacroBrosIcon';
-import SocialIcons from '../../common/social-icons/SocialIcons';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
+import SocialIcons from '../../shared/social-icons/SocialIcons';
 import PasswordResetForm from './PasswordResetForm';
+import MetaTags from '../../shared/MetaTags';
 
 export const PasswordReset = (props) => {
 	const queryParams = queryString.parse(props.location.search);
@@ -14,6 +15,12 @@ export const PasswordReset = (props) => {
 
 	return (
 		<div className='container d-flex align-items-center my-5'>
+			<MetaTags
+				description={
+					'Please enter and confirm your new MacroBros account password.'
+				}
+				title={'Reset Password'}
+			/>
 			<div style={{ width: '100%' }}>
 				<div className='row justify-content-center'>
 					<div className='col-md-8 col-10'>

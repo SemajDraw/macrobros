@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { getSearchBlogs } from '../../../../actions/blog/blog';
 import Pagination from 'react-bootstrap/Pagination';
-import PaginationBar from '../../../common/Pagination';
+import PaginationBar from '../../../shared/Pagination';
 import SideBar from '../side-bar/SideBar';
 import BlogGridBuilder from '../blog-grid-builder/BlogGridBuilder';
-import LoadingSpinner from '../../../common/LoadingSpinner';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
 import NoResults from './NoResults';
 import SearchBar from '../side-bar/SearchBar';
 import './SearchBlogs.scss';
+import MetaTags from '../../../shared/MetaTags';
 
 function useQuery() {
 	return new URLSearchParams(useLocation().search);
@@ -48,6 +49,13 @@ export const SearchBlogs = (props) => {
 
 	return (
 		<div className='search-body min-vh-100'>
+			<MetaTags
+				description={
+					'Unfortunately we could find what you were looking for. ' +
+					'If you have an idea for a blog please get in touch.'
+				}
+				title={search}
+			/>
 			<div className='container-fluid pt-3'>
 				<div className='row'>
 					<div className='col-12 col-md-8 col-lg-9'>

@@ -2,8 +2,9 @@ import React from 'react';
 import RegisterForm from './RegisterForm';
 import { Link } from 'react-router-dom';
 import './Register.scss';
-import { MacroBrosIcon } from '../../common/MacroBrosIcon';
-import { Account } from '../../common/Routes';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
+import { Account } from '../../shared/Routes';
+import MetaTags from '../../shared/MetaTags';
 
 export const Register = (props) => {
 	const iconProps = {
@@ -13,6 +14,13 @@ export const Register = (props) => {
 
 	return (
 		<div className='container min-vh-100 d-flex align-items-center my-5'>
+			<MetaTags
+				description={
+					'New to MacroBros? Sign up for an account so you can keep track of your favourite blog ' +
+					'posts and receive our weekly newsletter'
+				}
+				title={'Register'}
+			/>
 			<div style={{ width: '100%' }}>
 				<div className='row justify-content-center'>
 					<div className='col-md-8 col-10'>

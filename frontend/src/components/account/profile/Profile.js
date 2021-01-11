@@ -5,6 +5,7 @@ import { UserSvg } from './UserSvg';
 import ClappedBlogs from './clapped-blogs/ClappedBlogs';
 import { getSavedBlogs } from '../../../actions/account/account';
 import { formatUserInitials } from '../../../utils/stringUtils';
+import MetaTags from '../../shared/MetaTags';
 
 export const Profile = () => {
 	const user = useSelector((state) => state.auth.user);
@@ -17,6 +18,13 @@ export const Profile = () => {
 
 	return (
 		<div className='container mt-3 min-vh-100'>
+			<MetaTags
+				description={
+					'Welcome to your MacroBros profile! Here you can keep track of your favourite ' +
+					'blog posts plus manage your subscriptions and account.'
+				}
+				title={`${formatUserInitials([user.firstName, user.lastName])} Profile`}
+			/>
 			<div className='row justify-content-center'>
 				<div className='col-10 col-lg-8 mt-5 user-details border-divider'>
 					<div className='d-flex justify-content-between my-3'>

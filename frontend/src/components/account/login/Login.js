@@ -2,9 +2,10 @@ import React from 'react';
 import LoginForm from './LoginForm';
 import { Link } from 'react-router-dom';
 import './Login.scss';
-import { MacroBrosIcon } from '../../common/MacroBrosIcon';
-import SocialIcons from '../../common/social-icons/SocialIcons';
-import { Account } from '../../common/Routes';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
+import SocialIcons from '../../shared/social-icons/SocialIcons';
+import { Account } from '../../shared/Routes';
+import MetaTags from '../../shared/MetaTags';
 
 export const Login = (props) => {
 	const iconProps = {
@@ -14,6 +15,10 @@ export const Login = (props) => {
 
 	return (
 		<div className='container min-vh-100 d-flex align-items-center'>
+			<MetaTags
+				description={'Sign in to your MacroBros account'}
+				title={'Login'}
+			/>
 			<div style={{ width: '100%' }}>
 				<div className='row justify-content-center'>
 					<div className='col-md-8 col-10'>
