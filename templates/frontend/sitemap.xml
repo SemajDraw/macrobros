@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>https://www.macro-bros.com/</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/account/forgot-password</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/account/login</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/account/register</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/blog</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/blog/uniswap</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/blog/category/crypto-projects</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/blog/category/macroeconomics</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/contact</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/terms-conditions/privacy-policy</loc>
+    </url>
+    <url>
+        <loc>https://www.macro-bros.com/terms-conditions/terms-of-service</loc>
+    </url>
+</urlset>

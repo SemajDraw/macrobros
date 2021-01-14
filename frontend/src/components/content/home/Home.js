@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import './Home.scss';
 import Pagination from 'react-bootstrap/Pagination';
-import PaginationBar from '../../shared/Pagination';
-import SideBar from '../blog/side-bar/SideBar';
-import { getBlogs } from '../../../actions/blog/blog';
-import { animated, useSpring } from 'react-spring';
+import { useDispatch, useSelector } from 'react-redux';
 import Bounce from 'react-reveal/Bounce';
 import Fade from 'react-reveal/Fade';
-import BlogGridBuilder from '../blog/blog-grid-builder/BlogGridBuilder';
-import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
+import { animated, useSpring } from 'react-spring';
+import { getBlogs } from '../../../actions/blog/blog';
 import LoadingSpinner from '../../shared/LoadingSpinner';
+import { MacroBrosIcon } from '../../shared/MacroBrosIcon';
 import MetaTags from '../../shared/MetaTags';
+import PaginationBar from '../../shared/Pagination';
+import BlogGridBuilder from '../blog/blog-grid-builder/BlogGridBuilder';
+import SideBar from '../blog/side-bar/SideBar';
+import './Home.scss';
 
 export const Home = (props) => {
 	const blogs = useSelector((state) => state.blog.blogs);

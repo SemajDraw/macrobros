@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /blog 
+Allow: /blog/uniswap 
+Allow: /blog/category/crypto-projects 
+Allow: /blog/category/macroeconomics 
+Allow: /contact 
+Allow: /terms-conditions/privacy-policy 
+Allow: /terms-conditions/terms-of-service
+Allow: /account/forgot-password 
+Allow: /account/login 
+Allow: /account/register 
