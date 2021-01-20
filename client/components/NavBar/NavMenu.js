@@ -151,14 +151,10 @@ export const UnAuthenticated = () => {
 };
 
 export const NavMenu = ({ isAuthenticated, firstName }) => {
-	return (
-		<>
-			{isAuthenticated ? (
-				<Authenticated firstName={firstName} />
-			) : (
-				<UnAuthenticated />
-			)}
-		</>
+	return isAuthenticated ? (
+		<Authenticated firstName={firstName} />
+	) : (
+		<UnAuthenticated />
 	);
 };
 

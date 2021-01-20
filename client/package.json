@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build && next export -o ../static && python ../template_parser.py -d ../static",
     "start": "next start",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
     "lint:check": " npx eslint --print-config ./pages/index.js | npx eslint-config-prettier-check",
     "lint:fix": "prettier-eslint --write $PWD/'{,!(node_modules)**/}*.{js,jsx}'"
   },
@@ -35,6 +36,7 @@
     "babel-eslint": "^10.1.0",
     "cookie": "^0.4.1",
     "framer-motion": "^3.2.1",
+    "isomorphic-unfetch": "^3.1.0",
     "next": "10.0.5",
     "next-redux-wrapper": "^6.0.2",
     "react": "17.0.1",
@@ -45,6 +47,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "sass": "^1.32.4"
+    "sass": "^1.32.4",
+    "swr": "^0.4.0"
   }
 }

@@ -64,7 +64,7 @@ export const getPopularBlogs = () => (dispatch) => {
 export const getBlogs = (pageNumber) => (dispatch) => {
 	let url;
 	pageNumber === undefined
-		? (url = '/api/blog/')
+		? (url = 'http://localhost:8000/api/blog/')
 		: (url = '/api/blog/?page='.concat(pageNumber));
 	axios
 		.get(url, baseHeaders())
@@ -74,7 +74,7 @@ export const getBlogs = (pageNumber) => (dispatch) => {
 				payload: res.data
 			});
 		})
-		.catch();
+		.catch(e => console.log('error',e.response.data));
 };
 
 export const getCategoryBlogs = (category, pageNumber) => (dispatch) => {
