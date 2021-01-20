@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import { Box, Flex } from '@chakra-ui/react';
 import { MacroBrosIcon } from '../components/shared/MacroBrosIcon';
@@ -6,8 +6,11 @@ import Bounce from 'react-reveal/Bounce';
 import { Heading } from '@chakra-ui/layout';
 import { motion } from 'framer-motion';
 import { forwardRef } from '@chakra-ui/system';
+import LoadingSpinner from '../components/shared/LoadingSpinner';
 
 export const Index = () => {
+	const [isLoading, setIsLoading] = useState(true);
+
 	return (
 		<div style={{ minHeight: '100vh' }}>
 			<Head>
@@ -56,6 +59,14 @@ export const Index = () => {
 						</Heading>
 					</Bounce>
 				</Flex>
+			</Flex>
+			<Flex
+				flexDirection='column'
+				justifyContent='center'
+				alignItems='center'
+				minHeight='40vh'
+			>
+				{isLoading ? <LoadingSpinner isLoading={isLoading} /> : <div>what</div>}
 			</Flex>
 		</div>
 	);

@@ -2,7 +2,9 @@ import { extendTheme } from '@chakra-ui/react';
 export const theme = extendTheme({
 	colors: {
 		linkOrange: '#ffae00',
-		layoutBlack: '#191919'
+		layoutBlack: '#191919',
+		gradientPurple: '#471c71',
+		gradientOrange: '#FFAF7B'
 	},
 	fonts: {
 		body:
