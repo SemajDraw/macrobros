@@ -41,20 +41,20 @@ export const Index = () => {
 							}}
 							transition={{ delay: 1, duration: 1 }}
 						>
-							<div style={{ height: '30vh', width: '30vh' }}>
+							<Box h='30vh' w='30vh'>
 								<MacroBrosIcon id='home' strokeColor='white' />
-							</div>
+							</Box>
 						</motion.div>
 					</Bounce>
 				</Flex>
 				<Flex>
 					<Bounce left>
-						<Heading color='white' fontWeight={800} fontSize='5em'>
+						<Heading as='h1' size='4xl' color='white' fontWeight={800}>
 							Macro
 						</Heading>
 					</Bounce>
 					<Bounce right>
-						<Heading color='white' fontWeight={800} fontSize='5em'>
+						<Heading as='h1' size='4xl' color='white' fontWeight={800} >
 							Bros
 						</Heading>
 					</Bounce>

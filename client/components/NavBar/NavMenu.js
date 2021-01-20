@@ -35,7 +35,7 @@ export const Authenticated = ({ firstName }) => {
 			<Box cursor={'pointer'} display={{ base: 'none', md: 'block' }}>
 				<Popover>
 					<PopoverTrigger>
-						<Flex>
+						<Flex align='center'>
 							<Heading
 								as='h3'
 								size='md'
@@ -47,8 +47,7 @@ export const Authenticated = ({ firstName }) => {
 								{firstName}
 							</Heading>
 							<Box _hover={{ color: 'linkOrange' }}>
-								<FontAwesomeIcon icon={faUser} />
-								<TriangleDownIcon ml={1} w={3} h={3} mt='auto' />
+								<FontAwesomeIcon size={'2x'} icon={faUserCircle} />
 							</Box>
 						</Flex>
 					</PopoverTrigger>

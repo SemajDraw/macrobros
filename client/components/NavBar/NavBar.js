@@ -1,26 +1,33 @@
 import React from 'react';
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
 import NavMenu from './NavMenu';
 import { MacroBrosIcon } from '../shared/MacroBrosIcon';
+import { Grid, GridItem } from '@chakra-ui/layout';
 
 const Header = (props) => {
 	return (
-		<Flex
+		<Grid
+			templateColumns='repeat(12, 1fr)'
+			gap={0}
 			as='nav'
-			align='center'
-			justify='space-between'
-			wrap='wrap'
-			padding='1.5rem'
-			px={['2em', '3em', '6em']}
+			py='1.5rem'
+			px={{ base: '2em', md: '10vw', lg: '14vw' }}
 			bg='layoutBlack'
 			color='white'
-			{...props}
+			justifyContent='center'
 		>
-			<Box h={12} w={12} cursor={'pointer'}>
-				<MacroBrosIcon id='nav' strokeColor='white' />
-			</Box>
+			<GridItem colSpan={{ base: 6, md: 4 }} align='start' my='auto'>
+				<Box h={12} w={12} cursor={'pointer'}>
+					<MacroBrosIcon id='nav' strokeColor='white' />
+				</Box>
+			</GridItem>
 
-			<Flex display={{ base: 'none', sm: 'block' }} align='center'>
+			<GridItem
+				display={{ base: 'none', md: 'block' }}
+				colSpan={{ base: 0, md: 4 }}
+				align='center'
+				my='auto'
+			>
 				<Box>
 					<Heading
 						as='h1'
@@ -34,10 +41,12 @@ const Header = (props) => {
 						Blogs
 					</Heading>
 				</Box>
-			</Flex>
+			</GridItem>
 
-			<NavMenu isAuthenticated={true} firstName={'James'} />
-		</Flex>
+			<GridItem colSpan={{ base: 6, md: 4 }} ml='auto' my='auto'>
+				<NavMenu isAuthenticated={true} firstName={'James'} />
+			</GridItem>
+		</Grid>
 	);
 };
 
