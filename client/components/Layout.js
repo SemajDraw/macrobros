@@ -6,7 +6,7 @@ export const Layout = ({ children }) => {
 	return (
 		<div className='layout'>
 			<NavBar />
-			{children}footer
+			{children}
 			<Footer />
 		</div>
 	);

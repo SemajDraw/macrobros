@@ -20,10 +20,7 @@ const Header = (props) => {
 				<MacroBrosIcon id='nav' strokeColor='white' />
 			</Box>
 
-			<Flex
-				display={{ base: 'none', sm: 'block' }}
-				align='center'
-			>
+			<Flex display={{ base: 'none', sm: 'block' }} align='center'>
 				<Box>
 					<Heading
 						as='h1'

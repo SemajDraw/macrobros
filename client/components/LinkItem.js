@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text } from '@chakra-ui/react';
 
-export const LinkItem = ({ children, color, size, cursor }) => {
+export const LinkItem = ({ children, color, cursor, size }) => {
 	return (
 		<Text
 			my={2}
 			display='block'
-			size={size}
+			fontSize={size}
 			fontFamily='"Lexend Zetta", sans-serif'
 			color={color}
 			cursor={cursor}

@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
-import {
-	ChevronDownIcon,
-	HamburgerIcon,
-	TriangleDownIcon
-} from '@chakra-ui/icons';
+import { HamburgerIcon, TriangleDownIcon } from '@chakra-ui/icons';
 import {
 	Popover,
 	PopoverArrow,
