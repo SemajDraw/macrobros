@@ -11,6 +11,8 @@ class MyDocument extends Document {
 		return (
 			<Html>
 				<Head>
+					<title>MacroBros</title>
+					<meta name='viewport' content='initial-scale=1.0, width=device-width' />
 					<link
 						href='https://fonts.googleapis.com/css?family=Roboto|Lexend+Zetta|Open+Sans&display=swap'
 						rel='stylesheet'

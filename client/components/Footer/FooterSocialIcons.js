@@ -26,7 +26,7 @@ export const FooterSocialIcons = () => {
 				}}
 			>
 				{icons.map((icon, i) => (
-					<Box key={i} as='a' _hover={{ color: '#ffae00' }} href={icon.href}>
+					<Box key={i} as='a' _hover={{ color: 'linkOrange' }} href={icon.href}>
 						<FontAwesomeIcon size='2x' icon={icon.icon} />
 					</Box>
 				))}

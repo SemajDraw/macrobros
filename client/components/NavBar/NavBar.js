@@ -3,6 +3,7 @@ import { Box, Heading } from '@chakra-ui/react';
 import NavMenu from './NavMenu';
 import { MacroBrosIcon } from '../shared/MacroBrosIcon';
 import { Grid, GridItem } from '@chakra-ui/layout';
+import Link from 'next/link';
 
 const Header = (props) => {
 	return (
@@ -17,9 +18,11 @@ const Header = (props) => {
 			justifyContent='center'
 		>
 			<GridItem colSpan={{ base: 6, md: 4 }} align='start' my='auto'>
-				<Box h={12} w={12} cursor={'pointer'}>
-					<MacroBrosIcon id='nav' strokeColor='white' />
-				</Box>
+				<Link href='/'>
+					<Box h={12} w={12} cursor={'pointer'}>
+						<MacroBrosIcon id='nav' strokeColor='white' />
+					</Box>
+				</Link>
 			</GridItem>
 
 			<GridItem
