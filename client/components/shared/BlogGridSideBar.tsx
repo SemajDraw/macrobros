@@ -3,7 +3,7 @@ import { Grid, GridItem } from '@chakra-ui/layout';
 import BlogGrid from './BlogGrid/BlogGrid';
 import SideBar from '../SideBar/SideBar';
 
-export const BlogGridSideBar = ({ blogs }) => {
+export const BlogGridSideBar = ({ blogs, categories }) => {
 	return (
 		<Grid
 			templateColumns='repeat(12, 1fr)'
@@ -15,7 +15,7 @@ export const BlogGridSideBar = ({ blogs }) => {
 				<BlogGrid blogs={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} />
 			</GridItem>
 			<GridItem colSpan={{ base: 12, lg: 3 }}>
-				<SideBar />
+				<SideBar categories={categories} />
 			</GridItem>
 		</Grid>
 	);

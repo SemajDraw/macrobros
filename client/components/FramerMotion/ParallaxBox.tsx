@@ -5,7 +5,7 @@ import { MotionBox } from './MotionBox';
 
 export const ParallaxBox = ({
 	children,
-	yOffset = 100, // number > 0
+	yOffset = 90, // number > 0
 	easing = [0.42, 0, 0.58, 1],
 	triggerPoint = 0.1, // value between 0 and 1 (top and bottom of the window), point to start animation
 	fadeOut = true, // true | false fade an element out on end of the animation

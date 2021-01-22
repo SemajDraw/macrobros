@@ -24,7 +24,7 @@ export const HomeJumbotron = () => {
 						animate={{
 							rotateY: 360
 						}}
-						transition={{ delay: 1, duration: 1 }}
+						transition={{ delay: 1, duration: 1.5 }}
 					>
 						<Box h='30vh' w='30vh'>
 							<MacroBrosIcon id='home' strokeColor='white' />
@@ -33,16 +33,27 @@ export const HomeJumbotron = () => {
 				</Bounce>
 			</Flex>
 			<Flex>
-				<Bounce left>
+				<MotionBox initial={{ x: -1000 }} animate={{ x: 0, type: 'spring' }}>
 					<Heading as='h1' size='4xl' color='white' fontWeight={800}>
 						Macro
 					</Heading>
-				</Bounce>
-				<Bounce right>
+				</MotionBox>
+				<MotionBox initial={{ x: +1000 }} animate={{ x: 0, type: 'spring' }}>
 					<Heading as='h1' size='4xl' color='white' fontWeight={800}>
 						Bros
 					</Heading>
-				</Bounce>
+				</MotionBox>
+
+				{/*<Bounce left>*/}
+				{/*	<Heading as='h1' size='4xl' color='white' fontWeight={800}>*/}
+				{/*		Macro*/}
+				{/*	</Heading>*/}
+				{/*</Bounce>*/}
+				{/*<Bounce right>*/}
+				{/*	<Heading as='h1' size='4xl' color='white' fontWeight={800}>*/}
+				{/*		Bros*/}
+				{/*	</Heading>*/}
+				{/*</Bounce>*/}
 			</Flex>
 		</Flex>
 	);

@@ -1,40 +1,82 @@
 import React, { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import MotionBox from '../FramerMotion/MotionBox';
 import { Box, Flex } from '@chakra-ui/layout';
-import { Button } from '@chakra-ui/button';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { formatSlug } from '../../utils/stringUtils';
+import Link from 'next/link';
+import { HOME } from '../../constants/routes';
 
-export const CategoryDropdown = () => {
-	const [isOpen, setOpen] = useState(false);
-	console.log(isOpen);
-	const variants = {
-		open: { opacity: 1, y: 0 },
-		closed: { opacity: 0, y: '-100%' }
-	};
+export const CategoryDropdown = ({ categories }) => {
 	return (
-		<Box>
-			<Box
-				as='button'
-				bg='tomato'
-				w='100%'
-				p={4}
-				color='white'
-				onClick={() => setOpen(!isOpen)}
+		<AnimateSharedLayout>
+			<MotionBox
+				layout
+				as={'ul'}
+				listStyleType={'none'}
+				boxShadow='0 10px 30px -5px rgba(0, 0, 0, 0.2)'
 			>
-				This is the Box
-			</Box>
-			<AnimatePresence>
-				<MotionBox variants={variants} animate={isOpen ? 'open' : 'closed'}>
-					<Box bg='tomato' w='100%' p={4} color='white'>
-						hello
-					</Box>
-					<Box bg='tomato' w='100%' p={4} color='white'>
-						cunt
-					</Box>
-				</MotionBox>
-			</AnimatePresence>
-		</Box>
+				<CategoryItem categories={categories} />
+			</MotionBox>
+		</AnimateSharedLayout>
 	);
 };
+
+function CategoryItem({ categories }) {
+	const [isOpen, setIsOpen] = useState(false);
+
+	return (
+		<>
+			<MotionBox
+				as={'li'}
+				layout
+				onClick={() => setIsOpen(!isOpen)}
+				initial={{ borderRadius: 0 }}
+			>
+				<MotionBox
+					layout
+					p={3}
+					bg={isOpen ? 'gray.50' : 'white'}
+					borderRadius={2}
+					cursor={'pointer'}
+					_hover={{ background: 'gray.50' }}
+				>
+					<Flex fontSize={'md'} _hover={{ background: 'gray.50' }}>
+						Categories{' '}
+						<Box ml={'auto'}>
+							<ChevronDownIcon h={5} w={5} />
+						</Box>
+					</Flex>
+				</MotionBox>
+			</MotionBox>
+			<MotionBox>
+				<AnimatePresence>
+					{isOpen && <CategoryContent categories={categories} />}
+				</AnimatePresence>
+			</MotionBox>
+		</>
+	);
+}
+
+function CategoryContent({ categories }) {
+	return categories.map((category, i) => (
+		<Link href={HOME}>
+			<MotionBox
+				key={i}
+				bg={'white'}
+				cursor={'pointer'}
+				_hover={{ background: 'gray.50' }}
+				layout
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+			>
+				<Flex p={3} borderRadius={2}>
+					{formatSlug(category)}
+				</Flex>
+			</MotionBox>
+		</Link>
+	));
+}
 
 export default CategoryDropdown;

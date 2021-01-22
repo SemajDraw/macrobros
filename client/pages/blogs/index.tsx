@@ -1,5 +1,5 @@
 import React from 'react';
-import { BLOG_URLS } from '../../constants/urls';
+import { BLOG } from '../../constants/endpoints';
 import Blogs from '../../components/Blog/Blogs';
 import MetaInfo from '../../components/shared/MetaInfo';
 import fetcher from '../../lib/fetcher';
@@ -17,7 +17,7 @@ export const Index = ({ blogs }) => {
 };
 
 export async function getStaticProps() {
-	const blogs = await fetcher(BLOG_URLS.BLOGS);
+	const blogs = await fetcher(BLOG.BLOGS);
 	return { props: { blogs } };
 }
 export default Index;

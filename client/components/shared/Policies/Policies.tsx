@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/layout';
-import styles from './PrivacyPolicy.module.scss';
+import styles from './Policies.module.scss';
 import useFormatDate from '../../../hooks/useFormatDate';
 
 export const Policies = ({ content, lastModified, title }) => {

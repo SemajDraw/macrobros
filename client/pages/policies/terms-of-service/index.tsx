@@ -1,5 +1,5 @@
 import React from 'react';
-import { POLICIES } from '../../../constants/urls';
+import { POLICIES } from '../../../constants/endpoints';
 import fetcher from '../../../lib/fetcher';
 import MetaInfo from '../../../components/shared/MetaInfo';
 import Policies from '../../../components/shared/Policies/Policies';
