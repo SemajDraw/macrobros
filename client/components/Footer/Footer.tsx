@@ -1,10 +1,16 @@
 import React from 'react';
 import { Text } from '@chakra-ui/react';
-import { Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/layout';
+import { Box, Flex, Grid, GridItem, Heading, Link } from '@chakra-ui/layout';
 import LinkItem from '../LinkItem';
 import FooterSocialIcons from './FooterSocialIcons';
+import { HOME, POLICIES } from '../../constants/routes';
+import { useDisclosure } from '@chakra-ui/hooks';
+import DonateModal from './DonateModal';
+import { Button } from '@chakra-ui/button';
 
 export const Footer = () => {
+	const { isOpen, onOpen, onClose } = useDisclosure();
+
 	return (
 		<Box bg='layoutBlack'>
 			<Grid
@@ -31,22 +37,32 @@ export const Footer = () => {
 								Contact
 							</LinkItem>
 						</Heading>
-						<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
-							Terms of Service
-						</LinkItem>
-						<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
-							Privacy Policy
-						</LinkItem>
-						<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
-							Donate
-						</LinkItem>
+						<Link href={POLICIES.TERMS_OF_SERVICE}>
+							<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
+								Terms of Service
+							</LinkItem>
+						</Link>
+
+						<Link href={POLICIES.PRIVACY_POLICY}>
+							<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
+								Privacy Policy
+							</LinkItem>
+						</Link>
+
+						<Link onClick={onOpen}>
+							<LinkItem cursor='pointer' color='#FFFFFF' size='sm' onClick={onOpen}>
+								Donate
+							</LinkItem>
+						</Link>
 					</Flex>
 				</GridItem>
 				<GridItem display={{ base: 'none', lg: 'block' }} colSpan={{ lg: 2 }}>
 					<Flex pt={14}>
-						<LinkItem cursor='pointer' color='gray.400' size='sm'>
-							Blogs
-						</LinkItem>
+						<Link href={HOME}>
+							<LinkItem cursor='pointer' color='gray.400' size='sm'>
+								Blogs
+							</LinkItem>
+						</Link>
 					</Flex>
 				</GridItem>
 			</Grid>
@@ -70,6 +86,7 @@ export const Footer = () => {
 					</Text>
 				</GridItem>
 			</Grid>
+			<DonateModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 		</Box>
 	);
 };

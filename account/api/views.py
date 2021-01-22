@@ -48,7 +48,7 @@ class Register(generics.GenericAPIView):
 
 
 class Login(generics.GenericAPIView):
-    """User Login"""
+    """User Index"""
 
     serializer_class = LoginSerializer
 

@@ -6,7 +6,7 @@ export const BlogGrid = ({ blogs }) => {
 	const blogCards = blogs.map((blog, i) => <BlogCard key={i} blog={blog} />);
 
 	return (
-		<Grid templateColumns='repeat(12, 1fr)' gap={{ base: 6, lg: 10 }}>
+		<Grid templateColumns='repeat(12, 1fr)' gap={{ base: 6, lg: 8 }}>
 			{blogCards.map((blogCard, i) => (
 				<GridItem key={i} colSpan={{ base: 12, md: 6 }}>
 					{blogCard}

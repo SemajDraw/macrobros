@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import Bounce from 'react-reveal/Bounce';
-import { motion } from 'framer-motion';
 import { MacroBrosIcon } from '../shared/MacroBrosIcon';
 import { Heading } from '@chakra-ui/layout';
+import MotionBox from '../FramerMotion/MotionBox';
 
 export const HomeJumbotron = () => {
 	return (
@@ -17,7 +17,7 @@ export const HomeJumbotron = () => {
 		>
 			<Flex>
 				<Bounce delay={500} top>
-					<motion.div
+					<MotionBox
 						initial={{
 							rotateY: 180
 						}}
@@ -29,7 +29,7 @@ export const HomeJumbotron = () => {
 						<Box h='30vh' w='30vh'>
 							<MacroBrosIcon id='home' strokeColor='white' />
 						</Box>
-					</motion.div>
+					</MotionBox>
 				</Bounce>
 			</Flex>
 			<Flex>

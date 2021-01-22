@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from macrobros.pagination import CustomPagination
 
-from blog.api.serializers import BlogPostSerializer
+from blog.api.serializers import BlogPostSerializer, BlogPostListSerializer
 from blog.models import BlogPost, Categories
 
 
@@ -17,7 +17,7 @@ class BlogPostDetailView(RetrieveAPIView):
 
 class BlogPostFeaturedView(ListAPIView):
     queryset = BlogPost.objects.all().filter(featured=True)
-    serializer_class = BlogPostSerializer
+    serializer_class = BlogPostListSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny,)
     pagination_class = None
@@ -25,7 +25,7 @@ class BlogPostFeaturedView(ListAPIView):
 
 class BlogPostPopularView(ListAPIView):
     queryset = BlogPost.objects.all().filter(popular=True)
-    serializer_class = BlogPostSerializer
+    serializer_class = BlogPostListSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny,)
     pagination_class = None
@@ -33,7 +33,7 @@ class BlogPostPopularView(ListAPIView):
 
 class BlogPostListView(ListAPIView):
     queryset = BlogPost.objects.order_by('-date_created')
-    serializer_class = BlogPostSerializer
+    serializer_class = BlogPostListSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny,)
     pagination_class = CustomPagination
@@ -47,7 +47,7 @@ class BlogPostCategories(ListAPIView):
 
 
 class BlogPostCategoryView(ListAPIView):
-    serializer_class = BlogPostSerializer
+    serializer_class = BlogPostListSerializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = CustomPagination
 
@@ -62,7 +62,7 @@ class BlogPostCategoryView(ListAPIView):
 
 
 class SearchBlogPosts(ListAPIView):
-    serializer_class = BlogPostSerializer
+    serializer_class = BlogPostListSerializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = CustomPagination
 

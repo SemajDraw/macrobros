@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
-import { HamburgerIcon, TriangleDownIcon } from '@chakra-ui/icons';
+import { HamburgerIcon } from '@chakra-ui/icons';
 import {
 	Popover,
 	PopoverArrow,
@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/popover';
 import { Button } from '@chakra-ui/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons/faUserCircle';
 
 const TextItem = ({ children, color }) => (
@@ -92,7 +91,7 @@ export const Authenticated = ({ firstName }) => {
 			</Box>
 			<Box
 				display={{ base: show ? 'block' : 'none', md: 'none' }}
-				width={{ base: 'full' }}
+				width={{ base: '100vw' }}
 				flexGrow={1}
 				mt={2}
 				focusBorderColor='red'
@@ -124,7 +123,7 @@ export const UnAuthenticated = () => {
 				>
 					<FontAwesomeIcon size={'2x'} icon={faUserCircle} />
 					<Box ml={2}>
-						<TextItem>Sign In</TextItem>
+						<TextItem color='white'>Sign In</TextItem>
 					</Box>
 				</Button>
 			</Box>

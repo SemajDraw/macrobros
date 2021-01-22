@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { MacroBrosIcon } from './MacroBrosIcon';
 import SocialIcons from './SocialIcons';
 
-export const LoginRegister = ({ children, meta, heading, icons }) => {
+export const FormPage = ({ children, meta, heading, icons }) => {
 	const router = useRouter();
 
 	useEffect(() => {
@@ -52,4 +52,4 @@ export const LoginRegister = ({ children, meta, heading, icons }) => {
 	);
 };
 
-export default LoginRegister;
+export default FormPage;

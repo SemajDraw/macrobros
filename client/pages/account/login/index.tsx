@@ -2,11 +2,11 @@ import React from 'react';
 import { Flex, Link, Text } from '@chakra-ui/react';
 import LoginForm from './LoginForm';
 import { ACCOUNT } from '../../../constants/routes';
-import LoginRegister from '../../../components/shared/LoginRegister';
+import FormPage from '../../../components/shared/FormPage';
 
 export const Index = () => {
 	return (
-		<LoginRegister
+		<FormPage
 			icons={true}
 			heading={'Sign in to MacroBros'}
 			meta={{
@@ -39,7 +39,7 @@ export const Index = () => {
 					</Text>
 				</Flex>
 			</Flex>
-		</LoginRegister>
+		</FormPage>
 	);
 };
 

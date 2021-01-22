@@ -57,7 +57,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    """User Login Serializer"""
+    """User Index Serializer"""
 
     email = serializers.EmailField()
     password = serializers.CharField(style={"input_type": "password"}, write_only=True)
