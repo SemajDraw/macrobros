@@ -43,17 +43,6 @@ export const HomeJumbotron = () => {
 						Bros
 					</Heading>
 				</MotionBox>
-
-				{/*<Bounce left>*/}
-				{/*	<Heading as='h1' size='4xl' color='white' fontWeight={800}>*/}
-				{/*		Macro*/}
-				{/*	</Heading>*/}
-				{/*</Bounce>*/}
-				{/*<Bounce right>*/}
-				{/*	<Heading as='h1' size='4xl' color='white' fontWeight={800}>*/}
-				{/*		Bros*/}
-				{/*	</Heading>*/}
-				{/*</Bounce>*/}
 			</Flex>
 		</Flex>
 	);
