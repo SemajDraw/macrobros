@@ -28,10 +28,12 @@ export const ParallaxBox = ({
 
 		setValues();
 		document.addEventListener('load', setValues);
+		window.addEventListener('load', setValues);
 		window.addEventListener('resize', setValues);
 
 		return () => {
 			document.removeEventListener('load', setValues);
+			window.addEventListener('load', setValues);
 			window.removeEventListener('resize', setValues);
 		};
 	}, [ref, yOffset]);
@@ -56,10 +58,14 @@ export const ParallaxBox = ({
 		'anticipate'
 	);
 
-	console.log('y -> ', y);
-
 	return (
-		<MotionBox ref={ref} initial={{ y: 0 }} style={{ y, opacity }} {...rest}>
+		<MotionBox
+			ref={ref}
+			initial={{ y: 0 }}
+			transition={{ type: 'spring', duration: 1 }}
+			style={{ y, opacity }}
+			{...rest}
+		>
 			{children}
 		</MotionBox>
 	);

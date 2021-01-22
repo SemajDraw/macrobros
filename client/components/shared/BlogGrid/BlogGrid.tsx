@@ -3,7 +3,7 @@ import BlogCard from './BlogCard';
 import { Grid, GridItem } from '@chakra-ui/react';
 
 export const BlogGrid = ({ blogs }) => {
-	const blogCards = blogs.map((blog, i) => <BlogCard key={i} blog={blog} />);
+	const blogCards = blogs.map((blog, i) => <BlogCard key={i} blog={blog} length={blogs.length} index={i}/>);
 
 	return (
 		<Grid templateColumns='repeat(12, 1fr)' gap={{ base: 6, lg: 8 }}>

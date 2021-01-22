@@ -4,6 +4,7 @@ import Bounce from 'react-reveal/Bounce';
 import { motion } from 'framer-motion';
 import { MacroBrosIcon } from '../shared/MacroBrosIcon';
 import { Heading } from '@chakra-ui/layout';
+import { MotionBox } from '../FramerMotion/MotionBox';
 
 export const BlogsJumbotron = () => {
 	return (
@@ -18,7 +19,7 @@ export const BlogsJumbotron = () => {
 		>
 			<Flex>
 				<Bounce delay={500} top>
-					<motion.div
+					<MotionBox
 						initial={{
 							rotateY: 180
 						}}
@@ -30,7 +31,7 @@ export const BlogsJumbotron = () => {
 						<Box h='30vh' w='30vh'>
 							<MacroBrosIcon id='home' strokeColor='white' />
 						</Box>
-					</motion.div>
+					</MotionBox>
 				</Bounce>
 			</Flex>
 			<Flex>

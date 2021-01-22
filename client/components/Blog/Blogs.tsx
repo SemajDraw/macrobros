@@ -1,18 +1,20 @@
 import React from 'react';
+import Head from 'next/head';
+import HomeJumbotron from './HomeJumbotron';
 import useBlogs from '../../hooks/useBlogs';
 import { Flex } from '@chakra-ui/react';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import BlogGridSideBar from '../shared/BlogGridSideBar';
 import BlogsJumbotron from './BlogsJumbotron';
+import JumbotronGridTemplate from '../shared/JumbotronGridTemplate';
 
 export const Blogs = ({ initialData }) => {
 	const { blogs, loading, error } = useBlogs(initialData);
 
 	return (
-		<div style={{ minHeight: '100vh' }}>
-
-			askldjf
-		</div>
+		<JumbotronGridTemplate initialData={initialData}>
+			<BlogsJumbotron />
+		</JumbotronGridTemplate>
 	);
 };
 

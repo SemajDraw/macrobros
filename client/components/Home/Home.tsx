@@ -5,29 +5,15 @@ import useBlogs from '../../hooks/useBlogs';
 import { Flex } from '@chakra-ui/react';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import BlogGridSideBar from '../shared/BlogGridSideBar';
+import JumbotronGridTemplate from '../shared/JumbotronGridTemplate';
 
 export const Home = ({ initialData }) => {
 	const { blogs, loading, error } = useBlogs(initialData);
 
 	return (
-		<div style={{ minHeight: '100vh' }}>
+		<JumbotronGridTemplate initialData={initialData}>
 			<HomeJumbotron />
-
-			{loading ? (
-				<Flex
-					flexDirection='column'
-					justifyContent='center'
-					alignItems='center'
-					minHeight='40vh'
-				>
-					<LoadingSpinner isLoading={loading} />
-				</Flex>
-			) : (
-				<>
-					<BlogGridSideBar blogs={blogs} />
-				</>
-			)}
-		</div>
+		</JumbotronGridTemplate>
 	);
 };
 
