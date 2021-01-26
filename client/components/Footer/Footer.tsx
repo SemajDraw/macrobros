@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text } from '@chakra-ui/react';
-import { Box, Flex, Grid, GridItem, Heading, Link } from '@chakra-ui/layout';
+import { Button, Text } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/layout';
 import LinkItem from '../LinkItem';
 import FooterSocialIcons from './FooterSocialIcons';
 import { HOME, POLICIES } from '../../constants/routes';
 import { useDisclosure } from '@chakra-ui/hooks';
 import DonateModal from './DonateModal';
-import { Button } from '@chakra-ui/button';
+import Link from 'next/link';
 
 export const Footer = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -49,11 +49,11 @@ export const Footer = () => {
 							</LinkItem>
 						</Link>
 
-						<Link onClick={onOpen}>
-							<LinkItem cursor='pointer' color='#FFFFFF' size='sm' onClick={onOpen}>
+						<Box onClick={onOpen}>
+							<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
 								Donate
 							</LinkItem>
-						</Link>
+						</Box>
 					</Flex>
 				</GridItem>
 				<GridItem display={{ base: 'none', lg: 'block' }} colSpan={{ lg: 2 }}>

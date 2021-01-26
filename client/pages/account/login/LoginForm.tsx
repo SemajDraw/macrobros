@@ -19,7 +19,6 @@ import { Flex, Text } from '@chakra-ui/layout';
 import { useDispatch } from 'react-redux';
 import { login } from '../../../redux/actions/auth';
 import { AUTH } from '../../../redux/types';
-import { useRouter } from 'next/router';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -29,7 +28,6 @@ const validationSchema = Yup.object().shape({
 });
 
 export const LoginForm = (props) => {
-	const router = useRouter();
 	const dispatch = useDispatch();
 
 	return (

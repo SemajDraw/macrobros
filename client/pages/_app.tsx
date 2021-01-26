@@ -8,7 +8,6 @@ import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../styles/theme';
 import '../styles/globals.scss';
 import { SWRConfig } from 'swr';
-import axios from 'axios';
 import 'focus-visible/dist/focus-visible';
 import fetcher from '../lib/fetcher';
 
@@ -22,7 +21,7 @@ export const App = ({ Component, pageProps }) => {
 		<SWRConfig value={{ fetcher }}>
 			<Provider store={store}>
 				<PersistGate loading={<div>loading</div>} persistor={persistor}>
-					<ChakraProvider resetCSS={true} theme={theme}>
+					<ChakraProvider theme={theme}>
 						<Layout>
 							<Component {...pageProps} />
 						</Layout>

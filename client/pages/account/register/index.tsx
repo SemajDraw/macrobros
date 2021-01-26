@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Flex, Link, Text } from '@chakra-ui/react';
 import { ACCOUNT } from '../../../constants/routes';
 import FormPage from '../../../components/shared/FormPage';
 import RegisterForm from './RegisterForm';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 export const Index = () => {
+	const router = useRouter();
+	const { isAuthenticated } = useSelector((state) => state.auth);
+
+	// useEffect(() => {
+	// 	if (isAuthenticated) {
+	// 		router.push('/');
+	// 	}
+	// }, [isAuthenticated]);
+
 	return (
 		<FormPage
+			icons={false}
 			meta={{
 				title: 'MacroBros - Sign Up',
 				desc:

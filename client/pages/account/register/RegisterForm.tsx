@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
-import { ACCOUNT, POLICIES } from '../../../constants/routes';
+import { POLICIES } from '../../../constants/routes';
 import { Spinner } from '@chakra-ui/spinner';
 import { Field, Form, Formik } from 'formik';
 import { Input } from '@chakra-ui/input';
@@ -234,25 +234,27 @@ export const RegisterForm = (props) => {
 						</Button>
 						<FormControl py={2}>
 							<FormHelperText textAlign='left'>
-								<Text>
-									By creating an account, you agree to the{' '}
-									<Link
-										color='blue.500'
-										_hover={{ color: 'blue.700' }}
-										href={POLICIES.TERMS_OF_SERVICE}
-									>
-										Terms of Service
-									</Link>
-									. For more information about MacroBros privacy practices, see the{' '}
-									<Link
-										color='blue.500'
-										_hover={{ color: 'blue.700' }}
-										href={POLICIES.PRIVACY_POLICY}
-									>
-										MacroBros Privacy Statement
-									</Link>
-									. We'll occasionally send you account-related emails.
-								</Text>
+								<Flex >
+									<Text>
+										By creating an account, you agree to the{' '}
+										<Link
+											color='blue.500'
+											_hover={{ color: 'blue.700' }}
+											href={POLICIES.TERMS_OF_SERVICE}
+										>
+											Terms of Service
+										</Link>
+										. For more information about MacroBros privacy practices, see the{' '}
+										<Link
+											color='blue.500'
+											_hover={{ color: 'blue.700' }}
+											href={POLICIES.PRIVACY_POLICY}
+										>
+											MacroBros Privacy Statement
+										</Link>
+										. We'll occasionally send you account-related emails.
+									</Text>
+								</Flex>
 							</FormHelperText>
 						</FormControl>
 					</Form>

@@ -11,7 +11,7 @@ export const LoginButton = () => {
 				w={'100%'}
 				borderRadius={3}
 				px={3}
-				py={6}
+				py='1.2em'
 				size='md'
 				fontSize={18}
 				variant='outline'
@@ -19,8 +19,10 @@ export const LoginButton = () => {
 				letterSpacing={'-.2rem'}
 				_hover={{ borderColor: 'linkOrange', color: 'linkOrange' }}
 			>
-				<FontAwesomeIcon style={{fontSize: '28px'}} icon={faUserCircle} />
-				<Text ml={1} fontSize={16}>Sign In</Text>
+				<FontAwesomeIcon style={{ fontSize: '28px' }} icon={faUserCircle} />
+				<Text ml={1} fontSize={16}>
+					Sign In
+				</Text>
 			</Button>
 		</Link>
 	);
