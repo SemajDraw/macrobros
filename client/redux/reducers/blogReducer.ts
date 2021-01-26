@@ -24,7 +24,7 @@ const {
 	SEARCH_BLOGS
 } = BLOG;
 
-export const blog = (state = initialState, action) => {
+export const blogReducer = (state = initialState, action: any) => {
 	switch (action.type) {
 		case GET_BLOG:
 			return {
@@ -71,4 +71,4 @@ export const blog = (state = initialState, action) => {
 	}
 };
 
-export default blog;
+export default blogReducer;

@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Flex, Link, Text } from '@chakra-ui/react';
 import LoginForm from './LoginForm';
 import { ACCOUNT } from '../../../constants/routes';
 import FormPage from '../../../components/shared/FormPage';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 export const Index = () => {
+	const router = useRouter();
+	const { isAuthenticated } = useSelector((state) => state.auth);
+
+	// useEffect(() => {
+	// 	if (isAuthenticated) {
+	// 		router.push('/');
+	// 	}
+	// }, [isAuthenticated]);
+
 	return (
 		<FormPage
 			icons={true}
@@ -27,7 +38,7 @@ export const Index = () => {
 				justifyContent='center'
 			>
 				<Flex>
-					<Text mr={1}>
+					<Text mr={1} fontSize={'sm'}>
 						New to MacroBros?{' '}
 						<Link
 							color='blue.500'

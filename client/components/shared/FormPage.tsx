@@ -1,54 +1,49 @@
-import React, { useEffect } from 'react';
-import { Box } from '@chakra-ui/react';
+import React from 'react';
+import { Box, Flex } from '@chakra-ui/react';
 import Head from 'next/head';
-import { Grid, GridItem, Heading } from '@chakra-ui/layout';
-import { useRouter } from 'next/router';
+import { Text } from '@chakra-ui/layout';
 import { MacroBrosIcon } from './MacroBrosIcon';
 import SocialIcons from './SocialIcons';
+import { useColorModeValue } from '@chakra-ui/color-mode';
 
 export const FormPage = ({ children, meta, heading, icons }) => {
-	const router = useRouter();
-
-	useEffect(() => {
-		// if (isAuthenticated) {
-		// router.push('/');
-		// }
-	}, []);
+	const iconColor = useColorModeValue('black', 'white');
 
 	return (
-		<Grid
-			templateColumns='repeat(11, 1fr)'
+		<Flex
 			minHeight='85vh'
 			align='center'
-			alignItems='center'
 			my={10}
+			direction={'column'}
+			width={'100%'}
 		>
 			<Head>
 				<title>{meta.title}</title>
 				<meta name='description' content={meta.description} />
 			</Head>
-			<GridItem
-				colStart={{ base: 2, sm: 3, md: 4, lg: 5 }}
-				colSpan={{ base: 9, sm: 7, md: 5, lg: 3 }}
+			<Flex
+				direction={'column'}
+				minWidth={{ base: '85%', sm: '60%', md: '350px', lg: '400px' }}
+				align='center'
 			>
 				<Box h='100px' w='100px'>
-					<MacroBrosIcon id='login' strokeColor='black' />
+					<MacroBrosIcon id='login' strokeColor={iconColor} />
 				</Box>
 				<Box>
-					<Heading as='h3' size='xl' fontWeight={500}>
+					<Text as='h3' fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={500}>
 						{heading}
-					</Heading>
+					</Text>
 				</Box>
 
-				{children}
+				<Box w={'100%'}>{children}</Box>
 
 				{icons ? (
-					<Box mt={16} mx={{ base: 10, md: 12, lg: 16 }}>
-						<SocialIcons />
+					<Box w={'100%'} mt={16} px={{ base: 10, md: 12, lg: 16 }}>
+						<SocialIcons iconColor={iconColor} />
 					</Box>
 				) : null}
-			</GridItem>
-		</Grid>
+			</Flex>
+		</Flex>
 	);
 };
 

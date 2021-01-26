@@ -16,6 +16,10 @@ import { Spinner } from '@chakra-ui/spinner';
 import { Field, Form, Formik } from 'formik';
 import { Input } from '@chakra-ui/input';
 import { Flex, Text } from '@chakra-ui/layout';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../redux/actions/auth';
+import { AUTH } from '../../../redux/types';
+import { useRouter } from 'next/router';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -25,6 +29,9 @@ const validationSchema = Yup.object().shape({
 });
 
 export const LoginForm = (props) => {
+	const router = useRouter();
+	const dispatch = useDispatch();
+
 	return (
 		<Box
 			my={5}
@@ -40,18 +47,20 @@ export const LoginForm = (props) => {
 				onSubmit={(values, { setSubmitting, resetForm, setFieldError }) => {
 					setSubmitting(true);
 
-					// login(values)
-					// 	.then((res) => {
-					// 		resetForm();
-					// 		setSubmitting(false);
-					// 		dispatch({ type: LOGIN_SUCCESS, payload: res.data });
-					// 	})
-					// 	.catch((err) => {
-					// 		setSubmitting(false);
-					// 		dispatch({ type: LOGIN_FAIL });
-					// 		const field = Object.keys(err.response.data)[0];
-					// 		setFieldError(field, err.response.data[field]);
-					// 	});
+					console.log('vs', values);
+					login(values)
+						.then((res) => {
+							dispatch({ type: AUTH.LOGIN_SUCCESS, payload: res.data });
+							resetForm();
+							setSubmitting(false);
+						})
+						.catch((err) => {
+							setSubmitting(false);
+							console.log('res', err.response.data);
+							dispatch({ type: AUTH.LOGIN_FAIL });
+							const field = Object.keys(err.response.data)[0];
+							setFieldError(field, err.response.data[field]);
+						});
 				}}
 			>
 				{({

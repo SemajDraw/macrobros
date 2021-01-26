@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, GridItem, Heading } from '@chakra-ui/layout';
+import { Box, Grid, GridItem, Text } from '@chakra-ui/layout';
 import CategoryAccordion from './CategoryAccordion';
 import SearchBar from './SearchBar';
 
@@ -13,7 +13,9 @@ export const SideBar = ({ categories }) => {
 				<Box pt={4}>
 					<CategoryAccordion categories={categories} />
 				</Box>
-				<Heading>Here</Heading>
+				<Text mt={3} fontSize={'2xl'}>
+					Popular Blogs
+				</Text>
 			</GridItem>
 		</Grid>
 	);

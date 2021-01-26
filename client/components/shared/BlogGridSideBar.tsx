@@ -39,7 +39,7 @@ export const BlogGridSideBar = ({ blogs, categories }) => {
 				/>
 			</GridItem>
 			<GridItem colSpan={{ base: 12, lg: 3 }}>
-				<StickyBox>
+				<StickyBox offsetTop={30}>
 					<SideBar categories={categories} />
 				</StickyBox>
 			</GridItem>

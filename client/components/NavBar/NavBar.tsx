@@ -6,6 +6,7 @@ import NavLogo from './NavLogo';
 import NavDrawer from './NavDrawer';
 import NavMenuItem from './NavMenuItem';
 import LoginButton from './LoginButton';
+import DarkModeSwitch from '../shared/DarkModeSwitch';
 
 export const NavBar = (props) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -16,7 +17,7 @@ export const NavBar = (props) => {
 				as='nav'
 				align='center'
 				justify='space-between'
-				p={8}
+				p={5}
 				px={{ base: '6vw', md: '10vw', lg: '12vw' }}
 				bg={'layoutBlack'}
 				color={'white'}
@@ -31,6 +32,7 @@ export const NavBar = (props) => {
 
 				<Box display={{ base: 'none', md: 'block' }}>
 					<Flex align={'center'} justify={'flex-end'}>
+						<DarkModeSwitch />
 						<NavMenuItem to={BLOG.BLOGS}>Blogs</NavMenuItem>
 						<LoginButton />
 					</Flex>

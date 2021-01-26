@@ -1,16 +1,22 @@
+import authReducer from './authReducer';
+import blogReducer from './blogReducer';
+import contactReducer from './contactReducer';
+import accountReducer from './accountReducer';
 import { combineReducers } from 'redux';
-import auth from './auth';
-import blog from './blog';
-import termsConditions from './termsConditions';
-import contact from './contact';
-import account from './account';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+	key: 'root',
+	storage,
+	whitelist: ['auth', 'blog']
+};
 
 const rootReducer = combineReducers({
-	account,
-	auth,
-	blog,
-	contact,
-	termsConditions
+	account: accountReducer,
+	auth: authReducer,
+	blog: blogReducer,
+	contact: contactReducer
 });
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);

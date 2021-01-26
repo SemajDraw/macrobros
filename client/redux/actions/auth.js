@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { AUTH } from '../types';
 import { baseHeaders, tokenAuthHeaders } from '../../hooks/useHeaders';
+import { BASE_URL } from '../../constants/endpoints';
 
 const { AUTH_ERROR, LOGOUT_SUCCESS, USER_LOADED, USER_LOADING } = AUTH;
 
@@ -10,7 +11,10 @@ export const loadUser = () => (dispatch, getState) => {
 
 	if (getState().auth.token) {
 		axios
-			.get('/api/account/auth/user', tokenAuthHeaders(getState().auth.token))
+			.get(
+				`${BASE_URL}/api/account/auth/user`,
+				tokenAuthHeaders(getState().auth.token)
+			)
 			.then((res) => {
 				dispatch({
 					type: USER_LOADED,
@@ -25,7 +29,7 @@ export const loadUser = () => (dispatch, getState) => {
 
 export const login = (loginReq) => {
 	return axios.post(
-		'/api/account/auth/login',
+		`${BASE_URL}/api/account/auth/login`,
 		JSON.stringify(loginReq),
 		baseHeaders()
 	);
@@ -34,7 +38,7 @@ export const login = (loginReq) => {
 export const logout = () => (dispatch, getState) => {
 	axios
 		.post(
-			'/api/account/auth/logout',
+			`${BASE_URL}/api/account/auth/logout`,
 			null,
 			tokenAuthHeaders(getState().auth.token)
 		)

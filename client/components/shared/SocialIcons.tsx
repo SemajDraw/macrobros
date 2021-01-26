@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { Box, Flex } from '@chakra-ui/react';
 
-export const SocialIcons = () => {
+export const SocialIcons = ({ iconColor = 'white' }) => {
 	const socialIcons = [
 		{ icon: faFacebook, href: 'https://www.facebook.com/macro.bros.716' },
 		{ icon: faInstagram, href: 'https://www.instagram.com/macro_bros.com_/' },
@@ -19,7 +19,7 @@ export const SocialIcons = () => {
 			<Flex justifyContent='space-between'>
 				{socialIcons.map((icon, i) => (
 					<Box
-						color='black'
+						color={iconColor}
 						key={i}
 						as='a'
 						href={icon.href}

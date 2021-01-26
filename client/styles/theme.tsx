@@ -1,5 +1,6 @@
 import { extendTheme } from '@chakra-ui/react';
 export const theme = extendTheme({
+	initialColorMode: 'light',
 	colors: {
 		linkOrange: '#ffae00',
 		layoutBlack: '#191919',

@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import React from 'react';
 import MotionBox from '../FramerMotion/MotionBox';
 import { Box, Flex } from '@chakra-ui/layout';
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import { formatSlug } from '../../utils/stringUtils';
 import Link from 'next/link';
 import { HOME } from '../../constants/routes';
@@ -10,11 +8,13 @@ import {
 	Accordion,
 	AccordionButton,
 	AccordionIcon,
-	AccordionItem,
-	AccordionPanel
+	AccordionItem
 } from '@chakra-ui/accordion';
+import { useColorModeValue } from '@chakra-ui/color-mode';
 
 export const CategoryAccordion = ({ categories }) => {
+	const bg = useColorModeValue('white', '#1A202C');
+
 	return (
 		<Accordion allowToggle>
 			<AccordionItem border='none' boxShadow='0 10px 30px -5px rgba(0, 0, 0, 0.2)'>
@@ -22,7 +22,7 @@ export const CategoryAccordion = ({ categories }) => {
 					<>
 						<AccordionButton
 							_hover={{ background: 'rgba(0, 0, 0, 0.03)' }}
-							background={isExpanded ? 'rgba(0, 0, 0, 0.03)' : 'white'}
+							background={isExpanded ? 'rgba(0, 0, 0, 0.03)' : { bg }}
 							borderRadius={4}
 							h={12}
 							pl={4}
@@ -35,7 +35,7 @@ export const CategoryAccordion = ({ categories }) => {
 
 						{isExpanded && (
 							<Box borderRadius={4}>
-								<CategoryItems categories={categories} />
+								<CategoryItems categories={categories} bg={bg} />
 							</Box>
 						)}
 					</>
@@ -45,8 +45,8 @@ export const CategoryAccordion = ({ categories }) => {
 	);
 };
 
-function CategoryItems({ categories }) {
-	return categories.map((category, i) => (
+function CategoryItems({ categories, bg }) {
+	return categories.map((category: object, i: number) => (
 		<Link key={i} href={HOME}>
 			<MotionBox
 				whileHover={{
@@ -54,7 +54,7 @@ function CategoryItems({ categories }) {
 					transition: { duration: 0.5 }
 				}}
 				transition={{ type: 'spring', duration: 1 }}
-				bg={'white'}
+				bg={bg}
 				cursor={'pointer'}
 			>
 				<Flex h={12} pl={4} align={'center'}>

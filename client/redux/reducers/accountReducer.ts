@@ -19,7 +19,7 @@ const {
 	UPDATE_ACCOUNT
 } = ACCOUNT;
 
-export const account = (state = initialState, action) => {
+export const accountReducer = (state = initialState, action: any) => {
 	switch (action.type) {
 		case EMAIL_VERIFICATION:
 			return {
@@ -50,4 +50,4 @@ export const account = (state = initialState, action) => {
 	}
 };
 
-export default account;
+export default accountReducer;

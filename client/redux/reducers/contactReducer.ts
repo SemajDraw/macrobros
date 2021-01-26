@@ -8,7 +8,7 @@ const initialState = {
 
 const { EMAIL_SENT } = CONTACT;
 
-export const contact = (state = initialState, action) => {
+export const contactReducer = (state = initialState, action: any) => {
 	switch (action.type) {
 		case EMAIL_SENT:
 			return {
@@ -20,4 +20,4 @@ export const contact = (state = initialState, action) => {
 	}
 };
 
-export default contact;
+export default contactReducer;
