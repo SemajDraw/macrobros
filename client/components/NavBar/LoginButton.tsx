@@ -19,8 +19,8 @@ export const LoginButton = () => {
 				letterSpacing={'-.2rem'}
 				_hover={{ borderColor: 'linkOrange', color: 'linkOrange' }}
 			>
-				<FontAwesomeIcon size={'2x'} icon={faUserCircle} />
-				<Text ml={1}>Sign In</Text>
+				<FontAwesomeIcon style={{fontSize: '28px'}} icon={faUserCircle} />
+				<Text ml={1} fontSize={16}>Sign In</Text>
 			</Button>
 		</Link>
 	);

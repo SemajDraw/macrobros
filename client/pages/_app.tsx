@@ -10,9 +10,7 @@ import '../styles/globals.scss';
 import { SWRConfig } from 'swr';
 import axios from 'axios';
 import 'focus-visible/dist/focus-visible';
-
-const fetcher = (resource, init) =>
-	axios(resource, init).then((res) => res.data);
+import fetcher from '../lib/fetcher';
 
 export const App = ({ Component, pageProps }) => {
 	const store = useStore(pageProps.initialReduxState);

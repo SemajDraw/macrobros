@@ -1,6 +1,6 @@
 import React from 'react';
 import MotionBox from '../FramerMotion/MotionBox';
-import { Box, Flex } from '@chakra-ui/layout';
+import { Box, Flex, Text } from '@chakra-ui/layout';
 import { formatSlug } from '../../utils/stringUtils';
 import Link from 'next/link';
 import { HOME } from '../../constants/routes';
@@ -58,7 +58,9 @@ function CategoryItems({ categories, bg }) {
 				cursor={'pointer'}
 			>
 				<Flex h={12} pl={4} align={'center'}>
-					{formatSlug(category)}
+					<Text fontWeight={400} fontSize={'md'}>
+						{formatSlug(category)}
+					</Text>
 				</Flex>
 			</MotionBox>
 		</Link>

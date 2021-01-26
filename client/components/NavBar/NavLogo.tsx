@@ -11,7 +11,7 @@ export const NavLogo = ({ display }) => {
 					<MacroBrosIcon id='nav' strokeColor='white' />
 				</Box>
 				<Box>
-					<Text color='white' display={display} fontSize={20} ml={3}>
+					<Text color='white' display={display} fontSize={18} ml={3}>
 						MacroBros
 					</Text>
 				</Box>

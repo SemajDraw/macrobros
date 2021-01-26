@@ -7,7 +7,7 @@ export const NavMenuItem = (props) => {
 		<Text
 			mb={{ base: isLast ? 0 : 8, sm: 0 }}
 			mr={{ base: 0, sm: isLast ? 0 : 8 }}
-			fontSize={18}
+			fontSize={16}
 			display='block'
 			{...rest}
 		>
