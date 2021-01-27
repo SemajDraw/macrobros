@@ -6,7 +6,8 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 
-export const FooterSocialIcons = () => {
+export const FooterSocialIcons = (props: any) => {
+	const { as, color, hover } = props;
 	const margin = useBreakpointValue({ md: '10vw', lg: '14vw' });
 	const icons = [
 		{ icon: faFacebook, href: 'https://www.facebook.com/macro.bros.716' },
@@ -17,7 +18,6 @@ export const FooterSocialIcons = () => {
 		<Bounce left duration={1000} cascade>
 			<div
 				style={{
-					color: 'white',
 					display: 'flex',
 					flexDirection: 'row',
 					justifyContent: 'space-between',
@@ -26,7 +26,13 @@ export const FooterSocialIcons = () => {
 				}}
 			>
 				{icons.map((icon, i) => (
-					<Box key={i} as='a' _hover={{ color: 'linkOrange' }} href={icon.href}>
+					<Box
+						key={i}
+						as={as}
+						color={color}
+						_hover={{ color: { hover } }}
+						href={icon.href}
+					>
 						<FontAwesomeIcon size='2x' icon={icon.icon} />
 					</Box>
 				))}

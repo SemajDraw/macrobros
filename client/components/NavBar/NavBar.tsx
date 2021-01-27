@@ -5,10 +5,10 @@ import { BLOG } from '../../constants/routes';
 import NavLogo from './NavLogo';
 import NavDrawer from './NavDrawer';
 import NavMenuItem from './NavMenuItem';
-import LoginButton from './LoginButton';
 import DarkModeSwitch from '../shared/DarkModeSwitch';
+import NavMenu from './NavMenu';
 
-export const NavBar = (props) => {
+export const NavBar = (props: any) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
@@ -34,7 +34,7 @@ export const NavBar = (props) => {
 					<Flex align={'center'} justify={'flex-end'}>
 						<DarkModeSwitch />
 						<NavMenuItem to={BLOG.BLOGS}>Blogs</NavMenuItem>
-						<LoginButton />
+						<NavMenu />
 					</Flex>
 				</Box>
 			</Flex>

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Button, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import { Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/layout';
 import LinkItem from '../LinkItem';
 import FooterSocialIcons from './FooterSocialIcons';
 import { HOME, POLICIES } from '../../constants/routes';
 import { useDisclosure } from '@chakra-ui/hooks';
 import DonateModal from './DonateModal';
-import Link from 'next/link';
 
 export const Footer = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,7 +23,7 @@ export const Footer = () => {
 				<GridItem colSpan={{ base: 12, md: 8, lg: 7 }}>
 					<Flex justifyContent={{ base: 'center', md: 'start' }}>
 						<Heading as='h1' size='lg'>
-							<LinkItem cursor='pointer' color='#FFFFFF'>
+							<LinkItem href={HOME} cursor='pointer' color='#FFFFFF'>
 								MacroBros
 							</LinkItem>
 						</Heading>
@@ -37,17 +36,23 @@ export const Footer = () => {
 								Contact
 							</LinkItem>
 						</Heading>
-						<Link href={POLICIES.TERMS_OF_SERVICE}>
-							<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
-								Terms of Service
-							</LinkItem>
-						</Link>
+						<LinkItem
+							href={POLICIES.TERMS_OF_SERVICE}
+							cursor='pointer'
+							color='#FFFFFF'
+							size='sm'
+						>
+							Terms of Service
+						</LinkItem>
 
-						<Link href={POLICIES.PRIVACY_POLICY}>
-							<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
-								Privacy Policy
-							</LinkItem>
-						</Link>
+						<LinkItem
+							href={POLICIES.PRIVACY_POLICY}
+							cursor='pointer'
+							color='#FFFFFF'
+							size='sm'
+						>
+							Privacy Policy
+						</LinkItem>
 
 						<Box onClick={onOpen}>
 							<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
@@ -58,11 +63,9 @@ export const Footer = () => {
 				</GridItem>
 				<GridItem display={{ base: 'none', lg: 'block' }} colSpan={{ lg: 2 }}>
 					<Flex pt={14}>
-						<Link href={HOME}>
-							<LinkItem cursor='pointer' color='gray.400' size='sm'>
-								Blogs
-							</LinkItem>
-						</Link>
+						<LinkItem href={HOME} cursor='pointer' color='gray.400' size='sm'>
+							Blogs
+						</LinkItem>
 					</Flex>
 				</GridItem>
 			</Grid>

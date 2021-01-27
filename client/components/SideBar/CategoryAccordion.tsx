@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/accordion';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 
-export const CategoryAccordion = ({ categories }) => {
+export const CategoryAccordion = ({ categories }: any) => {
 	const bg = useColorModeValue('white', '#1A202C');
 
 	return (
@@ -45,13 +45,14 @@ export const CategoryAccordion = ({ categories }) => {
 	);
 };
 
-function CategoryItems({ categories, bg }) {
-	return categories.map((category: object, i: number) => (
+function CategoryItems({ categories, bg }: any) {
+	return categories.map((category: string, i: number) => (
 		<Link key={i} href={HOME}>
 			<MotionBox
 				whileHover={{
-					scale: 1.03,
-					transition: { duration: 0.5 }
+					scale: 1.015,
+					transition: { duration: 0.5 },
+					boxShadow: '0 5px 20px -5px rgba(0, 0, 0, 0.1)'
 				}}
 				transition={{ type: 'spring', duration: 1 }}
 				bg={bg}

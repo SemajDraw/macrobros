@@ -1,24 +1,17 @@
 import React from 'react';
 import * as Yup from 'yup';
 
-import {
-	Box,
-	Button,
-	FormControl,
-	FormErrorMessage,
-	FormLabel,
-	Link
-} from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
-import { ACCOUNT } from '../../../constants/routes';
-import { Spinner } from '@chakra-ui/spinner';
-import { Field, Form, Formik } from 'formik';
-import { Input } from '@chakra-ui/input';
-import { Flex, Text } from '@chakra-ui/layout';
-import { useDispatch } from 'react-redux';
-import { login } from '../../../redux/actions/auth';
-import { AUTH } from '../../../redux/types';
+import {Box, Button, FormControl, FormErrorMessage, FormLabel, Link} from '@chakra-ui/react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faInfoCircle} from '@fortawesome/free-solid-svg-icons/faInfoCircle';
+import {ACCOUNT} from '../../../constants/routes';
+import {Spinner} from '@chakra-ui/spinner';
+import {Field, Form, Formik} from 'formik';
+import {Input} from '@chakra-ui/input';
+import {Flex, Text} from '@chakra-ui/layout';
+import {useDispatch} from 'react-redux';
+import {login} from '../../../redux/actions/auth';
+import {AUTH} from '../../../redux/types';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -27,7 +20,7 @@ const validationSchema = Yup.object().shape({
 	password: Yup.string().required('Please enter a password')
 });
 
-export const LoginForm = (props) => {
+export const LoginForm = () => {
 	const dispatch = useDispatch();
 
 	return (
@@ -45,7 +38,6 @@ export const LoginForm = (props) => {
 				onSubmit={(values, { setSubmitting, resetForm, setFieldError }) => {
 					setSubmitting(true);
 
-					console.log('vs', values);
 					login(values)
 						.then((res) => {
 							dispatch({ type: AUTH.LOGIN_SUCCESS, payload: res.data });
@@ -54,7 +46,6 @@ export const LoginForm = (props) => {
 						})
 						.catch((err) => {
 							setSubmitting(false);
-							console.log('res', err.response.data);
 							dispatch({ type: AUTH.LOGIN_FAIL });
 							const field = Object.keys(err.response.data)[0];
 							setFieldError(field, err.response.data[field]);
@@ -89,7 +80,7 @@ export const LoginForm = (props) => {
 						</Field>
 
 						<Field name='password'>
-							{({ field, form }) => (
+							{({ field, form }: any) => (
 								<FormControl
 									pt={3}
 									isInvalid={form.errors.password && form.touched.password}

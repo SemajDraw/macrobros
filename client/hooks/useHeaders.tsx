@@ -1,4 +1,4 @@
-export const tokenAuthHeaders = (token) => {
+export const tokenAuthHeaders = (token: string) => {
 	// Set headers
 	const config = baseHeaders();
 	// If token, add to Authorization navbar

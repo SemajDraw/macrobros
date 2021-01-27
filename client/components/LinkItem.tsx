@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text } from '@chakra-ui/react';
+import Link from './ChakraComponents/Link';
 
-export const LinkItem = ({ children, color, cursor, size }) => {
+export const LinkText = (props: any) => {
+	const { children, color, cursor, size } = props;
 	return (
 		<Text
 			my={2}
@@ -14,6 +16,17 @@ export const LinkItem = ({ children, color, cursor, size }) => {
 		>
 			{children}
 		</Text>
+	);
+};
+
+export const LinkItem = (props: any) => {
+	const { href, ...rest } = props;
+	return href ? (
+		<Link href={href}>
+			<LinkText {...rest} />
+		</Link>
+	) : (
+		<LinkText {...rest} />
 	);
 };
 

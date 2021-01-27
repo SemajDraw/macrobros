@@ -1,24 +1,16 @@
 import React from 'react';
 import * as Yup from 'yup';
 
-import {
-	Box,
-	Button,
-	FormControl,
-	FormErrorMessage,
-	FormHelperText,
-	FormLabel,
-	Link
-} from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
-import { POLICIES } from '../../../constants/routes';
-import { Spinner } from '@chakra-ui/spinner';
-import { Field, Form, Formik } from 'formik';
-import { Input } from '@chakra-ui/input';
-import { Flex, ListItem, Text, UnorderedList } from '@chakra-ui/layout';
-import { REGEX } from '../../../constants/constants';
-import { Switch } from '@chakra-ui/switch';
+import {Box, Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Link} from '@chakra-ui/react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faInfoCircle} from '@fortawesome/free-solid-svg-icons/faInfoCircle';
+import {POLICIES} from '../../../constants/routes';
+import {Spinner} from '@chakra-ui/spinner';
+import {Field, Form, Formik} from 'formik';
+import {Input} from '@chakra-ui/input';
+import {Flex, ListItem, Text, UnorderedList} from '@chakra-ui/layout';
+import {REGEX} from '../../../constants/constants';
+import {Switch} from '@chakra-ui/switch';
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string()
@@ -234,7 +226,7 @@ export const RegisterForm = (props) => {
 						</Button>
 						<FormControl py={2}>
 							<FormHelperText textAlign='left'>
-								<Flex >
+								<Flex>
 									<Text>
 										By creating an account, you agree to the{' '}
 										<Link

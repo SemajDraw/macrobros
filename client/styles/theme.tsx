@@ -13,6 +13,20 @@ export const theme = extendTheme({
 	fonts: {
 		body:
 			'"Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif'
+	},
+	components: {
+		Popover: {
+			Popover: {
+				parts: ['popper'],
+				baseStyle: (props: any) => ({
+					popper: {
+						zIndex: 10,
+						maxW: props.width ? props.width : 'xs',
+						w: '100%'
+					}
+				})
+			}
+		}
 	}
 });
 

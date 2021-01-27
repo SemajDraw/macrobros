@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { Flex, Link, Text } from '@chakra-ui/react';
+import React, {useEffect} from 'react';
+import {Flex, Link, Text} from '@chakra-ui/react';
 import LoginForm from './LoginForm';
-import { ACCOUNT } from '../../../constants/routes';
+import {ACCOUNT} from '../../../constants/routes';
 import FormPage from '../../../components/shared/FormPage';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import {useRouter} from 'next/router';
+import {useAuth} from '../../../providers/AuthProvider';
 
 export const Index = () => {
 	const router = useRouter();
-	const { isAuthenticated } = useSelector((state) => state.auth);
+	const { isAuthenticated } = useAuth();
 
-	// useEffect(() => {
-	// 	if (isAuthenticated) {
-	// 		router.push('/');
-	// 	}
-	// }, [isAuthenticated]);
+	useEffect(() => {
+		if (isAuthenticated) {
+			router.push('/');
+		}
+	}, [isAuthenticated]);
 
 	return (
 		<FormPage

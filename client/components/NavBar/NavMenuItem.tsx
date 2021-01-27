@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
+import Link from '../ChakraComponents/Link';
 
-export const NavMenuItem = (props) => {
+export const NavMenuItem = (props: any) => {
 	const { children, isLast, to = '/', ...rest } = props;
 	return (
 		<Text
