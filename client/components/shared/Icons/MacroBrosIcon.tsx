@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const MacroBrosIcon = ({ id, strokeColor }) => {
+export const MacroBrosIcon = ({ id, strokeColor }: any) => {
 	const prefixStrClass = `prefix__str1${id}`;
 	const prefixFillClass = `prefix__fil1${id}`;
 

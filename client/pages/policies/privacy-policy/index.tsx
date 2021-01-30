@@ -4,7 +4,7 @@ import fetcher from '../../../lib/fetcher';
 import MetaInfo from '../../../components/shared/MetaInfo';
 import Policies from '../../../components/shared/Policies/Policies';
 
-export const Index = ({ policy }) => {
+export const Index = ({ policy }: any) => {
 	const { content, dateCreated, title } = policy;
 
 	return (

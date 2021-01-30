@@ -2,8 +2,8 @@ import React from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import Head from 'next/head';
 import { Text } from '@chakra-ui/layout';
-import { MacroBrosIcon } from './MacroBrosIcon';
-import SocialIcons from './SocialIcons';
+import { MacroBrosIcon } from './Icons/MacroBrosIcon';
+import SocialIcons from './Icons/SocialIcons';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 
 export const FormPage = ({ children, meta, heading, icons }) => {

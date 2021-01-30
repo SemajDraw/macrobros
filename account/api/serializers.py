@@ -10,7 +10,7 @@ from account.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "is_subscribed")
+        fields = ("first_name", "last_name", "is_subscribed")
 
 
 class RegisterSerializer(serializers.ModelSerializer):

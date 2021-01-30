@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import Bounce from 'react-reveal/Bounce';
-import { MacroBrosIcon } from '../shared/MacroBrosIcon';
+import { MacroBrosIcon } from '../shared/Icons/MacroBrosIcon';
 import { Heading } from '@chakra-ui/layout';
 import MotionBox from '../FramerMotion/MotionBox';
 

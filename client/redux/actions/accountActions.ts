@@ -1,17 +1,17 @@
 import axios from 'axios';
-import { ACCOUNT } from '../types';
+import { ACCOUNT, AUTH } from '../types';
 import { baseHeaders, tokenAuthHeaders } from '../../hooks/useHeaders';
 
 const {
-	AUTH_ERROR,
-	CLOSE_ACCOUNT,
 	EMAIL_VERIFICATION,
 	GET_SAVED_BLOGS,
 	SAVE_BLOG,
 	UPDATE_ACCOUNT
 } = ACCOUNT;
 
-export const register = (registerObj) => {
+const { AUTH_ERROR, CLOSE_ACCOUNT } = AUTH;
+
+export const register = (registerObj: any) => {
 	return axios.post(
 		'/api/account/auth/register',
 		JSON.stringify(registerObj),
@@ -19,7 +19,7 @@ export const register = (registerObj) => {
 	);
 };
 
-export const verifyEmail = (token) => (dispatch) => {
+export const verifyEmail = (token: string) => (dispatch: any) => {
 	axios
 		.post('/api/account/auth/verify-email', null, tokenAuthHeaders(token))
 		.then((res) => {
@@ -31,7 +31,7 @@ export const verifyEmail = (token) => (dispatch) => {
 		.catch();
 };
 
-export const passwordResetRequest = (resetReq) => {
+export const passwordResetRequest = (resetReq: any) => {
 	return axios.post(
 		'/api/account/password-reset-request',
 		resetReq,
@@ -39,7 +39,12 @@ export const passwordResetRequest = (resetReq) => {
 	);
 };
 
-export const passwordReset = (user, token, password, password1) => {
+export const passwordReset = (
+	user: string,
+	token: string,
+	password: string,
+	password1: string
+) => {
 	return axios.post(
 		'/api/account/password-reset',
 		{
@@ -51,7 +56,7 @@ export const passwordReset = (user, token, password, password1) => {
 	);
 };
 
-export const getSavedBlogs = () => (dispatch, getState) => {
+export const getSavedBlogs = () => (dispatch: any, getState: any) => {
 	axios
 		.get('/api/account/auth/saved-blogs', tokenAuthHeaders(getState().auth.token))
 		.then((res) => {
@@ -60,12 +65,12 @@ export const getSavedBlogs = () => (dispatch, getState) => {
 				payload: res.data
 			});
 		})
-		.catch((err) => {
+		.catch(() => {
 			dispatch({ type: AUTH_ERROR });
 		});
 };
 
-export const saveBlog = (blogId) => (dispatch, getState) => {
+export const saveBlog = (blogId: string) => (dispatch: any, getState: any) => {
 	axios
 		.put(
 			'/api/account/auth/save-blog',
@@ -81,7 +86,10 @@ export const saveBlog = (blogId) => (dispatch, getState) => {
 		.catch();
 };
 
-export const updateAccount = (updateField) => (dispatch, getState) => {
+export const updateAccount = (updateField: any) => (
+	dispatch: any,
+	getState: any
+) => {
 	axios
 		.put(
 			'/api/account/auth/update-user',

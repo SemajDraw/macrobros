@@ -8,7 +8,7 @@ import {
 	ModalOverlay
 } from '@chakra-ui/react';
 import { Grid, GridItem, Heading, Text } from '@chakra-ui/layout';
-import { MacroBrosIcon } from '../shared/MacroBrosIcon';
+import { MacroBrosIcon } from '../shared/Icons/MacroBrosIcon';
 import CryptoAddressCopy from '../shared/CryptoAddressCopy/CryptoAddressCopy';
 
 export const DonateModal = ({ isOpen, onOpen, onClose }) => {

@@ -1,17 +1,25 @@
 import React from 'react';
 import * as Yup from 'yup';
 
-import {Box, Button, FormControl, FormErrorMessage, FormLabel, Link} from '@chakra-ui/react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faInfoCircle} from '@fortawesome/free-solid-svg-icons/faInfoCircle';
-import {ACCOUNT} from '../../../constants/routes';
-import {Spinner} from '@chakra-ui/spinner';
-import {Field, Form, Formik} from 'formik';
-import {Input} from '@chakra-ui/input';
-import {Flex, Text} from '@chakra-ui/layout';
-import {useDispatch} from 'react-redux';
-import {login} from '../../../redux/actions/auth';
-import {AUTH} from '../../../redux/types';
+import {
+	Box,
+	Button,
+	FormControl,
+	FormErrorMessage,
+	FormLabel
+} from '@chakra-ui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
+import { ACCOUNT } from '../../../constants/routes';
+import { Spinner } from '@chakra-ui/spinner';
+import { Field, Form, Formik } from 'formik';
+import { Input } from '@chakra-ui/input';
+import { Flex, Text } from '@chakra-ui/layout';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../redux/actions/authActions';
+import { AUTH } from '../../../redux/types';
+import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
+import { useCookies } from 'react-cookie';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -21,6 +29,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export const LoginForm = () => {
+	const [cookie, setCookie] = useCookies(['token']);
 	const dispatch = useDispatch();
 
 	return (
@@ -39,12 +48,17 @@ export const LoginForm = () => {
 					setSubmitting(true);
 
 					login(values)
-						.then((res) => {
+						.then((res: any) => {
+							setCookie('token', res.data.token, {
+								path: '/',
+								maxAge: 86400,
+								sameSite: true
+							});
 							dispatch({ type: AUTH.LOGIN_SUCCESS, payload: res.data });
 							resetForm();
 							setSubmitting(false);
 						})
-						.catch((err) => {
+						.catch((err: any) => {
 							setSubmitting(false);
 							dispatch({ type: AUTH.LOGIN_FAIL });
 							const field = Object.keys(err.response.data)[0];
@@ -52,18 +66,10 @@ export const LoginForm = () => {
 						});
 				}}
 			>
-				{({
-					values,
-					errors,
-					touched,
-					handleChange,
-					handleBlur,
-					handleSubmit,
-					isSubmitting
-				}) => (
+				{({ handleSubmit, isSubmitting }) => (
 					<Form onSubmit={handleSubmit}>
 						<Field name='email'>
-							{({ field, form }) => (
+							{({ field, form }: any) => (
 								<FormControl isInvalid={form.errors.email && form.touched.email}>
 									<FormLabel ml={1} htmlFor='email'>
 										Email
@@ -87,14 +93,14 @@ export const LoginForm = () => {
 								>
 									<Flex justifyContent='space-between'>
 										<Text ml={1}>Password</Text>
-										<Link
+										<WrappedLink
 											fontSize='xs'
 											color='blue.500'
 											_hover={{ color: 'blue.700' }}
 											href={ACCOUNT.FORGOT_PASSWORD}
 										>
 											Forgot password?
-										</Link>
+										</WrappedLink>
 									</Flex>
 									<Input
 										{...field}

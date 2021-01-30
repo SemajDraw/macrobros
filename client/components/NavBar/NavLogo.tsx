@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Flex, Link, Text } from '@chakra-ui/react';
-import { MacroBrosIcon } from '../shared/MacroBrosIcon';
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { MacroBrosIcon } from '../shared/Icons/MacroBrosIcon';
 import { HOME } from '../../constants/routes';
+import WrappedLink from '../ChakraComponents/WrappedLink';
 
 export const NavLogo = ({ display }) => {
 	return (
-		<Link href={HOME} _hover={{ textDecoration: 'none' }}>
+		<WrappedLink href={HOME} _hover={{ textDecoration: 'none' }}>
 			<Flex align='center' cursor={'pointer'}>
 				<Box h={12} w={12}>
 					<MacroBrosIcon id='nav' strokeColor='white' />
@@ -16,7 +17,7 @@ export const NavLogo = ({ display }) => {
 					</Text>
 				</Box>
 			</Flex>
-		</Link>
+		</WrappedLink>
 	);
 };
 

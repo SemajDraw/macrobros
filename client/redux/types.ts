@@ -32,3 +32,8 @@ export const BLOG = {
 export const CONTACT = {
 	EMAIL_SENT: 'EMAIL_SENT'
 };
+
+export const LOADING = {
+	SHOW_LOADER: 'SHOW_LOADER',
+	HIDE_LOADER: 'HIDE_LOADER'
+};

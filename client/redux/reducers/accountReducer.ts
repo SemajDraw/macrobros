@@ -1,5 +1,6 @@
 import { ACCOUNT } from '../types';
 import PaginatedBlogModel from '../models/PaginatedBlogModel';
+import { HYDRATE } from 'next-redux-wrapper';
 
 const initialState = {
 	emailVerification: {
@@ -21,6 +22,11 @@ const {
 
 export const accountReducer = (state = initialState, action: any) => {
 	switch (action.type) {
+		case HYDRATE:
+			return {
+				...state,
+				...action.payload
+			};
 		case EMAIL_VERIFICATION:
 			return {
 				...state,

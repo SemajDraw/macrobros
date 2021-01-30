@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex } from '@chakra-ui/react';
 import useBlogs from '../../hooks/useBlogs';
-import LoadingSpinner from './LoadingSpinner';
+import LoadingSpinner from './Loading/LoadingSpinner';
 import BlogGridSideBar from './BlogGridSideBar';
 
 export const JumbotronGridTemplate = ({ children, ...props }) => {

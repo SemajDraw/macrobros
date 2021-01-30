@@ -3,10 +3,10 @@ import { Box, Flex, useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { BLOG } from '../../constants/routes';
 import NavLogo from './NavLogo';
-import NavDrawer from './NavDrawer';
-import NavMenuItem from './NavMenuItem';
+import NavDrawer from './Drawer/NavDrawer';
+import NavMenuItem from './Menu/NavMenuItem';
 import DarkModeSwitch from '../shared/DarkModeSwitch';
-import NavMenu from './NavMenu';
+import NavMenu from './Menu/NavMenu';
 
 export const NavBar = (props: any) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Flex, Link, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { ACCOUNT } from '../../../constants/routes';
-import FormPage from '../../../components/shared/FormPage';
-import RegisterForm from './RegisterForm';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../providers/AuthProvider';
+import FormPage from '../../../components/shared/FormPage';
+import RegisterForm from './RegisterForm';
+import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
 
 export const Index = () => {
 	const router = useRouter();
@@ -40,13 +41,13 @@ export const Index = () => {
 				<Flex>
 					<Text mr={1}>
 						Already have an account?{' '}
-						<Link
+						<WrappedLink
 							color='blue.500'
 							_hover={{ color: 'blue.700' }}
 							href={ACCOUNT.LOGIN}
 						>
 							Please login.
-						</Link>
+						</WrappedLink>
 					</Text>
 				</Flex>
 			</Flex>

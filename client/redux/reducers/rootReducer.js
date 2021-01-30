@@ -2,6 +2,7 @@ import authReducer from './authReducer';
 import blogReducer from './blogReducer';
 import contactReducer from './contactReducer';
 import accountReducer from './accountReducer';
+import loadingReducer from './loadingReducer';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -16,7 +17,10 @@ const rootReducer = combineReducers({
 	account: accountReducer,
 	auth: authReducer,
 	blog: blogReducer,
-	contact: contactReducer
+	contact: contactReducer,
+	loading: loadingReducer
 });
 
-export default persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export { persistedReducer, rootReducer};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Box, Divider, Flex, Text } from '@chakra-ui/react';
+import { Avatar, Box, Divider, Flex, IconButton, Text } from '@chakra-ui/react';
 import {
 	Popover,
 	PopoverArrow,
@@ -9,23 +9,25 @@ import {
 	PopoverHeader,
 	PopoverTrigger
 } from '@chakra-ui/popover';
-import { formatUserInitials } from '../../utils/stringUtils';
+import { formatUserInitials } from '../../../utils/stringUtils';
 import { useDispatch } from 'react-redux';
-import Link from '../ChakraComponents/Link';
-import { HOME } from '../../constants/routes';
-import NavButton from './NavButton';
-import { useAuth } from '../../providers/AuthProvider';
-import { logout } from '../../redux/actions/auth';
+import WrappedLink from '../../ChakraComponents/WrappedLink';
+import { HOME } from '../../../constants/routes';
+import NavButton from '../NavButton';
+import { useAuth } from '../../../providers/AuthProvider';
+import { logout } from '../../../redux/actions/authActions';
+import { useColorModeValue } from '@chakra-ui/color-mode';
 
 const PopoverText = (props: any) => {
+	const isDark = useColorModeValue(false, true);
 	const { children, color } = props;
 
 	return (
 		<Text
 			fontSize={'lg'}
-			color={color}
+			color={isDark ? 'white' : color}
 			fontWeight={'normal'}
-			_hover={{ color: 'black', fontWeight: 'normal' }}
+			_hover={{ color: isDark ? 'blue.300' : 'black', fontWeight: 'normal' }}
 			cursor={'pointer'}
 		>
 			{children}
@@ -52,7 +54,13 @@ export const Authenticated = (props: any) => {
 			</Flex>
 			<Popover gutter={20} isLazy>
 				<PopoverTrigger>
-					<Avatar cursor={'pointer'} size={'sm'} />
+					<IconButton
+						aria-label='Search database'
+						bg={'transparent'}
+						_hover={{ bg: 'transparent' }}
+						_active={{ bg: 'transparent' }}
+						icon={<Avatar cursor={'pointer'} size={'sm'} />}
+					/>
 				</PopoverTrigger>
 				<PopoverContent
 					maxWidth={'75%'}
@@ -63,30 +71,30 @@ export const Authenticated = (props: any) => {
 					fontWeight='light'
 				>
 					<PopoverHeader fontWeight='light' px={4} pt={6} pb={4}>
-						<Link href={HOME}>
+						<WrappedLink href={HOME}>
 							<Flex align={'center'}>
 								<Avatar size={'sm'} mr={2} />
 								<PopoverText color={'gray.700'}>
 									{`${firstName} ${lastName}`}
 								</PopoverText>
 							</Flex>
-						</Link>
+						</WrappedLink>
 					</PopoverHeader>
 					<PopoverArrow />
 					<PopoverBody px={0} py={2}>
 						<Box px={4} pb={2}>
-							<Link href={HOME}>
+							<WrappedLink href={HOME}>
 								<PopoverText color={'gray.600'}>Profile</PopoverText>
-							</Link>
-							<Link href={HOME}>
+							</WrappedLink>
+							<WrappedLink href={HOME}>
 								<PopoverText color={'gray.600'}>Settings</PopoverText>
-							</Link>
+							</WrappedLink>
 						</Box>
 						<Divider />
 						<Box px={4} pt={2}>
-							<Link href={HOME}>
+							<WrappedLink href={HOME}>
 								<PopoverText color={'gray.600'}>Blogs</PopoverText>
-							</Link>
+							</WrappedLink>
 						</Box>
 					</PopoverBody>
 					<PopoverFooter px={4} pb={3}>

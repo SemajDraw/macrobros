@@ -4,7 +4,7 @@ import styles from './Policies.module.scss';
 import useFormatDate from '../../../hooks/useFormatDate';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 
-export const Policies = ({ content, lastModified, title }) => {
+export const Policies = ({ content, lastModified, title }: any) => {
 	const fontColor = useColorModeValue(false, true);
 
 	return (

@@ -1,6 +1,7 @@
 import { BLOG } from '../types';
 import PaginatedBlogModel from '../models/PaginatedBlogModel';
 import BlogPostModel from '../models/BlogPostModel';
+import { HYDRATE } from 'next-redux-wrapper';
 
 const initialState = {
 	blog: new BlogPostModel(),
@@ -26,6 +27,11 @@ const {
 
 export const blogReducer = (state = initialState, action: any) => {
 	switch (action.type) {
+		case HYDRATE:
+			return {
+				...state,
+				...action.payload
+			};
 		case GET_BLOG:
 			return {
 				...state,

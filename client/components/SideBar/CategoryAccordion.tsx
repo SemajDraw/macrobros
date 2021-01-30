@@ -2,7 +2,6 @@ import React from 'react';
 import MotionBox from '../FramerMotion/MotionBox';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { formatSlug } from '../../utils/stringUtils';
-import Link from 'next/link';
 import { HOME } from '../../constants/routes';
 import {
 	Accordion,
@@ -11,6 +10,7 @@ import {
 	AccordionItem
 } from '@chakra-ui/accordion';
 import { useColorModeValue } from '@chakra-ui/color-mode';
+import WrappedLink from '../ChakraComponents/WrappedLink';
 
 export const CategoryAccordion = ({ categories }: any) => {
 	const bg = useColorModeValue('white', '#1A202C');
@@ -47,7 +47,7 @@ export const CategoryAccordion = ({ categories }: any) => {
 
 function CategoryItems({ categories, bg }: any) {
 	return categories.map((category: string, i: number) => (
-		<Link key={i} href={HOME}>
+		<WrappedLink key={i} href={HOME}>
 			<MotionBox
 				whileHover={{
 					scale: 1.015,
@@ -64,7 +64,7 @@ function CategoryItems({ categories, bg }: any) {
 					</Text>
 				</Flex>
 			</MotionBox>
-		</Link>
+		</WrappedLink>
 	));
 }
 

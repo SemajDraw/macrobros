@@ -9,18 +9,16 @@ import {
 	DrawerHeader,
 	DrawerOverlay,
 	Flex,
-	Link,
 	Text
 } from '@chakra-ui/react';
-import {ACCOUNT, BLOG} from '../../constants/routes';
-import NavMenuItem from './NavMenuItem';
-import NavButton from './NavButton';
-import {useSwipeable} from 'react-swipeable';
-import {MacroBrosIcon} from '../shared/MacroBrosIcon';
-import {useAuth} from '../../providers/AuthProvider';
+import { useSwipeable } from 'react-swipeable';
+import { MacroBrosIcon } from '../../shared/Icons/MacroBrosIcon';
+import { useAuth } from '../../../providers/AuthProvider';
+import NavDrawerFooter from './NavDrawerFooter';
+import NavDrawerBody from './NavDrawerBody';
 
 export const NavDrawer = (props: any) => {
-	const { isAuthenticated, user } = useAuth();
+	const { isAuthenticated } = useAuth();
 	const { isOpen, onClose } = props;
 	const handlers = useSwipeable({
 		onSwipedRight: () => {
@@ -47,29 +45,11 @@ export const NavDrawer = (props: any) => {
 					</DrawerHeader>
 
 					<DrawerBody>
-						<NavMenuItem to={BLOG.BLOGS}>Blogs</NavMenuItem>
+						<NavDrawerBody isAuthenticated={isAuthenticated} onClose={onClose} />
 					</DrawerBody>
 
 					<DrawerFooter>
-						{isAuthenticated ? (
-							<NavButton isAuthenticated={isAuthenticated} text={'Sign Out'} />
-						) : (
-							<Flex direction={'column'} w={'100%'}>
-								<NavButton isAuthenticated={isAuthenticated} text={'Sign In'} />
-								<Flex mt={3}>
-									<Text mr={1} fontSize={'xs'}>
-										Not registered yet?{' '}
-										<Link
-											color='blue.300'
-											_hover={{ color: 'blue.400' }}
-											href={ACCOUNT.REGISTER}
-										>
-											Sign Up
-										</Link>
-									</Text>
-								</Flex>
-							</Flex>
-						)}
+						<NavDrawerFooter isAuthenticated={isAuthenticated} onClose={onClose} />
 					</DrawerFooter>
 				</DrawerContent>
 			</DrawerOverlay>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from '@chakra-ui/react';
-import Link from './ChakraComponents/Link';
+import WrappedLink from './ChakraComponents/WrappedLink';
 
 export const LinkText = (props: any) => {
 	const { children, color, cursor, size } = props;
@@ -22,9 +22,9 @@ export const LinkText = (props: any) => {
 export const LinkItem = (props: any) => {
 	const { href, ...rest } = props;
 	return href ? (
-		<Link href={href}>
+		<WrappedLink href={href}>
 			<LinkText {...rest} />
-		</Link>
+		</WrappedLink>
 	) : (
 		<LinkText {...rest} />
 	);

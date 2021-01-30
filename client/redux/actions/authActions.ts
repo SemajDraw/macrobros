@@ -5,7 +5,7 @@ import { BASE_URL } from '../../constants/endpoints';
 
 const { AUTH_ERROR, LOGOUT_SUCCESS, USER_LOADED, USER_LOADING } = AUTH;
 
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = () => (dispatch: any, getState: any) => {
 	// Initialize User Load
 	dispatch({ type: USER_LOADING });
 
@@ -15,19 +15,19 @@ export const loadUser = () => (dispatch, getState) => {
 				`${BASE_URL}/api/account/auth/user`,
 				tokenAuthHeaders(getState().auth.token)
 			)
-			.then((res) => {
+			.then((res: any) => {
 				dispatch({
 					type: USER_LOADED,
 					payload: res.data
 				});
 			})
-			.catch((err) => {
+			.catch(() => {
 				dispatch({ type: AUTH_ERROR });
 			});
 	}
 };
 
-export const login = (loginReq) => {
+export const login = (loginReq: any) => {
 	return axios.post(
 		`${BASE_URL}/api/account/auth/login`,
 		JSON.stringify(loginReq),
@@ -35,14 +35,14 @@ export const login = (loginReq) => {
 	);
 };
 
-export const logout = () => (dispatch, getState) => {
+export const logout = () => (dispatch: any, getState: any) => {
 	axios
 		.post(
 			`${BASE_URL}/api/account/auth/logout`,
 			null,
 			tokenAuthHeaders(getState().auth.token)
 		)
-		.then((res) => {
+		.then(() => {
 			dispatch({
 				type: LOGOUT_SUCCESS
 			});

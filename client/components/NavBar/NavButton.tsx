@@ -1,10 +1,12 @@
 import React from 'react';
-import { Button, Text } from '@chakra-ui/react';
+import {Box, Button, Text} from '@chakra-ui/react';
 import { ACCOUNT } from '../../constants/routes';
-import Link from '../ChakraComponents/Link';
+import WrappedLink from '../ChakraComponents/WrappedLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons/faUserCircle';
+import { useDispatch } from 'react-redux';
+import {logout} from "../../redux/actions/authActions";
 
 export const Btn = (props: any) => {
 	const { isAuthenticated, text } = props;
@@ -35,13 +37,20 @@ export const Btn = (props: any) => {
 };
 
 export const NavButton = (props: any) => {
+	const dispatch = useDispatch();
 	const { isAuthenticated, text } = props;
 	return isAuthenticated ? (
-		<Btn isAuthenticated={isAuthenticated} text={text} />
-	) : (
-		<Link href={ACCOUNT.LOGIN} _hover={{ textDecoration: 'none' }} w={'100%'}>
+		<Box onClick={() => dispatch(logout())}>
 			<Btn isAuthenticated={isAuthenticated} text={text} />
-		</Link>
+		</Box>
+	) : (
+		<WrappedLink
+			href={ACCOUNT.LOGIN}
+			_hover={{ textDecoration: 'none' }}
+			w={'100%'}
+		>
+			<Btn isAuthenticated={isAuthenticated} text={text} />
+		</WrappedLink>
 	);
 };
 

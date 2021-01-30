@@ -1,21 +1,12 @@
-import React, {useEffect} from 'react';
-import {Flex, Link, Text} from '@chakra-ui/react';
-import LoginForm from './LoginForm';
-import {ACCOUNT} from '../../../constants/routes';
+import React from 'react';
+import { Flex, Text } from '@chakra-ui/react';
+import { ACCOUNT } from '../../../constants/routes';
 import FormPage from '../../../components/shared/FormPage';
-import {useRouter} from 'next/router';
-import {useAuth} from '../../../providers/AuthProvider';
+import LoginForm from './LoginForm';
+import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
+import { parseCookie } from '../../../lib/parseCookies';
 
 export const Index = () => {
-	const router = useRouter();
-	const { isAuthenticated } = useAuth();
-
-	useEffect(() => {
-		if (isAuthenticated) {
-			router.push('/');
-		}
-	}, [isAuthenticated]);
-
 	return (
 		<FormPage
 			icons={true}
@@ -40,18 +31,29 @@ export const Index = () => {
 				<Flex>
 					<Text mr={1} fontSize={'sm'}>
 						New to MacroBros?{' '}
-						<Link
+						<WrappedLink
 							color='blue.500'
 							_hover={{ color: 'blue.700' }}
 							href={ACCOUNT.REGISTER}
 						>
 							Create an account.
-						</Link>
+						</WrappedLink>
 					</Text>
 				</Flex>
 			</Flex>
 		</FormPage>
 	);
 };
+
+export async function getServerSideProps({ req, res }: any) {
+	const { token } = parseCookie(req);
+	if (token) {
+		res.writeHead(302, { Location: '/' });
+		res.end();
+		return { props: {} };
+	}
+
+	return { props: {} };
+}
 
 export default Index;
