@@ -1,22 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 import { ACCOUNT } from '../../../constants/routes';
-import { useRouter } from 'next/router';
-import { useAuth } from '../../../providers/AuthProvider';
 import FormPage from '../../../components/shared/FormPage';
 import RegisterForm from './RegisterForm';
 import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
+import { parseCookie } from '../../../lib/parseCookies';
 
 export const Index = () => {
-	const router = useRouter();
-	const { isAuthenticated } = useAuth();
-
-	useEffect(() => {
-		if (isAuthenticated) {
-			router.push('/');
-		}
-	}, [isAuthenticated]);
-
 	return (
 		<FormPage
 			icons={false}
@@ -54,5 +44,16 @@ export const Index = () => {
 		</FormPage>
 	);
 };
+
+export async function getServerSideProps({ req, res }: any) {
+	const { token } = parseCookie(req);
+	if (token) {
+		res.writeHead(302, { Location: '/' });
+		res.end();
+		return { props: {} };
+	}
+
+	return { props: {} };
+}
 
 export default Index;
