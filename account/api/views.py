@@ -7,7 +7,8 @@ from smtplib import SMTPAuthenticationError
 from account.account_email import SendEmail
 from account.api.serializers import (RegisterSerializer,
                                      LoginSerializer,
-                                     UserSerializer,
+                                     UserDetailsSerializer,
+                                     UpdateUserSerializer,
                                      PasswordResetRequestSerializer,
                                      PasswordResetSerializer)
 from account.models import User
@@ -63,7 +64,7 @@ class Login(generics.GenericAPIView):
 
             if user.is_verified:
                 return Response({
-                    'user': UserSerializer(user, context=self.get_serializer_context()).data,
+                    'user': UserDetailsSerializer(user, context=self.get_serializer_context()).data,
                     'token': AuthToken.objects.create(user)[1]
                 }, status=status.HTTP_200_OK)
             else:
@@ -153,16 +154,16 @@ class GetUser(generics.GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         return Response({
-            'user': UserSerializer(self.request.user, context=self.get_serializer_context()).data
+            'user': UserDetailsSerializer(self.request.user, context=self.get_serializer_context()).data
         }, status=status.HTTP_200_OK)
 
 
 class UpdateUser(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated, ]
-    serializer_class = UserSerializer
+    serializer_class = UpdateUserSerializer
 
     def put(self, request, *args, **kwargs):
-        serializer = UserSerializer(self.request.user, data=request.data, partial=True)
+        serializer = UserDetailsSerializer(self.request.user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             if 'is_closed' in request.data:

@@ -5,8 +5,16 @@ import { Text } from '@chakra-ui/layout';
 import { MacroBrosIcon } from './Icons/MacroBrosIcon';
 import SocialIcons from './Icons/SocialIcons';
 import { useColorModeValue } from '@chakra-ui/color-mode';
+import MetaInfo from './MetaInfo';
 
-export const FormPage = ({ children, meta, heading, icons }) => {
+export const FormPage = ({
+	children,
+	meta,
+	heading,
+	icons,
+	minWidth = { base: '85%', sm: '355px', md: '350px', lg: '400px' },
+	maxWidth = { base: '85%', sm: '400px', lg: '450px' }
+}: any) => {
 	const iconColor = useColorModeValue('black', 'white');
 
 	return (
@@ -18,14 +26,11 @@ export const FormPage = ({ children, meta, heading, icons }) => {
 			direction={'column'}
 			width={'100%'}
 		>
-			<Head>
-				<title>{meta.title}</title>
-				<meta name='description' content={meta.description} />
-			</Head>
+			<MetaInfo title={meta.title} description={meta.description} />
 			<Flex
 				direction={'column'}
-				minWidth={{ base: '85%', sm: '355px', md: '350px', lg: '400px' }}
-				maxWidth={{ base: '85%', sm: '400px', lg: '450px' }}
+				minWidth={minWidth}
+				maxWidth={maxWidth}
 				align='center'
 			>
 				<Box h='100px' w='100px'>
@@ -40,7 +45,7 @@ export const FormPage = ({ children, meta, heading, icons }) => {
 				<Box w={'100%'}>{children}</Box>
 
 				{icons ? (
-					<Box w={'100%'} mt={10} px={{ base: 10, md: 12, lg: 16 }}>
+					<Box w={'100%'} mt={6} px={{ base: 10, md: 12, lg: 16 }}>
 						<SocialIcons iconColor={iconColor} />
 					</Box>
 				) : null}

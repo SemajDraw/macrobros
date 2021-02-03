@@ -14,6 +14,7 @@ export const CopyButton = ({ address, hasCopied, onCopy, setValue }) => {
 			placement='top'
 		>
 			<IconButton
+				aria-label={'copy-button'}
 				variant='link'
 				onClick={() => {
 					setValue(address);

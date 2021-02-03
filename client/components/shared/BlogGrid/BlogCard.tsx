@@ -6,6 +6,8 @@ import ParallaxBox from '../../FramerMotion/ParallaxBox';
 import MotionBox from '../../FramerMotion/MotionBox';
 
 const Card = ({ blog }) => {
+	// TODO Remove this
+	// console.log(blog);
 	const property = {
 		imageUrl: 'https://bit.ly/2Z4KKcF',
 		imageAlt: 'Rear view of modern home with pool',
@@ -79,16 +81,12 @@ const Card = ({ blog }) => {
 	);
 };
 
-export const BlogCard = ({ blog, length, index }) => {
-	if (length <= 4 || index === length - 1 || index === length - 2) {
-		return <Card key={index} blog={blog} />;
-	} else {
-		return (
-			<ParallaxBox>
-				<Card key={index} blog={blog} />
-			</ParallaxBox>
-		);
-	}
+export const BlogCard = ({ blog, index }) => {
+	return (
+		<ParallaxBox>
+			<Card key={index} blog={blog} />
+		</ParallaxBox>
+	);
 };
 
 export default BlogCard;

@@ -4,7 +4,9 @@ import BlogGrid from './BlogGrid/BlogGrid';
 import SideBar from '../SideBar/SideBar';
 import StickyBox from 'react-sticky-box';
 
-export const BlogGridSideBar = ({ blogs, categories }) => {
+export const BlogGridSideBar = ({ blogs }: any) => {
+	// TODO Remove this
+	// console.log(blogs)
 	return (
 		<Grid
 			templateColumns='repeat(12, 1fr)'
@@ -40,7 +42,7 @@ export const BlogGridSideBar = ({ blogs, categories }) => {
 			</GridItem>
 			<GridItem colSpan={{ base: 12, lg: 3 }}>
 				<StickyBox offsetTop={30}>
-					<SideBar categories={categories} />
+					<SideBar />
 				</StickyBox>
 			</GridItem>
 		</Grid>

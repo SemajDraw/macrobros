@@ -23,5 +23,6 @@ def send_email(request):
                                        'Thank you for your patience'] }, status=status.HTTP_200_OK)
     return Response({ 'internal': ['Oops something went wrong!',
                                    'We are experiencing some technical difficulties. '
-                                   'Please try and contact us again at a later time. '
+                                   'Please try and contact us again at a later time or'
+                                   ' reach out to us on one of our social platforms below. '
                                    'Thank you for your patience.'] }, status=status.HTTP_400_BAD_REQUEST)

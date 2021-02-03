@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Grid, GridItem, Text } from '@chakra-ui/layout';
 import CategoryAccordion from './CategoryAccordion';
-import SearchBar from './SearchBar';
+import SearchBar from '../shared/SearchBar';
 
-export const SideBar = ({ categories }) => {
+export const SideBar = () => {
 	return (
 		<Grid templateColumns='repeat(12, 1fr)' gap={2}>
 			<GridItem colSpan={12}>
@@ -11,7 +11,7 @@ export const SideBar = ({ categories }) => {
 					<SearchBar />
 				</Box>
 				<Box pt={4}>
-					<CategoryAccordion categories={categories} />
+					<CategoryAccordion />
 				</Box>
 				<Text mt={3} fontSize={'2xl'}>
 					Popular Blogs

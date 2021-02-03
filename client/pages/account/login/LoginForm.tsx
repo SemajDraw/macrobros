@@ -18,8 +18,8 @@ import { Flex, Text } from '@chakra-ui/layout';
 import { useDispatch } from 'react-redux';
 import { login } from '../../../redux/actions/authActions';
 import { AUTH } from '../../../redux/types';
+import { useAuth } from '../../../providers/AuthProvider';
 import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
-import { useCookies } from 'react-cookie';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export const LoginForm = () => {
-	const [cookie, setCookie] = useCookies(['token']);
+	const { setCookie } = useAuth();
 	const dispatch = useDispatch();
 
 	return (
@@ -44,7 +44,10 @@ export const LoginForm = () => {
 			<Formik
 				initialValues={{ email: '', password: '' }}
 				validationSchema={validationSchema}
-				onSubmit={(values, { setSubmitting, resetForm, setFieldError }) => {
+				onSubmit={(
+					values: any,
+					{ setSubmitting, resetForm, setFieldError }: any
+				) => {
 					setSubmitting(true);
 
 					login(values)
@@ -66,7 +69,7 @@ export const LoginForm = () => {
 						});
 				}}
 			>
-				{({ handleSubmit, isSubmitting }) => (
+				{({ handleSubmit, isSubmitting }: any) => (
 					<Form onSubmit={handleSubmit}>
 						<Field name='email'>
 							{({ field, form }: any) => (

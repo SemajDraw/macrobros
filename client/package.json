@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export -o ../static && python ../template_parser.py -d ../static",
+    "build": "next build",
     "start": "next start",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "lint:check": " npx eslint --print-config pages/index.tsx | npx eslint-config-prettier-check",
@@ -55,6 +55,7 @@
     "react": "17.0.1",
     "react-cookie": "^4.0.3",
     "react-dom": "17.0.1",
+    "react-intersection-observer": "^8.31.0",
     "react-redux": "^7.2.2",
     "react-reveal": "^1.2.2",
     "react-spinners": "^0.10.4",

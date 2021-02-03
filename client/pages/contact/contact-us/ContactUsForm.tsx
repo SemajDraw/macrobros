@@ -1,0 +1,192 @@
+import React from 'react';
+import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import {
+	Box,
+	Button,
+	FormControl,
+	FormErrorMessage,
+	FormLabel,
+	Textarea
+} from '@chakra-ui/react';
+import { CONTACT, FORM_SUBMIT } from '../../../redux/types';
+import { Field, Form, Formik } from 'formik';
+import { Input } from '@chakra-ui/input';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
+import { Flex } from '@chakra-ui/layout';
+import { Spinner } from '@chakra-ui/spinner';
+import { sendEmail } from '../../../redux/actions/contactActions';
+import { useRouter } from 'next/router';
+import { SUBMIT } from '../../../constants/routes';
+
+const validationSchema = Yup.object().shape({
+	firstName: Yup.string()
+		.min(2, 'First name must have at least 2 characters')
+		.max(100, `First name can't be longer than 100 characters`)
+		.required('Please provide a first name'),
+	lastName: Yup.string()
+		.min(2, 'Last name must have at least 2 characters')
+		.max(100, `Last name can't be longer than 100 characters`)
+		.required('Please provide a last name'),
+	email: Yup.string()
+		.email('Please enter a valid email')
+		.max(100, 'Email must not be longer than 100 characters')
+		.required('Please enter your email address'),
+	body: Yup.string()
+		.min(2, 'Your question must have at least 2 characters')
+		.max(5000, `Your question can't be longer than 5000 characters`)
+		.required('Please ask us something...')
+});
+export const ContactUsForm = () => {
+	const dispatch = useDispatch();
+	const router = useRouter();
+
+	return (
+		<Box
+			my={5}
+			p={6}
+			borderWidth='1px'
+			borderRadius='lg'
+			overflow='hidden'
+			shadow='lg'
+		>
+			<Formik
+				initialValues={{ firstName: '', lastName: '', email: '', body: '' }}
+				validationSchema={validationSchema}
+				onSubmit={(values: any, { setSubmitting, resetForm }: any) => {
+					setSubmitting(true);
+
+					sendEmail(values)
+						.then((res: any) => {
+							dispatch({ type: CONTACT.EMAIL_SENT, payload: res.data });
+							setSubmitting(false);
+							resetForm();
+							dispatch({
+								type: FORM_SUBMIT.FORM_SUBMITTED,
+								payload: res.data.internal
+							});
+							router.push(SUBMIT.FORM_SUBMIT);
+						})
+						.catch((err: any) => {
+							setSubmitting(false);
+							dispatch({
+								type: FORM_SUBMIT.FORM_SUBMITTED,
+								payload: err.response.data.internal
+							});
+							router.push(SUBMIT.FORM_SUBMIT);
+						});
+				}}
+			>
+				{({ handleSubmit, isSubmitting }: any) => (
+					<Form onSubmit={handleSubmit}>
+						<Flex>
+							<Field name='firstName'>
+								{({ field, form }) => (
+									<FormControl
+										mr={3}
+										isInvalid={form.errors.firstName && form.touched.firstName}
+									>
+										<FormLabel ml={1} htmlFor='firstName'>
+											First name
+										</FormLabel>
+										<Input
+											{...field}
+											type='text'
+											id='firstName'
+											placeholder='First name'
+										/>
+										<FormErrorMessage>
+											<Flex>
+												<Box mx={1}>
+													<FontAwesomeIcon icon={faInfoCircle} />
+												</Box>
+												{form.errors.firstName}
+											</Flex>
+										</FormErrorMessage>
+									</FormControl>
+								)}
+							</Field>
+
+							<Field name='lastName'>
+								{({ field, form }) => (
+									<FormControl
+										ml={3}
+										isInvalid={form.errors.lastName && form.touched.lastName}
+									>
+										<FormLabel ml={1} htmlFor='lastName'>
+											Last name
+										</FormLabel>
+										<Input {...field} type='text' id='lastName' placeholder='Last name' />
+										<FormErrorMessage>
+											<Flex>
+												<Box mx={1}>
+													<FontAwesomeIcon icon={faInfoCircle} />
+												</Box>
+												{form.errors.lastName}
+											</Flex>
+										</FormErrorMessage>
+									</FormControl>
+								)}
+							</Field>
+						</Flex>
+
+						<Field name='email'>
+							{({ field, form }: any) => (
+								<FormControl mt={3} isInvalid={form.errors.email && form.touched.email}>
+									<FormLabel ml={1} htmlFor='email'>
+										Email
+									</FormLabel>
+									<Input {...field} type='email' id='email' placeholder='Email' />
+									<FormErrorMessage>
+										<Flex>
+											<Box mx={1}>
+												<FontAwesomeIcon icon={faInfoCircle} />
+											</Box>
+											{form.errors.email}
+										</Flex>
+									</FormErrorMessage>
+								</FormControl>
+							)}
+						</Field>
+
+						<Field name='body'>
+							{({ field, form }: any) => (
+								<FormControl mt={3} isInvalid={form.errors.body && form.touched.body}>
+									<FormLabel ml={1}>Message</FormLabel>
+									<Input
+										as={Textarea}
+										{...field}
+										type='text'
+										id='body'
+										placeholder='Ask us anything...'
+									/>
+									<FormErrorMessage>
+										<Flex>
+											<Box mx={1}>
+												<FontAwesomeIcon icon={faInfoCircle} />
+											</Box>
+											{form.errors.body}
+										</Flex>
+									</FormErrorMessage>
+								</FormControl>
+							)}
+						</Field>
+
+						<Button
+							colorScheme='blue'
+							w='100%'
+							mt={5}
+							disabled={isSubmitting}
+							type='submit'
+						>
+							{isSubmitting ? <Spinner color='white' /> : 'SEND'}
+						</Button>
+					</Form>
+				)}
+			</Formik>
+		</Box>
+	);
+};
+
+export default ContactUsForm;

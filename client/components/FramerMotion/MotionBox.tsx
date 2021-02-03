@@ -13,9 +13,9 @@ export type MotionBoxProps = Omit<ChakraProps, keyof MotionProps> &
 	};
 
 export const MotionBox = motion.custom(
-	forwardRef<MotionBoxProps, 'div'>((props, ref) => {
+	forwardRef<MotionBoxProps, 'div'>((props: any, ref) => {
 		const chakraProps = Object.keys(props)
-			.map((key) => [key, props[key]])
+			.map((key: string) => [key, props[key]])
 			.filter(([key]) => !isValidMotionProp(key))
 			.reduce((acc, [key, value]) => Object.assign(acc, { [key]: value }), {});
 

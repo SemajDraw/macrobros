@@ -20,7 +20,7 @@ export const Index = (props) => {
 
 export async function getStaticProps() {
 	const blogs = await fetcher(BLOG.BLOGS);
-	const categories = await fetcher(BLOG.BLOG_CATEGORIES);
+	const categories = await fetcher(BLOG.CATEGORIES);
 
 	return { props: { blogs, categories } };
 }

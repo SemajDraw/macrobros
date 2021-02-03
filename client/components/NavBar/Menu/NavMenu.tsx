@@ -11,12 +11,12 @@ import {
 } from '@chakra-ui/popover';
 import { formatUserInitials } from '../../../utils/stringUtils';
 import { useDispatch } from 'react-redux';
-import WrappedLink from '../../ChakraComponents/WrappedLink';
-import { HOME } from '../../../constants/routes';
-import NavButton from '../NavButton';
+import { ACCOUNT, BLOG } from '../../../constants/routes';
 import { useAuth } from '../../../providers/AuthProvider';
 import { logout } from '../../../redux/actions/authActions';
 import { useColorModeValue } from '@chakra-ui/color-mode';
+import WrappedLink from '../../ChakraComponents/WrappedLink';
+import NavButton from '../NavButton';
 
 const PopoverText = (props: any) => {
 	const isDark = useColorModeValue(false, true);
@@ -37,7 +37,7 @@ const PopoverText = (props: any) => {
 
 export const Authenticated = (props: any) => {
 	const { firstName, lastName } = props;
-
+	const { removeCookie } = useAuth();
 	const dispatch = useDispatch();
 
 	return (
@@ -52,7 +52,7 @@ export const Authenticated = (props: any) => {
 					{formatUserInitials([firstName, lastName])}
 				</Text>
 			</Flex>
-			<Popover gutter={20} isLazy>
+			<Popover placement='bottom' gutter={20} closeOnBlur={true}>
 				<PopoverTrigger>
 					<IconButton
 						aria-label='Search database'
@@ -71,7 +71,7 @@ export const Authenticated = (props: any) => {
 					fontWeight='light'
 				>
 					<PopoverHeader fontWeight='light' px={4} pt={6} pb={4}>
-						<WrappedLink href={HOME}>
+						<WrappedLink href={ACCOUNT.PROFILE}>
 							<Flex align={'center'}>
 								<Avatar size={'sm'} mr={2} />
 								<PopoverText color={'gray.700'}>
@@ -83,22 +83,27 @@ export const Authenticated = (props: any) => {
 					<PopoverArrow />
 					<PopoverBody px={0} py={2}>
 						<Box px={4} pb={2}>
-							<WrappedLink href={HOME}>
+							<WrappedLink href={ACCOUNT.PROFILE}>
 								<PopoverText color={'gray.600'}>Profile</PopoverText>
 							</WrappedLink>
-							<WrappedLink href={HOME}>
+							<WrappedLink href={ACCOUNT.SETTINGS}>
 								<PopoverText color={'gray.600'}>Settings</PopoverText>
 							</WrappedLink>
 						</Box>
 						<Divider />
 						<Box px={4} pt={2}>
-							<WrappedLink href={HOME}>
+							<WrappedLink href={BLOG.BLOGS}>
 								<PopoverText color={'gray.600'}>Blogs</PopoverText>
 							</WrappedLink>
 						</Box>
 					</PopoverBody>
 					<PopoverFooter px={4} pb={3}>
-						<Box onClick={() => dispatch(logout())}>
+						<Box
+							onClick={() => {
+								dispatch(logout());
+								removeCookie('token');
+							}}
+						>
 							<PopoverText color={'gray.600'}>Sign Out</PopoverText>
 						</Box>
 					</PopoverFooter>

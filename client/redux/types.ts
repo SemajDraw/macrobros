@@ -37,3 +37,7 @@ export const LOADING = {
 	SHOW_LOADER: 'SHOW_LOADER',
 	HIDE_LOADER: 'HIDE_LOADER'
 };
+
+export const FORM_SUBMIT = {
+	FORM_SUBMITTED: 'form-submit'
+};

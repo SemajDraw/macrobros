@@ -8,8 +8,8 @@ const override = css`
 	margin: 0 auto;
 `;
 
-export const LoadingSpinner = (props) => {
-	const [isLoading, setIsLoading] = useState(props.isLoading);
+export const LoadingSpinner = (props: any) => {
+	const { isLoading } = props;
 
 	return (
 		<Box>

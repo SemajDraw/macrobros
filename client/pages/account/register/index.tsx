@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Flex, Text } from '@chakra-ui/react';
-import { ACCOUNT } from '../../../constants/routes';
+import { ACCOUNT, HOME } from '../../../constants/routes';
+import { parseCookie } from '../../../lib/parseCookies';
+import { useRouter } from 'next/router';
+import { useAuth } from '../../../providers/AuthProvider';
 import FormPage from '../../../components/shared/FormPage';
 import RegisterForm from './RegisterForm';
 import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
-import { parseCookie } from '../../../lib/parseCookies';
 
 export const Index = () => {
+	const router = useRouter();
+	const { isAuthenticated } = useAuth();
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			router.push(HOME);
+		}
+	}, [isAuthenticated]);
+
 	return (
 		<FormPage
 			icons={false}

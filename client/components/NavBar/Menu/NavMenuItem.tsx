@@ -7,8 +7,6 @@ export const NavMenuItem = (props: any) => {
 	return (
 		<WrappedLink href={to}>
 			<Text
-				mb={{ base: isLast ? 0 : 8, sm: 0 }}
-				mr={{ base: 0, sm: isLast ? 0 : 8 }}
 				fontSize={16}
 				display='block'
 				_hover={{ textDecoration: 'none', color: 'linkOrange' }}

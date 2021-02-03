@@ -3,7 +3,9 @@ export const HOME = '/';
 export const ACCOUNT = {
 	LOGIN: '/account/login',
 	REGISTER: '/account/register',
-	FORGOT_PASSWORD: '/account/forgot-password'
+	FORGOT_PASSWORD: '/account/forgot-password',
+	PROFILE: '/account/profile',
+	SETTINGS: '/account/settings'
 };
 
 export const BLOG = {
@@ -14,3 +16,13 @@ export const POLICIES = {
 	TERMS_OF_SERVICE: '/policies/terms-of-service',
 	PRIVACY_POLICY: '/policies/privacy-policy'
 };
+
+export const CONTACT = {
+	CONTACT_US: '/contact/contact-us'
+};
+
+export const SUBMIT = {
+	FORM_SUBMIT: '/submit/form-submit'
+};
+
+export const SEARCH = '/search';

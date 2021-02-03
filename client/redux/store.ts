@@ -9,7 +9,7 @@ const bindMiddleware = (middleware: any) => {
 	if (process.env.ENV !== 'prod') {
 		return composeWithDevTools(applyMiddleware(...middleware));
 	}
-	return applyMiddleware(middleware);
+	return applyMiddleware(...middleware);
 };
 
 function persistedStore(initialState = {}) {
@@ -25,6 +25,7 @@ const makeStore = ({ isServer }: any) => {
 		return createStore(rootReducer, bindMiddleware([thunkMiddleware]));
 	} else {
 		const store = persistedStore();
+		// @ts-ignore
 		store.__persistor = persistStore(store);
 		return store;
 	}

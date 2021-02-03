@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from '../redux/actions/authActions';
 import { useCookies } from 'react-cookie';
+import { useCookie } from '../hooks/useCookie';
 
 type AuthContextProps = {
 	isAuthenticated: boolean;
@@ -18,7 +19,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
 	const dispatch = useDispatch();
-	const [cookie, setCookie, removeCookie] = useCookies(['token']);
+	const { cookie, setCookie, removeCookie } = useCookie('token');
 	const { isAuthenticated, isLoading, token, user } = useSelector(
 		(state: any) => state.auth
 	);
@@ -44,7 +45,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 		isAuthenticated,
 		isLoading,
 		token,
-		user
+		user,
+		cookie,
+		setCookie,
+		removeCookie
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

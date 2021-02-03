@@ -3,12 +3,12 @@ import { Text } from '@chakra-ui/react';
 import { Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/layout';
 import LinkItem from '../LinkItem';
 import FooterSocialIcons from './FooterSocialIcons';
-import { HOME, POLICIES } from '../../constants/routes';
+import { BLOG, CONTACT, HOME, POLICIES } from '../../constants/routes';
 import { useDisclosure } from '@chakra-ui/hooks';
 import DonateModal from './DonateModal';
 
 export const Footer = () => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const modal = useDisclosure();
 
 	return (
 		<Box bg='layoutBlack'>
@@ -32,7 +32,7 @@ export const Footer = () => {
 				<GridItem colSpan={{ base: 12, md: 4, lg: 3 }}>
 					<Flex direction='column'>
 						<Heading as='h3' size='md' mt={1} mb={3}>
-							<LinkItem cursor='pointer' color='#FFFFFF'>
+							<LinkItem href={CONTACT.CONTACT_US} cursor='pointer' color='#FFFFFF'>
 								Contact
 							</LinkItem>
 						</Heading>
@@ -54,7 +54,7 @@ export const Footer = () => {
 							Privacy Policy
 						</LinkItem>
 
-						<Box onClick={onOpen}>
+						<Box onClick={modal.onOpen}>
 							<LinkItem cursor='pointer' color='#FFFFFF' size='sm'>
 								Donate
 							</LinkItem>
@@ -63,7 +63,7 @@ export const Footer = () => {
 				</GridItem>
 				<GridItem display={{ base: 'none', lg: 'block' }} colSpan={{ lg: 2 }}>
 					<Flex pt={14}>
-						<LinkItem href={HOME} cursor='pointer' color='gray.400' size='sm'>
+						<LinkItem href={BLOG.BLOGS} cursor='pointer' color='gray.400' size='sm'>
 							Blogs
 						</LinkItem>
 					</Flex>
@@ -89,7 +89,7 @@ export const Footer = () => {
 					</Text>
 				</GridItem>
 			</Grid>
-			<DonateModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+			<DonateModal {...modal} />
 		</Box>
 	);
 };

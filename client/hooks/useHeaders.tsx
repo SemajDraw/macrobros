@@ -1,17 +1,17 @@
+interface Headers {
+	headers: {
+		[key: string]: string;
+	};
+}
+
 export const tokenAuthHeaders = (token: string) => {
-	// Set headers
-	const config = baseHeaders();
-	// If token, add to Authorization navbar
+	const headers = baseHeaders();
 	if (token) {
-		config.headers['Authorization'] = `Token ${token}`;
+		headers.headers['Authorization'] = `Token ${token}`;
 	}
-	return config;
+	return headers;
 };
 
 export const baseHeaders = () => {
-	return {
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	};
+	return { headers: { 'Content-Type': 'application/json' } } as Headers;
 };

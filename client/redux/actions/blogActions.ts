@@ -1,6 +1,8 @@
 import axios from 'axios';
-import { BLOG } from '../types';
+import { BLOG as BlogTypes } from '../types';
 import { baseHeaders } from '../../hooks/useHeaders';
+import { apiUrl, paginateUrl } from '../../utils/stringUtils';
+import { BLOG, SEARCH } from '../../constants/endpoints';
 
 const {
 	CLAP_BLOG,
@@ -11,11 +13,11 @@ const {
 	GET_FEATURED_BLOG,
 	GET_POPULAR_BLOGS,
 	SEARCH_BLOGS
-} = BLOG;
+} = BlogTypes;
 
-export const getBlog = (slug) => (dispatch) => {
+export const getBlog = (slug: string) => (dispatch: any) => {
 	axios
-		.get(`/api/blog/${slug}`, baseHeaders())
+		.get(apiUrl(`/api/blog/${slug}`), baseHeaders())
 		.then((res) => {
 			dispatch({
 				type: GET_BLOG,
@@ -25,9 +27,9 @@ export const getBlog = (slug) => (dispatch) => {
 		.catch();
 };
 
-export const getBlogCategories = () => (dispatch) => {
+export const getBlogCategories = () => (dispatch: any) => {
 	axios
-		.get('/api/blog/categories', baseHeaders())
+		.get(BLOG.CATEGORIES, baseHeaders())
 		.then((res) => {
 			dispatch({
 				type: GET_BLOG_CATEGORIES,
@@ -37,9 +39,9 @@ export const getBlogCategories = () => (dispatch) => {
 		.catch();
 };
 
-export const getFeaturedBlog = () => (dispatch) => {
+export const getFeaturedBlog = () => (dispatch: any) => {
 	axios
-		.get('/api/blog/featured', baseHeaders())
+		.get(BLOG.FEATURED, baseHeaders())
 		.then((res) => {
 			dispatch({
 				type: GET_FEATURED_BLOG,
@@ -49,9 +51,9 @@ export const getFeaturedBlog = () => (dispatch) => {
 		.catch();
 };
 
-export const getPopularBlogs = () => (dispatch) => {
+export const getPopularBlogs = () => (dispatch: any) => {
 	axios
-		.get('/api/blog/popular', baseHeaders())
+		.get(BLOG.POPULAR, baseHeaders())
 		.then((res) => {
 			dispatch({
 				type: GET_POPULAR_BLOGS,
@@ -61,29 +63,25 @@ export const getPopularBlogs = () => (dispatch) => {
 		.catch();
 };
 
-export const getBlogs = (pageNumber) => (dispatch) => {
-	let url;
-	pageNumber === undefined
-		? (url = 'http://localhost:8000/api/blog/')
-		: (url = '/api/blog/?page='.concat(pageNumber));
+export const getBlogs = (pageNumber) => (dispatch: any) => {
 	axios
-		.get(url, baseHeaders())
+		.get(paginateUrl(BLOG.BLOGS, pageNumber), baseHeaders())
 		.then((res) => {
 			dispatch({
 				type: GET_BLOGS,
 				payload: res.data
 			});
 		})
-		.catch(e => console.log('error',e.response.data));
+		.catch((e) => console.log('error', e.response.data));
 };
 
-export const getCategoryBlogs = (category, pageNumber) => (dispatch) => {
-	let url;
-	pageNumber === undefined
-		? (url = '/api/blog/category')
-		: (url = '/api/blog/category?page='.concat(pageNumber));
+export const getCategoryBlogs = (category, pageNumber) => (dispatch: any) => {
 	axios
-		.post(url, { category: category }, baseHeaders())
+		.post(
+			paginateUrl(BLOG.CATEGORY, pageNumber),
+			{ category: category },
+			baseHeaders()
+		)
 		.then((res) => {
 			dispatch({
 				type: GET_CATEGORY_BLOGS,
@@ -93,13 +91,13 @@ export const getCategoryBlogs = (category, pageNumber) => (dispatch) => {
 		.catch();
 };
 
-export const getSearchBlogs = (search, pageNumber) => (dispatch) => {
-	let url;
-	pageNumber === undefined
-		? (url = '/api/blog/search')
-		: (url = '/api/blog/search?page='.concat(pageNumber));
+export const getSearchBlogs = (search, pageNumber?) => (dispatch: any) => {
 	axios
-		.post(url, { search: search }, baseHeaders())
+		.post(
+			paginateUrl(SEARCH.BLOGS, pageNumber),
+			{ search: search },
+			baseHeaders()
+		)
 		.then((res) => {
 			dispatch({
 				type: SEARCH_BLOGS,
@@ -109,9 +107,9 @@ export const getSearchBlogs = (search, pageNumber) => (dispatch) => {
 		.catch();
 };
 
-export const clapBlog = (blogId) => (dispatch) => {
+export const clapBlog = (blogId: string) => (dispatch: any) => {
 	axios
-		.put('/api/blog/add-clap', { blogId: blogId }, baseHeaders())
+		.put(BLOG.ADD_CLAP, { blogId: blogId }, baseHeaders())
 		.then((res) => {
 			dispatch({
 				type: CLAP_BLOG,

@@ -42,7 +42,7 @@ const validationSchema = Yup.object().shape({
 		.required('Please confirm your password')
 });
 
-export const RegisterForm = (props) => {
+export const RegisterForm = () => {
 	return (
 		<Box
 			my={5}
@@ -62,7 +62,7 @@ export const RegisterForm = (props) => {
 					password2: ''
 				}}
 				validationSchema={validationSchema}
-				onSubmit={(values, { setSubmitting, resetForm, setFieldError }) => {
+				onSubmit={(_values, { setSubmitting }) => {
 					setSubmitting(true);
 
 					// login(values)
@@ -79,15 +79,7 @@ export const RegisterForm = (props) => {
 					// 	});
 				}}
 			>
-				{({
-					values,
-					errors,
-					touched,
-					handleChange,
-					handleBlur,
-					handleSubmit,
-					isSubmitting
-				}) => (
+				{({ handleSubmit, isSubmitting }) => (
 					<Form onSubmit={handleSubmit}>
 						<Field name='firstName'>
 							{({ field, form }) => (
@@ -151,7 +143,7 @@ export const RegisterForm = (props) => {
 						</Field>
 
 						<Field name='isSubscribed'>
-							{({ field, form }) => (
+							{({ form }) => (
 								<FormControl
 									pt={3}
 									isInvalid={form.errors.isSubscribed && form.touched.isSubscribed}

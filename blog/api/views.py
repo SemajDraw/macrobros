@@ -68,7 +68,7 @@ class SearchBlogPosts(ListAPIView):
 
     def post(self, request, format=None):
         data = self.request.data
-        search_fields = data['search'].split()
+        search_fields = data['search'].split(' ')
         queryset = []
         for field in search_fields:
             blog_posts = BlogPost.objects.filter(

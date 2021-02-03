@@ -4,15 +4,21 @@ import { InputGroup, InputRightAddon } from '@chakra-ui/react';
 import { Input } from '@chakra-ui/input';
 import { Search2Icon } from '@chakra-ui/icons';
 import { Spinner } from '@chakra-ui/spinner';
+import { useRouter } from 'next/router';
+import { SEARCH } from '../../constants/routes';
 
 export const SearchBar = () => {
+	const router = useRouter();
+
 	return (
 		<Formik
 			initialValues={{ search: '' }}
 			onSubmit={(values, { setSubmitting, resetForm }) => {
-				resetForm();
 				setSubmitting(true);
-				console.log('search value', values.search);
+				router
+					.push(`${SEARCH}?query=${values.search}`)
+					.then(() => setSubmitting(false));
+				resetForm();
 			}}
 		>
 			{({ handleSubmit, isSubmitting }) => (

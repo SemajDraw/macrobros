@@ -5,10 +5,9 @@ import MotionBox from '../../FramerMotion/MotionBox';
 
 export const LoadingPage = () => {
 	const transitionValues = {
-		duration: 1,
-		yoyo: Infinity,
-		ease: 'easeOut',
-		type: 'spring'
+		type: 'spring',
+		repeat: Infinity,
+		repeatType: 'reverse'
 	};
 
 	return (
@@ -36,8 +35,8 @@ export const LoadingPage = () => {
 				<Flex
 					align={'center'}
 					justifyContent={'center'}
-					h={'100%'}
 					direction={'column'}
+					h={'100%'}
 				>
 					<MacroBrosIcon id='loader' strokeColor='white' />
 				</Flex>

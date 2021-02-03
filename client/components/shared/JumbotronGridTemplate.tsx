@@ -4,7 +4,7 @@ import useBlogs from '../../hooks/useBlogs';
 import LoadingSpinner from './Loading/LoadingSpinner';
 import BlogGridSideBar from './BlogGridSideBar';
 
-export const JumbotronGridTemplate = ({ children, ...props }) => {
+export const JumbotronGridTemplate = ({ children, ...props }: any) => {
 	const { blogs, loading } = useBlogs(props.blogs);
 
 	return (
@@ -22,11 +22,7 @@ export const JumbotronGridTemplate = ({ children, ...props }) => {
 				</Flex>
 			) : (
 				<>
-					<BlogGridSideBar
-						key={'home'}
-						blogs={blogs}
-						categories={props.categories}
-					/>
+					<BlogGridSideBar key={'home'} blogs={blogs} />
 				</>
 			)}
 		</div>

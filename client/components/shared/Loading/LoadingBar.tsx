@@ -1,9 +1,16 @@
 import React from 'react';
 import NProgress from 'nprogress';
 import Router from 'next/router';
-import PropTypes from 'prop-types';
 
-class LoadingBar extends React.Component {
+interface LoadingBarProps {
+	color;
+	startPosition;
+	stopDelayMs;
+	options?;
+	height;
+}
+
+class LoadingBar extends React.Component<LoadingBarProps> {
 	static defaultProps = {
 		color: '#3182CE',
 		startPosition: 0.4,
@@ -11,7 +18,7 @@ class LoadingBar extends React.Component {
 		height: 1.25
 	};
 
-	timer = null;
+	timer;
 
 	routeChangeStart = () => {
 		NProgress.set(this.props.startPosition);
@@ -24,6 +31,18 @@ class LoadingBar extends React.Component {
 			NProgress.done(true);
 		}, this.props.stopDelayMs);
 	};
+
+	componentDidMount() {
+		const { options } = this.props;
+
+		if (options) {
+			NProgress.configure(options);
+		}
+
+		Router.events.on('routeChangeStart', this.routeChangeStart);
+		Router.events.on('routeChangeComplete', this.routeChangeEnd);
+		Router.events.on('routeChangeError', this.routeChangeEnd);
+	}
 
 	render() {
 		const { color, height } = this.props;
@@ -64,25 +83,6 @@ class LoadingBar extends React.Component {
 			`}</style>
 		);
 	}
-
-	componentDidMount() {
-		const { options } = this.props;
-
-		if (options) {
-			NProgress.configure(options);
-		}
-
-		Router.events.on('routeChangeStart', this.routeChangeStart);
-		Router.events.on('routeChangeComplete', this.routeChangeEnd);
-		Router.events.on('routeChangeError', this.routeChangeEnd);
-	}
 }
-
-LoadingBar.propTypes = {
-	color: PropTypes.string,
-	startPosition: PropTypes.number,
-	stopDelayMs: PropTypes.number,
-	options: PropTypes.object
-};
 
 export default LoadingBar;

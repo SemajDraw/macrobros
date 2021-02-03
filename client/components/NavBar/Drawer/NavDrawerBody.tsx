@@ -1,19 +1,19 @@
 import React from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 import WrappedLink from '../../ChakraComponents/WrappedLink';
-import { BLOG, HOME } from '../../../constants/routes';
+import { ACCOUNT, BLOG } from '../../../constants/routes';
 
 export const NavDrawerBody = ({ isAuthenticated, onClose }: any) => {
 	return isAuthenticated ? (
 		<Flex direction={'column'}>
 			<WrappedLink
-				href={HOME}
+				href={ACCOUNT.PROFILE}
 				_hover={{ color: 'linkOrange' }}
 				onClick={() => onClose()}
 			>
 				<Text _hover={{ color: 'linkOrange' }}>Profile</Text>
 			</WrappedLink>
-			<WrappedLink pt={2} href={HOME} onClick={() => onClose()}>
+			<WrappedLink pt={2} href={ACCOUNT.SETTINGS} onClick={() => onClose()}>
 				<Text _hover={{ color: 'linkOrange' }}>Settings</Text>
 			</WrappedLink>
 			<WrappedLink mt={10} href={BLOG.BLOGS} onClick={() => onClose()}>

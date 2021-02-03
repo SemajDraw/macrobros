@@ -5,7 +5,7 @@ import { BLOG } from '../../constants/routes';
 import NavLogo from './NavLogo';
 import NavDrawer from './Drawer/NavDrawer';
 import NavMenuItem from './Menu/NavMenuItem';
-import DarkModeSwitch from '../shared/DarkModeSwitch';
+import DarkModePopover from '../shared/DarkModePopover';
 import NavMenu from './Menu/NavMenu';
 
 export const NavBar = (props: any) => {
@@ -32,8 +32,12 @@ export const NavBar = (props: any) => {
 
 				<Box display={{ base: 'none', md: 'block' }}>
 					<Flex align={'center'} justify={'flex-end'}>
-						<DarkModeSwitch />
-						<NavMenuItem to={BLOG.BLOGS}>Blogs</NavMenuItem>
+						<Box mr={2}>
+							<NavMenuItem to={BLOG.BLOGS}>Blogs</NavMenuItem>
+						</Box>
+						<Box mr={2}>
+							<DarkModePopover />
+						</Box>
 						<NavMenu />
 					</Flex>
 				</Box>

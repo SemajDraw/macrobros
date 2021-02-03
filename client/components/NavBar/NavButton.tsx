@@ -1,12 +1,13 @@
 import React from 'react';
-import {Box, Button, Text} from '@chakra-ui/react';
+import { Box, Button, Text } from '@chakra-ui/react';
 import { ACCOUNT } from '../../constants/routes';
 import WrappedLink from '../ChakraComponents/WrappedLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons/faUserCircle';
 import { useDispatch } from 'react-redux';
-import {logout} from "../../redux/actions/authActions";
+import { logout } from '../../redux/actions/authActions';
+import { useAuth } from '../../providers/AuthProvider';
 
 export const Btn = (props: any) => {
 	const { isAuthenticated, text } = props;
@@ -38,9 +39,16 @@ export const Btn = (props: any) => {
 
 export const NavButton = (props: any) => {
 	const dispatch = useDispatch();
+	const { removeCookie } = useAuth();
 	const { isAuthenticated, text } = props;
+
 	return isAuthenticated ? (
-		<Box onClick={() => dispatch(logout())}>
+		<Box
+			onClick={() => {
+				dispatch(logout());
+				removeCookie('token');
+			}}
+		>
 			<Btn isAuthenticated={isAuthenticated} text={text} />
 		</Box>
 	) : (

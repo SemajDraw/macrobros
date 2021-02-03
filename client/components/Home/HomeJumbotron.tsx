@@ -33,12 +33,12 @@ export const HomeJumbotron = () => {
 				</Bounce>
 			</Flex>
 			<Flex>
-				<MotionBox initial={{ x: -1000 }} animate={{ x: 0, type: 'spring' }}>
+				<MotionBox initial={{ x: -1000 }} animate={{ x: 0 }}>
 					<Heading as='h1' size='4xl' color='white' fontWeight={800}>
 						Macro
 					</Heading>
 				</MotionBox>
-				<MotionBox initial={{ x: +1000 }} animate={{ x: 0, type: 'spring' }}>
+				<MotionBox initial={{ x: +1000 }} animate={{ x: 0 }}>
 					<Heading as='h1' size='4xl' color='white' fontWeight={800}>
 						Bros
 					</Heading>

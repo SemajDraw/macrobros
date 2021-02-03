@@ -14,11 +14,15 @@ import AppContainer from '../components/AppContainer';
 import AuthProvider from '../providers/AuthProvider';
 
 export const App = ({ Component, pageProps }: any) => {
+	// @ts-ignore
 	const store = useStore((state) => state);
 
 	return (
 		<SWRConfig value={{ fetcher }}>
-			<PersistGate loading={<LoadingPage />} persistor={store.__persistor}>
+			<PersistGate
+				loading={<LoadingPage />}
+				persistor={(store as any).__persistor}
+			>
 				<ChakraProvider theme={theme}>
 					<AuthProvider>
 						<AppContainer>
