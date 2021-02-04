@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from macrobros.pagination import CustomPagination
 
-from blog.api.serializers import BlogPostSerializer, BlogPostListSerializer
+from blog.api.serializers import BlogPostSerializer, BlogPostListSerializer, PopularBlogsListSerializer
 from blog.models import BlogPost, Categories
 
 
@@ -25,7 +25,7 @@ class BlogPostFeaturedView(ListAPIView):
 
 class BlogPostPopularView(ListAPIView):
     queryset = BlogPost.objects.all().filter(popular=True)
-    serializer_class = BlogPostListSerializer
+    serializer_class = PopularBlogsListSerializer
     lookup_field = 'slug'
     permission_classes = (permissions.AllowAny,)
     pagination_class = None
