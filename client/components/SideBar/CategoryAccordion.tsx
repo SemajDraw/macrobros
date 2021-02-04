@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MotionBox from '../FramerMotion/MotionBox';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { formatSlug } from '../../utils/stringUtils';
 import { HOME } from '../../constants/routes';
+import { useColorModeValue } from '@chakra-ui/color-mode';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBlogCategories } from '../../redux/actions/blogActions';
+import WrappedLink from '../ChakraComponents/WrappedLink';
 import {
 	Accordion,
 	AccordionButton,
 	AccordionIcon,
 	AccordionItem
 } from '@chakra-ui/accordion';
-import { useColorModeValue } from '@chakra-ui/color-mode';
-import WrappedLink from '../ChakraComponents/WrappedLink';
 
-export const CategoryAccordion = ({ categories }: any) => {
+export const CategoryAccordion = () => {
+	const dispatch = useDispatch();
+	const categories = useSelector((state: any) => state.blog.blogCategories);
 	const bg = useColorModeValue('white', '#1A202C');
+
+	useEffect(() => {
+		dispatch(getBlogCategories());
+	}, []);
 
 	return (
 		<Accordion allowToggle>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Grid, GridItem, Text } from '@chakra-ui/layout';
 import CategoryAccordion from './CategoryAccordion';
 import SearchBar from '../shared/SearchBar';
+import PopularBlogs from './PopularBlogs';
 
 export const SideBar = () => {
 	return (
@@ -16,6 +17,7 @@ export const SideBar = () => {
 				<Text mt={3} fontSize={'2xl'}>
 					Popular Blogs
 				</Text>
+				<PopularBlogs />
 			</GridItem>
 		</Grid>
 	);
