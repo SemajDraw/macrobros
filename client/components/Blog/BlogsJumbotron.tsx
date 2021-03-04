@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import Bounce from 'react-reveal/Bounce';
 import { MacroBrosIcon } from '../shared/Icons/MacroBrosIcon';
 import { Heading } from '@chakra-ui/layout';
 import { MotionBox } from '../FramerMotion/MotionBox';
 
-export const BlogsJumbotron = () => {
+export const BlogsJumbotron: FC = () => {
 	return (
 		<Flex
 			flexDirection='column'
@@ -14,7 +14,6 @@ export const BlogsJumbotron = () => {
 			bgGradient='linear(to-b, #471c71, #FFAF7B)'
 			justifyContent='center'
 			alignItems='center'
-			// mx={{ base: '3vw', md: '8vw', lg: '9vw' }}
 		>
 			<Flex>
 				<Bounce delay={500} top>

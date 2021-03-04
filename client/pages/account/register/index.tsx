@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 import { ACCOUNT, HOME } from '../../../constants/routes';
 import { parseCookie } from '../../../lib/parseCookies';
@@ -6,9 +6,10 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../../../providers/AuthProvider';
 import FormPage from '../../../components/shared/FormPage';
 import RegisterForm from './RegisterForm';
-import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
+import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
+import { GetServerSideProps } from 'next';
 
-export const Index = () => {
+export const Index: FC = () => {
 	const router = useRouter();
 	const { isAuthenticated } = useAuth();
 
@@ -42,11 +43,7 @@ export const Index = () => {
 				<Flex>
 					<Text mr={1}>
 						Already have an account?{' '}
-						<WrappedLink
-							color='blue.500'
-							_hover={{ color: 'blue.700' }}
-							href={ACCOUNT.LOGIN}
-						>
+						<WrappedLink color='blue.500' _hover={{ color: 'blue.700' }} href={ACCOUNT.LOGIN}>
 							Please login.
 						</WrappedLink>
 					</Text>
@@ -56,7 +53,7 @@ export const Index = () => {
 	);
 };
 
-export async function getServerSideProps({ req, res }: any) {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 	const { token } = parseCookie(req);
 	if (token) {
 		res.writeHead(302, { Location: '/' });
@@ -65,6 +62,6 @@ export async function getServerSideProps({ req, res }: any) {
 	}
 
 	return { props: {} };
-}
+};
 
 export default Index;

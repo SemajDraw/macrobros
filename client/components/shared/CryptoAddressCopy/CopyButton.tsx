@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { IconButton } from '@chakra-ui/button';
 import { CopyIcon } from '@chakra-ui/icons';
 import { Tooltip } from '@chakra-ui/react';
+import { useClipboard } from '@chakra-ui/hooks';
 
-export const CopyButton = ({ address, hasCopied, onCopy, setValue }) => {
+interface CopyButtonProps {
+	address: string;
+}
+
+export const CopyButton: FC<CopyButtonProps> = ({ address }) => {
+	const { hasCopied, onCopy } = useClipboard(address);
+
 	return (
 		<Tooltip
 			hasArrow
@@ -16,10 +23,7 @@ export const CopyButton = ({ address, hasCopied, onCopy, setValue }) => {
 			<IconButton
 				aria-label={'copy-button'}
 				variant='link'
-				onClick={() => {
-					setValue(address);
-					onCopy();
-				}}
+				onClick={onCopy}
 				ml={2}
 				color='blue.400'
 				_hover={{ color: 'blue.600' }}

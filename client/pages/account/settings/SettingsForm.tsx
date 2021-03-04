@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import { Divider, Flex, Text } from '@chakra-ui/layout';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -14,12 +14,11 @@ const validationSchema = Yup.object().shape({
 	isSubscribed: Yup.bool().required()
 });
 
-export const SettingsForm = ({ user }: any) => {
+export const SettingsForm: FC<any> = ({ user }) => {
 	const modal = useDisclosure();
 	const dispatch = useDispatch();
 
-	const handleAccountChange = (field: any) => {
-		// console.log('fields', field);
+	const handleAccountChange = (field) => {
 		dispatch(updateAccount(field));
 	};
 
@@ -29,9 +28,11 @@ export const SettingsForm = ({ user }: any) => {
 				<Formik
 					initialValues={{ isSubscribed: user?.isSubscribed }}
 					validationSchema={validationSchema}
-					onSubmit={() => {}}
+					onSubmit={() => {
+						return;
+					}}
 				>
-					{({ handleBlur }: any) => (
+					{({ handleBlur }) => (
 						<Form style={{ width: '100%' }}>
 							<Flex direction={'column'} mb={3}>
 								<Text fontSize={'xl'} fontWeight={'medium'}>
@@ -41,10 +42,8 @@ export const SettingsForm = ({ user }: any) => {
 							</Flex>
 
 							<Field name={'isSubscribed'}>
-								{({ field, form }: any) => (
-									<FormControl
-										isInvalid={form.errors.isSubscribed && form.touched.isSubscribed}
-									>
+								{({ field, form }) => (
+									<FormControl isInvalid={form.errors.isSubscribed && form.touched.isSubscribed}>
 										<FormLabel fontWeight={'medium'}>Newsletter Subscription</FormLabel>
 										<Flex align={'center'}>
 											<Switch
@@ -52,7 +51,7 @@ export const SettingsForm = ({ user }: any) => {
 												id={'isSubscribed'}
 												defaultChecked={user?.isSubscribed}
 												size={'sm'}
-												onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
+												onBlur={(e: ChangeEvent<HTMLInputElement>) => {
 													handleBlur(e);
 													handleAccountChange({ [e.target.name]: e.target.value });
 												}}
@@ -91,5 +90,3 @@ export const SettingsForm = ({ user }: any) => {
 		</Flex>
 	);
 };
-
-export default SettingsForm;

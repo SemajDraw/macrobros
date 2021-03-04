@@ -1,13 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as Yup from 'yup';
 
-import {
-	Box,
-	Button,
-	FormControl,
-	FormErrorMessage,
-	FormLabel
-} from '@chakra-ui/react';
+import { Box, Button, FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 import { ACCOUNT } from '../../../constants/routes';
@@ -19,7 +13,9 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../../redux/actions/authActions';
 import { AUTH } from '../../../redux/types';
 import { useAuth } from '../../../providers/AuthProvider';
-import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
+import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
+import { LoginFormModel } from '../../../models/LoginFormModel';
+import { AxiosError, AxiosResponse } from 'axios';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -28,30 +24,21 @@ const validationSchema = Yup.object().shape({
 	password: Yup.string().required('Please enter a password')
 });
 
-export const LoginForm = () => {
+export const LoginForm: FC = () => {
 	const { setCookie } = useAuth();
 	const dispatch = useDispatch();
+	const initialValues: LoginFormModel = { email: '', password: '' };
 
 	return (
-		<Box
-			my={5}
-			p={6}
-			borderWidth='1px'
-			borderRadius='lg'
-			overflow='hidden'
-			shadow='lg'
-		>
+		<Box my={5} p={6} borderWidth='1px' borderRadius='lg' overflow='hidden' shadow='lg'>
 			<Formik
-				initialValues={{ email: '', password: '' }}
+				initialValues={initialValues}
 				validationSchema={validationSchema}
-				onSubmit={(
-					values: any,
-					{ setSubmitting, resetForm, setFieldError }: any
-				) => {
+				onSubmit={(values, { setSubmitting, resetForm, setFieldError }) => {
 					setSubmitting(true);
 
 					login(values)
-						.then((res: any) => {
+						.then((res: AxiosResponse) => {
 							setCookie('token', res.data.token, {
 								path: '/',
 								maxAge: 86400,
@@ -61,18 +48,18 @@ export const LoginForm = () => {
 							resetForm();
 							setSubmitting(false);
 						})
-						.catch((err: any) => {
+						.catch((err: AxiosError) => {
 							setSubmitting(false);
 							dispatch({ type: AUTH.LOGIN_FAIL });
-							const field = Object.keys(err.response.data)[0];
-							setFieldError(field, err.response.data[field]);
+							const field = Object.keys(err.response?.data)[0];
+							setFieldError(field, err.response?.data[field]);
 						});
 				}}
 			>
-				{({ handleSubmit, isSubmitting }: any) => (
+				{({ handleSubmit, isSubmitting }) => (
 					<Form onSubmit={handleSubmit}>
 						<Field name='email'>
-							{({ field, form }: any) => (
+							{({ field, form }) => (
 								<FormControl isInvalid={form.errors.email && form.touched.email}>
 									<FormLabel ml={1} htmlFor='email'>
 										Email
@@ -89,11 +76,8 @@ export const LoginForm = () => {
 						</Field>
 
 						<Field name='password'>
-							{({ field, form }: any) => (
-								<FormControl
-									pt={3}
-									isInvalid={form.errors.password && form.touched.password}
-								>
+							{({ field, form }) => (
+								<FormControl pt={3} isInvalid={form.errors.password && form.touched.password}>
 									<Flex justifyContent='space-between'>
 										<Text ml={1}>Password</Text>
 										<WrappedLink
@@ -105,12 +89,7 @@ export const LoginForm = () => {
 											Forgot password?
 										</WrappedLink>
 									</Flex>
-									<Input
-										{...field}
-										type='password'
-										id='password'
-										placeholder='Password'
-									/>
+									<Input {...field} type='password' id='password' placeholder='Password' />
 									<FormErrorMessage>
 										<Box mx={1}>
 											<FontAwesomeIcon icon={faInfoCircle} />
@@ -121,13 +100,7 @@ export const LoginForm = () => {
 							)}
 						</Field>
 
-						<Button
-							colorScheme='blue'
-							w='100%'
-							mt={5}
-							disabled={isSubmitting}
-							type='submit'
-						>
+						<Button colorScheme='blue' w='100%' mt={5} disabled={isSubmitting} type='submit'>
 							{isSubmitting ? <Spinner color='white' /> : 'LOGIN'}
 						</Button>
 					</Form>

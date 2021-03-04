@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export const MacroBrosIcon = ({ id, strokeColor }: any) => {
+interface MacroBrosIconProps {
+	id: string;
+	strokeColor: string;
+}
+
+export const MacroBrosIcon: FC<MacroBrosIconProps> = ({ id, strokeColor }) => {
 	const prefixStrClass = `prefix__str1${id}`;
 	const prefixFillClass = `prefix__fil1${id}`;
 

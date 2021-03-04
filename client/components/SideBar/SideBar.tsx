@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, Grid, GridItem, Text } from '@chakra-ui/layout';
-import CategoryAccordion from './CategoryAccordion';
+import { CategoryAccordion } from './CategoryAccordion';
 import SearchBar from '../shared/SearchBar';
-import PopularBlogs from './PopularBlogs';
+import { PopularBlogs } from './PopularBlogs';
 
-export const SideBar = () => {
+export const SideBar: FC = () => {
 	return (
 		<Grid templateColumns='repeat(12, 1fr)' gap={2}>
 			<GridItem colSpan={12}>
@@ -22,5 +22,3 @@ export const SideBar = () => {
 		</Grid>
 	);
 };
-
-export default SideBar;

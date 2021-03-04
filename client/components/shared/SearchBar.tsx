@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { InputGroup, InputRightAddon } from '@chakra-ui/react';
 import { Input } from '@chakra-ui/input';
@@ -7,7 +7,7 @@ import { Spinner } from '@chakra-ui/spinner';
 import { useRouter } from 'next/router';
 import { SEARCH } from '../../constants/routes';
 
-export const SearchBar = () => {
+export const SearchBar: FC = () => {
 	const router = useRouter();
 
 	return (
@@ -15,16 +15,14 @@ export const SearchBar = () => {
 			initialValues={{ search: '' }}
 			onSubmit={(values, { setSubmitting, resetForm }) => {
 				setSubmitting(true);
-				router
-					.push(`${SEARCH}?query=${values.search}`)
-					.then(() => setSubmitting(false));
+				router.push(`${SEARCH}?query=${values.search}`).then(() => setSubmitting(false));
 				resetForm();
 			}}
 		>
 			{({ handleSubmit, isSubmitting }) => (
 				<Form onSubmit={handleSubmit}>
 					<Field name='search'>
-						{({ field }: any) => (
+						{({ field }) => (
 							<InputGroup size='md'>
 								<Input
 									{...field}
@@ -40,11 +38,7 @@ export const SearchBar = () => {
 									background={'#3182CE'}
 									_hover={{ background: '#2B6CB0' }}
 								>
-									{isSubmitting ? (
-										<Spinner color='white' />
-									) : (
-										<Search2Icon color={'white'} />
-									)}
+									{isSubmitting ? <Spinner color='white' /> : <Search2Icon color={'white'} />}
 								</InputRightAddon>
 							</InputGroup>
 						)}

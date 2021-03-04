@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Text } from '@chakra-ui/react';
 import { Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/layout';
 import LinkItem from '../LinkItem';
@@ -7,7 +7,7 @@ import { BLOG, CONTACT, HOME, POLICIES } from '../../constants/routes';
 import { useDisclosure } from '@chakra-ui/hooks';
 import DonateModal from './DonateModal';
 
-export const Footer = () => {
+export const Footer: FC = () => {
 	const modal = useDisclosure();
 
 	return (
@@ -45,12 +45,7 @@ export const Footer = () => {
 							Terms of Service
 						</LinkItem>
 
-						<LinkItem
-							href={POLICIES.PRIVACY_POLICY}
-							cursor='pointer'
-							color='#FFFFFF'
-							size='sm'
-						>
+						<LinkItem href={POLICIES.PRIVACY_POLICY} cursor='pointer' color='#FFFFFF' size='sm'>
 							Privacy Policy
 						</LinkItem>
 
@@ -72,7 +67,7 @@ export const Footer = () => {
 
 			<Grid bg='layoutBlack' borderBottom='1px' borderColor='gray.400' py={6}>
 				<GridItem px={{ base: 0, md: '10vw', lg: '14vw' }}>
-					<FooterSocialIcons as='a' color='white' hover='linkOrange' />
+					<FooterSocialIcons />
 				</GridItem>
 			</Grid>
 

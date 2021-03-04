@@ -1,20 +1,28 @@
-import React from 'react';
-import { Box, Flex } from '@chakra-ui/react';
-import Head from 'next/head';
+import React, { FC } from 'react';
+import { Box, Flex, LayoutProps } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/layout';
 import { MacroBrosIcon } from './Icons/MacroBrosIcon';
-import SocialIcons from './Icons/SocialIcons';
+import { SocialIcons } from './Icons/SocialIcons';
 import { useColorModeValue } from '@chakra-ui/color-mode';
-import MetaInfo from './MetaInfo';
+import { MetaInfo } from './MetaInfo';
 
-export const FormPage = ({
+interface FormPageProps extends LayoutProps {
+	meta: {
+		title: string;
+		description: string;
+	};
+	heading: string;
+	icons: boolean;
+}
+
+export const FormPage: FC<FormPageProps> = ({
 	children,
 	meta,
 	heading,
 	icons,
 	minWidth = { base: '85%', sm: '355px', md: '350px', lg: '400px' },
 	maxWidth = { base: '85%', sm: '400px', lg: '450px' }
-}: any) => {
+}) => {
 	const iconColor = useColorModeValue('black', 'white');
 
 	return (
@@ -27,12 +35,7 @@ export const FormPage = ({
 			width={'100%'}
 		>
 			<MetaInfo title={meta.title} description={meta.description} />
-			<Flex
-				direction={'column'}
-				minWidth={minWidth}
-				maxWidth={maxWidth}
-				align='center'
-			>
+			<Flex direction={'column'} minWidth={minWidth} maxWidth={maxWidth} align='center'>
 				<Box h='100px' w='100px'>
 					<MacroBrosIcon id='login' strokeColor={iconColor} />
 				</Box>

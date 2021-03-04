@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { AUTH } from '../types';
 import { baseHeaders, tokenAuthHeaders } from '../../hooks/useHeaders';
 import { apiUrl } from '../../utils/stringUtils';
+import { LoginFormModel } from '../../models/LoginFormModel';
 
 const { AUTH_ERROR, LOGOUT_SUCCESS, USER_LOADED, USER_LOADING } = AUTH;
 
@@ -10,10 +11,7 @@ export const loadUser = () => (dispatch: any, getState: any) => {
 
 	if (getState().auth.token) {
 		axios
-			.get(
-				apiUrl('/api/account/auth/user'),
-				tokenAuthHeaders(getState().auth.token)
-			)
+			.get(apiUrl('/api/account/auth/user'), tokenAuthHeaders(getState().auth.token))
 			.then((res: any) => {
 				dispatch({
 					type: USER_LOADED,
@@ -26,7 +24,7 @@ export const loadUser = () => (dispatch: any, getState: any) => {
 	}
 };
 
-export const login = (loginReq: any) => {
+export const login = (loginReq: LoginFormModel): Promise<AxiosResponse> => {
 	return axios.post(
 		apiUrl('/api/account/auth/login'),
 		JSON.stringify(loginReq),
@@ -36,11 +34,7 @@ export const login = (loginReq: any) => {
 
 export const logout = () => (dispatch: any, getState: any) => {
 	axios
-		.post(
-			apiUrl('/api/account/auth/logout'),
-			null,
-			tokenAuthHeaders(getState().auth.token)
-		)
+		.post(apiUrl('/api/account/auth/logout'), null, tokenAuthHeaders(getState().auth.token))
 		.then(() => {
 			dispatch({
 				type: LOGOUT_SUCCESS

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import FormPage from '../../../components/shared/FormPage';
 import ContactUsForm from './ContactUsForm';
 
-export const Index = () => {
+export const Index: FC = () => {
 	return (
 		<FormPage
 			icons={true}

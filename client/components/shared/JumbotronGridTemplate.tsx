@@ -1,14 +1,48 @@
-import React from 'react';
-import { Flex } from '@chakra-ui/react';
-import useBlogs from '../../hooks/useBlogs';
-import LoadingSpinner from './Loading/LoadingSpinner';
-import BlogGridSideBar from './BlogGridSideBar';
+import React, { FC, useEffect, useState } from 'react';
+import { Box, Flex } from '@chakra-ui/react';
+import { LoadingSpinner } from './Loading/LoadingSpinner';
+import { BlogGridSideBar } from './BlogGridSideBar';
+import { Pagination } from './Pagination/Pagination';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { BLOG } from '../../redux/types';
+import { getBlogs } from '../../redux/actions/blogActions';
+import { PaginatedBlogs } from '../../models/PaginatedBlogs';
 
-export const JumbotronGridTemplate = ({ children, ...props }: any) => {
-	const { blogs, loading } = useBlogs(props.blogs);
+interface JumbotronGridTemplateProps {
+	serverPropBlogs: PaginatedBlogs;
+	paginationUrl: string;
+}
+
+export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
+	children,
+	serverPropBlogs,
+	paginationUrl
+}) => {
+	const router = useRouter();
+	const dispatch = useDispatch();
+	const blogs = useSelector((state) => state.blog.blogs);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (router.query.page) {
+			setLoading(true);
+			dispatch(getBlogs(router.query.page));
+		} else {
+			dispatch({
+				type: BLOG.GET_BLOGS,
+				payload: serverPropBlogs
+			});
+			setLoading(false);
+		}
+	}, [router.query]);
+
+	useEffect(() => {
+		setLoading(false);
+	}, [blogs]);
 
 	return (
-		<div style={{ minHeight: '100vh' }}>
+		<Box style={{ minHeight: '100vh' }}>
 			{children}
 
 			{loading ? (
@@ -22,10 +56,13 @@ export const JumbotronGridTemplate = ({ children, ...props }: any) => {
 				</Flex>
 			) : (
 				<>
-					<BlogGridSideBar key={'home'} blogs={blogs} />
+					<BlogGridSideBar {...blogs} />
 				</>
 			)}
-		</div>
+			<Flex my={8} justifyContent={'center'}>
+				<Pagination blogs={blogs} url={paginationUrl} />
+			</Flex>
+		</Box>
 	);
 };
 

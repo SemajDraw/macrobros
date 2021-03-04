@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Bounce from 'react-reveal/Bounce';
 import { Box, useBreakpointValue } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,8 +6,7 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 
-export const FooterSocialIcons = (props: any) => {
-	const { as, color, hover } = props;
+export const FooterSocialIcons: FC = () => {
 	const margin = useBreakpointValue({ md: '10vw', lg: '14vw' });
 	const icons = [
 		{ icon: faFacebook, href: 'https://www.facebook.com/macro.bros.716' },
@@ -26,13 +25,7 @@ export const FooterSocialIcons = (props: any) => {
 				}}
 			>
 				{icons.map((icon, i) => (
-					<Box
-						key={i}
-						as={as}
-						color={color}
-						_hover={{ color: { hover } }}
-						href={icon.href}
-					>
+					<Box key={i} as='a' color='white' _hover={{ color: 'linkOrange' }} href={icon.href}>
 						<FontAwesomeIcon size='2x' icon={icon.icon} />
 					</Box>
 				))}

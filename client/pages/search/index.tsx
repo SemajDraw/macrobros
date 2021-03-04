@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSearchBlogs } from '../../redux/actions/blogActions';
 import { Box, Divider, Grid, GridItem, Text } from '@chakra-ui/layout';
-import BlogGrid from '../../components/shared/BlogGrid/BlogGrid';
+import { BlogGrid } from '../../components/shared/BlogGrid/BlogGrid';
 import StickyBox from 'react-sticky-box';
-import SideBar from '../../components/SideBar/SideBar';
 import SearchBar from '../../components/shared/SearchBar';
-import CategoryAccordion from '../../components/SideBar/CategoryAccordion';
+import { CategoryAccordion } from '../../components/SideBar/CategoryAccordion';
+import { PopularBlogs } from '../../components/SideBar/PopularBlogs';
+import { Pagination } from '../../components/shared/Pagination/Pagination';
+import { Flex } from '@chakra-ui/react';
+import { SEARCH } from '../../constants/routes';
 
-export const Search = () => {
+export const Search: FC = () => {
 	const router = useRouter();
-	const { query } = router.query;
+	const { query, page } = router.query;
 	const dispatch = useDispatch();
 	const searchBlogs = useSelector((state: any) => state.blog.searchBlogs);
 
@@ -20,13 +23,14 @@ export const Search = () => {
 	const [totalResults, setTotalResults] = useState(null);
 
 	useEffect(() => {
-		if (query) {
+		if (query && page) {
+			dispatch(getSearchBlogs(query, page));
+		} else if (query) {
 			dispatch(getSearchBlogs(query));
 		}
-	}, [query]);
+	}, [query, page]);
 
 	useEffect(() => {
-		console.log('search res', searchBlogs);
 		if (searchBlogs.results !== undefined) {
 			if (searchBlogs.results.length !== 0) {
 				setHasResults(true);
@@ -47,8 +51,6 @@ export const Search = () => {
 			my={{ base: 6, md: 8, lg: 10 }}
 			mx={{ base: '3vw', md: '8vw', lg: '9vw' }}
 		>
-			{/*<GridItem colSpan={{ base: 12, lg: 9 }}></GridItem>*/}
-
 			<GridItem gridGap={2} colSpan={{ base: 12, lg: 9 }} mx='auto'>
 				<Text as={'h3'} fontSize={'4xl'}>
 					Search
@@ -58,30 +60,7 @@ export const Search = () => {
 				<Text ml={1} mb={2} fontWeight={'normal'}>
 					{totalResults} results found
 				</Text>
-				<BlogGrid
-					blogs={[
-						1,
-						2,
-						3,
-						4,
-						5,
-						6,
-						7,
-						8,
-						9,
-						10,
-						11,
-						12,
-						13,
-						14,
-						15,
-						16,
-						17,
-						18,
-						19,
-						20
-					]}
-				/>
+				<BlogGrid blogs={searchBlogs.results} />
 			</GridItem>
 			<GridItem colSpan={{ base: 12, lg: 3 }} mt={{ lg: '54px' }}>
 				<StickyBox offsetTop={30}>
@@ -91,7 +70,13 @@ export const Search = () => {
 					<Text mt={3} fontSize={'2xl'}>
 						Popular Blogs
 					</Text>
+					<PopularBlogs />
 				</StickyBox>
+			</GridItem>
+			<GridItem colSpan={12}>
+				<Flex justifyContent={'center'}>
+					<Pagination blogs={searchBlogs} url={SEARCH} query={query} />
+				</Flex>
 			</GridItem>
 		</Grid>
 	);

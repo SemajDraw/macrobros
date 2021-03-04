@@ -1,8 +1,12 @@
-import React from 'react';
-import { Link as ChakraLink } from '@chakra-ui/react';
+import React, { FC } from 'react';
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-export const WrappedLink = (props: any) => {
+interface WrappedLinkProps extends LinkProps {
+	href: string;
+}
+
+export const WrappedLink: FC<WrappedLinkProps> = (props) => {
 	const { children, href, ...rest } = props;
 
 	return (
@@ -13,5 +17,3 @@ export const WrappedLink = (props: any) => {
 		</NextLink>
 	);
 };
-
-export default WrappedLink;

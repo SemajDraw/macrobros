@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Flex, Spacer, Text } from '@chakra-ui/layout';
 import { Avatar } from '@chakra-ui/avatar';
 import { useBreakpointValue } from '@chakra-ui/media-query';
@@ -6,11 +6,14 @@ import { Tab, TabList, Tabs } from '@chakra-ui/tabs';
 import { useAuth } from '../../providers/AuthProvider';
 import { formatUserInitials } from '../../utils/stringUtils';
 import { ACCOUNT, HOME } from '../../constants/routes';
-import WrappedLink from '../ChakraComponents/WrappedLink';
+import { WrappedLink } from '../ChakraComponents/WrappedLink';
 import { useRouter } from 'next/router';
 
-export const ProfileTemplate = (props: any) => {
-	const { children, tabIndex } = props;
+interface ProfileTemplateProps {
+	tabIndex: number;
+}
+
+export const ProfileTemplate: FC<ProfileTemplateProps> = ({ children, tabIndex }) => {
 	const { isAuthenticated, user } = useAuth();
 	const avatarSize = useBreakpointValue({ base: 'xl', sm: '2xl' });
 	const router = useRouter();

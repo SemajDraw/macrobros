@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 
-export const MetaInfo = ({ title, description }) => {
+interface MetaInfoProps {
+	title: string;
+	description: string;
+}
+
+export const MetaInfo: FC<MetaInfoProps> = ({ title, description }) => {
 	return (
 		<Head>
 			<title>{title}</title>
@@ -9,5 +14,3 @@ export const MetaInfo = ({ title, description }) => {
 		</Head>
 	);
 };
-
-export default MetaInfo;

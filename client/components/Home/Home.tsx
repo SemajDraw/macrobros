@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import HomeJumbotron from './HomeJumbotron';
 import JumbotronGridTemplate from '../shared/JumbotronGridTemplate';
+import { HOME } from '../../constants/routes';
+import { HomeProps } from '../../pages';
 
-export const Home = (props: any) => {
+export const Home: FC<HomeProps> = ({ blogs }) => {
 	return (
-		<JumbotronGridTemplate {...props}>
+		<JumbotronGridTemplate serverPropBlogs={blogs} paginationUrl={HOME}>
 			<HomeJumbotron />
 		</JumbotronGridTemplate>
 	);

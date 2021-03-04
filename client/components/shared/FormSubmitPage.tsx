@@ -1,20 +1,29 @@
-import React from 'react';
-import { Box, Flex } from '@chakra-ui/react';
-import Head from 'next/head';
+import React, { FC } from 'react';
+import { Box, Flex, LayoutProps } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/layout';
 import { MacroBrosIcon } from './Icons/MacroBrosIcon';
-import SocialIcons from './Icons/SocialIcons';
+import { SocialIcons } from './Icons/SocialIcons';
 import { useColorModeValue } from '@chakra-ui/color-mode';
-import MetaInfo from './MetaInfo';
+import { MetaInfo } from './MetaInfo';
 
-export const FormSubmitPage = ({
+interface FormSubmitPageProps extends LayoutProps {
+	body: string;
+	meta: {
+		title: string;
+		description: string;
+	};
+	heading: string;
+	icons: boolean;
+}
+
+export const FormSubmitPage: FC<FormSubmitPageProps> = ({
 	body,
 	meta,
 	heading,
 	icons,
 	minWidth = { base: '85%', sm: '355px', md: '450px', lg: '500px' },
 	maxWidth = { base: '85%', sm: '400px', lg: '550px' }
-}: any) => {
+}) => {
 	const iconColor = useColorModeValue('black', 'white');
 
 	return (

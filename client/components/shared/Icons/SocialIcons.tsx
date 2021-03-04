@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faFacebook,
-	faInstagram,
-	faTwitter
-} from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { Box, Flex } from '@chakra-ui/react';
 
-export const SocialIcons = ({ iconColor = 'white' }) => {
+interface SocialIconsProps {
+	iconColor: string;
+}
+
+export const SocialIcons: FC<SocialIconsProps> = ({ iconColor = 'white' }) => {
 	const socialIcons = [
 		{ icon: faFacebook, href: 'https://www.facebook.com/macro.bros.716' },
 		{ icon: faInstagram, href: 'https://www.instagram.com/macro_bros.com_/' },
@@ -32,5 +32,3 @@ export const SocialIcons = ({ iconColor = 'white' }) => {
 		</Box>
 	);
 };
-
-export default SocialIcons;

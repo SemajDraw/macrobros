@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC } from 'react';
 import { css } from '@emotion/react';
 import GridLoader from 'react-spinners/GridLoader';
 import { Box } from '@chakra-ui/react';
@@ -8,14 +8,12 @@ const override = css`
 	margin: 0 auto;
 `;
 
-export const LoadingSpinner = (props: any) => {
-	const { isLoading } = props;
+interface LoadingSpinnerProps {
+	isLoading: boolean;
+}
 
-	return (
-		<Box>
-			<GridLoader css={override} size={20} color={'#471c71'} loading={isLoading} />
-		</Box>
-	);
-};
-
-export default LoadingSpinner;
+export const LoadingSpinner: FC<LoadingSpinnerProps> = ({ isLoading }) => (
+	<Box>
+		<GridLoader css={override} size={20} color={'#471c71'} loading={isLoading} />
+	</Box>
+);

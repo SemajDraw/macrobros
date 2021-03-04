@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
 	Box,
 	Drawer,
@@ -14,12 +14,16 @@ import {
 import { useSwipeable } from 'react-swipeable';
 import { MacroBrosIcon } from '../../shared/Icons/MacroBrosIcon';
 import { useAuth } from '../../../providers/AuthProvider';
-import NavDrawerFooter from './NavDrawerFooter';
-import NavDrawerBody from './NavDrawerBody';
+import { NavDrawerFooter } from './NavDrawerFooter';
+import { NavDrawerBody } from './NavDrawerBody';
 
-export const NavDrawer = (props: any) => {
+interface NavDrawerProps {
+	isOpen: boolean;
+	onClose: () => void;
+}
+
+export const NavDrawer: FC<NavDrawerProps> = ({ isOpen, onClose }) => {
 	const { isAuthenticated } = useAuth();
-	const { isOpen, onClose } = props;
 	const handlers = useSwipeable({
 		onSwipedRight: () => {
 			onClose();
@@ -56,5 +60,3 @@ export const NavDrawer = (props: any) => {
 		</Drawer>
 	);
 };
-
-export default NavDrawer;

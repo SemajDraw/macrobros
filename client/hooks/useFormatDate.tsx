@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
 
-export default function useFormatDate(date: string, format: string) {
+export const useFormatDate = (date: string, format: string): string => {
 	return dayjs(date).format(format);
-}
+};

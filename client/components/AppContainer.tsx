@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import LoadingPage from './shared/Loading/LoadingPage';
 
-export const AppContainer = ({ children }: any) => {
+export const AppContainer: FC = ({ children }) => {
 	const isLoading = useSelector((state: any) => state.loading.isLoading);
 
 	return isLoading ? <LoadingPage /> : <>{children}</>;

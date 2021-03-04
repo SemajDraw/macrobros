@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Flex, Text } from '@chakra-ui/react';
-import WrappedLink from '../../ChakraComponents/WrappedLink';
+import { WrappedLink } from '../../ChakraComponents/WrappedLink';
 import { ACCOUNT, BLOG } from '../../../constants/routes';
 
-export const NavDrawerBody = ({ isAuthenticated, onClose }: any) => {
-	return isAuthenticated ? (
+interface NavDrawerBodyProps {
+	isAuthenticated: boolean;
+	onClose: () => void;
+}
+
+export const NavDrawerBody: FC<NavDrawerBodyProps> = ({ isAuthenticated, onClose }) =>
+	isAuthenticated ? (
 		<Flex direction={'column'}>
 			<WrappedLink
 				href={ACCOUNT.PROFILE}
@@ -31,5 +36,3 @@ export const NavDrawerBody = ({ isAuthenticated, onClose }: any) => {
 			</WrappedLink>
 		</Flex>
 	);
-};
-export default NavDrawerBody;

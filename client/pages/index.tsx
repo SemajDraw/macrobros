@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Home from '../components/Home/Home';
 import { BLOG } from '../constants/endpoints';
-import fetcher from '../lib/fetcher';
-import MetaInfo from '../components/shared/MetaInfo';
+import { fetcher } from '../lib/fetcher';
+import { MetaInfo } from '../components/shared/MetaInfo';
+import { PaginatedBlogs } from '../models/PaginatedBlogs';
+import { GetStaticProps } from 'next';
 
-export const Index = (props) => {
+export interface HomeProps {
+	blogs: PaginatedBlogs;
+}
+
+export const Index: FC<HomeProps> = (props) => {
 	return (
 		<>
 			<MetaInfo
@@ -18,11 +24,10 @@ export const Index = (props) => {
 	);
 };
 
-export async function getStaticProps() {
-	const blogs = await fetcher(BLOG.BLOGS);
-	const categories = await fetcher(BLOG.CATEGORIES);
+export const getStaticProps: GetStaticProps = async () => {
+	const blogs: PaginatedBlogs = await fetcher(BLOG.BLOGS);
 
-	return { props: { blogs, categories } };
-}
+	return { props: { blogs } };
+};
 
 export default Index;

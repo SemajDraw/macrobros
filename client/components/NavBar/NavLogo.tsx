@@ -1,10 +1,10 @@
-import React from 'react';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import React, { FC } from 'react';
+import { Box, Flex, LayoutProps, Text } from '@chakra-ui/react';
 import { MacroBrosIcon } from '../shared/Icons/MacroBrosIcon';
 import { HOME } from '../../constants/routes';
-import WrappedLink from '../ChakraComponents/WrappedLink';
+import { WrappedLink } from '../ChakraComponents/WrappedLink';
 
-export const NavLogo = ({ display }) => {
+export const NavLogo: FC<LayoutProps> = ({ display }) => {
 	return (
 		<WrappedLink href={HOME} _hover={{ textDecoration: 'none' }}>
 			<Flex align='center' cursor={'pointer'}>
@@ -20,5 +20,3 @@ export const NavLogo = ({ display }) => {
 		</WrappedLink>
 	);
 };
-
-export default NavLogo;

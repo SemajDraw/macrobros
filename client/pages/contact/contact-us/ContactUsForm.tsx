@@ -1,14 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import {
-	Box,
-	Button,
-	FormControl,
-	FormErrorMessage,
-	FormLabel,
-	Textarea
-} from '@chakra-ui/react';
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Textarea } from '@chakra-ui/react';
 import { CONTACT, FORM_SUBMIT } from '../../../redux/types';
 import { Field, Form, Formik } from 'formik';
 import { Input } from '@chakra-ui/input';
@@ -19,6 +12,8 @@ import { Spinner } from '@chakra-ui/spinner';
 import { sendEmail } from '../../../redux/actions/contactActions';
 import { useRouter } from 'next/router';
 import { SUBMIT } from '../../../constants/routes';
+import { AxiosError, AxiosResponse } from 'axios';
+import { ContactFormEmail } from '../../../models/ContactFormEmail';
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string()
@@ -38,27 +33,27 @@ const validationSchema = Yup.object().shape({
 		.max(5000, `Your question can't be longer than 5000 characters`)
 		.required('Please ask us something...')
 });
-export const ContactUsForm = () => {
+
+export const ContactUsForm: FC = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
+	const initialFormValues: ContactFormEmail = {
+		firstName: '',
+		lastName: '',
+		email: '',
+		body: ''
+	};
 
 	return (
-		<Box
-			my={5}
-			p={6}
-			borderWidth='1px'
-			borderRadius='lg'
-			overflow='hidden'
-			shadow='lg'
-		>
+		<Box my={5} p={6} borderWidth='1px' borderRadius='lg' overflow='hidden' shadow='lg'>
 			<Formik
-				initialValues={{ firstName: '', lastName: '', email: '', body: '' }}
+				initialValues={initialFormValues}
 				validationSchema={validationSchema}
-				onSubmit={(values: any, { setSubmitting, resetForm }: any) => {
+				onSubmit={(values, { setSubmitting, resetForm }) => {
 					setSubmitting(true);
 
 					sendEmail(values)
-						.then((res: any) => {
+						.then((res: AxiosResponse) => {
 							dispatch({ type: CONTACT.EMAIL_SENT, payload: res.data });
 							setSubmitting(false);
 							resetForm();
@@ -68,34 +63,26 @@ export const ContactUsForm = () => {
 							});
 							router.push(SUBMIT.FORM_SUBMIT);
 						})
-						.catch((err: any) => {
+						.catch((err: AxiosError) => {
 							setSubmitting(false);
 							dispatch({
 								type: FORM_SUBMIT.FORM_SUBMITTED,
-								payload: err.response.data.internal
+								payload: err.response?.data.internal
 							});
 							router.push(SUBMIT.FORM_SUBMIT);
 						});
 				}}
 			>
-				{({ handleSubmit, isSubmitting }: any) => (
+				{({ handleSubmit, isSubmitting }) => (
 					<Form onSubmit={handleSubmit}>
 						<Flex>
 							<Field name='firstName'>
 								{({ field, form }) => (
-									<FormControl
-										mr={3}
-										isInvalid={form.errors.firstName && form.touched.firstName}
-									>
+									<FormControl mr={3} isInvalid={form.errors.firstName && form.touched.firstName}>
 										<FormLabel ml={1} htmlFor='firstName'>
 											First name
 										</FormLabel>
-										<Input
-											{...field}
-											type='text'
-											id='firstName'
-											placeholder='First name'
-										/>
+										<Input {...field} type='text' id='firstName' placeholder='First name' />
 										<FormErrorMessage>
 											<Flex>
 												<Box mx={1}>
@@ -110,10 +97,7 @@ export const ContactUsForm = () => {
 
 							<Field name='lastName'>
 								{({ field, form }) => (
-									<FormControl
-										ml={3}
-										isInvalid={form.errors.lastName && form.touched.lastName}
-									>
+									<FormControl ml={3} isInvalid={form.errors.lastName && form.touched.lastName}>
 										<FormLabel ml={1} htmlFor='lastName'>
 											Last name
 										</FormLabel>
@@ -132,7 +116,7 @@ export const ContactUsForm = () => {
 						</Flex>
 
 						<Field name='email'>
-							{({ field, form }: any) => (
+							{({ field, form }) => (
 								<FormControl mt={3} isInvalid={form.errors.email && form.touched.email}>
 									<FormLabel ml={1} htmlFor='email'>
 										Email
@@ -151,16 +135,10 @@ export const ContactUsForm = () => {
 						</Field>
 
 						<Field name='body'>
-							{({ field, form }: any) => (
+							{({ field, form }) => (
 								<FormControl mt={3} isInvalid={form.errors.body && form.touched.body}>
 									<FormLabel ml={1}>Message</FormLabel>
-									<Input
-										as={Textarea}
-										{...field}
-										type='text'
-										id='body'
-										placeholder='Ask us anything...'
-									/>
+									<Input as={Textarea} {...field} type='text' id='body' placeholder='Ask us anything...' />
 									<FormErrorMessage>
 										<Flex>
 											<Box mx={1}>
@@ -173,13 +151,7 @@ export const ContactUsForm = () => {
 							)}
 						</Field>
 
-						<Button
-							colorScheme='blue'
-							w='100%'
-							mt={5}
-							disabled={isSubmitting}
-							type='submit'
-						>
+						<Button colorScheme='blue' w='100%' mt={5} disabled={isSubmitting} type='submit'>
 							{isSubmitting ? <Spinner color='white' /> : 'SEND'}
 						</Button>
 					</Form>

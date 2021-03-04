@@ -1,9 +1,13 @@
-import React from 'react';
-import { Text } from '@chakra-ui/react';
-import WrappedLink from '../../ChakraComponents/WrappedLink';
+import React, { FC } from 'react';
+import { Text, TextProps } from '@chakra-ui/react';
+import { WrappedLink } from '../../ChakraComponents/WrappedLink';
+import { HOME } from '../../../constants/routes';
 
-export const NavMenuItem = (props: any) => {
-	const { children, isLast, to = '/', ...rest } = props;
+interface NavMenuItemProps extends TextProps {
+	to: string;
+}
+
+export const NavMenuItem: FC<NavMenuItemProps> = ({ children, to = HOME, ...rest }) => {
 	return (
 		<WrappedLink href={to}>
 			<Text
@@ -17,5 +21,3 @@ export const NavMenuItem = (props: any) => {
 		</WrappedLink>
 	);
 };
-
-export default NavMenuItem;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 import { ACCOUNT, HOME } from '../../../constants/routes';
 import { parseCookie } from '../../../lib/parseCookies';
@@ -6,9 +6,10 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../../../providers/AuthProvider';
 import FormPage from '../../../components/shared/FormPage';
 import LoginForm from './LoginForm';
-import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
+import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
+import { GetServerSideProps } from 'next';
 
-export const Index = () => {
+export const Index: FC = () => {
 	const router = useRouter();
 	const { isAuthenticated } = useAuth();
 
@@ -56,15 +57,14 @@ export const Index = () => {
 	);
 };
 
-export async function getServerSideProps({ req, res }: any) {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 	const { token } = parseCookie(req);
 	if (token) {
 		res.writeHead(302, { Location: '/' });
 		res.end();
 		return { props: {} };
 	}
-
 	return { props: {} };
-}
+};
 
 export default Index;

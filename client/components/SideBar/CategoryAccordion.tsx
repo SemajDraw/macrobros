@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import MotionBox from '../FramerMotion/MotionBox';
+import React, { FC, useEffect } from 'react';
+import { MotionBox } from '../FramerMotion/MotionBox';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { formatSlug } from '../../utils/stringUtils';
 import { HOME } from '../../constants/routes';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBlogCategories } from '../../redux/actions/blogActions';
-import WrappedLink from '../ChakraComponents/WrappedLink';
+import { WrappedLink } from '../ChakraComponents/WrappedLink';
 import {
 	Accordion,
 	AccordionButton,
@@ -14,9 +14,35 @@ import {
 	AccordionItem
 } from '@chakra-ui/accordion';
 
-export const CategoryAccordion = () => {
+interface CategoryAccordianItemsProps {
+	category: string;
+	bg: string;
+}
+
+const CategoryAccordianItem: FC<CategoryAccordianItemsProps> = ({ category, bg }) => (
+	<WrappedLink href={HOME}>
+		<MotionBox
+			whileHover={{
+				scale: 1.015,
+				transition: { duration: 0.5 },
+				boxShadow: '0 5px 20px -5px rgba(0, 0, 0, 0.1)'
+			}}
+			transition={{ type: 'spring', duration: 1 }}
+			bg={bg}
+			cursor={'pointer'}
+		>
+			<Flex h={12} pl={4} align={'center'}>
+				<Text fontWeight={400} fontSize={'md'}>
+					{formatSlug(category)}
+				</Text>
+			</Flex>
+		</MotionBox>
+	</WrappedLink>
+);
+
+export const CategoryAccordion: FC = () => {
 	const dispatch = useDispatch();
-	const categories = useSelector((state: any) => state.blog.blogCategories);
+	const categories: string[] = useSelector((state: any) => state.blog.blogCategories);
 	const bg = useColorModeValue('white', '#1A202C');
 
 	useEffect(() => {
@@ -43,7 +69,9 @@ export const CategoryAccordion = () => {
 
 						{isExpanded && (
 							<Box borderRadius={4}>
-								<CategoryItems categories={categories} bg={bg} />
+								{categories.map((category: string, i: number) => (
+									<CategoryAccordianItem key={i} category={category} bg={bg} />
+								))}
 							</Box>
 						)}
 					</>
@@ -52,28 +80,3 @@ export const CategoryAccordion = () => {
 		</Accordion>
 	);
 };
-
-function CategoryItems({ categories, bg }: any) {
-	return categories.map((category: string, i: number) => (
-		<WrappedLink key={i} href={HOME}>
-			<MotionBox
-				whileHover={{
-					scale: 1.015,
-					transition: { duration: 0.5 },
-					boxShadow: '0 5px 20px -5px rgba(0, 0, 0, 0.1)'
-				}}
-				transition={{ type: 'spring', duration: 1 }}
-				bg={bg}
-				cursor={'pointer'}
-			>
-				<Flex h={12} pl={4} align={'center'}>
-					<Text fontWeight={400} fontSize={'md'}>
-						{formatSlug(category)}
-					</Text>
-				</Flex>
-			</MotionBox>
-		</WrappedLink>
-	));
-}
-
-export default CategoryAccordion;

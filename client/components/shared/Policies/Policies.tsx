@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/layout';
 import styles from './Policies.module.scss';
-import useFormatDate from '../../../hooks/useFormatDate';
+import { useFormatDate } from '../../../hooks/useFormatDate';
 import { useColorModeValue } from '@chakra-ui/color-mode';
+import { Policy } from '../../../models/Policy';
 
-export const Policies = ({ content, lastModified, title }: any) => {
+export const Policies: FC<Policy> = ({ content, dateCreated, title }) => {
 	const fontColor = useColorModeValue(false, true);
 
 	return (
@@ -17,14 +18,10 @@ export const Policies = ({ content, lastModified, title }: any) => {
 				dangerouslySetInnerHTML={{
 					__html: content
 				}}
-				sx={
-					fontColor
-						? { '& div': { color: 'white' } }
-						: { '& div': { color: 'black' } }
-				}
+				sx={fontColor ? { '& div': { color: 'white' } } : { '& div': { color: 'black' } }}
 			/>
 			<Box py={8}>
-				<Text>Last updated on {useFormatDate(lastModified, 'MMMM D, YYYY')}.</Text>
+				<Text>Last updated on {useFormatDate(dateCreated, 'MMMM D, YYYY')}.</Text>
 			</Box>
 			<Box pb={14} px={14}>
 				<Divider />

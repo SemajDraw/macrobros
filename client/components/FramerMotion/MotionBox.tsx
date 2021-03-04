@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	chakra,
-	ChakraProps,
-	ComponentWithAs,
-	forwardRef
-} from '@chakra-ui/react';
+import { chakra, ChakraProps, ComponentWithAs, forwardRef } from '@chakra-ui/react';
 import { isValidMotionProp, motion, MotionProps } from 'framer-motion';
 
 export type MotionBoxProps = Omit<ChakraProps, keyof MotionProps> &
@@ -22,5 +17,3 @@ export const MotionBox = motion.custom(
 		return <chakra.div ref={ref} {...chakraProps} />;
 	})
 ) as ComponentWithAs<'div', MotionBoxProps>;
-
-export default MotionBox;

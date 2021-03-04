@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { parseCookie } from '../../../lib/parseCookies';
 import { Text } from '@chakra-ui/layout';
 import { ProfileTemplate } from '../../../components/Profile/ProfileTemplate';
 import { formatUserInitials } from '../../../utils/stringUtils';
 import { useAuth } from '../../../providers/AuthProvider';
-import MetaInfo from '../../../components/shared/MetaInfo';
+import { MetaInfo } from '../../../components/shared/MetaInfo';
 import { useRouter } from 'next/router';
 import { ACCOUNT } from '../../../constants/routes';
+import { GetServerSideProps } from 'next';
 
-export const Index = () => {
+export const Index: FC = () => {
 	const { user } = useAuth();
 
 	const router = useRouter();
@@ -40,7 +41,7 @@ export const Index = () => {
 	);
 };
 
-export async function getServerSideProps({ req, res }: any) {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 	const { token } = parseCookie(req);
 	if (!token) {
 		res.writeHead(302, { Location: '/account/login' });
@@ -48,6 +49,6 @@ export async function getServerSideProps({ req, res }: any) {
 		return { props: {} };
 	}
 	return { props: {} };
-}
+};
 
 export default Index;

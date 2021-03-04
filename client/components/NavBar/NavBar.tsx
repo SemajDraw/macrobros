@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, Flex, useDisclosure } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { BLOG } from '../../constants/routes';
-import NavLogo from './NavLogo';
-import NavDrawer from './Drawer/NavDrawer';
-import NavMenuItem from './Menu/NavMenuItem';
-import DarkModePopover from '../shared/DarkModePopover';
-import NavMenu from './Menu/NavMenu';
+import { NavLogo } from './NavLogo';
+import { NavDrawer } from './Drawer/NavDrawer';
+import { NavMenuItem } from './Menu/NavMenuItem';
+import { DarkModePopover } from '../shared/DarkModePopover';
+import { NavMenu } from './Menu/NavMenu';
 
-export const NavBar = (props: any) => {
+export const NavBar: FC = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
@@ -22,7 +22,6 @@ export const NavBar = (props: any) => {
 				bg={'layoutBlack'}
 				color={'white'}
 				fontFamily='"Lexend Zetta", sans-serif'
-				{...props}
 			>
 				<NavLogo display={{ base: 'none', md: 'block' }} />
 

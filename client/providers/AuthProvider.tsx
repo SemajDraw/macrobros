@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from '../redux/actions/authActions';
-import { useCookies } from 'react-cookie';
 import { useCookie } from '../hooks/useCookie';
 
 type AuthContextProps = {
@@ -17,7 +16,7 @@ interface AuthProviderProps {
 	children: React.ReactNode;
 }
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	const dispatch = useDispatch();
 	const { cookie, setCookie, removeCookie } = useCookie('token');
 	const { isAuthenticated, isLoading, token, user } = useSelector(

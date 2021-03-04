@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as Yup from 'yup';
 
 import {
@@ -18,7 +18,8 @@ import { Input } from '@chakra-ui/input';
 import { Flex, ListItem, Text, UnorderedList } from '@chakra-ui/layout';
 import { REGEX } from '../../../constants/constants';
 import { Switch } from '@chakra-ui/switch';
-import WrappedLink from '../../../components/ChakraComponents/WrappedLink';
+import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
+import { RegisterFormModel } from '../../../models/RegisterFormModel';
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string()
@@ -42,25 +43,20 @@ const validationSchema = Yup.object().shape({
 		.required('Please confirm your password')
 });
 
-export const RegisterForm = () => {
+export const RegisterForm: FC = () => {
+	const initialValues: RegisterFormModel = {
+		firstName: '',
+		lastName: '',
+		email: '',
+		isSubscribed: true,
+		password: '',
+		password2: ''
+	};
+
 	return (
-		<Box
-			my={5}
-			p={6}
-			borderWidth='1px'
-			borderRadius='lg'
-			overflow='hidden'
-			shadow='lg'
-		>
+		<Box my={5} p={6} borderWidth='1px' borderRadius='lg' overflow='hidden' shadow='lg'>
 			<Formik
-				initialValues={{
-					firstName: '',
-					lastName: '',
-					email: '',
-					isSubscribed: true,
-					password: '',
-					password2: ''
-				}}
+				initialValues={initialValues}
 				validationSchema={validationSchema}
 				onSubmit={(_values, { setSubmitting }) => {
 					setSubmitting(true);
@@ -83,18 +79,11 @@ export const RegisterForm = () => {
 					<Form onSubmit={handleSubmit}>
 						<Field name='firstName'>
 							{({ field, form }) => (
-								<FormControl
-									isInvalid={form.errors.firstName && form.touched.firstName}
-								>
+								<FormControl isInvalid={form.errors.firstName && form.touched.firstName}>
 									<FormLabel ml={1} htmlFor='firstName'>
 										First name
 									</FormLabel>
-									<Input
-										{...field}
-										type='text'
-										id='firstName'
-										placeholder='First name'
-									/>
+									<Input {...field} type='text' id='firstName' placeholder='First name' />
 									<FormErrorMessage>
 										<Box mx={1}>
 											<FontAwesomeIcon icon={faInfoCircle} />
@@ -107,10 +96,7 @@ export const RegisterForm = () => {
 
 						<Field name='lastName'>
 							{({ field, form }) => (
-								<FormControl
-									mt={3}
-									isInvalid={form.errors.lastName && form.touched.lastName}
-								>
+								<FormControl mt={3} isInvalid={form.errors.lastName && form.touched.lastName}>
 									<FormLabel ml={1} htmlFor='lastName'>
 										Last name
 									</FormLabel>
@@ -163,17 +149,9 @@ export const RegisterForm = () => {
 
 						<Field name='password'>
 							{({ field, form }) => (
-								<FormControl
-									pt={3}
-									isInvalid={form.errors.password && form.touched.password}
-								>
+								<FormControl pt={3} isInvalid={form.errors.password && form.touched.password}>
 									<FormLabel ml={1}>Password</FormLabel>
-									<Input
-										{...field}
-										type='password'
-										id='password'
-										placeholder='Password'
-									/>
+									<Input {...field} type='password' id='password' placeholder='Password' />
 									<FormHelperText ml={1}>
 										<UnorderedList textAlign='left'>
 											<ListItem>Lets be safe use 8-20 characters</ListItem>
@@ -194,10 +172,7 @@ export const RegisterForm = () => {
 
 						<Field name='password2'>
 							{({ field, form }) => (
-								<FormControl
-									pt={3}
-									isInvalid={form.errors.password2 && form.touched.password2}
-								>
+								<FormControl pt={3} isInvalid={form.errors.password2 && form.touched.password2}>
 									<FormLabel ml={1}>Confirm Password</FormLabel>
 									<Input
 										{...field}
@@ -215,13 +190,7 @@ export const RegisterForm = () => {
 							)}
 						</Field>
 
-						<Button
-							colorScheme='blue'
-							w='100%'
-							mt={6}
-							disabled={isSubmitting}
-							type='submit'
-						>
+						<Button colorScheme='blue' w='100%' mt={6} disabled={isSubmitting} type='submit'>
 							{isSubmitting ? <Spinner color='white' /> : 'LOGIN'}
 						</Button>
 						<FormControl py={2}>

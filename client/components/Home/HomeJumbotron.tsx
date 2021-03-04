@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import Bounce from 'react-reveal/Bounce';
 import { MacroBrosIcon } from '../shared/Icons/MacroBrosIcon';
 import { Heading } from '@chakra-ui/layout';
-import MotionBox from '../FramerMotion/MotionBox';
+import { MotionBox } from '../FramerMotion/MotionBox';
 
-export const HomeJumbotron = () => {
+export const HomeJumbotron: FC = () => {
 	return (
 		<Flex
 			flexDirection='column'

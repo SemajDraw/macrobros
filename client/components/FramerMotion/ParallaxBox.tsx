@@ -1,9 +1,9 @@
-import React from 'react';
-import MotionBox from './MotionBox';
+import React, { FC } from 'react';
+import { MotionBox } from './MotionBox';
 import { useInView } from 'react-intersection-observer';
 
-export default function ParallaxBox({ children }) {
-	const [ref, inView, entry] = useInView({
+export const ParallaxBox: FC = ({ children }) => {
+	const [ref, inView] = useInView({
 		threshold: 1,
 		triggerOnce: false
 	});
@@ -27,4 +27,6 @@ export default function ParallaxBox({ children }) {
 			{children}
 		</MotionBox>
 	);
-}
+};
+
+export default ParallaxBox;

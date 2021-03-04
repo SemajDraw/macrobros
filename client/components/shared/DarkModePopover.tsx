@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
 	Box,
 	Button,
@@ -18,7 +18,7 @@ import {
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const DarkModePopover = () => {
+export const DarkModePopover: FC = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const isDark = colorMode === 'dark';
 
@@ -34,11 +34,7 @@ export const DarkModePopover = () => {
 						<FontAwesomeIcon icon={faEllipsisV} />
 					</Button>
 				</PopoverTrigger>
-				<PopoverContent
-					p={1}
-					fontFamily={'Roboto'}
-					color={isDark ? 'white' : 'black'}
-				>
+				<PopoverContent p={1} fontFamily={'Roboto'} color={isDark ? 'white' : 'black'}>
 					<PopoverHeader pt={4} fontWeight={'medium'} fontSize={'xl'} border='0'>
 						Dark theme
 					</PopoverHeader>
@@ -46,8 +42,8 @@ export const DarkModePopover = () => {
 					<PopoverCloseButton />
 					<PopoverBody>
 						<Text fontWeight={'normal'}>
-							Dark theme turns the light surfaces of the page dark, creating an
-							experience ideal for night. Try it out!
+							Dark theme turns the light surfaces of the page dark, creating an experience ideal
+							for night. Try it out!
 						</Text>
 						<Text fontWeight={'normal'} mt={3}>
 							Your Dark theme setting will apply to this browser only
@@ -76,5 +72,3 @@ export const DarkModePopover = () => {
 		</Flex>
 	);
 };
-
-export default DarkModePopover;

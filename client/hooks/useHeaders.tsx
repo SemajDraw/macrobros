@@ -4,7 +4,7 @@ interface Headers {
 	};
 }
 
-export const tokenAuthHeaders = (token: string) => {
+export const tokenAuthHeaders = (token: string): Headers => {
 	const headers = baseHeaders();
 	if (token) {
 		headers.headers['Authorization'] = `Token ${token}`;
@@ -12,6 +12,6 @@ export const tokenAuthHeaders = (token: string) => {
 	return headers;
 };
 
-export const baseHeaders = () => {
+export const baseHeaders = (): Headers => {
 	return { headers: { 'Content-Type': 'application/json' } } as Headers;
 };
