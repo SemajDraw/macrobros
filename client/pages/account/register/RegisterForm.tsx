@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
-import { POLICIES } from '../../../constants/routes';
+import { POLICIES, SUBMIT } from '../../../constants/routes';
 import { Spinner } from '@chakra-ui/spinner';
 import { Field, Form, Formik } from 'formik';
 import { Input } from '@chakra-ui/input';
@@ -20,6 +20,11 @@ import { REGEX } from '../../../constants/constants';
 import { Switch } from '@chakra-ui/switch';
 import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
 import { RegisterFormModel } from '../../../models/RegisterFormModel';
+import { register } from '../../../redux/actions/accountActions';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { AxiosError, AxiosResponse } from 'axios';
+import { FORM_SUBMIT } from '../../../redux/types';
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string()
@@ -44,6 +49,8 @@ const validationSchema = Yup.object().shape({
 });
 
 export const RegisterForm: FC = () => {
+	const dispatch = useDispatch();
+	const router = useRouter();
 	const initialValues: RegisterFormModel = {
 		firstName: '',
 		lastName: '',
@@ -53,26 +60,33 @@ export const RegisterForm: FC = () => {
 		password2: ''
 	};
 
+	const registrationComplete = (data: string[]): void => {
+		dispatch({ type: FORM_SUBMIT.FORM_SUBMITTED, payload: data });
+		router.push(SUBMIT.FORM_SUBMIT);
+	};
+
 	return (
 		<Box my={5} p={6} borderWidth='1px' borderRadius='lg' overflow='hidden' shadow='lg'>
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}
-				onSubmit={(_values, { setSubmitting }) => {
+				onSubmit={(values, { setSubmitting, resetForm, setFieldError }) => {
 					setSubmitting(true);
-
-					// login(values)
-					// 	.then((res) => {
-					// 		resetForm();
-					// 		setSubmitting(false);
-					// 		dispatch({ type: LOGIN_SUCCESS, payload: res.data });
-					// 	})
-					// 	.catch((err) => {
-					// 		setSubmitting(false);
-					// 		dispatch({ type: LOGIN_FAIL });
-					// 		const field = Object.keys(err.response.data)[0];
-					// 		setFieldError(field, err.response.data[field]);
-					// 	});
+					register(values)
+						.then((res: AxiosResponse) => {
+							resetForm();
+							setSubmitting(false);
+							registrationComplete(res.data.internal);
+						})
+						.catch((err: AxiosError) => {
+							setSubmitting(false);
+							const data: any = err.response?.data;
+							if ('internal' in data) {
+								registrationComplete(data.internal);
+							} else if ('email' in data) {
+								setFieldError('email', 'An account with this email already exists!');
+							}
+						});
 				}}
 			>
 				{({ handleSubmit, isSubmitting }) => (
@@ -191,7 +205,7 @@ export const RegisterForm: FC = () => {
 						</Field>
 
 						<Button colorScheme='blue' w='100%' mt={6} disabled={isSubmitting} type='submit'>
-							{isSubmitting ? <Spinner color='white' /> : 'LOGIN'}
+							{isSubmitting ? <Spinner color='white' /> : 'REGISTER'}
 						</Button>
 						<FormControl py={2}>
 							<FormHelperText textAlign='left'>

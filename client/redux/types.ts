@@ -39,5 +39,5 @@ export const LOADING = {
 };
 
 export const FORM_SUBMIT = {
-	FORM_SUBMITTED: 'form-submit'
+	FORM_SUBMITTED: 'FORM_SUBMITTED'
 };
