@@ -1,6 +1,6 @@
 import { BlogMin } from './BlogMin';
 
-export interface PaginatedBlogs {
+export interface PaginatedBlog {
 	totalItems: number;
 	totalPages: number;
 	pageNumber: number;

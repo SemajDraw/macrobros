@@ -1,26 +1,27 @@
 import React, { FC } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
-import { SWRConfig } from 'swr';
-import { reduxWrapper } from '../redux/store';
-import { useStore } from 'react-redux';
+import { useStore } from '../redux/Store';
 import { PersistGate } from 'redux-persist/integration/react';
-import Layout from '../components/Layout';
-import { fetcher } from '../lib/fetcher';
+import { Layout } from '../components/Layout';
 import LoadingPage from '../components/shared/Loading/LoadingPage';
 import theme from '../styles/theme';
 import 'focus-visible/dist/focus-visible';
 import '../styles/globals.scss';
-import AppContainer from '../components/AppContainer';
-import AuthProvider from '../providers/AuthProvider';
+import { AppContainer } from '../components/AppContainer';
+import { AuthProvider } from '../providers/AuthProvider';
 import { AppProps } from 'next/app';
+import { persistStore } from 'redux-persist';
+import { Provider } from 'react-redux';
 
 export const App: FC<AppProps> = ({ Component, pageProps }) => {
-	// @ts-ignore
-	const store = useStore((state) => state);
+	const store = useStore(pageProps.initialReduxState);
+	const persistor = persistStore(store, {}, function () {
+		persistor.persist();
+	});
 
 	return (
-		<SWRConfig value={{ fetcher }}>
-			<PersistGate loading={<LoadingPage />} persistor={(store as any).__persistor}>
+		<Provider store={store}>
+			<PersistGate loading={<LoadingPage />} persistor={persistor}>
 				<ChakraProvider theme={theme}>
 					<AuthProvider>
 						<AppContainer>
@@ -31,8 +32,8 @@ export const App: FC<AppProps> = ({ Component, pageProps }) => {
 					</AuthProvider>
 				</ChakraProvider>
 			</PersistGate>
-		</SWRConfig>
+		</Provider>
 	);
 };
 
-export default reduxWrapper.withRedux(App);
+export default App;

@@ -3,9 +3,9 @@ import { Grid, GridItem } from '@chakra-ui/layout';
 import { BlogGrid } from './BlogGrid/BlogGrid';
 import { SideBar } from '../SideBar/SideBar';
 import StickyBox from 'react-sticky-box';
-import { PaginatedBlogs } from '../../models/PaginatedBlogs';
+import { PaginatedBlog } from '../../models/PaginatedBlog';
 
-export const BlogGridSideBar: FC<PaginatedBlogs> = ({ results }) => {
+export const BlogGridSideBar: FC<PaginatedBlog> = ({ results }) => {
 	return (
 		<Grid
 			templateColumns='repeat(12, 1fr)'

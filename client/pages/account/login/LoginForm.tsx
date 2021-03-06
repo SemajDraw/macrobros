@@ -11,11 +11,11 @@ import { Input } from '@chakra-ui/input';
 import { Flex, Text } from '@chakra-ui/layout';
 import { useDispatch } from 'react-redux';
 import { login } from '../../../redux/actions/authActions';
-import { AUTH } from '../../../redux/types';
 import { useAuth } from '../../../providers/AuthProvider';
 import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
-import { LoginFormModel } from '../../../models/LoginFormModel';
+import { LoginModel } from '../../../models/LoginModel';
 import { AxiosError, AxiosResponse } from 'axios';
+import { clearAuth, loginSuccess } from '../../../redux/slices/AuthSlice';
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string()
@@ -27,7 +27,7 @@ const validationSchema = Yup.object().shape({
 export const LoginForm: FC = () => {
 	const { setCookie } = useAuth();
 	const dispatch = useDispatch();
-	const initialValues: LoginFormModel = { email: '', password: '' };
+	const initialValues: LoginModel = { email: '', password: '' };
 
 	return (
 		<Box my={5} p={6} borderWidth='1px' borderRadius='lg' overflow='hidden' shadow='lg'>
@@ -44,13 +44,13 @@ export const LoginForm: FC = () => {
 								maxAge: 86400,
 								sameSite: true
 							});
-							dispatch({ type: AUTH.LOGIN_SUCCESS, payload: res.data });
+							dispatch(loginSuccess(res.data));
 							resetForm();
 							setSubmitting(false);
 						})
 						.catch((err: AxiosError) => {
 							setSubmitting(false);
-							dispatch({ type: AUTH.LOGIN_FAIL });
+							dispatch(clearAuth());
 							const field = Object.keys(err.response?.data)[0];
 							setFieldError(field, err.response?.data[field]);
 						});
@@ -64,7 +64,13 @@ export const LoginForm: FC = () => {
 									<FormLabel ml={1} htmlFor='email'>
 										Email
 									</FormLabel>
-									<Input {...field} type='email' id='email' placeholder='Email' />
+									<Input
+										{...field}
+										autoComplete='username'
+										type='email'
+										id='email'
+										placeholder='Email'
+									/>
 									<FormErrorMessage>
 										<Box mx={1}>
 											<FontAwesomeIcon icon={faInfoCircle} />
@@ -89,7 +95,13 @@ export const LoginForm: FC = () => {
 											Forgot password?
 										</WrappedLink>
 									</Flex>
-									<Input {...field} type='password' id='password' placeholder='Password' />
+									<Input
+										{...field}
+										autoComplete='current-password'
+										type='password'
+										id='password'
+										placeholder='Password'
+									/>
 									<FormErrorMessage>
 										<Box mx={1}>
 											<FontAwesomeIcon icon={faInfoCircle} />

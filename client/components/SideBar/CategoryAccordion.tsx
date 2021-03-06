@@ -13,6 +13,7 @@ import {
 	AccordionIcon,
 	AccordionItem
 } from '@chakra-ui/accordion';
+import { State } from '../../redux/RootReducer';
 
 interface CategoryAccordianItemsProps {
 	category: string;
@@ -42,7 +43,7 @@ const CategoryAccordianItem: FC<CategoryAccordianItemsProps> = ({ category, bg }
 
 export const CategoryAccordion: FC = () => {
 	const dispatch = useDispatch();
-	const categories: string[] = useSelector((state: any) => state.blog.blogCategories);
+	const categories: string[] = useSelector((state: State) => state.blog.blogCategories);
 	const bg = useColorModeValue('white', '#1A202C');
 
 	useEffect(() => {

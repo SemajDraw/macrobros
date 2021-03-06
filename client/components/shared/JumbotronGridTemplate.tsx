@@ -5,12 +5,13 @@ import { BlogGridSideBar } from './BlogGridSideBar';
 import { Pagination } from './Pagination/Pagination';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { BLOG } from '../../redux/types';
 import { getBlogs } from '../../redux/actions/blogActions';
-import { PaginatedBlogs } from '../../models/PaginatedBlogs';
+import { PaginatedBlog } from '../../models/PaginatedBlog';
+import { updateBlogs } from '../../redux/slices/BlogSice';
+import { State } from '../../redux/RootReducer';
 
 interface JumbotronGridTemplateProps {
-	serverPropBlogs: PaginatedBlogs;
+	serverPropBlogs: PaginatedBlog;
 	paginationUrl: string;
 }
 
@@ -21,25 +22,22 @@ export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
 }) => {
 	const router = useRouter();
 	const dispatch = useDispatch();
-	const blogs = useSelector((state) => state.blog.blogs);
+	const paginatedBlog = useSelector((state: State) => state.blog.blogs);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		if (router.query.page) {
 			setLoading(true);
-			dispatch(getBlogs(router.query.page));
+			dispatch(getBlogs(router.query.page as string));
 		} else {
-			dispatch({
-				type: BLOG.GET_BLOGS,
-				payload: serverPropBlogs
-			});
+			dispatch(updateBlogs(serverPropBlogs));
 			setLoading(false);
 		}
 	}, [router.query]);
 
 	useEffect(() => {
 		setLoading(false);
-	}, [blogs]);
+	}, [paginatedBlog]);
 
 	return (
 		<Box style={{ minHeight: '100vh' }}>
@@ -56,11 +54,11 @@ export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
 				</Flex>
 			) : (
 				<>
-					<BlogGridSideBar {...blogs} />
+					<BlogGridSideBar {...paginatedBlog} />
 				</>
 			)}
 			<Flex my={8} justifyContent={'center'}>
-				<Pagination blogs={blogs} url={paginationUrl} />
+				<Pagination blogs={paginatedBlog} url={paginationUrl} />
 			</Flex>
 		</Box>
 	);

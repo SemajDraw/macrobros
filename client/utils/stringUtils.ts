@@ -14,13 +14,16 @@ export const formatSlug = (word: string): string => {
 };
 
 export const formatUserInitials = (names: string[]): string => {
-	return names.map((name) => name[0].toUpperCase()).join(' ');
+	return names?.map((name) => name[0].toUpperCase()).join(' ');
 };
 
 export const apiUrl = (url: string): string => {
 	return `${BASE_URL}${url}`;
 };
 
-export const paginateUrl = (url: string, pageNumber: number | undefined): string => {
+export const paginateUrl = (
+	url: string,
+	pageNumber: number | string | undefined
+): string => {
 	return pageNumber ? `${url}?page=${pageNumber}` : url;
 };

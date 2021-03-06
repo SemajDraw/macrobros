@@ -13,5 +13,3 @@ export const Layout: FC = ({ children }) => {
 		</div>
 	);
 };
-
-export default Layout;

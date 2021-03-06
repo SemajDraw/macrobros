@@ -24,7 +24,7 @@ export const Index: FC = () => {
 			icons={false}
 			meta={{
 				title: 'MacroBros - Sign Up',
-				desc:
+				description:
 					'Create your MacroBros account today and keep up to date with the most relevant financial topics'
 			}}
 			heading={'Create your account'}

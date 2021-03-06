@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import BlogsJumbotron from './BlogsJumbotron';
 import JumbotronGridTemplate from '../shared/JumbotronGridTemplate';
 import { BLOG } from '../../constants/routes';
-import { PaginatedBlogs } from '../../models/PaginatedBlogs';
+import { PaginatedBlog } from '../../models/PaginatedBlog';
 
 interface BlogsProps {
-	blogs: PaginatedBlogs;
+	blogs: PaginatedBlog;
 }
 
 export const Blogs: FC<BlogsProps> = ({ blogs }) => {

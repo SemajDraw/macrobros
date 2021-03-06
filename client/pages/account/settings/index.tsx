@@ -34,7 +34,7 @@ export const Index: FC = () => {
 				<Text mt={4} fontSize={'2xl'}>
 					Settings
 				</Text>
-				<SettingsForm user={user} />
+				<SettingsForm {...user} />
 			</ProfileTemplate>
 		</>
 	);

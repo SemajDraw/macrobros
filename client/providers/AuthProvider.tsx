@@ -2,15 +2,10 @@ import React, { FC, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from '../redux/actions/authActions';
 import { useCookie } from '../hooks/useCookie';
+import { State } from '../redux/RootReducer';
+import { AuthState } from '../redux/slices/AuthSlice';
 
-type AuthContextProps = {
-	isAuthenticated: boolean;
-	isLoading: boolean;
-	token: string;
-	user: null;
-};
-
-const AuthContext = React.createContext<Partial<AuthContextProps>>({});
+const AuthContext = React.createContext<Partial<AuthState>>({});
 
 interface AuthProviderProps {
 	children: React.ReactNode;
@@ -20,7 +15,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 	const dispatch = useDispatch();
 	const { cookie, setCookie, removeCookie } = useCookie('token');
 	const { isAuthenticated, isLoading, token, user } = useSelector(
-		(state: any) => state.auth
+		(state: State) => state.auth
 	);
 
 	useEffect(() => {
@@ -52,7 +47,5 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
-export default AuthProvider;
 
 export const useAuth = (): any => useContext(AuthContext);

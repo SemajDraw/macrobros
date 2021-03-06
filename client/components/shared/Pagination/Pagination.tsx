@@ -3,11 +3,10 @@ import { Flex } from '@chakra-ui/layout';
 import ReactPaginate from 'react-paginate';
 import { useRouter } from 'next/router';
 import { SEARCH } from '../../../constants/routes';
-import { PaginatedBlogs } from '../../../models/PaginatedBlogs';
-import { ParsedUrlQuery } from 'querystring';
+import { PaginatedBlog } from '../../../models/PaginatedBlog';
 
 interface PaginationProps {
-	blogs: PaginatedBlogs;
+	blogs: PaginatedBlog;
 	url: string;
 	query?: string | string[] | undefined;
 }

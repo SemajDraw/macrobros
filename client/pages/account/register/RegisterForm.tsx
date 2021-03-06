@@ -19,12 +19,12 @@ import { Flex, ListItem, Text, UnorderedList } from '@chakra-ui/layout';
 import { REGEX } from '../../../constants/constants';
 import { Switch } from '@chakra-ui/switch';
 import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
-import { RegisterFormModel } from '../../../models/RegisterFormModel';
+import { RegisterModel } from '../../../models/RegisterModel';
 import { register } from '../../../redux/actions/accountActions';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { AxiosError, AxiosResponse } from 'axios';
-import { FORM_SUBMIT } from '../../../redux/types';
+import { formSubmitted } from '../../../redux/slices/FormSubmitSlice';
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string()
@@ -51,7 +51,7 @@ const validationSchema = Yup.object().shape({
 export const RegisterForm: FC = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
-	const initialValues: RegisterFormModel = {
+	const initialValues: RegisterModel = {
 		firstName: '',
 		lastName: '',
 		email: '',
@@ -61,7 +61,7 @@ export const RegisterForm: FC = () => {
 	};
 
 	const registrationComplete = (data: string[]): void => {
-		dispatch({ type: FORM_SUBMIT.FORM_SUBMITTED, payload: data });
+		dispatch(formSubmitted(data));
 		router.push(SUBMIT.FORM_SUBMIT);
 	};
 
@@ -131,7 +131,13 @@ export const RegisterForm: FC = () => {
 									<FormLabel ml={1} htmlFor='email'>
 										Email
 									</FormLabel>
-									<Input {...field} type='email' id='email' placeholder='Email' />
+									<Input
+										{...field}
+										autoComplete='username'
+										type='email'
+										id='email'
+										placeholder='Email'
+									/>
 									<FormErrorMessage>
 										<Box mx={1}>
 											<FontAwesomeIcon icon={faInfoCircle} />
@@ -165,7 +171,13 @@ export const RegisterForm: FC = () => {
 							{({ field, form }) => (
 								<FormControl pt={3} isInvalid={form.errors.password && form.touched.password}>
 									<FormLabel ml={1}>Password</FormLabel>
-									<Input {...field} type='password' id='password' placeholder='Password' />
+									<Input
+										{...field}
+										autoComplete='new-password'
+										type='password'
+										id='password'
+										placeholder='Password'
+									/>
 									<FormHelperText ml={1}>
 										<UnorderedList textAlign='left'>
 											<ListItem>Lets be safe use 8-20 characters</ListItem>
@@ -190,6 +202,7 @@ export const RegisterForm: FC = () => {
 									<FormLabel ml={1}>Confirm Password</FormLabel>
 									<Input
 										{...field}
+										autoComplete='new-password'
 										type='password'
 										id='password2'
 										placeholder='Confirm Password'

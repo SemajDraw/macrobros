@@ -9,16 +9,18 @@ import { updateAccount } from '../../../redux/actions/accountActions';
 import { Button } from '@chakra-ui/button';
 import { useDisclosure } from '@chakra-ui/hooks';
 import CloseAccountModal from './CloseAccountModal';
+import { User } from '../../../models/User';
 
 const validationSchema = Yup.object().shape({
 	isSubscribed: Yup.bool().required()
 });
 
-export const SettingsForm: FC<any> = ({ user }) => {
+export const SettingsForm: FC<User> = (props) => {
+	const { isSubscribed } = props;
 	const modal = useDisclosure();
 	const dispatch = useDispatch();
 
-	const handleAccountChange = (field) => {
+	const handleAccountChange = (field: Record<string, string>) => {
 		dispatch(updateAccount(field));
 	};
 
@@ -26,7 +28,7 @@ export const SettingsForm: FC<any> = ({ user }) => {
 		<Flex w={'100%'} direction={'column'}>
 			<Flex mt={3} w={'100%'}>
 				<Formik
-					initialValues={{ isSubscribed: user?.isSubscribed }}
+					initialValues={{ isSubscribed: isSubscribed }}
 					validationSchema={validationSchema}
 					onSubmit={() => {
 						return;
@@ -49,7 +51,7 @@ export const SettingsForm: FC<any> = ({ user }) => {
 											<Switch
 												{...field}
 												id={'isSubscribed'}
-												defaultChecked={user?.isSubscribed}
+												defaultChecked={isSubscribed}
 												size={'sm'}
 												onBlur={(e: ChangeEvent<HTMLInputElement>) => {
 													handleBlur(e);

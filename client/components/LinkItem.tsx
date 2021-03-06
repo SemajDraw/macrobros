@@ -20,7 +20,7 @@ export const LinkText: FC<TextProps> = ({ children, color, cursor, size }) => {
 };
 
 interface LinkItemProps extends TextProps {
-	href: string;
+	href?: string;
 }
 
 export const LinkItem: FC<LinkItemProps> = (props) => {

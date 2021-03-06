@@ -1,8 +1,14 @@
 import React, { FC } from 'react';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Textarea } from '@chakra-ui/react';
-import { CONTACT, FORM_SUBMIT } from '../../../redux/types';
+import {
+	Box,
+	Button,
+	FormControl,
+	FormErrorMessage,
+	FormLabel,
+	Textarea
+} from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { Input } from '@chakra-ui/input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +19,8 @@ import { sendEmail } from '../../../redux/actions/contactActions';
 import { useRouter } from 'next/router';
 import { SUBMIT } from '../../../constants/routes';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ContactFormEmail } from '../../../models/ContactFormEmail';
+import { ContactEmail } from '../../../models/ContactEmail';
+import { formSubmitted } from '../../../redux/slices/FormSubmitSlice';
 
 const validationSchema = Yup.object().shape({
 	firstName: Yup.string()
@@ -37,11 +44,16 @@ const validationSchema = Yup.object().shape({
 export const ContactUsForm: FC = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
-	const initialFormValues: ContactFormEmail = {
+	const initialFormValues: ContactEmail = {
 		firstName: '',
 		lastName: '',
 		email: '',
 		body: ''
+	};
+
+	const contactComplete = (data: string[]): void => {
+		dispatch(formSubmitted(data));
+		router.push(SUBMIT.FORM_SUBMIT);
 	};
 
 	return (
@@ -54,22 +66,13 @@ export const ContactUsForm: FC = () => {
 
 					sendEmail(values)
 						.then((res: AxiosResponse) => {
-							dispatch({ type: CONTACT.EMAIL_SENT, payload: res.data });
 							setSubmitting(false);
 							resetForm();
-							dispatch({
-								type: FORM_SUBMIT.FORM_SUBMITTED,
-								payload: res.data.internal
-							});
-							router.push(SUBMIT.FORM_SUBMIT);
+							contactComplete(res.data.internal);
 						})
 						.catch((err: AxiosError) => {
 							setSubmitting(false);
-							dispatch({
-								type: FORM_SUBMIT.FORM_SUBMITTED,
-								payload: err.response?.data.internal
-							});
-							router.push(SUBMIT.FORM_SUBMIT);
+							contactComplete(err.response?.data.internal);
 						});
 				}}
 			>
@@ -138,7 +141,13 @@ export const ContactUsForm: FC = () => {
 							{({ field, form }) => (
 								<FormControl mt={3} isInvalid={form.errors.body && form.touched.body}>
 									<FormLabel ml={1}>Message</FormLabel>
-									<Input as={Textarea} {...field} type='text' id='body' placeholder='Ask us anything...' />
+									<Input
+										as={Textarea}
+										{...field}
+										type='text'
+										id='body'
+										placeholder='Ask us anything...'
+									/>
 									<FormErrorMessage>
 										<Flex>
 											<Box mx={1}>

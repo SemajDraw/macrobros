@@ -11,22 +11,23 @@ import { PopularBlogs } from '../../components/SideBar/PopularBlogs';
 import { Pagination } from '../../components/shared/Pagination/Pagination';
 import { Flex } from '@chakra-ui/react';
 import { SEARCH } from '../../constants/routes';
+import { State } from '../../redux/RootReducer';
 
 export const Search: FC = () => {
 	const router = useRouter();
 	const { query, page } = router.query;
 	const dispatch = useDispatch();
-	const searchBlogs = useSelector((state: any) => state.blog.searchBlogs);
+	const searchBlogs = useSelector((state: State) => state.blog.searchBlogs);
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [hasResults, setHasResults] = useState(false);
-	const [totalResults, setTotalResults] = useState(null);
+	const [totalResults, setTotalResults] = useState<number>();
 
 	useEffect(() => {
 		if (query && page) {
-			dispatch(getSearchBlogs(query, page));
+			dispatch(getSearchBlogs(query as string, page as string));
 		} else if (query) {
-			dispatch(getSearchBlogs(query));
+			dispatch(getSearchBlogs(query as string));
 		}
 	}, [query, page]);
 

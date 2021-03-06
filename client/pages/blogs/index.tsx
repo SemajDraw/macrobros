@@ -3,11 +3,11 @@ import { BLOG } from '../../constants/endpoints';
 import Blogs from '../../components/Blog/Blogs';
 import { MetaInfo } from '../../components/shared/MetaInfo';
 import { fetcher } from '../../lib/fetcher';
-import { PaginatedBlogs } from '../../models/PaginatedBlogs';
+import { PaginatedBlog } from '../../models/PaginatedBlog';
 import { GetStaticProps } from 'next';
 
 interface BlogsProps {
-	blogs: PaginatedBlogs;
+	blogs: PaginatedBlog;
 }
 
 export const Index: FC<BlogsProps> = ({ blogs }) => {
@@ -23,7 +23,7 @@ export const Index: FC<BlogsProps> = ({ blogs }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-	const blogs: PaginatedBlogs = await fetcher(BLOG.BLOGS);
+	const blogs: PaginatedBlog = await fetcher(BLOG.BLOGS);
 	return { props: { blogs } };
 };
 
