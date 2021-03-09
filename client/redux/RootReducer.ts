@@ -4,7 +4,7 @@ import { authReducer } from './slices/AuthSlice';
 import { formSubmitReducer } from './slices/FormSubmitSlice';
 import { loadingReducer } from './slices/LoadingSlice';
 import { accountReducer } from './slices/AccountSlice';
-import { blogReducer } from './slices/BlogSice';
+import { blogReducer } from './slices/BlogSlice';
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {

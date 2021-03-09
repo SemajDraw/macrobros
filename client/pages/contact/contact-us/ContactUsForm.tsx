@@ -161,7 +161,7 @@ export const ContactUsForm: FC = () => {
 						</Field>
 
 						<Button colorScheme='blue' w='100%' mt={5} disabled={isSubmitting} type='submit'>
-							{isSubmitting ? <Spinner color='white' /> : 'SEND'}
+							{isSubmitting ? <Spinner color='white' /> : 'CONTACT'}
 						</Button>
 					</Form>
 				)}

@@ -10,7 +10,7 @@ import {
 	updateFeaturedBlog,
 	updatePopularBlogs,
 	updateSearchBlogs
-} from '../slices/BlogSice';
+} from '../slices/BlogSlice';
 import { Dispatch } from 'redux';
 
 export const getBlog = (slug: string) => (dispatch: Dispatch): void => {
@@ -18,7 +18,7 @@ export const getBlog = (slug: string) => (dispatch: Dispatch): void => {
 		.then((res: AxiosResponse) => {
 			dispatch(updateBlog(res.data));
 		})
-		.catch();
+		.catch(() => null);
 };
 
 export const getBlogCategories = () => (dispatch: Dispatch): void => {
@@ -26,7 +26,7 @@ export const getBlogCategories = () => (dispatch: Dispatch): void => {
 		.then((res: AxiosResponse) => {
 			dispatch(updateBlogCategories(res.data));
 		})
-		.catch();
+		.catch(() => null);
 };
 
 export const getFeaturedBlog = () => (dispatch: Dispatch): void => {
@@ -34,7 +34,7 @@ export const getFeaturedBlog = () => (dispatch: Dispatch): void => {
 		.then((res: AxiosResponse) => {
 			dispatch(updateFeaturedBlog(res.data[0]));
 		})
-		.catch();
+		.catch(() => null);
 };
 
 export const getPopularBlogs = () => (dispatch: Dispatch): void => {
@@ -42,7 +42,7 @@ export const getPopularBlogs = () => (dispatch: Dispatch): void => {
 		.then((res: AxiosResponse) => {
 			dispatch(updatePopularBlogs(res.data));
 		})
-		.catch();
+		.catch(() => null);
 };
 
 export const getBlogs = (pageNumber: string) => (dispatch: Dispatch): void => {
@@ -50,17 +50,17 @@ export const getBlogs = (pageNumber: string) => (dispatch: Dispatch): void => {
 		.then((res: AxiosResponse) => {
 			dispatch(updateBlogs(res.data));
 		})
-		.catch();
+		.catch(() => null);
 };
 
-export const getCategoryBlogs = (category: string, pageNumber: number | undefined) => (
+export const getCategoryBlogs = (category: string, pageNumber: number | string | undefined) => (
 	dispatch: Dispatch
 ): void => {
 	Axios.post(paginateUrl(BLOG.CATEGORY, pageNumber), { category: category }, baseHeaders())
 		.then((res: AxiosResponse) => {
 			dispatch(updateCategoryBlogs(res.data));
 		})
-		.catch();
+		.catch(() => null);
 };
 
 export const getSearchBlogs = (
@@ -71,9 +71,9 @@ export const getSearchBlogs = (
 		.then((res: AxiosResponse) => {
 			dispatch(updateSearchBlogs(res.data));
 		})
-		.catch();
+		.catch(() => null);
 };
 
 export const clapBlog = (blogId: string): void => {
-	Axios.put(BLOG.ADD_CLAP, { blogId: blogId }, baseHeaders()).catch();
+	Axios.put(BLOG.ADD_CLAP, { blogId: blogId }, baseHeaders()).catch(() => null);
 };

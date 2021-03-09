@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, memo, ReactElement, useEffect, useState } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import { LoadingSpinner } from './Loading/LoadingSpinner';
 import { BlogGridSideBar } from './BlogGridSideBar';
@@ -6,23 +6,20 @@ import { Pagination } from './Pagination/Pagination';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBlogs } from '../../redux/actions/blogActions';
-import { PaginatedBlog } from '../../models/PaginatedBlog';
-import { updateBlogs } from '../../redux/slices/BlogSice';
-import { State } from '../../redux/RootReducer';
+import { blogsSelector } from '../../redux/slices/BlogSlice';
 
 interface JumbotronGridTemplateProps {
-	serverPropBlogs: PaginatedBlog;
+	children: ReactElement;
 	paginationUrl: string;
 }
 
 export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
 	children,
-	serverPropBlogs,
 	paginationUrl
 }) => {
 	const router = useRouter();
 	const dispatch = useDispatch();
-	const paginatedBlog = useSelector((state: State) => state.blog.blogs);
+	const paginatedBlog = useSelector(blogsSelector);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -30,7 +27,6 @@ export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
 			setLoading(true);
 			dispatch(getBlogs(router.query.page as string));
 		} else {
-			dispatch(updateBlogs(serverPropBlogs));
 			setLoading(false);
 		}
 	}, [router.query]);
@@ -64,4 +60,4 @@ export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
 	);
 };
 
-export default JumbotronGridTemplate;
+export default memo(JumbotronGridTemplate);

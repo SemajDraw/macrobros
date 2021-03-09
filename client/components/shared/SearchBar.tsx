@@ -15,7 +15,7 @@ export const SearchBar: FC = () => {
 			initialValues={{ search: '' }}
 			onSubmit={(values, { setSubmitting, resetForm }) => {
 				setSubmitting(true);
-				router.push(`${SEARCH}?query=${values.search}`).then(() => setSubmitting(false));
+				router.push(`${SEARCH}/${encodeURIComponent(values.search)}`);
 				resetForm();
 			}}
 		>

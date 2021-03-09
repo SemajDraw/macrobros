@@ -34,9 +34,9 @@ export const PopularBlogs: FC = () => {
 						bg={bg}
 						cursor={'pointer'}
 					>
-						<Flex h={12} px={4} align={'center'} bg={bg}>
-							<Image src={blog?.icon} />
-							<Text fontWeight={400} fontSize={'md'} isTruncated>
+						<Flex h={12} px={3} align={'center'} bg={bg}>
+							<Image height={'20px'} src={blog?.icon} />
+							<Text ml={2} fontWeight={400} fontSize={'md'} isTruncated>
 								{formatSlug(blog?.slug)}
 							</Text>
 						</Flex>

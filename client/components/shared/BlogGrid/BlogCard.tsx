@@ -14,14 +14,13 @@ const Card = ({ blog }) => (
 			transition: { duration: 0.5 }
 		}}
 		transition={{ type: 'spring', duration: 1 }}
-		maxW='lg'
 		borderWidth='1px'
 		borderRadius='md'
 		overflow='hidden'
 		shadow='lg'
 		cursor={'pointer'}
 	>
-		<Image src={blog.thumbnail} alt={blog.slug} />
+		<Image src={blog.thumbnail} alt={''} />
 
 		<Box p='6'>
 			<Box d='flex' alignItems='baseline'>
@@ -45,7 +44,14 @@ const Card = ({ blog }) => (
 			</Box>
 
 			<Box h={'4.5em'}>
-				<Text as='span' color='gray.600' fontSize='md' noOfLines={3} isTruncated>
+				<Text
+					as='span'
+					color='gray.600'
+					fontSize='md'
+					fontWeight={'normal'}
+					noOfLines={3}
+					isTruncated
+				>
 					{blog.excerpt}
 				</Text>
 			</Box>

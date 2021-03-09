@@ -7,14 +7,19 @@ class PopularBlogsListSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         fields = ('icon', 'slug')
-        lookup_field = 'slug'
 
 
 class BlogPostListSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
-        fields = ('title', 'slug', 'category', 'date_created', 'icon', 'thumbnail', 'header_img', 'excerpt', 'summary')
+        fields = ('title', 'slug', 'category', 'date_created', 'icon', 'thumbnail', 'header_img', 'excerpt',)
         lookup_field = 'slug'
+
+
+class BlogPostMinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogPost
+        fields = ('title', 'slug', 'category', 'date_created', 'icon', 'thumbnail', 'header_img', 'excerpt',)
 
 
 class BlogPostSerializer(serializers.ModelSerializer):

@@ -13,7 +13,7 @@ export const BlogGrid: FC<BlogGridProps> = ({ blogs }) => {
 	return (
 		<Grid templateColumns='repeat(12, 1fr)' gap={{ base: 6, lg: 8 }}>
 			{blogCards?.map((blogCard, i) => (
-				<GridItem key={i} colSpan={{ base: 12, md: 6 }}>
+				<GridItem key={i} colSpan={{ base: 12, sm: 6 }}>
 					{blogCard}
 				</GridItem>
 			))}

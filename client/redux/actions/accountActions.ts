@@ -20,7 +20,7 @@ export const verifyEmail = (token: string) => (dispatch: Dispatch): void => {
 		.then((res: AxiosResponse) => {
 			dispatch(emailVerification(res.data));
 		})
-		.catch();
+		.catch(() => null);
 };
 
 export const passwordResetRequest = (resetReq: any): Promise<AxiosResponse> => {
@@ -68,7 +68,7 @@ export const saveBlog = (blogId: string) => (getState: () => any): void => {
 		tokenAuthHeaders(getState().auth.token)
 	)
 		.then()
-		.catch();
+		.catch(() => null);
 };
 
 export const updateAccount = (updateField: Record<string, string>) => (
@@ -87,5 +87,5 @@ export const updateAccount = (updateField: Record<string, string>) => (
 				dispatch<any>(loadUser());
 			}
 		})
-		.catch();
+		.catch(() => null);
 };

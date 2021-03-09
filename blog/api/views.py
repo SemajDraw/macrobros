@@ -1,10 +1,11 @@
 from django.db.models import Q
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, get_object_or_404
 from macrobros.pagination import CustomPagination
 
-from blog.api.serializers import BlogPostSerializer, BlogPostListSerializer, PopularBlogsListSerializer
+from blog.api.serializers import BlogPostSerializer, BlogPostListSerializer, PopularBlogsListSerializer, \
+    BlogPostMinSerializer
 from blog.models import BlogPost, Categories
 
 
@@ -15,18 +16,20 @@ class BlogPostDetailView(RetrieveAPIView):
     permission_classes = (permissions.AllowAny,)
 
 
-class BlogPostFeaturedView(ListAPIView):
-    queryset = BlogPost.objects.all().filter(featured=True)
-    serializer_class = BlogPostListSerializer
-    lookup_field = 'slug'
+class BlogPostFeaturedView(RetrieveAPIView):
+    queryset = BlogPost.objects.all()
+    serializer_class = BlogPostMinSerializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = None
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        return get_object_or_404(queryset, featured=True)
 
 
 class BlogPostPopularView(ListAPIView):
     queryset = BlogPost.objects.all().filter(popular=True)
     serializer_class = PopularBlogsListSerializer
-    lookup_field = 'slug'
     permission_classes = (permissions.AllowAny,)
     pagination_class = None
 
@@ -69,16 +72,20 @@ class SearchBlogPosts(ListAPIView):
     def post(self, request, format=None):
         data = self.request.data
         search_fields = data['search'].split(' ')
+        blogs = BlogPost.objects
         queryset = []
         for field in search_fields:
-            blog_posts = BlogPost.objects.filter(
+            blog_posts = blogs.filter(
                 Q(title__icontains=field) |
                 Q(content__icontains=field) |
                 Q(project_name__icontains=field)
             )
             queryset.extend(blog_posts)
 
-        page = self.paginate_queryset(list(set(queryset)))
+        if len(queryset) is 0:
+            page = self.paginate_queryset(list(set(blogs.all())))
+        else:
+            page = self.paginate_queryset(list(set(queryset)))
 
         serializer = self.serializer_class(page, many=True)
         return self.get_paginated_response(serializer.data)

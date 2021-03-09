@@ -26,10 +26,13 @@ export const NavDrawerFooter: FC<NavDrawerFooterProps> = ({
 				<Flex mt={3}>
 					<Text mr={1} fontSize={'xs'}>
 						Not registered yet?{' '}
-						<WrappedLink href={ACCOUNT.REGISTER} onClick={() => onClose()}>
-							<Text color='blue.300' _hover={{ color: 'blue.400' }}>
-								Sign Up
-							</Text>
+						<WrappedLink
+							href={ACCOUNT.REGISTER}
+							onClick={() => onClose()}
+							color='blue.300'
+							_hover={{ color: 'blue.400' }}
+						>
+							Sign Up
 						</WrappedLink>
 					</Text>
 				</Flex>

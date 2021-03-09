@@ -1,51 +1,51 @@
-import React, { FC } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
-import Bounce from 'react-reveal/Bounce';
-import { MacroBrosIcon } from '../shared/Icons/MacroBrosIcon';
-import { Heading } from '@chakra-ui/layout';
-import { MotionBox } from '../FramerMotion/MotionBox';
+import React, { FC, memo } from 'react';
+import { Flex, Image, Text } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
+import { featuredBlogSelector } from '../../redux/slices/BlogSlice';
 
 export const BlogsJumbotron: FC = () => {
+	const featuredBlog = useSelector(featuredBlogSelector);
+
 	return (
 		<Flex
 			flexDirection='column'
-			minHeight='60vh'
-			borderBottomRadius={{ base: '1em', md: '2em' }}
-			bgGradient='linear(to-b, #471c71, #FFAF7B)'
-			justifyContent='center'
-			alignItems='center'
+			borderRadius={{ base: '5px', md: '5px' }}
+			my={{ base: 6, sm: 6, md: 6, lg: 8 }}
+			mx={{ base: '3vw', md: '8vw', lg: '9vw' }}
 		>
-			<Flex>
-				<Bounce delay={500} top>
-					<MotionBox
-						initial={{
-							rotateY: 180
-						}}
-						animate={{
-							rotateY: 360
-						}}
-						transition={{ delay: 1, duration: 1 }}
+			<Flex width={'100%'} position={'relative'}>
+				<Image src={featuredBlog?.headerImg} />
+				<Flex
+					p={{ base: 4, sm: 5, md: 6, lg: 8 }}
+					direction={'column'}
+					height={'100%'}
+					width={'100%'}
+					position={'absolute'}
+					zIndex={100}
+					background={'transparent'}
+					justify={'flex-end'}
+				>
+					<Text
+						color={'white'}
+						fontSize={{ base: 'lg', sm: 'xl', md: '2xl', lg: '4xl' }}
+						noOfLines={1}
+						isTruncated
 					>
-						<Box h='30vh' w='30vh'>
-							<MacroBrosIcon id='home' strokeColor='white' />
-						</Box>
-					</MotionBox>
-				</Bounce>
-			</Flex>
-			<Flex>
-				<Bounce left>
-					<Heading as='h1' size='4xl' color='white' fontWeight={800}>
-						Macro
-					</Heading>
-				</Bounce>
-				<Bounce right>
-					<Heading as='h1' size='4xl' color='white' fontWeight={800}>
-						Bros
-					</Heading>
-				</Bounce>
+						{featuredBlog?.title}
+					</Text>
+					<Text
+						color={'white'}
+						fontSize={{ base: 'sm', sm: 'md', md: 'lg', lg: 'xl' }}
+						fontWeight={'light'}
+						noOfLines={1}
+						isTruncated
+					>
+						{featuredBlog?.excerpt}
+					</Text>
+				</Flex>
 			</Flex>
 		</Flex>
 	);
 };
 
-export default BlogsJumbotron;
+export default memo(BlogsJumbotron);

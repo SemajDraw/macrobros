@@ -1,14 +1,16 @@
 import { Blog } from '../../models/Blog';
 import { PaginatedBlog } from '../../models/PaginatedBlog';
 import { PopularBlog } from '../../models/PopularBlog';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { State } from '../RootReducer';
+import { BlogMin } from '../../models/BlogMin';
 
 interface BlogState {
 	blog: Blog;
 	blogs: PaginatedBlog;
 	blogCategories: string[];
 	categoryBlogs: PaginatedBlog;
-	featuredBlog: Blog;
+	featuredBlog: BlogMin;
 	popularBlogs: PopularBlog[];
 	searchBlogs: PaginatedBlog;
 }
@@ -28,7 +30,7 @@ const slice = createSlice({
 		updateBlog(state, { payload }: PayloadAction<Blog>) {
 			state.blog = payload;
 		},
-		updateFeaturedBlog(state, { payload }: PayloadAction<Blog>) {
+		updateFeaturedBlog(state, { payload }: PayloadAction<BlogMin>) {
 			state.featuredBlog = payload;
 		},
 		updateBlogs(state, { payload }: PayloadAction<PaginatedBlog>) {
@@ -60,3 +62,25 @@ export const {
 	updatePopularBlogs,
 	updateSearchBlogs
 } = slice.actions;
+
+const selectFeaturedBlog = (state: State): BlogMin => state.blog.featuredBlog;
+const selectBlogs = (state: State): PaginatedBlog => state.blog.blogs;
+const selectSearchBlogs = (state: State): PaginatedBlog => state.blog.searchBlogs;
+const selectCategoryBlogs = (state: State): PaginatedBlog => state.blog.categoryBlogs;
+
+export const blogsSelector = createSelector([selectBlogs], (selectBlogs) => selectBlogs);
+
+export const featuredBlogSelector = createSelector(
+	[selectFeaturedBlog],
+	(selectFeaturedBlog) => selectFeaturedBlog
+);
+
+export const searchBlogsSelector = createSelector(
+	[selectSearchBlogs],
+	(selectSearchBlogs) => selectSearchBlogs
+);
+
+export const categoryBlogsSelector = createSelector(
+	[selectCategoryBlogs],
+	(selectCategoryBlogs) => selectCategoryBlogs
+);

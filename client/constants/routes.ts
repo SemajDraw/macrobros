@@ -26,3 +26,5 @@ export const SUBMIT = {
 };
 
 export const SEARCH = '/search';
+
+export const CATEGORY = '/category';

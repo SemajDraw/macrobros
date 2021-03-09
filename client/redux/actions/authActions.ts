@@ -36,5 +36,5 @@ export const logout = () => (dispatch: Dispatch, getState: () => any): void => {
 		.then(() => {
 			dispatch(clearAuth());
 		})
-		.catch();
+		.catch(() => null);
 };
