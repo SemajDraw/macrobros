@@ -1,12 +1,15 @@
 from django.db.models import Q
 from rest_framework import generics, permissions, status
-from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView, get_object_or_404
-from macrobros.pagination import CustomPagination
+from rest_framework.response import Response
 
-from blog.api.serializers import BlogPostSerializer, BlogPostListSerializer, PopularBlogsListSerializer, \
-    BlogPostMinSerializer
+from blog.api.serializers import (
+    BlogPostSerializer,
+    BlogPostListSerializer,
+    PopularBlogsMinListSerializer,
+    BlogPostMinSerializer)
 from blog.models import BlogPost, Categories
+from macrobros.pagination import CustomPagination
 
 
 class BlogPostDetailView(RetrieveAPIView):
@@ -27,9 +30,16 @@ class BlogPostFeaturedView(RetrieveAPIView):
         return get_object_or_404(queryset, featured=True)
 
 
-class BlogPostPopularView(ListAPIView):
-    queryset = BlogPost.objects.all().filter(popular=True)
-    serializer_class = PopularBlogsListSerializer
+class PopularBlogPostsMinView(ListAPIView):
+    queryset = BlogPost.objects.all().filter(popular=True)[:10]
+    serializer_class = PopularBlogsMinListSerializer
+    permission_classes = (permissions.AllowAny,)
+    pagination_class = None
+
+
+class PopularBlogPostsView(ListAPIView):
+    queryset = BlogPost.objects.all().filter(popular=True)[:3]
+    serializer_class = BlogPostMinSerializer
     permission_classes = (permissions.AllowAny,)
     pagination_class = None
 

@@ -7,15 +7,15 @@ from django.conf import settings
 
 class SendEmail:
 
-    def account_confirmation_email(self, request, first_name, token):
+    def account_confirmation_email(self, email, first_name, token):
         context = {
             'name': first_name,
-            'verification_link': f'http://{get_current_site(request).domain}/account/verify-email/{token}'
+            'verification_link': f'https://www.macro-bros.com/account/verify-email/{token}'
         }
 
         self.send_email(
             'Please verify your email!',
-            request.data['email'],
+            email,
             'emails/registration_email.html',
             context
         )
@@ -24,7 +24,7 @@ class SendEmail:
         context = {
             'name': first_name,
             'password_reset_link':
-                f'http://{get_current_site(request)}/account/password-reset?user={auth_token}&token={password_reset_token}'
+                f'https://www.macro-bros.com/account/password-reset?user={auth_token}&token={password_reset_token}'
         }
 
         self.send_email(

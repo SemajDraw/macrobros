@@ -55,7 +55,7 @@ REST_FRAMEWORK = {
     },
     # Pagination settings
     "DEFAULT_PAGINATION_CLASS": "macrobros.pagination.CustomPagination",
-    "PAGE_SIZE": 2,
+    "PAGE_SIZE": 10,
 }
 
 MIDDLEWARE = [
@@ -122,7 +122,7 @@ REST_KNOX = {
     "SECURE_HASH_ALGORITHM": "cryptography.hazmat.primitives.hashes.SHA512",
     "AUTH_TOKEN_CHARACTER_LENGTH": 64,
     "TOKEN_TTL": timedelta(hours=12),
-    "USER_SERIALIZER": "accounts.api.serializers.UserSerializer",
+    "USER_SERIALIZER": "account.api.serializers.UserSerializer",
     "TOKEN_LIMIT_PER_USER": None,
     "AUTO_REFRESH": False,
 }

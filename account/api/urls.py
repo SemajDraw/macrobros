@@ -1,13 +1,13 @@
 from django.urls import path, include
 from knox import views as KnoxViews
 from macrobros.constants import account
-from account.api.views import (Register, Login, GetUser, VerifyEmail, GetSavedBlogs,
+from account.api.views import (Register, LoginView, GetUser, VerifyEmail, GetSavedBlogs,
                                PasswordResetRequest, PasswordReset, SaveBlogView, UpdateUser)
 
 urlpatterns = [
     path(account['URLS']['AUTH'], include('knox.urls')),
     path(account['URLS']['USER'], GetUser.as_view(), name='user'),
-    path(account['URLS']['LOGIN'], Login.as_view(), name='login'),
+    path(account['URLS']['LOGIN'], LoginView.as_view(), name='login'),
     path(account['URLS']['LOGOUT'], KnoxViews.LogoutView.as_view(), name='logout'),
     path(account['URLS']['REGISTER'], Register.as_view(), name='register'),
     path(account['URLS']['UPDATE_USER'], UpdateUser.as_view(), name='update-user'),

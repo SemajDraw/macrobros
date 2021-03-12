@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 from knox import views as KnoxViews
-from account.api.views import (Register, Login, GetUser, VerifyEmail, GetSavedBlogs,
+from account.api.views import (Register, LoginView, GetUser, VerifyEmail, GetSavedBlogs,
                                PasswordResetRequest, PasswordReset, SaveBlogView, UpdateUser)
 
 
@@ -13,7 +13,7 @@ class TestAccountUrls(SimpleTestCase):
 
     def test_auth_user_login_url_returns_user_login_view(self):
         url = reverse('login')
-        self.assertEquals(resolve(url).func.view_class, Login)
+        self.assertEquals(resolve(url).func.view_class, LoginView)
 
     def test_auth_user_logout_url_returns_user_logout_view(self):
         url = reverse('logout')

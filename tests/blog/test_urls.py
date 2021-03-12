@@ -1,6 +1,6 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
-from blog.api.views import (BlogPostDetailView, BlogPostCategoryView, BlogPostFeaturedView, BlogPostPopularView,
+from blog.api.views import (BlogPostDetailView, BlogPostCategoryView, BlogPostFeaturedView, PopularBlogPostsMinView,
                             BlogPostListView, SearchBlogPosts, BlogPostCategories, AddClapView)
 
 
@@ -16,7 +16,7 @@ class TestBlogUrls(SimpleTestCase):
 
     def test_popular_blogs_url_returns_blog_post_popular_view(self):
         url = reverse('popular')
-        self.assertEquals(resolve(url).func.view_class, BlogPostPopularView)
+        self.assertEquals(resolve(url).func.view_class, PopularBlogPostsMinView)
 
     def test_search_blogs_url_returns_search_blog_post_view(self):
         url = reverse('search')

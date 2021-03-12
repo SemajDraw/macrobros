@@ -3,7 +3,7 @@ from rest_framework import serializers
 from blog.models import BlogPost
 
 
-class PopularBlogsListSerializer(serializers.ModelSerializer):
+class PopularBlogsMinListSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         fields = ('icon', 'slug')

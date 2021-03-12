@@ -19,6 +19,7 @@ blog = {
         'ALL_BLOGS': '',
         'FEATURED': 'featured',
         'POPULAR': 'popular',
+        'POPULAR_MIN': 'popular-min',
         'CATEGORY': 'category',
         'CATEGORIES': 'categories',
         'SEARCH': 'search',
