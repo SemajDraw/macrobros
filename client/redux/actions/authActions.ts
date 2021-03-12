@@ -5,6 +5,7 @@ import { LoginModel } from '../../models/LoginModel';
 import { Dispatch } from 'redux';
 
 import { clearAuth, userLoaded, userLoading } from '../slices/AuthSlice';
+import { clearAccount } from '../slices/AccountSlice';
 
 export const loadUser = () => (dispatch: Dispatch, getState: () => any): void => {
 	if (getState().auth.token) {
@@ -35,6 +36,7 @@ export const logout = () => (dispatch: Dispatch, getState: () => any): void => {
 	)
 		.then(() => {
 			dispatch(clearAuth());
+			dispatch(clearAccount());
 		})
 		.catch(() => null);
 };

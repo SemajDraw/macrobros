@@ -44,7 +44,7 @@ const validationSchema = Yup.object().shape({
 		.matches(REGEX.PASSWORD, 'Password is not valid')
 		.required('Please enter a password'),
 	password2: Yup.string()
-		.oneOf([Yup.ref('password')], 'Password does not match')
+		.oneOf([Yup.ref('password')], 'Passwords do not match')
 		.required('Please confirm your password')
 });
 
@@ -60,9 +60,9 @@ export const RegisterForm: FC = () => {
 		password2: ''
 	};
 
-	const registrationComplete = (data: string[]): void => {
+	const registrationComplete = (data: string[], url: string): void => {
 		dispatch(formSubmitted(data));
-		router.push(SUBMIT.FORM_SUBMIT);
+		router.push(`${SUBMIT.FORM_SUBMIT}/${url}`);
 	};
 
 	return (
@@ -76,13 +76,13 @@ export const RegisterForm: FC = () => {
 						.then((res: AxiosResponse) => {
 							resetForm();
 							setSubmitting(false);
-							registrationComplete(res.data.internal);
+							registrationComplete(res.data.internal, 'registration-complete');
 						})
 						.catch((err: AxiosError) => {
 							setSubmitting(false);
 							const data: any = err.response?.data;
 							if ('internal' in data) {
-								registrationComplete(data.internal);
+								registrationComplete(data.internal, 'registration-error');
 							} else if ('email' in data) {
 								setFieldError('email', 'An account with this email already exists!');
 							}

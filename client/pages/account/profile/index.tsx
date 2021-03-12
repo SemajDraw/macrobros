@@ -1,25 +1,31 @@
 import React, { FC, useEffect } from 'react';
 import { parseCookie } from '../../../lib/parseCookies';
-import { Text } from '@chakra-ui/layout';
+import { Grid, GridItem, Text } from '@chakra-ui/layout';
 import { ProfileTemplate } from '../../../components/Profile/ProfileTemplate';
 import { formatUserInitials } from '../../../utils/stringUtils';
 import { useAuth } from '../../../providers/AuthProvider';
 import { MetaInfo } from '../../../components/shared/MetaInfo';
 import { useRouter } from 'next/router';
-import { ACCOUNT } from '../../../constants/routes';
+import { HOME } from '../../../constants/routes';
 import { GetServerSideProps } from 'next';
+import { useDispatch, useSelector } from 'react-redux';
+import { savedBlogsSelector } from '../../../redux/slices/AccountSlice';
+import { getSavedBlogs } from '../../../redux/actions/accountActions';
+import { BlogCard } from '../../../components/Blog/BlogGrid/BlogCard';
 
 export const Index: FC = () => {
-	const { user } = useAuth();
-
+	const { user, isAuthenticated } = useAuth();
 	const router = useRouter();
-	const { isAuthenticated } = useAuth();
+	const dispatch = useDispatch();
+	const savedBlogs = useSelector(savedBlogsSelector);
 
 	useEffect(() => {
-		if (!isAuthenticated) {
-			router.push(ACCOUNT.LOGIN);
-		}
+		if (!isAuthenticated) router.push(HOME);
 	}, [isAuthenticated]);
+
+	useEffect(() => {
+		dispatch(getSavedBlogs());
+	}, []);
 
 	return (
 		<>
@@ -28,14 +34,19 @@ export const Index: FC = () => {
 					'Welcome to your MacroBros profile! Here you can keep track of your favourite ' +
 					'blog posts plus manage your subscriptions and account.'
 				}
-				title={`MacroBros - ${
-					user && formatUserInitials([user?.firstName, user?.lastName])
-				} Profile`}
+				title={`MacroBros - ${formatUserInitials([user.firstName, user.lastName])} Profile`}
 			/>
 			<ProfileTemplate tabIndex={0}>
 				<Text mt={4} fontSize={'2xl'}>
 					Saved Blogs
 				</Text>
+				<Grid mt={5} rowGap={4}>
+					{savedBlogs.results.map((blog, i) => (
+						<GridItem key={i} colSpan={12}>
+							<BlogCard blog={blog} colSpan={6} />
+						</GridItem>
+					))}
+				</Grid>
 			</ProfileTemplate>
 		</>
 	);

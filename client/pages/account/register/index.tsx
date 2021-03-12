@@ -14,9 +14,7 @@ export const Index: FC = () => {
 	const { isAuthenticated } = useAuth();
 
 	useEffect(() => {
-		if (isAuthenticated) {
-			router.push(HOME);
-		}
+		if (isAuthenticated) router.push(HOME);
 	}, [isAuthenticated]);
 
 	return (
@@ -41,7 +39,7 @@ export const Index: FC = () => {
 				justifyContent='center'
 			>
 				<Flex>
-					<Text mr={1}>
+					<Text mr={1} fontSize={'md'}>
 						Already have an account?{' '}
 						<WrappedLink color='blue.500' _hover={{ color: 'blue.700' }} href={ACCOUNT.LOGIN}>
 							Please login.

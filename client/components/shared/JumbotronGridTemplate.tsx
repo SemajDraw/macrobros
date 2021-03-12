@@ -36,7 +36,7 @@ export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
 	}, [paginatedBlog]);
 
 	return (
-		<Box style={{ minHeight: '100vh' }}>
+		<Box>
 			{children}
 
 			{loading ? (

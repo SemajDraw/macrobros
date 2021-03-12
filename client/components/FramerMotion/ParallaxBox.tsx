@@ -21,7 +21,7 @@ export const ParallaxBox: FC = ({ children }) => {
 		<MotionBox
 			animate={inView ? 'visible' : 'hidden'}
 			variants={variants}
-			transition={{ duration: 2, ease: 'easeOut' }}
+			transition={{ duration: 0.8, ease: 'easeOut' }}
 			ref={ref}
 		>
 			{children}

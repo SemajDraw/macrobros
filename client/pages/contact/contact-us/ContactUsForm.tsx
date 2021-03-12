@@ -53,7 +53,7 @@ export const ContactUsForm: FC = () => {
 
 	const contactComplete = (data: string[]): void => {
 		dispatch(formSubmitted(data));
-		router.push(SUBMIT.FORM_SUBMIT);
+		router.push(`${SUBMIT.FORM_SUBMIT}/contact`);
 	};
 
 	return (

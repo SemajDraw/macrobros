@@ -9,6 +9,7 @@ import {
 	updateCategoryBlogs,
 	updateFeaturedBlog,
 	updatePopularBlogs,
+	updatePopularBlogsMin,
 	updateSearchBlogs
 } from '../slices/BlogSlice';
 import { Dispatch } from 'redux';
@@ -37,6 +38,14 @@ export const getFeaturedBlog = () => (dispatch: Dispatch): void => {
 		.catch(() => null);
 };
 
+export const getPopularBlogsMin = () => (dispatch: Dispatch): void => {
+	Axios.get(BLOG.POPULAR_MIN, baseHeaders())
+		.then((res: AxiosResponse) => {
+			dispatch(updatePopularBlogsMin(res.data));
+		})
+		.catch(() => null);
+};
+
 export const getPopularBlogs = () => (dispatch: Dispatch): void => {
 	Axios.get(BLOG.POPULAR, baseHeaders())
 		.then((res: AxiosResponse) => {
@@ -53,9 +62,10 @@ export const getBlogs = (pageNumber: string) => (dispatch: Dispatch): void => {
 		.catch(() => null);
 };
 
-export const getCategoryBlogs = (category: string, pageNumber: number | string | undefined) => (
-	dispatch: Dispatch
-): void => {
+export const getCategoryBlogs = (
+	category: string,
+	pageNumber?: number | string | undefined
+) => (dispatch: Dispatch): void => {
 	Axios.post(paginateUrl(BLOG.CATEGORY, pageNumber), { category: category }, baseHeaders())
 		.then((res: AxiosResponse) => {
 			dispatch(updateCategoryBlogs(res.data));

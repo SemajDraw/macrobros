@@ -18,7 +18,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { clearAuth, loginSuccess } from '../../../redux/slices/AuthSlice';
 
 const validationSchema = Yup.object().shape({
-	email: Yup.string()
+	username: Yup.string()
 		.email('Please enter a valid email')
 		.required('Please enter an email'),
 	password: Yup.string().required('Please enter a password')
@@ -27,7 +27,7 @@ const validationSchema = Yup.object().shape({
 export const LoginForm: FC = () => {
 	const { setCookie } = useAuth();
 	const dispatch = useDispatch();
-	const initialValues: LoginModel = { email: '', password: '' };
+	const initialValues: LoginModel = { username: '', password: '' };
 
 	return (
 		<Box my={5} p={6} borderWidth='1px' borderRadius='lg' overflow='hidden' shadow='lg'>
@@ -58,24 +58,24 @@ export const LoginForm: FC = () => {
 			>
 				{({ handleSubmit, isSubmitting }) => (
 					<Form onSubmit={handleSubmit}>
-						<Field name='email'>
+						<Field name='username'>
 							{({ field, form }) => (
-								<FormControl isInvalid={form.errors.email && form.touched.email}>
-									<FormLabel ml={1} htmlFor='email'>
+								<FormControl isInvalid={form.errors.username && form.touched.username}>
+									<FormLabel ml={1} htmlFor='username'>
 										Email
 									</FormLabel>
 									<Input
 										{...field}
 										autoComplete='username'
 										type='email'
-										id='email'
+										id='username'
 										placeholder='Email'
 									/>
 									<FormErrorMessage>
 										<Box mx={1}>
 											<FontAwesomeIcon icon={faInfoCircle} />
 										</Box>
-										{form.errors.email}
+										{form.errors.username}
 									</FormErrorMessage>
 								</FormControl>
 							)}

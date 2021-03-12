@@ -5,6 +5,8 @@ import { MacroBrosIcon } from './Icons/MacroBrosIcon';
 import { SocialIcons } from './Icons/SocialIcons';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { MetaInfo } from './MetaInfo';
+import Link from 'next/link';
+import { HOME } from '../../constants/routes';
 
 interface FormSubmitPageProps extends LayoutProps {
 	body: string;
@@ -18,9 +20,9 @@ interface FormSubmitPageProps extends LayoutProps {
 
 export const FormSubmitPage: FC<FormSubmitPageProps> = ({
 	body,
-	meta,
 	heading,
 	icons,
+	meta,
 	minWidth = { base: '85%', sm: '355px', md: '450px', lg: '500px' },
 	maxWidth = { base: '85%', sm: '400px', lg: '550px' }
 }) => {
@@ -34,6 +36,7 @@ export const FormSubmitPage: FC<FormSubmitPageProps> = ({
 			direction={'column'}
 			width={'100%'}
 			bg={'white'}
+			my={10}
 		>
 			<MetaInfo title={meta.title} description={meta.description} />
 			<Flex
@@ -45,9 +48,11 @@ export const FormSubmitPage: FC<FormSubmitPageProps> = ({
 				borderRadius={6}
 				p={12}
 			>
-				<Box h='100px' w='100px'>
-					<MacroBrosIcon id='login' strokeColor={iconColor} />
-				</Box>
+				<Link href={HOME}>
+					<Box h='100px' w='100px' cursor={'pointer'}>
+						<MacroBrosIcon id='login' strokeColor={iconColor} />
+					</Box>
+				</Link>
 				<Box mt={6}>
 					<Text
 						as='h3'

@@ -6,6 +6,7 @@ import { Dispatch } from 'redux';
 import { clearAuth } from '../slices/AuthSlice';
 import { emailVerification, savedBlogs } from '../slices/AccountSlice';
 import { RegisterModel } from '../../models/RegisterModel';
+import { formSubmitted } from '../slices/FormSubmitSlice';
 
 export const register = (register: RegisterModel): Promise<AxiosResponse> => {
 	return Axios.post(
@@ -17,35 +18,44 @@ export const register = (register: RegisterModel): Promise<AxiosResponse> => {
 
 export const verifyEmail = (token: string) => (dispatch: Dispatch): void => {
 	Axios.post(apiUrl('/api/account/auth/verify-email'), null, tokenAuthHeaders(token))
-		.then((res: AxiosResponse) => {
-			dispatch(emailVerification(res.data));
-		})
+		.then((res: AxiosResponse) => dispatch(emailVerification(res.data)))
 		.catch(() => null);
 };
 
-export const passwordResetRequest = (resetReq: any): Promise<AxiosResponse> => {
-	return Axios.post(
+export const passwordResetRequest = (resetReq: { email: string }) => (
+	dispatch: Dispatch
+): void => {
+	Axios.post(
 		apiUrl('/api/account/password-reset-request'),
 		resetReq,
 		baseHeaders()
-	);
+	).then((res: AxiosResponse) => dispatch(formSubmitted(res.data.message)));
 };
 
-export const passwordReset = (
-	user: string,
-	token: string,
-	password: string,
-	password1: string
-) => {
-	return Axios.post(
+export const passwordReset = (resetRequest: {
+	user: string;
+	token: string;
+	password: string;
+	password1: string;
+}) => (dispatch: Dispatch): void => {
+	Axios.post(
 		apiUrl('/api/account/password-reset'),
 		{
-			'token': token,
-			'password': password,
-			'password1': password1
+			'token': resetRequest.token,
+			'password': resetRequest.password,
+			'password1': resetRequest.password1
 		},
-		tokenAuthHeaders(user)
-	);
+		tokenAuthHeaders(resetRequest.user)
+	)
+		.then((res: AxiosResponse) => dispatch(formSubmitted(res.data.internal)))
+		.catch(() =>
+			dispatch(
+				formSubmitted([
+					'Oops something went wrong',
+					'It looks like this link has expired. Please attempt to login or reset your password again.'
+				])
+			)
+		);
 };
 
 export const getSavedBlogs = () => (dispatch: Dispatch, getState: () => any): void => {
@@ -53,15 +63,14 @@ export const getSavedBlogs = () => (dispatch: Dispatch, getState: () => any): vo
 		apiUrl('/api/account/auth/saved-blogs'),
 		tokenAuthHeaders(getState().auth.token)
 	)
-		.then((res: AxiosResponse) => {
-			dispatch(savedBlogs(res.data));
-		})
-		.catch(() => {
-			dispatch(clearAuth());
-		});
+		.then((res: AxiosResponse) => dispatch(savedBlogs(res.data)))
+		.catch(() => dispatch(clearAuth()));
 };
 
-export const saveBlog = (blogId: string) => (getState: () => any): void => {
+export const saveBlog = (blogId: number) => (
+	dispatch: Dispatch,
+	getState: () => any
+): void => {
 	Axios.put(
 		apiUrl('/api/account/auth/save-blog'),
 		{ blogId: blogId },

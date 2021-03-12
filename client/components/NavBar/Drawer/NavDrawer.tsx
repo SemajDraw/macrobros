@@ -32,7 +32,7 @@ export const NavDrawer: FC<NavDrawerProps> = ({ isOpen, onClose }) => {
 
 	return (
 		<Drawer isOpen={isOpen} placement='right' onClose={onClose}>
-			<DrawerOverlay {...handlers}>
+			<DrawerOverlay display={{ md: 'none' }} {...handlers}>
 				<DrawerContent
 					bg={'layoutBlack'}
 					color={'white'}

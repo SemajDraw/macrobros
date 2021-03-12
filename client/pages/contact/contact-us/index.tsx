@@ -9,7 +9,7 @@ export const Index: FC = () => {
 			heading={'Get in touch'}
 			meta={{
 				title: 'MacroBros - Contact Us',
-				desc: 'If you have any questions or queries for us please get in contact.'
+				description: 'If you have any questions or queries for us please get in touch.'
 			}}
 			minWidth={{ base: '85%', sm: '355px', md: '400px', lg: '500px' }}
 			maxWidth={{ base: '85%', sm: '400px', lg: '500px' }}

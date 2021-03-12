@@ -1,13 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { parseCookie } from '../../../lib/parseCookies';
-import FormPage from '../../../components/shared/FormPage';
-import { Flex, Text } from '@chakra-ui/react';
-import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
-import { ACCOUNT, HOME } from '../../../constants/routes';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../providers/AuthProvider';
-import { ForgotPasswordForm } from './ForgotPasswordForm';
+import { HOME } from '../../../constants/routes';
+import FormPage from '../../../components/shared/FormPage';
+import { PasswordResetForm } from './PasswordResetForm';
 
 export const Index: FC = () => {
 	const router = useRouter();
@@ -28,30 +26,7 @@ export const Index: FC = () => {
 					'a link to reset your password.'
 			}}
 		>
-			<ForgotPasswordForm />
-
-			<Flex
-				my={5}
-				p={6}
-				borderWidth='1px'
-				borderRadius='lg'
-				overflow='hidden'
-				shadow='lg'
-				justifyContent='center'
-			>
-				<Flex>
-					<Text mr={1} fontSize={'md'}>
-						New to MacroBros?{' '}
-						<WrappedLink
-							color='blue.500'
-							_hover={{ color: 'blue.700' }}
-							href={ACCOUNT.REGISTER}
-						>
-							Create an account.
-						</WrappedLink>
-					</Text>
-				</Flex>
-			</Flex>
+			<PasswordResetForm />
 		</FormPage>
 	);
 };

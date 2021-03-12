@@ -14,8 +14,6 @@ export const LoadingPage: FC = () => {
 		<Flex
 			direction={'column'}
 			justifyContent={'center'}
-			p={0}
-			m={0}
 			align={'center'}
 			width={'100vw'}
 			height={'100vh'}

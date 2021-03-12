@@ -7,19 +7,15 @@ import { ProfileTemplate } from '../../../components/Profile/ProfileTemplate';
 import { MetaInfo } from '../../../components/shared/MetaInfo';
 import { SettingsForm } from './SettingsForm';
 import { useRouter } from 'next/router';
-import { ACCOUNT } from '../../../constants/routes';
+import { HOME } from '../../../constants/routes';
 import { GetServerSideProps } from 'next';
 
 export const Index: FC = () => {
-	const { user } = useAuth();
-
+	const { isAuthenticated, user } = useAuth();
 	const router = useRouter();
-	const { isAuthenticated } = useAuth();
 
 	useEffect(() => {
-		if (!isAuthenticated) {
-			router.push(ACCOUNT.LOGIN);
-		}
+		if (!isAuthenticated) router.push(HOME);
 	}, [isAuthenticated]);
 
 	return (

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Flex } from '@chakra-ui/layout';
 import ReactPaginate from 'react-paginate';
 import { useRouter } from 'next/router';
-import { CATEGORY, SEARCH } from '../../../constants/routes';
+import { BLOG } from '../../../constants/routes';
 import { PaginatedBlog } from '../../../models/PaginatedBlog';
 
 interface PaginationProps {
@@ -15,8 +15,8 @@ export const Pagination: FC<PaginationProps> = ({ blogs, url, query }) => {
 	const router = useRouter();
 
 	const handlePageClick = ({ selected }) => {
-		if ([SEARCH, CATEGORY].includes(url)) {
-			router.push(`${url}/${encodeURIComponent(query)}/${selected + 1}`);
+		if ([BLOG.SEARCH, BLOG.CATEGORY].includes(url)) {
+			router.push(`${url}/${encodeURIComponent(query as string)}/${selected + 1}`);
 		} else {
 			router.push(`${url}?page=${selected + 1}`);
 		}

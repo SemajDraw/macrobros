@@ -27,7 +27,7 @@ export const ProfileTemplate: FC<ProfileTemplateProps> = ({ children, tabIndex }
 	return (
 		<Flex
 			minH={'100vh'}
-			mt={20}
+			my={20}
 			mx={{ base: '5vw', sm: '8vw', md: '12.5vw', lg: '25vw' }}
 			direction={'column'}
 		>

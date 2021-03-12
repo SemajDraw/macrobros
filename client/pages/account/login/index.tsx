@@ -14,9 +14,7 @@ export const Index: FC = () => {
 	const { isAuthenticated } = useAuth();
 
 	useEffect(() => {
-		if (isAuthenticated) {
-			router.push(HOME);
-		}
+		if (isAuthenticated) router.push(HOME);
 	}, [isAuthenticated]);
 
 	return (
@@ -25,7 +23,7 @@ export const Index: FC = () => {
 			heading={'Sign in to MacroBros'}
 			meta={{
 				title: 'MacroBros - Login',
-				desc:
+				description:
 					"Please sign into your MacroBros account. If you don't have an account, what are you waiting for?"
 			}}
 		>
@@ -41,7 +39,7 @@ export const Index: FC = () => {
 				justifyContent='center'
 			>
 				<Flex>
-					<Text mr={1} fontSize={'sm'}>
+					<Text mr={1} fontSize={'md'}>
 						New to MacroBros?{' '}
 						<WrappedLink
 							color='blue.500'

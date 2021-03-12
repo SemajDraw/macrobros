@@ -5,7 +5,7 @@ import { Input } from '@chakra-ui/input';
 import { Search2Icon } from '@chakra-ui/icons';
 import { Spinner } from '@chakra-ui/spinner';
 import { useRouter } from 'next/router';
-import { SEARCH } from '../../constants/routes';
+import { BLOG } from '../../constants/routes';
 
 export const SearchBar: FC = () => {
 	const router = useRouter();
@@ -15,7 +15,7 @@ export const SearchBar: FC = () => {
 			initialValues={{ search: '' }}
 			onSubmit={(values, { setSubmitting, resetForm }) => {
 				setSubmitting(true);
-				router.push(`${SEARCH}/${encodeURIComponent(values.search)}`);
+				router.push(`${BLOG.SEARCH}/${encodeURIComponent(values.search)}`);
 				resetForm();
 			}}
 		>

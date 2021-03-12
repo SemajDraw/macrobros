@@ -6,6 +6,7 @@ export const BLOG = {
 	CATEGORY: `${BASE_URL}/api/blog/category`,
 	FEATURED: `${BASE_URL}/api/blog/featured`,
 	POPULAR: `${BASE_URL}/api/blog/popular`,
+	POPULAR_MIN: `${BASE_URL}/api/blog/popular-min`,
 	ADD_CLAP: `${BASE_URL}/api/blog/add-clap`
 };
 

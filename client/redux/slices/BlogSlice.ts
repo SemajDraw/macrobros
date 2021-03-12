@@ -11,7 +11,8 @@ interface BlogState {
 	blogCategories: string[];
 	categoryBlogs: PaginatedBlog;
 	featuredBlog: BlogMin;
-	popularBlogs: PopularBlog[];
+	popularBlogsMin: PopularBlog[];
+	popularBlogs: BlogMin[];
 	searchBlogs: PaginatedBlog;
 }
 
@@ -21,10 +22,32 @@ const slice = createSlice({
 		blog: {} as Blog,
 		blogCategories: [],
 		featuredBlog: {} as Blog,
-		popularBlogs: [],
-		blogs: {} as PaginatedBlog,
-		categoryBlogs: {} as PaginatedBlog,
-		searchBlogs: {} as PaginatedBlog
+		popularBlogsMin: [],
+		popularBlogs: [] as BlogMin[],
+		blogs: {
+			totalItems: 0,
+			totalPages: 0,
+			pageNumber: 0,
+			nextPageNumber: 0,
+			previousPageNumber: 0,
+			results: []
+		},
+		categoryBlogs: {
+			totalItems: 0,
+			totalPages: 0,
+			pageNumber: 0,
+			nextPageNumber: 0,
+			previousPageNumber: 0,
+			results: []
+		},
+		searchBlogs: {
+			totalItems: 0,
+			totalPages: 0,
+			pageNumber: 0,
+			nextPageNumber: 0,
+			previousPageNumber: 0,
+			results: []
+		}
 	} as BlogState,
 	reducers: {
 		updateBlog(state, { payload }: PayloadAction<Blog>) {
@@ -39,7 +62,10 @@ const slice = createSlice({
 		updateCategoryBlogs(state, { payload }: PayloadAction<PaginatedBlog>) {
 			state.categoryBlogs = payload;
 		},
-		updatePopularBlogs(state, { payload }: PayloadAction<PopularBlog[]>) {
+		updatePopularBlogsMin(state, { payload }: PayloadAction<PopularBlog[]>) {
+			state.popularBlogsMin = payload;
+		},
+		updatePopularBlogs(state, { payload }: PayloadAction<BlogMin[]>) {
 			state.popularBlogs = payload;
 		},
 		updateSearchBlogs(state, { payload }: PayloadAction<PaginatedBlog>) {
@@ -59,27 +85,37 @@ export const {
 	updateBlogCategories,
 	updateBlogs,
 	updateCategoryBlogs,
+	updatePopularBlogsMin,
 	updatePopularBlogs,
 	updateSearchBlogs
 } = slice.actions;
 
-const selectFeaturedBlog = (state: State): BlogMin => state.blog.featuredBlog;
+const selectBlog = (state: State): Blog => state.blog.blog;
 const selectBlogs = (state: State): PaginatedBlog => state.blog.blogs;
+const selectFeaturedBlog = (state: State): BlogMin => state.blog.featuredBlog;
 const selectSearchBlogs = (state: State): PaginatedBlog => state.blog.searchBlogs;
 const selectCategoryBlogs = (state: State): PaginatedBlog => state.blog.categoryBlogs;
+const selectPopularBlogsMin = (state: State): PopularBlog[] => state.blog.popularBlogsMin;
+const selectPopularBlogs = (state: State): BlogMin[] => state.blog.popularBlogs;
 
+export const blogSelector = createSelector([selectBlog], (selectBlog) => selectBlog);
 export const blogsSelector = createSelector([selectBlogs], (selectBlogs) => selectBlogs);
-
+export const popularBlogMinSelector = createSelector(
+	[selectPopularBlogsMin],
+	(selectPopularBlogs) => selectPopularBlogs
+);
+export const popularBlogsSelector = createSelector(
+	[selectPopularBlogs],
+	(selectPopularBlogs) => selectPopularBlogs
+);
 export const featuredBlogSelector = createSelector(
 	[selectFeaturedBlog],
 	(selectFeaturedBlog) => selectFeaturedBlog
 );
-
 export const searchBlogsSelector = createSelector(
 	[selectSearchBlogs],
 	(selectSearchBlogs) => selectSearchBlogs
 );
-
 export const categoryBlogsSelector = createSelector(
 	[selectCategoryBlogs],
 	(selectCategoryBlogs) => selectCategoryBlogs

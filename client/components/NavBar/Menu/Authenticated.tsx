@@ -38,7 +38,7 @@ export const Authenticated: FC<AuthenticatedProps> = ({ firstName, lastName }) =
 					{formatUserInitials([firstName, lastName])}
 				</Text>
 			</Flex>
-			<Popover placement='bottom' gutter={20} closeOnBlur={true}>
+			<Popover placement='bottom' gutter={20} closeOnBlur={true} closeOnEsc={true}>
 				<PopoverTrigger>
 					<IconButton
 						aria-label='Search database'

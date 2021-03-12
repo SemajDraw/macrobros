@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { MotionBox } from '../FramerMotion/MotionBox';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { formatSlug } from '../../utils/stringUtils';
-import { CATEGORY } from '../../constants/routes';
+import { BLOG } from '../../constants/routes';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBlogCategories } from '../../redux/actions/blogActions';
@@ -21,7 +21,7 @@ interface CategoryAccordianItemsProps {
 }
 
 const CategoryAccordianItem: FC<CategoryAccordianItemsProps> = ({ category, bg }) => (
-	<WrappedLink href={`${CATEGORY}/${category}`}>
+	<WrappedLink href={`${BLOG.CATEGORY}/${category}`}>
 		<MotionBox
 			whileHover={{
 				scale: 1.015,

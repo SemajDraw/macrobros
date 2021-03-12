@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Grid, GridItem } from '@chakra-ui/layout';
-import { BlogGrid } from './BlogGrid/BlogGrid';
+import { BlogGrid } from '../Blog/BlogGrid/BlogGrid';
 import { SideBar } from '../SideBar/SideBar';
 import StickyBox from 'react-sticky-box';
 import { PaginatedBlog } from '../../models/PaginatedBlog';

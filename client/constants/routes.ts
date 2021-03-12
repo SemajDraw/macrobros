@@ -9,7 +9,10 @@ export const ACCOUNT = {
 };
 
 export const BLOG = {
-	BLOGS: '/blogs'
+	BLOG: '/blog',
+	BLOGS: '/blogs',
+	SEARCH: '/search',
+	CATEGORY: '/category'
 };
 
 export const POLICIES = {
@@ -24,7 +27,3 @@ export const CONTACT = {
 export const SUBMIT = {
 	FORM_SUBMIT: '/submit/form-submit'
 };
-
-export const SEARCH = '/search';
-
-export const CATEGORY = '/category';

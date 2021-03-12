@@ -14,7 +14,7 @@ const slice = createSlice({
 		token: '',
 		isAuthenticated: false,
 		isLoading: false,
-		user: {} as User
+		user: { firstName: '', lastName: '', isSubscribed: false }
 	} as AuthState,
 	reducers: {
 		userLoading(state) {
@@ -36,7 +36,7 @@ const slice = createSlice({
 		},
 		clearAuth(state) {
 			state.token = '';
-			state.user = {} as User;
+			state.user = { firstName: '', lastName: '', isSubscribed: false };
 			state.isAuthenticated = false;
 			state.isLoading = false;
 		}

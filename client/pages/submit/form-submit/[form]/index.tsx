@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { Flex } from '@chakra-ui/layout';
 import { useSelector } from 'react-redux';
-import FormSubmitPage from '../../../components/shared/FormSubmitPage';
-import { State } from '../../../redux/RootReducer';
+import FormSubmitPage from '../../../../components/shared/FormSubmitPage';
+import { formSubmitSelector } from '../../../../redux/slices/FormSubmitSlice';
 
 export const Index: FC = () => {
-	const { body, header } = useSelector((state: State) => state.formSubmit);
+	const { body, header } = useSelector(formSubmitSelector);
 
 	return (
 		<Flex direction={'column'}>
