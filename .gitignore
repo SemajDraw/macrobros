@@ -7,9 +7,9 @@ client/node_modules
 /coverage
 
 # next.js
-client/.next/
-client/out/
-static/*
+./frontend/.next
+./frontend/node_modules
+./backend/static
 
 # production
 client/build
@@ -40,7 +40,7 @@ __pycache__/
 *$py.class
 
 # ENV File
-environment/.env
+backend/environment/.env
 
 # C extensions
 *.so
@@ -59,7 +59,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+frontend/lib/
 lib64/
 parts/
 sdist/

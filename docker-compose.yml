@@ -1,23 +1,31 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  proxy:
+
+  macrobros-proxy:
+    container_name: nginx_proxy
+    restart: on-failure
     build:
-      context: ./nginx
-    volumes:
-      - static_data:/vol/static
+      context: nginx
     ports:
-      - "8080:8080"
+      - "80:80"
     depends_on:
-      - macrobros_app
+      - macrobros-client
 
-  macrobros_app:
+  macrobros-api:
+    container_name: api
+    restart: on-failure
     build:
-      context: .
-    volumes:
-      - static_data:/vol/web
+      context: backend
+    ports:
+      - "8000:8000"
     env_file:
-      - environment/.env
+      - backend/environment/.env
 
-volumes:
-  static_data:
+  macrobros-client:
+    container_name: client
+    restart: on-failure
+    build:
+      context: frontend
+    depends_on:
+      - macrobros-api
