@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { formatUserInitials } from '../../../utils/stringUtils';
 import { useAuth } from '../../../providers/AuthProvider';
-import { parseCookie } from '../../../lib/parseCookies';
+import { parseCookie } from '../../../library/parseCookies';
 import { Text } from '@chakra-ui/layout';
 import { ProfileTemplate } from '../../../components/Profile/ProfileTemplate';
 import { MetaInfo } from '../../../components/shared/MetaInfo';

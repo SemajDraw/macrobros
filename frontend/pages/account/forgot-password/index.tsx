@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
-import { parseCookie } from '../../../lib/parseCookies';
+import { parseCookie } from '../../../library/parseCookies';
 import FormPage from '../../../components/shared/FormPage';
 import { Flex, Text } from '@chakra-ui/react';
 import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';

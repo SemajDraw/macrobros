@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { BLOG } from '../constants/endpoints';
-import { fetcher } from '../lib/fetcher';
+import { fetcher } from '../library/fetcher';
 import { MetaInfo } from '../components/shared/MetaInfo';
 import { PaginatedBlog } from '../models/PaginatedBlog';
 import { GetServerSideProps } from 'next';

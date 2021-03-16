@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { parseCookie } from '../../../lib/parseCookies';
+import { parseCookie } from '../../../library/parseCookies';
 import { Grid, GridItem, Text } from '@chakra-ui/layout';
 import { ProfileTemplate } from '../../../components/Profile/ProfileTemplate';
 import { formatUserInitials } from '../../../utils/stringUtils';

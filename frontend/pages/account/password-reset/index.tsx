@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
-import { parseCookie } from '../../../lib/parseCookies';
+import { parseCookie } from '../../../library/parseCookies';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../providers/AuthProvider';
 import { HOME } from '../../../constants/routes';

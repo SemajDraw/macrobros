@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 import { ACCOUNT, HOME } from '../../../constants/routes';
-import { parseCookie } from '../../../lib/parseCookies';
+import { parseCookie } from '../../../library/parseCookies';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../../providers/AuthProvider';
 import FormPage from '../../../components/shared/FormPage';

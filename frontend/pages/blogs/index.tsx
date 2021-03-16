@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect } from 'react';
 import { MetaInfo } from '../../components/shared/MetaInfo';
-import { fetcher } from '../../lib/fetcher';
+import { fetcher } from '../../library/fetcher';
 import { PaginatedBlog } from '../../models/PaginatedBlog';
 import { GetServerSideProps } from 'next';
 import { BlogMin } from '../../models/BlogMin';

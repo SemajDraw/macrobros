@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { POLICIES } from '../../../constants/endpoints';
-import { fetcher } from '../../../lib/fetcher';
+import { fetcher } from '../../../library/fetcher';
 import { MetaInfo } from '../../../components/shared/MetaInfo';
 import Policies from '../../../components/shared/Policies/Policies';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
