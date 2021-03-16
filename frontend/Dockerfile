@@ -8,6 +8,7 @@ RUN npm install --frozen-lockfile
 # Rebuild the source code only when needed
 FROM node:14-alpine AS builder
 WORKDIR /app
+RUN export NODE_OPTIONS=--max-old-space-size=8192
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
