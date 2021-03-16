@@ -2,7 +2,7 @@
 FROM node:14-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json ./
+COPY package.json ./package.json
 RUN npm install --frozen-lockfile
 
 ## Rebuild the source code only when needed
@@ -23,10 +23,10 @@ WORKDIR /app
 ENV NODE_ENV production
 
 # You only need to copy next.config.js if you are NOT using the default configuration
-COPY next.config.js ./next.config.js
+COPY ./next.config.js ./next.config.js
 COPY ./public ./public
-COPY ./build ./build
 COPY --from=deps /app/node_modules ./node_modules
+COPY ./build ./build
 COPY ./package.json ./package.json
 
 # Install PM2 globally

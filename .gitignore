@@ -11,9 +11,6 @@ frontend/.next
 frontend/node_modules
 ./backend/static
 
-# production
-client/build
-
 # misc
 .DS_Store
 *.pem
@@ -51,9 +48,10 @@ backend/environment/.env
 
 .DS_Store
 
+/frontend/build/
+
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/

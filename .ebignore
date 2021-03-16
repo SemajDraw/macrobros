@@ -11,8 +11,6 @@ client/node_modules
 ./frontend/node_modules
 ./backend/static
 
-# production
-client/build
 
 # misc
 .DS_Store
@@ -39,7 +37,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/
@@ -167,7 +164,6 @@ bower_components
 .lock-wscript
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
 
 # Dependency directories
 node_modules/
