@@ -7,8 +7,8 @@ client/node_modules
 /coverage
 
 # next.js
-./frontend/.next
-./frontend/node_modules
+frontend/.next
+frontend/node_modules
 ./backend/static
 
 # production
