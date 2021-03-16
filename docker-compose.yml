@@ -17,8 +17,6 @@ services:
     restart: on-failure
     build:
       context: backend
-    ports:
-      - "8000:8000"
     env_file:
       - backend/environment/.env
 
