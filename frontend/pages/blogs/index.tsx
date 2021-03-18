@@ -38,10 +38,8 @@ export const Index: FC<BlogsProps> = ({ blogs, featuredBlog }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const blogs: PaginatedBlog = await fetcher('http://macrobros-api:8000/api/blog/');
-	const featuredBlog: BlogMin = await fetcher(
-		'http://macrobros-api:8000/api/blog/featured'
-	);
+	const blogs: PaginatedBlog = await fetcher('http://macrobros-proxy/api/blog/');
+	const featuredBlog: BlogMin = await fetcher('http://macrobros-proxy/api/blog/featured');
 	return { props: { blogs, featuredBlog } };
 };
 

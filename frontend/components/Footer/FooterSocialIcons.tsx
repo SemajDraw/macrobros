@@ -7,7 +7,7 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 
 export const FooterSocialIcons: FC = () => {
-	const margin = useBreakpointValue({ md: '10vw', lg: '14vw' });
+	const margin = useBreakpointValue({ base: '10vw', lg: '14vw' });
 	const icons = [
 		{ icon: faFacebook, href: 'https://www.facebook.com/macro.bros.716' },
 		{ icon: faInstagram, href: 'https://www.instagram.com/macro_bros.com_/' },
