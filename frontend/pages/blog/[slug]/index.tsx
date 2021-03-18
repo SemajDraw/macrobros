@@ -13,6 +13,8 @@ import { BlogFooter } from '../../../components/Blog/BlogFooter';
 import { ShareIcons } from '../../../components/shared/ShareIcons';
 import { BlogContent } from '../../../components/Blog/BlogContent';
 import LoadingPage from '../../../components/shared/Loading/LoadingPage';
+import { BLOG } from '../../../constants/routes';
+import Link from 'next/link';
 
 export const Index: FC = () => {
 	const router = useRouter();
@@ -64,9 +66,11 @@ export const Index: FC = () => {
 						<Flex mt={5}>
 							<Flex justify={'flex-end'} flexDirection={'column'}>
 								<Flex>
-									<Badge borderRadius='md' px='2' colorScheme='telegram'>
-										{formatSlug(blog.category)}
-									</Badge>
+									<Link href={`${BLOG.CATEGORY}/${blog.category}`}>
+										<Badge borderRadius='md' px='2' cursor={'pointer'} colorScheme='telegram'>
+											{formatSlug(blog.category)}
+										</Badge>
+									</Link>
 								</Flex>
 								<Flex mt={1} align={'center'} justify={'center'} fontSize={'sm'} opacity={0.6}>
 									<Text mr={1}>{formattedDate}</Text>
