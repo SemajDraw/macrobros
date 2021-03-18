@@ -26,8 +26,8 @@ export const DonateModal: FC<DonateModalProps> = ({ isOpen, onClose }) => {
 		<Modal isOpen={isOpen} onClose={onClose} isCentered>
 			<ModalOverlay />
 			<ModalContent
-				minWidth={{ base: '85%', sm: '355px', md: '450px', lg: '550px' }}
-				maxWidth={{ base: '85%', sm: '400px', lg: '550px' }}
+				minWidth={{ base: '90%', sm: '355px', md: '450px', lg: '550px' }}
+				maxWidth={{ base: '90%', sm: '400px', lg: '550px' }}
 			>
 				<ModalCloseButton />
 				<ModalBody>

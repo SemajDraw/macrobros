@@ -11,16 +11,15 @@ import {
 	PopoverFooter,
 	PopoverHeader,
 	PopoverTrigger,
-	Switch,
 	Text,
 	useColorMode
 } from '@chakra-ui/react';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { DarkModeSwitch } from './DarkModeSwitch';
 
 export const DarkModePopover: FC = () => {
-	const { colorMode, toggleColorMode } = useColorMode();
-	const isDark = colorMode === 'dark';
+	const { colorMode } = useColorMode();
 
 	return (
 		<Flex>
@@ -34,7 +33,11 @@ export const DarkModePopover: FC = () => {
 						<FontAwesomeIcon icon={faEllipsisV} />
 					</Button>
 				</PopoverTrigger>
-				<PopoverContent p={1} fontFamily={'Roboto'} color={isDark ? 'white' : 'black'}>
+				<PopoverContent
+					p={1}
+					fontFamily={'Roboto'}
+					color={colorMode === 'dark' ? 'white' : 'black'}
+				>
 					<PopoverHeader pt={4} fontWeight={'medium'} fontSize={'xl'} border='0'>
 						Dark theme
 					</PopoverHeader>
@@ -59,13 +62,7 @@ export const DarkModePopover: FC = () => {
 						<Box fontWeight={'medium'} fontSize='md'>
 							DARK THEME
 						</Box>
-						<Switch
-							top='1rem'
-							right='1rem'
-							color='green'
-							isChecked={isDark}
-							onChange={toggleColorMode}
-						/>
+						<DarkModeSwitch />
 					</PopoverFooter>
 				</PopoverContent>
 			</Popover>

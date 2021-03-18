@@ -16,6 +16,7 @@ import { MacroBrosIcon } from '../../shared/Icons/MacroBrosIcon';
 import { useAuth } from '../../../providers/AuthProvider';
 import { NavDrawerFooter } from './NavDrawerFooter';
 import { NavDrawerBody } from './NavDrawerBody';
+import { DarkModeSwitch } from '../../shared/DarkMode/DarkModeSwitch';
 
 interface NavDrawerProps {
 	isOpen: boolean;
@@ -38,6 +39,12 @@ export const NavDrawer: FC<NavDrawerProps> = ({ isOpen, onClose }) => {
 					color={'white'}
 					fontFamily='"Lexend Zetta", sans-serif'
 				>
+					<Flex align={'center'} pl={4} pt={4}>
+						<DarkModeSwitch />
+						<Text ml={1} fontSize={'sm'}>
+							Dark Mode
+						</Text>
+					</Flex>
 					<DrawerCloseButton />
 					<DrawerHeader py={12}>
 						<Flex direction={'column'} align={'center'} justifyContent={'center'}>

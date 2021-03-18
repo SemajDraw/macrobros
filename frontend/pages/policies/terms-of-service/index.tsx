@@ -20,7 +20,9 @@ export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> =
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const policy = await fetcher(POLICIES.TERMS_OF_SERVICE);
+	const policy = await fetcher(
+		'http://macrobros-api:8000/api/terms-conditions/terms-service'
+	);
 	return { props: { policy } };
 };
 

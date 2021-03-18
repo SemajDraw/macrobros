@@ -5,7 +5,7 @@ import { BLOG } from '../../constants/routes';
 import { NavLogo } from './NavLogo';
 import { NavDrawer } from './Drawer/NavDrawer';
 import { NavMenuItem } from './Menu/NavMenuItem';
-import { DarkModePopover } from '../shared/DarkModePopover';
+import { DarkModePopover } from '../shared/DarkMode/DarkModePopover';
 import { NavMenu } from './Menu/NavMenu';
 
 export const NavBar: FC = () => {
