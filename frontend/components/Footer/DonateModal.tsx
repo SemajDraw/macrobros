@@ -32,7 +32,7 @@ export const DonateModal: FC<DonateModalProps> = ({ isOpen, onClose }) => {
 				<ModalCloseButton />
 				<ModalBody>
 					<Grid templateColumns='repeat(11, 1fr)' align='center' alignItems='center'>
-						<GridItem colSpan={12} p={7}>
+						<GridItem colSpan={12} p={{ base: 2, sm: 7 }}>
 							<Box h='75px' w='75px' my={3}>
 								<MacroBrosIcon id='login' strokeColor='black' />
 							</Box>
