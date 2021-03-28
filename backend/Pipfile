@@ -1,0 +1,34 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+black = "*"
+
+[packages]
+django = "~=3.1"
+djangorestframework = "~=3.12"
+django-rest-knox = "~=4.1"
+djangorestframework-camel-case = "~=1.2"
+django-cors-headers = "~=3.5"
+django-summernote = "~=0.8"
+django-storages = "~=1.10"
+psycopg2-binary = "~=2.8"
+pillow = "~=8.0"
+python-dotenv = "~=0.15"
+readtime = "~=1.1"
+update = "~=0.0"
+django-otp = "~=1.0"
+qrcode = "~=6.1"
+uwsgi = "~=2.0.19"
+boto3 = "~=1.16"
+python-decouple = "~=3.3"
+beautifulsoup4 = "~=4.9"
+gunicorn = "~=20.0"
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
