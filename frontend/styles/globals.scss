@@ -1,0 +1,42 @@
+body {
+  font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+  background: #fcfcfc;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+}
+
+// Pagination
+.pagination ul {
+  display: inline-block;
+}
+
+.pagination li {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.pagination a {
+  border-radius: 50%;
+  display: block;
+  color: #3182CE;
+  line-height: 35px;
+  text-align: center;
+  width: 35px !important;
+  height: 35px !important;
+}
+
+.pagination__link {
+  font-weight: bold;
+}
+
+.pagination__link--active a {
+  color: #fff;
+  background: #3182CE;
+}
+
+.pagination__link--disabled a {
+  color: rgb(198, 197, 202);
+}
