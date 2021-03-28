@@ -140,10 +140,10 @@ USE_TZ = True
 
 # STATIC FILES CONFIG
 MEDIA_URL = "/media/"
-MEDIA_ROOT = "/vol/web/media"
+MEDIA_ROOT = "/media/"
 
 STATIC_URL = "/static/"
-STATIC_ROOT = "/vol/web/static"
+STATIC_ROOT = "/static/"
 STATICFILES_DIRS = (BASE_DIR.joinpath("static"),)
 
 # Summernote

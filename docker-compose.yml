@@ -4,7 +4,7 @@ services:
 
   macrobros-proxy:
     container_name: nginx_proxy
-    restart: on-failure
+    restart: always
     build:
       context: nginx
     ports:
@@ -14,7 +14,7 @@ services:
 
   macrobros-api:
     container_name: api
-    restart: on-failure
+    restart: always
     build:
       context: backend
     env_file:
@@ -22,7 +22,7 @@ services:
 
   macrobros-client:
     container_name: client
-    restart: on-failure
+    restart: always
     build:
       context: frontend
     depends_on:
