@@ -9,6 +9,8 @@ services:
       context: nginx
     ports:
       - 80:80
+    volumes:
+      - "${EB_LOG_BASE_DIR}/macrobros-proxy:/var/log/nginx"
     depends_on:
       - macrobros-client
 
