@@ -3,7 +3,15 @@ import { Flex } from '@chakra-ui/layout';
 import { MacroBrosIcon } from '../Icons/MacroBrosIcon';
 import { MotionBox } from '../../FramerMotion/MotionBox';
 
-export const LoadingPage: FC = () => {
+interface LoadingPageProps {
+	background?: string;
+	icon?: string;
+}
+
+export const LoadingPage: FC<LoadingPageProps> = ({
+	background = '#191919',
+	icon = 'white'
+}) => {
 	const transitionValues = {
 		type: 'spring',
 		repeat: Infinity,
@@ -17,7 +25,7 @@ export const LoadingPage: FC = () => {
 			align={'center'}
 			width={'100vw'}
 			height={'100vh'}
-			bg={'#191919'}
+			bg={background}
 		>
 			<MotionBox
 				transition={{
@@ -31,7 +39,7 @@ export const LoadingPage: FC = () => {
 				}}
 			>
 				<Flex align={'center'} justifyContent={'center'} direction={'column'} h={'100%'}>
-					<MacroBrosIcon id='loader' strokeColor='white' />
+					<MacroBrosIcon id='loader' strokeColor={icon} />
 				</Flex>
 			</MotionBox>
 		</Flex>

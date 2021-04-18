@@ -21,7 +21,10 @@ export const App: FC<AppProps> = ({ Component, pageProps }) => {
 
 	return (
 		<Provider store={store}>
-			<PersistGate loading={<LoadingPage />} persistor={persistor}>
+			<PersistGate
+				loading={<LoadingPage background={'rgba(0, 0, 0, 0.03)'} icon={'#191919'} />}
+				persistor={persistor}
+			>
 				<ChakraProvider theme={theme}>
 					<AuthProvider>
 						<AppContainer>

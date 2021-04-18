@@ -80,7 +80,7 @@ export const Footer: FC = () => {
 						fontFamily='"Lexend Zetta", sans-serif'
 						color='white'
 					>
-						Copyright © MacroBros 2020. All right reserved.
+						Copyright © MacroBros {new Date().getFullYear()} all rights reserved.
 					</Text>
 				</GridItem>
 			</Grid>

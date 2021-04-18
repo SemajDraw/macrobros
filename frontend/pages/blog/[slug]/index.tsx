@@ -3,10 +3,19 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { blogSelector } from '../../../redux/slices/BlogSlice';
 import { getBlog } from '../../../redux/actions/blogActions';
-import { Badge, Flex, Grid, GridItem, Heading, Spacer, Text } from '@chakra-ui/layout';
+import {
+	Badge,
+	Flex,
+	Grid,
+	GridItem,
+	Heading,
+	Image,
+	Spacer,
+	Text
+} from '@chakra-ui/react';
+import TradingViewWidget from 'react-tradingview-widget';
 import BlogSidebar from '../../../components/Blog/BlogSidebar';
 import { MetaInfo } from '../../../components/shared/MetaInfo';
-import { Image } from '@chakra-ui/react';
 import { formatSlug } from '../../../utils/stringUtils';
 import { useFormatDate } from '../../../hooks/useFormatDate';
 import { BlogFooter } from '../../../components/Blog/BlogFooter';
@@ -15,6 +24,15 @@ import { BlogContent } from '../../../components/Blog/BlogContent';
 import LoadingPage from '../../../components/shared/Loading/LoadingPage';
 import { BLOG } from '../../../constants/routes';
 import Link from 'next/link';
+
+const GridBox = ({ children }) => (
+	<GridItem
+		colStart={{ sm: 2, md: 3, lg: 4 }}
+		colSpan={{ base: 12, sm: 10, md: 8, lg: 6 }}
+	>
+		{children}
+	</GridItem>
+);
 
 export const Index: FC = () => {
 	const router = useRouter();
@@ -44,10 +62,7 @@ export const Index: FC = () => {
 				my={{ base: 6, md: 8, lg: 10 }}
 				mx={{ base: '5vw', sm: 0 }}
 			>
-				<GridItem
-					colStart={{ sm: 2, md: 3, lg: 4 }}
-					colSpan={{ base: 12, sm: 10, md: 8, lg: 6 }}
-				>
+				<GridBox>
 					<Flex flexDirection={'column'} width={'100%'}>
 						<Heading
 							fontSize={{ base: '4xl', md: '3em' }}
@@ -82,23 +97,27 @@ export const Index: FC = () => {
 							<ShareIcons blogId={blog.id} grid={true} slug={blog.slug} />
 						</Flex>
 					</Flex>
-				</GridItem>
-				<GridItem
-					colStart={{ sm: 2, md: 3, lg: 4 }}
-					colSpan={{ base: 12, sm: 10, md: 8, lg: 6 }}
-				>
+				</GridBox>
+				<GridBox>
 					<Flex width={'100%'} position={'relative'}>
 						<Image src={blog.headerImg} width={'100%'} />
 					</Flex>
-				</GridItem>
+				</GridBox>
 				<GridItem colSpan={12}>
 					<Grid templateColumns='repeat(12, 1fr)' rowGap={6}>
-						<GridItem
-							colStart={{ sm: 2, md: 3, lg: 4 }}
-							colSpan={{ base: 12, sm: 10, md: 8, lg: 6 }}
-						>
+						<GridBox>
 							<BlogContent html={blog.summary} />
-						</GridItem>
+						</GridBox>
+						{blog.displayChart && blog.marketPair ? (
+							<GridItem
+								h={'500px'}
+								maxH={'80vh'}
+								colStart={{ sm: 2, md: 3, lg: 4 }}
+								colSpan={{ base: 12, sm: 10, md: 8, lg: 6 }}
+							>
+								<TradingViewWidget symbol={blog.marketPair} interval={'60'} autosize />
+							</GridItem>
+						) : null}
 						<GridItem
 							display={{ base: 'none', lg: 'block' }}
 							colStart={{ md: 2 }}
@@ -112,20 +131,14 @@ export const Index: FC = () => {
 								readTime={blog.readTime}
 							/>
 						</GridItem>
-						<GridItem
-							colStart={{ sm: 2, md: 3, lg: 4 }}
-							colSpan={{ base: 12, sm: 10, md: 8, lg: 6 }}
-						>
+						<GridBox>
 							<BlogContent html={blog.content} />
-						</GridItem>
-						<GridItem
-							colStart={{ sm: 2, md: 3, lg: 4 }}
-							colSpan={{ base: 12, sm: 10, md: 8, lg: 6 }}
-						>
+						</GridBox>
+						<GridBox>
 							<Flex align={'center'} flexDirection={'column'}>
 								<ShareIcons blogId={blog.id} grid={false} slug={blog.slug} />
 							</Flex>
-						</GridItem>
+						</GridBox>
 					</Grid>
 				</GridItem>
 				<GridItem colStart={{ sm: 2 }} colSpan={{ base: 12, sm: 10 }}>

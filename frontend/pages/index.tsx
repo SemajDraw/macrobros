@@ -37,6 +37,8 @@ export const Index: FC<HomeProps> = ({ blogs }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
+	// Local Dev
+	// const blogs: PaginatedBlog = await fetcher('http://localhost:8000/api/blog/');
 	const blogs: PaginatedBlog = await fetcher('http://macrobros-api:8000/api/blog/');
 
 	return { props: { blogs } };
