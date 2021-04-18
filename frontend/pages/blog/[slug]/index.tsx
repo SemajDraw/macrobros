@@ -11,9 +11,10 @@ import {
 	Heading,
 	Image,
 	Spacer,
-	Text
+	Text,
+	useColorMode
 } from '@chakra-ui/react';
-import TradingViewWidget from 'react-tradingview-widget';
+import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import BlogSidebar from '../../../components/Blog/BlogSidebar';
 import { MetaInfo } from '../../../components/shared/MetaInfo';
 import { formatSlug } from '../../../utils/stringUtils';
@@ -41,6 +42,7 @@ export const Index: FC = () => {
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(true);
 	const formattedDate = useFormatDate(blog.dateCreated, 'MMM D, YYYY');
+	const { colorMode } = useColorMode();
 
 	useEffect(() => {
 		setLoading(true);
@@ -115,7 +117,12 @@ export const Index: FC = () => {
 								colStart={{ sm: 2, md: 3, lg: 4 }}
 								colSpan={{ base: 12, sm: 10, md: 8, lg: 6 }}
 							>
-								<TradingViewWidget symbol={blog.marketPair} interval={'60'} autosize />
+								<TradingViewWidget
+									theme={colorMode === 'dark' ? Themes.DARK : Themes.LIGHT}
+									symbol={blog.marketPair}
+									interval={'60'}
+									autosize
+								/>
 							</GridItem>
 						) : null}
 						<GridItem
