@@ -65,14 +65,7 @@ export const BlogCard: FC<CardProps> = ({
 						</Box>
 
 						<Box h={'4.5em'}>
-							<Text
-								as='span'
-								color='gray.600'
-								fontSize='md'
-								fontWeight={'normal'}
-								noOfLines={3}
-								isTruncated
-							>
+							<Text color='gray.600' fontSize='md' fontWeight={'normal'} noOfLines={3}>
 								{blog.excerpt}
 							</Text>
 						</Box>

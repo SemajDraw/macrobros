@@ -7,7 +7,7 @@ export type MotionBoxProps = Omit<ChakraProps, keyof MotionProps> &
 		as?: React.ElementType;
 	};
 
-export const MotionBox = motion.custom(
+export const MotionBox = motion(
 	forwardRef<MotionBoxProps, 'div'>((props: any, ref) => {
 		const chakraProps = Object.keys(props)
 			.map((key: string) => [key, props[key]])
