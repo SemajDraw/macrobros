@@ -7,6 +7,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ENVIRONMENT CONFIG
 config = AutoConfig(search_path=BASE_DIR.joinpath("environment/"))
 
+# Dev
+# DEBUG = True
+
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", cast=bool)
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=list)
@@ -173,4 +176,5 @@ AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
 # STORAGES CONFIG
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
