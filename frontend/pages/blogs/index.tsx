@@ -40,7 +40,7 @@ export const Index: FC<BlogsProps> = ({ blogs, featuredBlog }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
 	let blogs: PaginatedBlog;
 	let featuredBlog: BlogMin;
-	if (process.env.ENV !== 'prod') {
+	if (process.env.NODE_ENV !== 'production') {
 		blogs = await fetcher('http://localhost:8000/api/blog/');
 		featuredBlog = await fetcher('http://localhost:8000/api/blog/featured');
 	} else {

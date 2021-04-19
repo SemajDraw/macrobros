@@ -38,7 +38,7 @@ export const Index: FC<HomeProps> = ({ blogs }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	const blogs: PaginatedBlog =
-		process.env.ENV !== 'prod'
+		process.env.NODE_ENV !== 'production'
 			? await fetcher('http://localhost:8000/api/blog/')
 			: await fetcher('http://macrobros-api:8000/api/blog/');
 

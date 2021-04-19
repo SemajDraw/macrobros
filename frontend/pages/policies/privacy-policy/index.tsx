@@ -21,7 +21,7 @@ export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> =
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	const policy: Policy =
-		process.env.ENV !== 'prod'
+		process.env.NODE_ENV !== 'production'
 			? await fetcher('http://localhost:8000/api/terms-conditions/privacy-policy')
 			: await fetcher('http://macrobros-api:8000/api/terms-conditions/privacy-policy');
 	return { props: { policy } };
