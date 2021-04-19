@@ -1,8 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { blogSelector } from '../../../redux/slices/BlogSlice';
-import { getBlog } from '../../../redux/actions/blogActions';
+import React, { FC, memo } from 'react';
 import {
 	Badge,
 	Flex,
@@ -22,9 +18,11 @@ import { useFormatDate } from '../../../hooks/useFormatDate';
 import { BlogFooter } from '../../../components/Blog/BlogFooter';
 import { ShareIcons } from '../../../components/shared/ShareIcons';
 import { BlogContent } from '../../../components/Blog/BlogContent';
-import LoadingPage from '../../../components/shared/Loading/LoadingPage';
 import { BLOG } from '../../../constants/routes';
-import Link from 'next/link';
+import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
+import { GetServerSideProps } from 'next';
+import { fetcher } from '../../../library/fetcher';
+import { Blog } from '../../../models/Blog';
 
 const GridBox = ({ children }) => (
 	<GridItem
@@ -35,27 +33,15 @@ const GridBox = ({ children }) => (
 	</GridItem>
 );
 
-export const Index: FC = () => {
-	const router = useRouter();
-	const { slug } = router.query;
-	const blog = useSelector(blogSelector);
-	const dispatch = useDispatch();
-	const [loading, setLoading] = useState(true);
+interface BlogPostProps {
+	blog: Blog;
+}
+
+export const Index: FC<BlogPostProps> = ({ blog }) => {
 	const formattedDate = useFormatDate(blog.dateCreated, 'MMM D, YYYY');
 	const { colorMode } = useColorMode();
 
-	useEffect(() => {
-		setLoading(true);
-		if (slug) dispatch(getBlog(slug as string));
-	}, [slug]);
-
-	useEffect(() => {
-		if (blog.slug === slug) setLoading(false);
-	}, [blog]);
-
-	return loading ? (
-		<LoadingPage />
-	) : (
+	return (
 		<>
 			<MetaInfo title={`MacroBros - ${blog.title}`} description={blog.summary} />
 			<Grid
@@ -83,11 +69,11 @@ export const Index: FC = () => {
 						<Flex mt={5}>
 							<Flex justify={'flex-end'} flexDirection={'column'}>
 								<Flex>
-									<Link href={`${BLOG.CATEGORY}/${blog.category}`}>
+									<WrappedLink href={`${BLOG.CATEGORY}/${blog.category}`}>
 										<Badge borderRadius='md' px='2' cursor={'pointer'} colorScheme='telegram'>
 											{formatSlug(blog.category)}
 										</Badge>
-									</Link>
+									</WrappedLink>
 								</Flex>
 								<Flex mt={1} align={'center'} justify={'center'} fontSize={'sm'} opacity={0.6}>
 									<Text mr={1}>{formattedDate}</Text>
@@ -154,6 +140,16 @@ export const Index: FC = () => {
 			</Grid>
 		</>
 	);
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { slug } = context.query;
+	const blog: Blog =
+		process.env.NODE_ENV !== 'production'
+			? await fetcher(`http://localhost:8000/api/blog/${slug}`)
+			: await fetcher(`http://macrobros-api:8000/api/blog/${slug}`);
+
+	return { props: { blog } };
 };
 
 export default memo(Index);

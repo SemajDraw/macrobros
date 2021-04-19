@@ -5,8 +5,8 @@ import { MacroBrosIcon } from './Icons/MacroBrosIcon';
 import { SocialIcons } from './Icons/SocialIcons';
 import { useColorModeValue } from '@chakra-ui/color-mode';
 import { MetaInfo } from './MetaInfo';
-import Link from 'next/link';
 import { HOME } from '../../constants/routes';
+import { WrappedLink } from '../ChakraComponents/WrappedLink';
 
 interface FormSubmitPageProps extends LayoutProps {
 	body: string;
@@ -48,11 +48,11 @@ export const FormSubmitPage: FC<FormSubmitPageProps> = ({
 				borderRadius={6}
 				p={12}
 			>
-				<Link href={HOME}>
+				<WrappedLink href={HOME}>
 					<Box h='100px' w='100px' cursor={'pointer'}>
 						<MacroBrosIcon id='login' strokeColor={iconColor} />
 					</Box>
-				</Link>
+				</WrappedLink>
 				<Box mt={6}>
 					<Text
 						as='h3'

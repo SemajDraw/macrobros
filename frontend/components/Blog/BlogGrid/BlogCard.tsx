@@ -1,6 +1,5 @@
-import { BlogMin } from '../../../models/BlogMin';
 import React, { FC } from 'react';
-import Link from 'next/link';
+import { BlogMin } from '../../../models/BlogMin';
 import { BLOG } from '../../../constants/routes';
 import { MotionBox } from '../../FramerMotion/MotionBox';
 import { Box, Flex, Grid, GridItem, Image, Text } from '@chakra-ui/react';
@@ -8,6 +7,7 @@ import { Badge } from '@chakra-ui/layout';
 import { formatSlug } from '../../../utils/stringUtils';
 import { useFormatDate } from '../../../hooks/useFormatDate';
 import { ResponsiveValue } from '@chakra-ui/system';
+import { WrappedLink } from '../../ChakraComponents/WrappedLink';
 
 interface CardProps {
 	blog: BlogMin;
@@ -18,7 +18,7 @@ export const BlogCard: FC<CardProps> = ({
 	blog,
 	colSpan = { base: 12, sm: 6, md: 12 }
 }) => (
-	<Link href={`${BLOG.BLOG}/${blog.slug}`}>
+	<WrappedLink href={`${BLOG.BLOG}/${blog.slug}`}>
 		<MotionBox
 			whileHover={{
 				scale: 1.05,
@@ -73,5 +73,5 @@ export const BlogCard: FC<CardProps> = ({
 				</GridItem>
 			</Grid>
 		</MotionBox>
-	</Link>
+	</WrappedLink>
 );

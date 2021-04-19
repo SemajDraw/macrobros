@@ -6,14 +6,17 @@ import { Pagination } from './Pagination/Pagination';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBlogs } from '../../redux/actions/blogActions';
-import { blogsSelector } from '../../redux/slices/BlogSlice';
+import { blogsSelector, updateBlogs } from '../../redux/slices/BlogSlice';
+import { PaginatedBlog } from '../../models/PaginatedBlog';
 
 interface JumbotronGridTemplateProps {
+	blogs: PaginatedBlog;
 	children: ReactElement;
 	paginationUrl: string;
 }
 
 export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
+	blogs,
 	children,
 	paginationUrl
 }) => {
@@ -27,6 +30,7 @@ export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
 			setLoading(true);
 			dispatch(getBlogs(router.query.page as string));
 		} else {
+			dispatch(updateBlogs(blogs));
 			setLoading(false);
 		}
 	}, [router.query]);
@@ -39,6 +43,7 @@ export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
 		<Box>
 			{children}
 
+			{typeof window === 'undefined' ? <BlogGridSideBar {...blogs} /> : null}
 			{loading ? (
 				<Flex
 					flexDirection='column'
@@ -49,9 +54,7 @@ export const JumbotronGridTemplate: FC<JumbotronGridTemplateProps> = ({
 					<LoadingSpinner isLoading={loading} />
 				</Flex>
 			) : (
-				<>
-					<BlogGridSideBar {...paginatedBlog} />
-				</>
+				<BlogGridSideBar {...paginatedBlog} />
 			)}
 			<Flex my={8} justifyContent={'center'}>
 				<Pagination blogs={paginatedBlog} url={paginationUrl} />

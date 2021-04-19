@@ -58,7 +58,7 @@ REST_FRAMEWORK = {
     },
     # Pagination settings
     "DEFAULT_PAGINATION_CLASS": "macrobros.pagination.CustomPagination",
-    "PAGE_SIZE": 10,
+    "PAGE_SIZE": 2,
 }
 
 MIDDLEWARE = [

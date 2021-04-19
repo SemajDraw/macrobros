@@ -29,7 +29,7 @@ export const Index: FC<HomeProps> = ({ blogs }) => {
 					'This is the MacroBros blog website, where 2 brothers discuss macroeconomic topics with a focus on wealth preservation, cryptocurrencies, stocks and much more.'
 				}
 			/>
-			<JumbotronGridTemplate paginationUrl={HOME}>
+			<JumbotronGridTemplate blogs={blogs} paginationUrl={HOME}>
 				<HomeJumbotron />
 			</JumbotronGridTemplate>
 		</>

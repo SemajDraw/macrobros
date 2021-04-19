@@ -2,14 +2,14 @@ import React, { FC, memo } from 'react';
 import { Flex, Image, Text } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { featuredBlogSelector } from '../../redux/slices/BlogSlice';
-import Link from 'next/link';
 import { BLOG } from '../../constants/routes';
+import { WrappedLink } from '../ChakraComponents/WrappedLink';
 
 export const BlogsJumbotron: FC = () => {
 	const featuredBlog = useSelector(featuredBlogSelector);
 
 	return (
-		<Link href={`${BLOG.BLOG}/${featuredBlog.slug}`}>
+		<WrappedLink href={`${BLOG.BLOG}/${featuredBlog.slug}`}>
 			<Flex
 				cursor={'pointer'}
 				flexDirection='column'
@@ -49,7 +49,7 @@ export const BlogsJumbotron: FC = () => {
 					</Flex>
 				</Flex>
 			</Flex>
-		</Link>
+		</WrappedLink>
 	);
 };
 
