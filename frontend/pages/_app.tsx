@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { useStore } from '../redux/Store';
-import { PersistGate } from 'redux-persist/integration/react';
 import { Layout } from '../components/Layout';
-import LoadingPage from '../components/shared/Loading/LoadingPage';
 import theme from '../styles/theme';
 import 'focus-visible/dist/focus-visible';
 import '../styles/globals.scss';
@@ -12,6 +10,7 @@ import { AuthProvider } from '../providers/AuthProvider';
 import { AppProps } from 'next/app';
 import { persistStore } from 'redux-persist';
 import { Provider } from 'react-redux';
+import { PersistGateSSR } from '../components/PersistGateSSR';
 
 export const App: FC<AppProps> = ({ Component, pageProps }) => {
 	const store = useStore(pageProps.initialReduxState);
@@ -20,12 +19,9 @@ export const App: FC<AppProps> = ({ Component, pageProps }) => {
 	});
 
 	return (
-		<Provider store={store}>
-			<PersistGate
-				loading={<LoadingPage background={'rgba(0, 0, 0, 0.03)'} icon={'#191919'} />}
-				persistor={persistor}
-			>
-				<ChakraProvider theme={theme}>
+		<ChakraProvider theme={theme}>
+			<Provider store={store}>
+				<PersistGateSSR persistor={persistor}>
 					<AuthProvider>
 						<AppContainer>
 							<Layout>
@@ -33,9 +29,9 @@ export const App: FC<AppProps> = ({ Component, pageProps }) => {
 							</Layout>
 						</AppContainer>
 					</AuthProvider>
-				</ChakraProvider>
-			</PersistGate>
-		</Provider>
+				</PersistGateSSR>
+			</Provider>
+		</ChakraProvider>
 	);
 };
 

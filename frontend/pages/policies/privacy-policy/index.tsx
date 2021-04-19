@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { POLICIES } from '../../../constants/endpoints';
 import { fetcher } from '../../../library/fetcher';
 import { MetaInfo } from '../../../components/shared/MetaInfo';
 import Policies from '../../../components/shared/Policies/Policies';
@@ -21,10 +20,10 @@ export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> =
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const policy: Policy = await fetcher(
-		'http://macrobros-api:8000/api/terms-conditions/privacy-policy'
-	);
-	console.log('policy', JSON.stringify(policy));
+	const policy: Policy =
+		process.env.ENV !== 'prod'
+			? await fetcher('http://localhost:8000/api/terms-conditions/privacy-policy')
+			: await fetcher('http://macrobros-api:8000/api/terms-conditions/privacy-policy');
 	return { props: { policy } };
 };
 

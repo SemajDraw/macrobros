@@ -38,12 +38,16 @@ export const Index: FC<BlogsProps> = ({ blogs, featuredBlog }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	// Local Dev
-	// const blogs: PaginatedBlog = await fetcher('http://localhost:8000/api/blog/');
-	// const featuredBlog: BlogMin = await fetcher('http://localhost:8000/api/blog/featured');
+	let blogs: PaginatedBlog;
+	let featuredBlog: BlogMin;
+	if (process.env.ENV !== 'prod') {
+		blogs = await fetcher('http://localhost:8000/api/blog/');
+		featuredBlog = await fetcher('http://localhost:8000/api/blog/featured');
+	} else {
+		blogs = await fetcher('http://macrobros-api:8000/api/blog/');
+		featuredBlog = await fetcher('http://macrobros-api:8000/api/blog/featured');
+	}
 
-	const blogs: PaginatedBlog = await fetcher('http://macrobros-api:8000/api/blog/');
-	const featuredBlog: BlogMin = await fetcher('http://macrobros-api:8000/api/blog/featured');
 	return { props: { blogs, featuredBlog } };
 };
 

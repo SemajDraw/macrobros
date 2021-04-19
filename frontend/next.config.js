@@ -1,6 +1,8 @@
 module.exports = {
 	distDir: 'build',
-
+	future: {
+		webpack5: true
+	},
 	async rewrites() {
 		return [
 			{
