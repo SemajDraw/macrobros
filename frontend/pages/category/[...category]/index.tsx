@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Box, Divider, Grid, GridItem, Text } from '@chakra-ui/layout';
-import { LoadingSpinner } from '../../../components/shared/Loading/LoadingSpinner';
+import { Divider, Grid, GridItem, Text } from '@chakra-ui/layout';
 import { BlogGrid } from '../../../components/Blog/BlogGrid/BlogGrid';
 import StickyBox from 'react-sticky-box';
 import { Flex } from '@chakra-ui/react';
@@ -17,13 +16,11 @@ export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> =
 	blogs,
 	cat
 }) => {
-	const [isLoading, setIsLoading] = useState(true);
 	const [query, setQuery] = useState('');
 	const formattedSlug = formatSlug(query);
 
 	useEffect(() => {
 		setQuery(cat);
-		setIsLoading(false);
 	}, [cat]);
 
 	return (
@@ -43,18 +40,10 @@ export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> =
 						{formattedSlug}
 					</Text>
 					<Divider mb={4} />
-					{isLoading ? (
-						<Box justifyContent='center' alignItems='center' minHeight='40vh'>
-							<LoadingSpinner isLoading={isLoading} />
-						</Box>
-					) : (
-						<>
-							<Text ml={1} mb={2} fontWeight={'normal'}>
-								{blogs.totalItems} results found
-							</Text>
-							<BlogGrid blogs={blogs.results} />
-						</>
-					)}
+					<Text ml={1} mb={2} fontWeight={'normal'}>
+						{blogs.totalItems} results found
+					</Text>
+					<BlogGrid blogs={blogs.results} />
 				</GridItem>
 				<GridItem colSpan={{ base: 12, lg: 3 }} mt={{ lg: '54px' }}>
 					<StickyBox offsetTop={30}>

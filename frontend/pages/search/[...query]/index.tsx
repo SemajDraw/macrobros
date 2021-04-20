@@ -1,7 +1,4 @@
 import React, { FC, memo, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSearchBlogs } from '../../../redux/actions/blogActions';
 import { Box, Divider, Grid, GridItem, Text } from '@chakra-ui/layout';
 import { BlogGrid } from '../../../components/Blog/BlogGrid/BlogGrid';
 import StickyBox from 'react-sticky-box';
@@ -10,34 +7,27 @@ import { CategoryAccordion } from '../../../components/SideBar/CategoryAccordion
 import { PopularBlogs } from '../../../components/SideBar/PopularBlogs';
 import { Pagination } from '../../../components/shared/Pagination/Pagination';
 import { Flex } from '@chakra-ui/react';
-import { searchBlogsSelector } from '../../../redux/slices/BlogSlice';
-import { LoadingSpinner } from '../../../components/shared/Loading/LoadingSpinner';
 import { BLOG } from '../../../constants/routes';
 import { MetaInfo } from '../../../components/shared/MetaInfo';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { PaginatedBlog } from '../../../models/PaginatedBlog';
+import { fetcher } from '../../../library/fetcher';
+import { paginateUrl } from '../../../utils/stringUtils';
 
-export const Search: FC = () => {
-	const router = useRouter();
-	const { query } = router.query;
-	const dispatch = useDispatch();
-	const searchBlogs = useSelector(searchBlogsSelector);
-	const [isLoading, setIsLoading] = useState(false);
-	const [search, setSearch] = useState('');
-
-	useEffect(() => {
-		if (query) {
-			setSearch(query[0]);
-			dispatch(getSearchBlogs(query[0], query[1]));
-		}
-	}, [query]);
+export const Search: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+	blogs,
+	search
+}) => {
+	const [searched, setSearch] = useState('');
 
 	useEffect(() => {
-		setIsLoading(false);
-	}, [searchBlogs]);
+		setSearch(search);
+	}, [blogs]);
 
 	return (
 		<>
 			<MetaInfo
-				title={`MacroBros - ${search}`}
+				title={`MacroBros - ${searched}`}
 				description={`Welcome to MacroBros blog. Here you can search for areas or projects you are in interested in`}
 			/>
 			<Grid
@@ -52,18 +42,10 @@ export const Search: FC = () => {
 					</Text>
 					<SearchBar />
 					<Divider my={8} />
-					{isLoading ? (
-						<Box justifyContent='center' alignItems='center' minHeight='40vh'>
-							<LoadingSpinner isLoading={isLoading} />
-						</Box>
-					) : (
-						<>
-							<Text ml={1} mb={2} fontWeight={'normal'}>
-								{searchBlogs.totalItems} results found
-							</Text>
-							<BlogGrid blogs={searchBlogs.results} />
-						</>
-					)}
+					<Text ml={1} mb={2} fontWeight={'normal'}>
+						{blogs.totalItems} results found
+					</Text>
+					<BlogGrid blogs={blogs.results} />
 				</GridItem>
 				<GridItem colSpan={{ base: 12, lg: 3 }} mt={{ lg: '54px' }}>
 					<StickyBox offsetTop={30}>
@@ -78,12 +60,31 @@ export const Search: FC = () => {
 				</GridItem>
 				<GridItem colSpan={12}>
 					<Flex justifyContent={'center'}>
-						<Pagination blogs={searchBlogs} url={BLOG.SEARCH} query={search} />
+						<Pagination blogs={blogs} url={BLOG.SEARCH} query={searched} />
 					</Flex>
 				</GridItem>
 			</Grid>
 		</>
 	);
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { query } = context.query;
+	const [search, page] = query as string[];
+	const url: string =
+		process.env.NODE_ENV !== 'production'
+			? 'http://localhost:8000/api/blog/search'
+			: 'http://macrobros-api:8000/api/blog/search';
+
+	const blogs: PaginatedBlog = await fetcher(paginateUrl(url, page), {
+		method: 'post',
+		body: JSON.stringify({ search: search }),
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+	});
+	return { props: { blogs, search } };
 };
 
 export default memo(Search);
