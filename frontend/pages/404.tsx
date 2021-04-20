@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Button } from '@chakra-ui/button';
 import { HOME } from '../constants/routes';
 import { Divider, Flex, Heading, Text } from '@chakra-ui/layout';
+import { WrappedLink } from '../components/ChakraComponents/WrappedLink';
 
 export const Index: FC = () => {
 	return (
@@ -39,9 +40,11 @@ export const Index: FC = () => {
 					PAGE NOT FOUND
 				</Text>
 				<Flex w={'100%'} justify={'center'} mt={6}>
-					<Button href={HOME} color={'#636363'} _hover={{ color: 'linkOrange' }}>
-						BACK TO HOME
-					</Button>
+					<WrappedLink href={HOME}>
+						<Button color={'#636363'} _hover={{ color: 'linkOrange' }}>
+							BACK TO HOME
+						</Button>
+					</WrappedLink>
 				</Flex>
 			</Flex>
 		</Flex>
