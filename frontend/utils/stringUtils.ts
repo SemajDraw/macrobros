@@ -28,7 +28,7 @@ export const apiUrl = (url: string): string => {
 
 export const paginateUrl = (
 	url: string,
-	pageNumber: number | string | undefined
+	pageNumber: number | string | string[] | undefined
 ): string => {
 	return pageNumber ? `${url}?page=${pageNumber}` : url;
 };

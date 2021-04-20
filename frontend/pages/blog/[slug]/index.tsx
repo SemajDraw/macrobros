@@ -20,7 +20,7 @@ import { ShareIcons } from '../../../components/shared/ShareIcons';
 import { BlogContent } from '../../../components/Blog/BlogContent';
 import { BLOG } from '../../../constants/routes';
 import { WrappedLink } from '../../../components/ChakraComponents/WrappedLink';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { fetcher } from '../../../library/fetcher';
 import { Blog } from '../../../models/Blog';
 
@@ -33,11 +33,9 @@ const GridBox = ({ children }) => (
 	</GridItem>
 );
 
-interface BlogPostProps {
-	blog: Blog;
-}
-
-export const Index: FC<BlogPostProps> = ({ blog }) => {
+export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+	blog
+}) => {
 	const formattedDate = useFormatDate(blog.dateCreated, 'MMM D, YYYY');
 	const { colorMode } = useColorMode();
 
@@ -144,10 +142,11 @@ export const Index: FC<BlogPostProps> = ({ blog }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const { slug } = context.query;
-	const blog: Blog =
+	const url: string =
 		process.env.NODE_ENV !== 'production'
-			? await fetcher(`http://localhost:8000/api/blog/${slug}`)
-			: await fetcher(`http://macrobros-api:8000/api/blog/${slug}`);
+			? `http://localhost:8000/api/blog/${slug}`
+			: `http://macrobros-api:8000/api/blog/${slug}`;
+	const blog: Blog = await fetcher(url);
 
 	return { props: { blog } };
 };

@@ -2,20 +2,19 @@ import React, { FC, memo, useEffect } from 'react';
 import { MetaInfo } from '../../components/shared/MetaInfo';
 import { fetcher } from '../../library/fetcher';
 import { PaginatedBlog } from '../../models/PaginatedBlog';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { BlogMin } from '../../models/BlogMin';
 import { useDispatch } from 'react-redux';
 import { updateBlogs, updateFeaturedBlog } from '../../redux/slices/BlogSlice';
 import BlogsJumbotron from '../../components/Blog/BlogsJumbotron';
 import JumbotronGridTemplate from '../../components/shared/JumbotronGridTemplate';
 import { BLOG as BLOG_ROUTES } from '../../constants/routes';
+import { paginateUrl } from '../../utils/stringUtils';
 
-interface BlogsProps {
-	blogs: PaginatedBlog;
-	featuredBlog: BlogMin;
-}
-
-export const Index: FC<BlogsProps> = ({ blogs, featuredBlog }) => {
+export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+	blogs,
+	featuredBlog
+}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -36,16 +35,20 @@ export const Index: FC<BlogsProps> = ({ blogs, featuredBlog }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-	let blogs: PaginatedBlog;
-	let featuredBlog: BlogMin;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { page } = context.query;
+	let blogsUrl: string;
+	let featuredBlogUrl: string;
 	if (process.env.NODE_ENV !== 'production') {
-		blogs = await fetcher('http://localhost:8000/api/blog/');
-		featuredBlog = await fetcher('http://localhost:8000/api/blog/featured');
+		blogsUrl = 'http://localhost:8000/api/blog/';
+		featuredBlogUrl = 'http://localhost:8000/api/blog/featured';
 	} else {
-		blogs = await fetcher('http://macrobros-api:8000/api/blog/');
-		featuredBlog = await fetcher('http://macrobros-api:8000/api/blog/featured');
+		blogsUrl = 'http://macrobros-api:8000/api/blog/';
+		featuredBlogUrl = 'http://macrobros-api:8000/api/blog/featured';
 	}
+
+	const blogs: PaginatedBlog = await fetcher(paginateUrl(blogsUrl, page));
+	const featuredBlog: BlogMin = await fetcher(featuredBlogUrl);
 
 	return { props: { blogs, featuredBlog } };
 };

@@ -6,33 +6,25 @@ import StickyBox from 'react-sticky-box';
 import { Flex } from '@chakra-ui/react';
 import { Pagination } from '../../../components/shared/Pagination/Pagination';
 import { BLOG } from '../../../constants/routes';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { categoryBlogsSelector } from '../../../redux/slices/BlogSlice';
-import { getCategoryBlogs } from '../../../redux/actions/blogActions';
-import { formatSlug } from '../../../utils/stringUtils';
+import { formatSlug, paginateUrl } from '../../../utils/stringUtils';
 import { SideBar } from '../../../components/SideBar/SideBar';
 import { MetaInfo } from '../../../components/shared/MetaInfo';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { PaginatedBlog } from '../../../models/PaginatedBlog';
+import { fetcher } from '../../../library/fetcher';
 
-export const Index: FC = () => {
-	const router = useRouter();
-	const { category } = router.query;
-	const dispatch = useDispatch();
-	const categoryBlogs = useSelector(categoryBlogsSelector);
-	const [isLoading, setIsLoading] = useState(false);
+export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+	blogs,
+	cat
+}) => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [query, setQuery] = useState('');
 	const formattedSlug = formatSlug(query);
 
 	useEffect(() => {
-		if (category) {
-			setQuery(category[0]);
-			dispatch(getCategoryBlogs(category[0], category[1]));
-		}
-	}, [category]);
-
-	useEffect(() => {
+		setQuery(cat);
 		setIsLoading(false);
-	}, [categoryBlogs]);
+	}, [cat]);
 
 	return (
 		<>
@@ -58,9 +50,9 @@ export const Index: FC = () => {
 					) : (
 						<>
 							<Text ml={1} mb={2} fontWeight={'normal'}>
-								{categoryBlogs.totalItems} results found
+								{blogs.totalItems} results found
 							</Text>
-							<BlogGrid blogs={categoryBlogs.results} />
+							<BlogGrid blogs={blogs.results} />
 						</>
 					)}
 				</GridItem>
@@ -71,12 +63,30 @@ export const Index: FC = () => {
 				</GridItem>
 				<GridItem colSpan={12}>
 					<Flex justifyContent={'center'}>
-						<Pagination blogs={categoryBlogs} url={BLOG.CATEGORY} query={query} />
+						<Pagination blogs={blogs} url={BLOG.CATEGORY} query={query} />
 					</Flex>
 				</GridItem>
 			</Grid>
 		</>
 	);
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { category } = context.query;
+	const [cat, page] = category as string[];
+	const url: string =
+		process.env.NODE_ENV !== 'production'
+			? 'http://localhost:8000/api/blog/category'
+			: 'http://macrobros-api:8000/api/blog/category';
+	const blogs: PaginatedBlog = await fetcher(paginateUrl(url, page), {
+		method: 'post',
+		body: JSON.stringify({ category: cat }),
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+	});
+	return { props: { blogs, cat } };
 };
 
 export default Index;

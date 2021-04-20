@@ -1,20 +1,18 @@
 import React, { FC, useEffect } from 'react';
-import { BLOG } from '../constants/endpoints';
 import { fetcher } from '../library/fetcher';
 import { MetaInfo } from '../components/shared/MetaInfo';
 import { PaginatedBlog } from '../models/PaginatedBlog';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { HOME } from '../constants/routes';
 import HomeJumbotron from '../components/Home/HomeJumbotron';
 import JumbotronGridTemplate from '../components/shared/JumbotronGridTemplate';
 import { useDispatch } from 'react-redux';
 import { updateBlogs } from '../redux/slices/BlogSlice';
+import { paginateUrl } from '../utils/stringUtils';
 
-export interface HomeProps {
-	blogs: PaginatedBlog;
-}
-
-export const Index: FC<HomeProps> = ({ blogs }) => {
+export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+	blogs
+}) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -36,11 +34,14 @@ export const Index: FC<HomeProps> = ({ blogs }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-	const blogs: PaginatedBlog =
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const { page } = context.query;
+
+	const url =
 		process.env.NODE_ENV !== 'production'
-			? await fetcher('http://localhost:8000/api/blog/')
-			: await fetcher('http://macrobros-api:8000/api/blog/');
+			? 'http://localhost:8000/api/blog/'
+			: 'http://macrobros-api:8000/api/blog/';
+	const blogs: PaginatedBlog = await fetcher(paginateUrl(url, page));
 
 	return { props: { blogs } };
 };
