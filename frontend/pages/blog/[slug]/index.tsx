@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useState } from 'react';
 import {
 	Badge,
 	Flex,
@@ -6,6 +6,7 @@ import {
 	GridItem,
 	Heading,
 	Image,
+	Skeleton,
 	Spacer,
 	Text,
 	useColorMode
@@ -37,6 +38,7 @@ export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> =
 	blog
 }) => {
 	const formattedDate = useFormatDate(blog.dateCreated, 'MMM D, YYYY');
+	const [imgLoaded, setImgLoaded] = useState(false);
 	const { colorMode } = useColorMode();
 
 	return (
@@ -85,8 +87,18 @@ export const Index: FC<InferGetServerSidePropsType<typeof getServerSideProps>> =
 					</Flex>
 				</GridBox>
 				<GridBox>
+					<Skeleton
+						display={imgLoaded ? 'none' : 'block'}
+						h={{ base: '220px', sm: '390px', md: '400px', lg: '450px' }}
+					/>
 					<Flex width={'100%'} position={'relative'}>
-						<Image src={blog.headerImg} width={'100%'} />
+						<Image
+							width={'100%'}
+							src={blog.headerImg}
+							alt={blog.slug}
+							display={imgLoaded ? 'block' : 'none'}
+							onLoad={() => setImgLoaded(true)}
+						/>
 					</Flex>
 				</GridBox>
 				<GridItem colSpan={12}>
