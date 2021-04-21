@@ -1,5 +1,5 @@
-import React, { FC, memo } from 'react';
-import { Flex, Image, Text } from '@chakra-ui/react';
+import React, { FC, memo, useState } from 'react';
+import { Flex, Image, Skeleton, Text } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { featuredBlogSelector } from '../../redux/slices/BlogSlice';
 import { BLOG } from '../../constants/routes';
@@ -7,6 +7,7 @@ import { WrappedLink } from '../ChakraComponents/WrappedLink';
 
 export const BlogsJumbotron: FC = () => {
 	const featuredBlog = useSelector(featuredBlogSelector);
+	const [imgLoaded, setImgLoaded] = useState(false);
 
 	return (
 		<WrappedLink href={`${BLOG.BLOG}/${featuredBlog.slug}`}>
@@ -17,8 +18,16 @@ export const BlogsJumbotron: FC = () => {
 				my={{ base: 6, sm: 6, md: 6, lg: 8 }}
 				mx={{ base: '3vw', md: '8vw', lg: '9vw' }}
 			>
+				<Skeleton
+					display={imgLoaded ? 'none' : 'block'}
+					h={{ base: '170px', sm: '270px', md: '310px', lg: '440px' }}
+				/>
 				<Flex width={'100%'} position={'relative'}>
-					<Image src={featuredBlog?.headerImg} />
+					<Image
+						src={featuredBlog?.headerImg}
+						display={imgLoaded ? 'block' : 'none'}
+						onLoad={() => setImgLoaded(true)}
+					/>
 					<Flex
 						p={{ base: 4, sm: 5, md: 6, lg: 8 }}
 						direction={'column'}

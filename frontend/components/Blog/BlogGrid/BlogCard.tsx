@@ -19,10 +19,6 @@ export const BlogCard: FC<CardProps> = ({
 	colSpan = { base: 12, sm: 6, md: 12 }
 }) => {
 	const [imgLoaded, setImgLoaded] = useState(false);
-	const foober = () => {
-		console.log('here');
-		setImgLoaded(true);
-	};
 	return (
 		<WrappedLink href={`${BLOG.BLOG}/${blog.slug}`}>
 			<MotionBox
